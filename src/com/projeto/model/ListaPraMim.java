@@ -6,4 +6,5 @@ public interface ListaPraMim {
 	
 	public void souLindo();
 	public void samuelEOcara();
+	public void samuelEOcara1();
 }
