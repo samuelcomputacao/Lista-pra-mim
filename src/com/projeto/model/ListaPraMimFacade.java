@@ -12,8 +12,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 
 	@Override
 	public int adicionaItemPorQuilo(String nome, String categoria, double quilo, String localCompra, double preco) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.listaCompraController.adicionaItemPorQuilo(nome,categoria,quilo,localCompra,preco);
 	}
 
 	@Override
@@ -21,5 +20,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	
 
 }
