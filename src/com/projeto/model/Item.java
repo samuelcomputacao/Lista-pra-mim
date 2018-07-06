@@ -8,15 +8,33 @@ import java.util.Map;
 */
 public abstract class Item {
 	
+	/**
+	 * Um inteiro representando a identificacao do item
+	 */
 	private int id;
 	
+	/**
+	 * Uma String representando o nome do item
+	 */
 	private String nome;
 	
+	/**
+	 * Uma String representando a qual categoria o item pertence
+	 */
 	private String categoria;
 	
+	/**
+	 * Uma mapar de precos onde estao guardados locais e respectivos precos do item compravel
+	 */
 	private Map<String,Double> mapaPrecos;
 
 
+	/**
+	 * Método reponsável por inicializar um item no sistema
+	 * @param id : O identificador do item
+	 * @param nome : O nome do item
+	 * @param categoria : A categoria do item
+	 */
 	public Item(int id, String nome, String categoria) {
 		this.id = id;
 		this.nome = nome;
@@ -24,6 +42,10 @@ public abstract class Item {
 		this.mapaPrecos = new HashMap<>();
 	}
 
+	/**
+	 * Metodo responsavel por gerar uma numeracao unica para um item de acordo com sua categoria e nome
+	 * @return : Um inteiro que representa o item de maneira unica
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -33,6 +55,11 @@ public abstract class Item {
 		return result;
 	}
 
+	/**
+	 * Metodo responsavel por comparar dois objetos e verificar se ele e um item.
+	 * Caso seja um item ele verifica se sao iguais de acordo com seu nome e categoria.
+	 * @return Um valor bolleano que indica se os objetos sao iguais ou nao
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -54,8 +81,20 @@ public abstract class Item {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
+
+	/**
+	 * Metodo acessivel que permite o acesso para o nome do item
+	 * @param nome : Uma String que representa o nome do item
+	 */
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	/**
+	 * Metodo acessivel que permite o acesso ao identificador do item
+	 * @return : Um inteiro que representa o identificador do item
+	 */
+	public int getId() {
+		return this.id;
+	}
 }
