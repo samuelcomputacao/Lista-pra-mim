@@ -4,8 +4,7 @@ public class ProdutoNaoIndustrializadoPorQuilo  extends Item{
 
 	public ProdutoNaoIndustrializadoPorQuilo(int id, String nome, String categoria) {
 		super(id, nome, categoria);
-		// TODO Auto-generated constructor stub
+		// TODO Criar e inicializar os métodos relacionados a classe ...
 	}
-	
 
 }
