@@ -83,11 +83,19 @@ public abstract class Item {
 	}
 
 	/**
-	 * Metodo acessivel que permite o acesso para o nome do item
+	 * Metodo acessivel que permite alteracao do nome do item
 	 * @param nome : Uma String que representa o nome do item
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	/**
+	 * Metodo acessivel que permite a recuperacao do nome do item
+	 * @return : Uma String que representa o nome do item
+	 */
+	public String getNome() {
+		return this.nome;
 	}
 
 	/**

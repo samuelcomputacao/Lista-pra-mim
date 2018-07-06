@@ -1,4 +1,4 @@
-package com.projeto.model.excecoes;
+package com.projeto.excecoes;
 
 @SuppressWarnings("serial")
 public class ItemInexistenteException extends RuntimeException {
