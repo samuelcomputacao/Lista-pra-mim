@@ -7,7 +7,7 @@ import java.util.Map;
 *
 */
 public abstract class Item {
-	
+
 	/**
 	 * Um inteiro representando a identificacao do item
 	 */
@@ -24,7 +24,7 @@ public abstract class Item {
 	private String categoria;
 	
 	/**
-	 * Uma mapar de precos onde estao guardados locais e respectivos precos do item compravel
+	 * Uma mapa de precos onde estao guardados locais e respectivos precos do item compravel
 	 */
 	private Map<String,Double> mapaPrecos;
 
@@ -96,6 +96,14 @@ public abstract class Item {
 	 */
 	public String getNome() {
 		return this.nome;
+	}
+	
+	/**
+	 * Metodo acessivel que permite a recuperacao da categoria do item
+	 * @return : Uma String que representa a categoria do item
+	 */
+	public String getCategoria() {
+		return categoria;
 	}
 
 	/**

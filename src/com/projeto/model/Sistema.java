@@ -9,13 +9,27 @@ import com.projeto.excecoes.ItemInexistenteException;
 
 public class Sistema {
 
+	/**
+	 * Uma lista com todas as listaDeCompras do sistema.
+	 */
 	private List<ListaDeCompra> listas;
+
+	/**
+	 * Um mapa com todos os produtos cadastrados pelo sistema.
+	 */
 	private Map<Integer, Item> produtos;
+
+	/**
+	 * Um inteiro que representa o id dos produtos que serao cadastrados no sistema.
+	 */
 	private int identificadorBase;
 
 	public Sistema() {
 		this.listas = new ArrayList<>();
 		this.identificadorBase = 1;
+		/**
+		 * Mapa
+		 */
 		this.produtos = new HashMap<>();
 	}
 
@@ -26,9 +40,46 @@ public class Sistema {
 		return 0;
 	}
 
+	/**
+	 * Metodo responsavel por adicionar um produto não industrilizado por quilo no
+	 * mapa de produtos.
+	 * 
+	 * @param nome
+	 *            Uma String indicando o nome do produto.
+	 * @param categoria
+	 *            Uma String indicando a categoria do produto.
+	 * @param quilo
+	 *            Um double indicando a quantidade em quilos do produto.
+	 * @param localCompra
+	 *            Uma String indicando o local de compra.
+	 * @param preco
+	 *            Um double indicando o preco produto.
+	 * @return Um Inteiro indicando o identificador do item adicionado.
+	 */
 	public int adicionaItemPorQuilo(String nome, String categoria, double quilo, String localCompra, double preco) {
-		// @ TODO implementar a adicao de itens
-		return 0;
+		if (nome == null || nome.trim().isEmpty()) {
+			throw new IllegalArgumentException("Erro no cadastro de item: nome nao pode ser vazio ou nulo.");
+		}
+		if (categoria == null || categoria.trim().isEmpty()) {
+			throw new IllegalArgumentException("Erro no cadastro de item: categoria nao pode ser vazia ou nula.");
+		}
+		if (!(categoria.equals("alimentos industrializados") || categoria.equals("alimentos nao industrializados")
+				|| categoria.equals("limpeza") || categoria.equals("higiene pessoal"))) {
+			throw new IllegalArgumentException("Erro no cadastro de item: categoria nao existe.");
+		}
+		if (quilo < 0) {
+			throw new IllegalArgumentException(
+					"Erro no cadastro de item: valor de quilos nao pode ser menor que zero.");
+		}
+		if (localCompra == null || localCompra.trim().isEmpty()) {
+			throw new IllegalArgumentException("Erro no cadastro de item: local de compra nao pode ser vazio ou nulo.");
+		}
+		if (preco < 0) {
+			throw new IllegalArgumentException("Erro no cadastro de item: preco de item invalido.");
+		}
+		this.produtos.put(identificadorBase,
+				new ProdutoNaoIndustrializadoPorQuilo(identificadorBase, nome, categoria, quilo, localCompra, preco));
+		return identificadorBase++;
 	}
 
 	public int adicionaItemPorUnidade(String nome, String categoria, int unidade, String localCompra, double preco) {
@@ -47,19 +98,20 @@ public class Sistema {
 	}
 
 	/**
-	 * Metodo responsavel por atualizar um item na colecaoo de itens cadastrados no
-	 * sistema
+	 * Metodo responsavel por atualizar um item na colecao de itens cadastrados no
+	 * sistema.
 	 * 
-	 * @param atribulto
-	 *            : Uma String indicanco qual o campo que sera atualizado
+	 * @param atributo
+	 *            : Uma String indicando qual o campo que sera atualizado.
 	 * @param novoValor
-	 *            : Uma String indicanco o novo valor que o capo ira assumir. Caso o
+	 *            : Uma String indicando o novo valor que o capo ira assumir. Caso o
 	 *            campo seja um valor numerico, esse valor deve ser transformado
 	 *            antes de prosseguir.
-	 * @return: Um Inteiro indicando o identificador do item atualizado
+	 * @return: Um Inteiro indicando o identificador do item atualizado.
 	 */
-	public int atualizar(Integer key , String atribulto, String novoValor) {
-		if(!produtos.containsKey(key)) throw new ItemInexistenteException("Erro na atualizacao de item: item nao existe.");
+	public int atualizar(Integer key, String atribulto, String novoValor) {
+		if (!produtos.containsKey(key))
+			throw new ItemInexistenteException("Erro na atualizacao de item: item nao existe.");
 		Item item = produtos.get(key);
 		switch (atribulto) {
 
@@ -67,13 +119,13 @@ public class Sistema {
 			item.setNome(novoValor);
 			break;
 		case "unidade de medida":
-			
+
 			break;
 		case "quantidade":
 
 			break;
 		}
-			
+
 		return item.getId();
 	}
 
