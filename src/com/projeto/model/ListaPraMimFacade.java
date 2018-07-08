@@ -11,17 +11,17 @@ public class ListaPraMimFacade implements ListaPraMim {
 	@Override
 	public int adicionaItemPorQtd(String nome, String categoria, int quantidade, String unidadeMedida,
 			String localCompra, double preco) {
-		return this.sistema.adicionaItemPorQtd(nome,categoria,quantidade,unidadeMedida, localCompra,preco);
+		return this.sistema.adicionaItemPorQtd(nome, categoria, quantidade, unidadeMedida, localCompra, preco);
 	}
 
 	@Override
 	public int adicionaItemPorQuilo(String nome, String categoria, double quilo, String localCompra, double preco) {
-		return this.sistema.adicionaItemPorQuilo(nome,categoria,quilo,localCompra,preco);
+		return this.sistema.adicionaItemPorQuilo(nome, categoria, quilo, localCompra, preco);
 	}
 
 	@Override
 	public int adicionaItemPorUnidade(String nome, String categoria, int unidade, String localCompra, double preco) {
-		return this.sistema.adicionaItemPorUnidade(nome,categoria,unidade,localCompra,preco);
+		return this.sistema.adicionaItemPorUnidade(nome, categoria, unidade, localCompra, preco);
 	}
 
 	@Override
@@ -35,20 +35,20 @@ public class ListaPraMimFacade implements ListaPraMim {
 	}
 
 	/**
-	 * Metodo responsavel por atualizar um determinado atribulto de um item do sistema
+	 * Metodo responsavel por atualizar um determinado atributo de um item do sistema
 	 * @param identificador : Um inteiro indicando o identificador do item a ser atualizado
-	 * @param atribulto : Uma String indicanco o atribulto do item que deve ser alerado
-	 * @param novoValor : Uma string indicando o novo valor do atribulto 
+	 * @param atributo : Uma String indicanco o atributo do item que deve ser alerado
+	 * @param novoValor : Uma string indicando o novo valor do atributo 
 	 * @return : Um inteiro indicando o identificador do item atualizado
 	 */
 	@Override
-	public int atualizar(Integer key,String atribulto, String novoValor) {
-		return this.sistema.atualizar(key,atribulto,novoValor);
+	public int atualizar(Integer key,String atributo, String novoValor) {
+		return this.sistema.atualizar(key, atributo, novoValor);
 	}
 
 	@Override
 	public void adicionaPrecoItem(String local, double preco) {
-		this.sistema.adiciomaPrecoItem(local,preco);
+		this.sistema.adiciomaPrecoItem(local, preco);
 		
 	}
 

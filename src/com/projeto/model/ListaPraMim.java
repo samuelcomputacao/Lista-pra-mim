@@ -13,13 +13,13 @@ public interface ListaPraMim {
 	public String exibeItem(Integer identificador);
 	
 	/**
-	 * Metodo responsavel por atualizar um determinado atribulto de um item do sistema
+	 * Metodo responsavel por atualizar um determinado atributo de um item do sistema
 	 * @param identificador : Um inteiro indicando o identificador do item a ser atualizado
-	 * @param atribulto : Uma String indicanco o atribulto do item que deve ser alerado
-	 * @param novoValor : Uma string indicando o novo valor do atribulto 
+	 * @param atributo : Uma String indicanco o atributo do item que deve ser alterado
+	 * @param novoValor : Uma string indicando o novo valor do atributo 
 	 * @return : Um inteiro indicando o identificador do item atualizado
 	 */
-	public int atualizar(Integer identificador , String atribulto, String novoValor );
+	public int atualizar(Integer identificador , String atributo, String novoValor );
 	
 	public void adicionaPrecoItem(String local,double preco);
 	
