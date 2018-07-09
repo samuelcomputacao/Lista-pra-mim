@@ -22,6 +22,9 @@ public class ListaPraMimFacade implements ListaPraMim {
 		return this.sistema.adicionaItemPorQtd(nome, categoria, quantidade, unidadeMedida, localCompra, preco);
 	}
 
+	/**
+	 * Sobrescreve o metodo adicionaItemPorQuilo
+	 */
 	@Override
 	public int adicionaItemPorQuilo(String nome, String categoria, double quilo, String localCompra, double preco) {
 		return this.sistema.adicionaItemPorQuilo(nome, categoria, quilo, localCompra, preco);
