@@ -13,7 +13,7 @@ public class SistemaTest {
 	}
 
 	/**
-	 * Testa o método adicionaItemPorQuilo com parâmetros válidos.
+	 * Testa o metodo adicionaItemPorQuilo com parametros válidos.
 	 */
 	@Test
 	public void testAdicionaItemPorQuilo() {
@@ -21,7 +21,7 @@ public class SistemaTest {
 	}
 
 	/**
-	 * Testa o método adicionaItemPorQuilo com nome inválido(nulo).
+	 * Testa o metodo adicionaItemPorQuilo com nome invalido(nulo).
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testAdicionaItemPorQuiloNomeNull() {
@@ -29,7 +29,7 @@ public class SistemaTest {
 	}
 
 	/**
-	 * Testa o método adicionaItemPorQuilo com nome inválido(vazio).
+	 * Testa o metodo adicionaItemPorQuilo com nome invalido(vazio).
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testAdicionaItemPorQuiloNomeVazio() {
@@ -37,7 +37,7 @@ public class SistemaTest {
 	}
 
 	/**
-	 * Testa o método adicionaItemPorQuilo com categorias válidas.
+	 * Testa o metodo adicionaItemPorQuilo com categorias validas.
 	 */
 	@Test
 	public void testAdicionaItemPorQuiloCategoriasValidas() {
@@ -48,7 +48,7 @@ public class SistemaTest {
 	}
 
 	/**
-	 * Testa o método adicionaItemPorQuilo com categoria inválida(nula).
+	 * Testa o metodo adicionaItemPorQuilo com categoria invalida(nula).
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testAdicionaItemPorQuiloCategoriaNull() {
@@ -56,7 +56,7 @@ public class SistemaTest {
 	}
 
 	/**
-	 * Testa o método adicionaItemPorQuilo com categoria inválida(vazia).
+	 * Testa o metodo adicionaItemPorQuilo com categoria invalida(vazia).
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testAdicionaItemPorQuiloCategoriaVazia() {
@@ -64,7 +64,7 @@ public class SistemaTest {
 	}
 	
 	/**
-	 * Testa o método adicionaItemPorQuilo com categoria inválida(nome diferente).
+	 * Testa o metodo adicionaItemPorQuilo com categoria invalida(nome diferente).
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testAdicionaItemPorQuiloCategoriaInvalida() {
@@ -72,7 +72,7 @@ public class SistemaTest {
 	}
 
 	/**
-	 * Testa o método adicionaItemPorQuilo com quilo inválido(negativo).
+	 * Testa o metodo adicionaItemPorQuilo com quilo invalido(negativo).
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testAdicionaItemPorQuiloComQuiloNegativo() {
@@ -80,7 +80,7 @@ public class SistemaTest {
 	}
 
 	/**
-	 * Testa o método adicionaItemPorQuilo com quilo válido, porém suspeito(zero).
+	 * Testa o metodo adicionaItemPorQuilo com quilo valido, porem suspeito(zero).
 	 */
 	@Test
 	public void testAdicionaItemPorQuiloComQuiloIgualZero() {
@@ -88,7 +88,7 @@ public class SistemaTest {
 	}
 
 	/**
-	 * Testa o método adicionaItemPorQuilo com localDeCompra invalido(nulo).
+	 * Testa o metodo adicionaItemPorQuilo com localDeCompra invalido(nulo).
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testAdicionaItemPorQuiloLocalCompraNull() {
@@ -96,7 +96,7 @@ public class SistemaTest {
 	}
 
 	/**
-	 * Testa o método adicionaItemPorQuilo com localDeCompra invalido(vazio).
+	 * Testa o metodo adicionaItemPorQuilo com localDeCompra invalido(vazio).
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testAdicionaItemPorQuiloLocalCompraVazio() {
@@ -104,7 +104,7 @@ public class SistemaTest {
 	}
 
 	/**
-	 * Testa o método adicionaItemPorQuilo com preco invalido(negativo).
+	 * Testa o metodo adicionaItemPorQuilo com preco invalido(negativo).
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testAdicionaItemPorQuiloPrecoNegativo() {
@@ -112,7 +112,7 @@ public class SistemaTest {
 	}
 
 	/**
-	 * Testa o método adicionaItemPorQuilo com preco valido, porem suspeito(zero).
+	 * Testa o metodo adicionaItemPorQuilo com preco valido, porem suspeito(zero).
 	 */
 	@Test
 	public void testAdicionaItemPorQuiloPrecoIgualZero() {
