@@ -12,6 +12,9 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 */
 	private Sistema sistema;
 	
+	/**
+	 * Metodo responsável por inicializar a facade no sistema
+	 */
 	public ListaPraMimFacade() {
 		this.sistema = new Sistema();
 	}
