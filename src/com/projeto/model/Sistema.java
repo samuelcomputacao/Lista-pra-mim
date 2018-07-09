@@ -35,10 +35,11 @@ public class Sistema {
 		this.produtos = new HashMap<>();
 	}
 
-	public int adicionaItemPorQtd(String nome, String categoria, int quantidade, String unidadeMedida,
-			String localCompra, double preco) {
-
-		// @ TODO implementar a adicao de itens
+	public int adicionaItemPorQtd(String nome, String categoria, int quantidade, String unidadeMedida, String localCompra, double preco) {
+		if(ValidadorSistema.validaItem(nome, categoria) && ValidadorSistema.validaProdutoQuantidadeFixa(quantidade, unidadeMedida, localCompra, preco)) {
+			this.produtos.put(this.identificadorBase, new ProdutoQuantidadeFixa(this.identificadorBase, nome, categoria, quantidade, unidadeMedida, localCompra, preco));
+			return this.identificadorBase++;
+		}
 		return 0;
 	}
 
@@ -59,7 +60,7 @@ public class Sistema {
 	 * @return Um Inteiro indicando o identificador do item adicionado.
 	 */
 	public int adicionaItemPorQuilo(String nome, String categoria, double quilo, String localCompra, double preco) {
-		if (ValidadorSistema.validaProdutoNaoIndustrializadoPorQuilo(quilo, localCompra, preco)) {
+		if (ValidadorSistema.validaItem(nome, categoria) && ValidadorSistema.validaProdutoNaoIndustrializadoPorQuilo(quilo, localCompra, preco)) {
 			this.produtos.put(this.identificadorBase, new ProdutoNaoIndustrializadoPorQuilo(this.identificadorBase, nome, categoria, quilo, localCompra, preco));
 			return this.identificadorBase++;
 		}
@@ -118,9 +119,17 @@ public class Sistema {
 
 	}
 
+	/**
+	 * Metodo responsavel por remover um item na colecao de itens cadastrados no
+	 * sistema.
+	 * 
+	 * @param key Um inteiro que representa o ID do item.
+	 */
 	public void deletaItem(Integer key) {
-		// TODO implementar a remocao de itens
-
+		if (!this.produtos.containsKey(key)) {
+			throw new ItemInexistenteException("Erro na remoção de item: item nao existe.");
+		}
+		this.produtos.remove(key);
 	}
 
 	public String listarTodosItens() {
