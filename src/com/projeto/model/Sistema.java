@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.excecoes.ItemInexistenteException;
+import com.projeto.util.ValidadorSistema;
 
 public class Sistema {
 
@@ -58,8 +59,11 @@ public class Sistema {
 	 * @return Um Inteiro indicando o identificador do item adicionado.
 	 */
 	public int adicionaItemPorQuilo(String nome, String categoria, double quilo, String localCompra, double preco) {
-		
-		return identificadorBase++;
+		if (ValidadorSistema.validaProdutoNaoIndustrializadoPorQuilo(quilo, localCompra, preco)) {
+			this.produtos.put(this.identificadorBase, new ProdutoNaoIndustrializadoPorQuilo(this.identificadorBase, nome, categoria, quilo, localCompra, preco));
+			return this.identificadorBase++;
+		}
+		return 0;
 	}
 
 	public int adicionaItemPorUnidade(String nome, String categoria, int unidade, String localCompra, double preco) {
