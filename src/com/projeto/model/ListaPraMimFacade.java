@@ -2,8 +2,14 @@ package com.projeto.model;
 
 import easyaccept.EasyAccept;
 
+/**
+ * Fachada do sistema responsável pela delegação de todos os metodos que o sistema possui
+ */
 public class ListaPraMimFacade implements ListaPraMim {
 	
+	/**
+	 * Representa um sistema. É nele onde estara os codigos que realizarao a funcionalidades 
+	 */
 	private Sistema sistema;
 	
 	public ListaPraMimFacade() {
