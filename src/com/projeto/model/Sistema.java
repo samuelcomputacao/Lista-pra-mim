@@ -1,9 +1,8 @@
 package com.projeto.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.excecoes.ItemInexistenteException;
@@ -14,7 +13,7 @@ public class Sistema {
 	/**
 	 * Uma lista com todas as listaDeCompras do sistema.
 	 */
-	private List<ListaDeCompra> listas;
+	//private List<ListaDeCompra> listas;
 
 	/**
 	 * Um mapa com todos os produtos cadastrados pelo sistema.
@@ -24,10 +23,10 @@ public class Sistema {
 	/**
 	 * Um inteiro que representa o id dos produtos que serao cadastrados no sistema.
 	 */
-	private int identificadorBase;
+	private Integer identificadorBase;
 
 	public Sistema() {
-		this.listas = new ArrayList<>();
+		//this.listas = new ArrayList<>();
 		this.identificadorBase = 1;
 		/**
 		 * Mapa
@@ -60,15 +59,19 @@ public class Sistema {
 	 * @return Um Inteiro indicando o identificador do item adicionado.
 	 */
 	public int adicionaItemPorQuilo(String nome, String categoria, double quilo, String localCompra, double preco) {
-		if (ValidadorSistema.validaItem(nome, categoria) && ValidadorSistema.validaProdutoNaoIndustrializadoPorQuilo(quilo, localCompra, preco)) {
+		if (ValidadorSistema.validaProdutoNaoIndustrializadoPorQuilo(quilo, localCompra, preco,nome,categoria)) {
 			this.produtos.put(this.identificadorBase, new ProdutoNaoIndustrializadoPorQuilo(this.identificadorBase, nome, categoria, quilo, localCompra, preco));
 			return this.identificadorBase++;
 		}
-		return 0;
+		return -1;
 	}
 
 	public int adicionaItemPorUnidade(String nome, String categoria, int unidade, String localCompra, double preco) {
-		// @ TODO implementar a adicao de itens
+		if(ValidadorSistema.validaProdutoPorUnidade(nome,unidade, categoria, localCompra,preco)) {
+			this.produtos.put(this.identificadorBase, new ProdutoPorUnidade(this.identificadorBase, nome, categoria, unidade, localCompra, preco));
+			return this.identificadorBase++;
+					
+		}
 		return 0;
 	}
 
@@ -78,7 +81,12 @@ public class Sistema {
 	}
 
 	public String exibeItem(Integer key) {
-		// TODO implementar exibicao de itens
+		if(key <= 0) {
+			throw new CampoInvalidoException("Erro na listagem de item: id invalido.");
+		}
+		if(!this.produtos.containsKey(key)) {
+			throw new ItemInexistenteException("Erro na listagem de item: item nao existe.");
+		}
 		return null;
 	}
 
@@ -94,24 +102,36 @@ public class Sistema {
 	 *            antes de prosseguir.
 	 * @return: Um Inteiro indicando o identificador do item atualizado.
 	 */
-	public int atualizar(Integer key, String atribulto, String novoValor) {
+	public int atualizaItem(Integer key, String atribulto, String novoValor) {
+		System.out.println(imprimeSet(produtos.keySet()));
 		if (!produtos.containsKey(key))
 			throw new ItemInexistenteException("Erro na atualizacao de item: item nao existe.");
 		Item item = produtos.get(key);
 		switch (atribulto) {
-
 		case "nome":
 			item.setNome(novoValor);
 			break;
 		case "unidade de medida":
-
+			ProdutoQuantidadeFixa fixa  = (ProdutoQuantidadeFixa) item;
+			fixa.setUnidadeDeMedida(novoValor);
 			break;
 		case "quantidade":
-
+			fixa  = (ProdutoQuantidadeFixa) item;
+			fixa.setQuantidade(Integer.parseInt(novoValor));
 			break;
+		default:
+			throw new CampoInvalidoException("Erro na atualizacao de item: atributo nao existe.");
 		}
 
 		return item.getId();
+	}
+
+	private String imprimeSet(Set<Integer> keySet) {
+		String r= "";
+		for(Integer i : keySet) {
+			r += " "+i;
+		}
+		return r;
 	}
 
 	public void adiciomaPrecoItem(String local, double preco) {

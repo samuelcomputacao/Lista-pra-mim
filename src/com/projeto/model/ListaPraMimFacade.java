@@ -56,8 +56,8 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 * @return : Um inteiro indicando o identificador do item atualizado
 	 */
 	@Override
-	public int atualizar(Integer key,String atributo, String novoValor) {
-		return this.sistema.atualizar(key, atributo, novoValor);
+	public int atualizaItem(Integer key,String atributo, String novoValor) {
+		return this.sistema.atualizaItem(key, atributo, novoValor);
 	}
 
 	@Override
@@ -93,7 +93,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	
 	
 	public static void main(String[] args) {
-		args = new String[]{"com.projeto.model.ListaPraMimFacade","acceptance_test/use_case1_exception.txt"};
+		args = new String[]{"com.projeto.model.ListaPraMimFacade","acceptance_test/use_case1.txt","acceptance_test/use_case1_exception.txt"};
 		EasyAccept.main(args);
 		
 	}

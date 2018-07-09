@@ -3,7 +3,6 @@ package com.projeto.model;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.util.ValidadorSistema;
 
 /**Classe que representa um item no sistema
@@ -53,9 +52,6 @@ public abstract class Item {
 	 * @param preco : Um double representando o preco do produto no local indicado
 	 */
 	public void adicionarLocalCompra(String local, Double preco) {
-		if (preco <= 0) {
-			throw new CampoInvalidoException("Erro no cadastro de item: preco de item invalido.");
-		}
 		mapaPrecos.put(local, preco);
 	}
 

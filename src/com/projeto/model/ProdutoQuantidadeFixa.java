@@ -69,4 +69,12 @@ public class ProdutoQuantidadeFixa extends Item {
 		return super.toString() + ", " + this.quantidade + " " + this.unidadeMedida + ", Preco: " + super.getListaPrecos(); 
 	}
 
+	public void setUnidadeDeMedida(String unidadeDeMedida) {
+		this.unidadeMedida =  unidadeDeMedida;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
+
 }

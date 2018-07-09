@@ -19,7 +19,7 @@ public interface ListaPraMim {
 	 * @param novoValor : Uma string indicando o novo valor do atributo 
 	 * @return : Um inteiro indicando o identificador do item atualizado
 	 */
-	public int atualizar(Integer identificador , String atributo, String novoValor );
+	public int atualizaItem(Integer identificador , String atributo, String novoValor );
 	
 	public void adicionaPrecoItem(String local,double preco);
 	

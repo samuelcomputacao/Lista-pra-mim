@@ -1,7 +1,6 @@
 package com.projeto.util;
 
 import com.projeto.excecoes.CampoInvalidoException;
-import com.projeto.model.ProdutoNaoIndustrializadoPorQuilo;
 
 public class ValidadorSistema {
 
@@ -19,7 +18,7 @@ public class ValidadorSistema {
 		return true;
 	}
 
-	public static boolean validaProdutoNaoIndustrializadoPorQuilo(double quilo, String localCompra, double preco) {
+	public static boolean validaProdutoNaoIndustrializadoPorQuilo(double quilo, String localCompra, double preco,String nome,String categoria) {
 		if (quilo <= 0) {
 			throw new CampoInvalidoException("Erro no cadastro de item: valor de quilos nao pode ser menor que zero.");
 		}
@@ -29,6 +28,7 @@ public class ValidadorSistema {
 		if (preco <= 0) {
 			throw new CampoInvalidoException("Erro no cadastro de item: preco de item invalido.");
 		}
+		validaItem(nome, categoria);
 		return true;
 	}
 	
@@ -48,4 +48,20 @@ public class ValidadorSistema {
 		return true;
 	}
 
+	public static boolean validaProdutoPorUnidade(String nome, int unidade, String categoria, String localCompra, double preco) {
+		if(unidade <= 0) {
+			throw new CampoInvalidoException("Erro no cadastro de item: valor de unidade nao pode ser menor que zero.");
+		}
+		if(localCompra == null || localCompra.trim().isEmpty()) {
+			throw new CampoInvalidoException("Erro no cadastro de item: local de compra nao pode ser vazio ou nulo.");
+		}
+		
+		if(preco <=0) {
+			throw new CampoInvalidoException("Erro no cadastro de item: preco de item invalido.");
+		}
+		validaItem(nome, categoria);
+		return true;
+	}
+
+	
 }
