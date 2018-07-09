@@ -1,5 +1,7 @@
 package com.projeto.model;
 
+import easyaccept.EasyAccept;
+
 public class ListaPraMimFacade implements ListaPraMim {
 	
 	private Sistema sistema;
@@ -77,6 +79,12 @@ public class ListaPraMimFacade implements ListaPraMim {
 		return this.sistema.listarPorNome();
 	}
 	
+	
+	public static void main(String[] args) {
+		args = new String[]{"com.projeto.model.ListaPraMimFacade","acceptance_test/use_case1_exception.txt"};
+		EasyAccept.main(args);
+		
+	}
 	
 
 }

@@ -63,8 +63,8 @@ public class Sistema {
 		if (categoria == null || categoria.trim().isEmpty()) {
 			throw new IllegalArgumentException("Erro no cadastro de item: categoria nao pode ser vazia ou nula.");
 		}
-		if (!(categoria.equals("alimentos industrializados") || categoria.equals("alimentos nao industrializados")
-				|| categoria.equals("limpeza") || categoria.equals("higiene pessoal"))) {
+		if (!(categoria.equals("alimento industrializado") || categoria.equals("alimento nao industrializado")
+				|| categoria.equals("limpeza") || categoria.equalsIgnoreCase("higiene pessoal"))) {
 			throw new IllegalArgumentException("Erro no cadastro de item: categoria nao existe.");
 		}
 		if (quilo < 0) {

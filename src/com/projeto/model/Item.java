@@ -41,6 +41,15 @@ public abstract class Item {
 		this.categoria = categoria;
 		this.mapaPrecos = new HashMap<>();
 	}
+	
+	/**
+	 * Método responsável por adicionar ao mapa de locais de compra um novo local de compra do produto.
+	 * @param local : Uma String representando um nome de um local para compra
+	 * @param preco : Um double representando o preco do produto no local indicado
+	 */
+	public void adicionarLocalCompra(String local, Double preco) {
+		mapaPrecos.put(local, preco);
+	}
 
 	/**
 	 * Metodo responsavel por gerar uma numeracao unica para um item de acordo com sua categoria e nome
