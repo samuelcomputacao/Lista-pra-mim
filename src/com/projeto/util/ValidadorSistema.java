@@ -36,6 +36,15 @@ public class ValidadorSistema {
 		if (quantidade <= 0) {
 			throw new CampoInvalidoException("Erro no cadastro de item: valor de quantidade nao pode ser menor que zero.");
 		}
+		if (unidadeMedida == null || unidadeMedida.trim().isEmpty()) {
+			throw new CampoInvalidoException("Erro no cadastro de item: unidade de medida nao pode ser vazia ou nula.");
+		}
+		if(localCompra == null || localCompra.trim().isEmpty()) {
+			throw new CampoInvalidoException("Erro no cadastro de item: local de compra nao pode ser vazio ou nulo.");
+		}
+		if(preco <= 0) {
+			throw new CampoInvalidoException("Erro no cadastro de item: preco de item invalido.");
+		}
 		return true;
 	}
 
