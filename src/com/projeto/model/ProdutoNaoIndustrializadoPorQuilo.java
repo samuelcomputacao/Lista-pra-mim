@@ -1,5 +1,7 @@
 package com.projeto.model;
 
+import com.projeto.util.ValidadorSistema;
+
 public class ProdutoNaoIndustrializadoPorQuilo extends Item {
 
 	/**
@@ -18,11 +20,12 @@ public class ProdutoNaoIndustrializadoPorQuilo extends Item {
 	 * @param localCompra Uma string que representa o local de compra.
 	 * @param preco Um double que representa o preco do produto.
 	 */
-	public ProdutoNaoIndustrializadoPorQuilo(int id, String nome, String categoria, double quilo, String localCompra,
-			double preco) {
+	public ProdutoNaoIndustrializadoPorQuilo(int id, String nome, String categoria, double quilo, String localCompra, double preco) {
 		super(id, nome, categoria);
-		this.quilo = quilo;
-		super.adicionarLocalCompra(localCompra, preco);
+		if (ValidadorSistema.validaProdutoNaoIndustrializadoPorQuilo(quilo, localCompra, preco)) {
+			this.quilo = quilo;
+			super.adicionarLocalCompra(localCompra, preco);
+		}
 	}
 
 	/**

@@ -94,7 +94,7 @@ public class ProdutoNaoIndustrializadoPorQuiloTest {
 
 	@Test
 	public void testToString() {
-		//System.out.println(produto.toString());
+		assertEquals("1. Sabonete, higiene pessoal, Preco por quilo: <Hiper, R$ 100,00>", produto.toString());
 	}
 
 	@Test
