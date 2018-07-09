@@ -132,14 +132,19 @@ public abstract class Item {
 	}
 	
 	/**
-	 * 
+	 * Metodo que sobrescreve o toString
 	 */
 	@Override
 	public String toString() {
 		return this.id  + ". " + this.nome + ", " + this.categoria;
 	}
 	
-	
+	/**
+	 * ######### Metodo com falha, corrigir depois...
+	 * Metodo responsavel por gerar uma String do mapa de precos
+	 * 
+	 * @return Uma String que representa o mapa de precos de um item
+	 */
 	public String getListaPrecos() {
 		String msg = "<";
 		for (String local : this.mapaPrecos.keySet()) {
