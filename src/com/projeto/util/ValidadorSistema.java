@@ -20,7 +20,7 @@ public class ValidadorSistema {
 	}
 
 	public static boolean validaProdutoNaoIndustrializadoPorQuilo(double quilo, String localCompra, double preco) {
-		if (quilo < 0) {
+		if (quilo <= 0) {
 			throw new CampoInvalidoException("Erro no cadastro de item: valor de quilos nao pode ser menor que zero.");
 		}
 		if (localCompra == null || localCompra.trim().isEmpty()) {

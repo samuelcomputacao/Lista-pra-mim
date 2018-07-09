@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.projeto.excecoes.CampoInvalidoException;
+import com.projeto.util.ValidadorSistema;
 
 /**Classe que representa um item no sistema
 *
@@ -38,10 +39,12 @@ public abstract class Item {
 	 * @param categoria : A categoria do item
 	 */
 	public Item(int id, String nome, String categoria) {
-		this.id = id;
-		this.nome = nome;
-		this.categoria = categoria;
-		this.mapaPrecos = new HashMap<>();
+		if (ValidadorSistema.validaItem(nome, categoria)) {
+			this.id = id;
+			this.nome = nome;
+			this.categoria = categoria;
+			this.mapaPrecos = new HashMap<>();
+		}
 	}
 	
 	/**
@@ -140,7 +143,7 @@ public abstract class Item {
 	public String getListaPrecos() {
 		String msg = "<";
 		for (String local : this.mapaPrecos.keySet()) {
-			msg += local + ", R$ " + String.format("%.2d", this.mapaPrecos.get(local));
+			msg += local + ", R$ " + String.format("%.2f", this.mapaPrecos.get(local));
 		}
 		msg += ">";
 		return msg;
