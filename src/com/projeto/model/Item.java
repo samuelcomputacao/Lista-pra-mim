@@ -3,6 +3,8 @@ package com.projeto.model;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.projeto.excecoes.CampoInvalidoException;
+
 /**Classe que representa um item no sistema
 *
 */
@@ -48,6 +50,9 @@ public abstract class Item {
 	 * @param preco : Um double representando o preco do produto no local indicado
 	 */
 	public void adicionarLocalCompra(String local, Double preco) {
+		if (preco <= 0) {
+			throw new CampoInvalidoException("Erro no cadastro de item: preco de item invalido.");
+		}
 		mapaPrecos.put(local, preco);
 	}
 
@@ -121,5 +126,23 @@ public abstract class Item {
 	 */
 	public int getId() {
 		return this.id;
+	}
+	
+	/**
+	 * 
+	 */
+	@Override
+	public String toString() {
+		return this.id  + ". " + this.nome + ", " + this.categoria;
+	}
+	
+	
+	public String getListaPrecos() {
+		String msg = "<";
+		for (String local : this.mapaPrecos.keySet()) {
+			msg += local + ", R$ " + String.format("%.2d", this.mapaPrecos.get(local));
+		}
+		msg += ">";
+		return msg;
 	}
 }

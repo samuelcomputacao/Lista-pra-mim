@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.excecoes.ItemInexistenteException;
 
 public class Sistema {
@@ -57,28 +58,7 @@ public class Sistema {
 	 * @return Um Inteiro indicando o identificador do item adicionado.
 	 */
 	public int adicionaItemPorQuilo(String nome, String categoria, double quilo, String localCompra, double preco) {
-		if (nome == null || nome.trim().isEmpty()) {
-			throw new IllegalArgumentException("Erro no cadastro de item: nome nao pode ser vazio ou nulo.");
-		}
-		if (categoria == null || categoria.trim().isEmpty()) {
-			throw new IllegalArgumentException("Erro no cadastro de item: categoria nao pode ser vazia ou nula.");
-		}
-		if (!(categoria.equals("alimento industrializado") || categoria.equals("alimento nao industrializado")
-				|| categoria.equals("limpeza") || categoria.equalsIgnoreCase("higiene pessoal"))) {
-			throw new IllegalArgumentException("Erro no cadastro de item: categoria nao existe.");
-		}
-		if (quilo < 0) {
-			throw new IllegalArgumentException(
-					"Erro no cadastro de item: valor de quilos nao pode ser menor que zero.");
-		}
-		if (localCompra == null || localCompra.trim().isEmpty()) {
-			throw new IllegalArgumentException("Erro no cadastro de item: local de compra nao pode ser vazio ou nulo.");
-		}
-		if (preco < 0) {
-			throw new IllegalArgumentException("Erro no cadastro de item: preco de item invalido.");
-		}
-		this.produtos.put(identificadorBase,
-				new ProdutoNaoIndustrializadoPorQuilo(identificadorBase, nome, categoria, quilo, localCompra, preco));
+		
 		return identificadorBase++;
 	}
 
