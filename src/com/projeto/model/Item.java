@@ -29,7 +29,7 @@ public abstract class Item {
 	/**
 	 * Uma mapa de precos onde estao guardados locais e respectivos precos do item compravel
 	 */
-	private Map<String,Double> mapaPrecos;
+	private Map<String, Double> mapaPrecos;
 
 
 	/**

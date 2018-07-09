@@ -31,5 +31,12 @@ public class ValidadorSistema {
 		}
 		return true;
 	}
+	
+	public static boolean validaProdutoQuantidadeFixa(int quantidade, String unidadeMedida, String localCompra, double preco) {
+		if (quantidade <= 0) {
+			throw new CampoInvalidoException("Erro no cadastro de item: valor de quantidade nao pode ser menor que zero.");
+		}
+		return true;
+	}
 
 }
