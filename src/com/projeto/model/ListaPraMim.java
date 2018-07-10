@@ -33,5 +33,9 @@ public interface ListaPraMim {
 	
 	public String listarPorNome();
 	
+	public String getItem(int posicao);
+	
+	public String getItemPorCategoria(String categoria,int posicao);
+	
 	
 }

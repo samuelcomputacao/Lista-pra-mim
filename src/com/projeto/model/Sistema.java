@@ -1,12 +1,21 @@
 package com.projeto.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.omg.PortableServer.POA;
+
+import com.projeto.comparadores.ComparaCadastro;
+import com.projeto.comparadores.ComparaCategoria;
+import com.projeto.comparadores.ComparaDescricao;
 import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.excecoes.ItemInexistenteException;
 import com.projeto.util.ValidadorSistema;
+import com.sun.xml.internal.ws.dump.LoggingDumpTube.Position;
 
 public class Sistema {
 
@@ -141,9 +150,20 @@ public class Sistema {
 			fixa.setQuantidade(Integer.parseInt(novoValor));
 			break;
 		case "kg":
-			
+			double quilos = Double.parseDouble(novoValor);
+			if(quilos < 0) {
+				throw new CampoInvalidoException("Erro na atualizacao de item: valor de quilos nao pode ser menor que zero.");
+			}
 			ProdutoNaoIndustrializadoPorQuilo quilo = (ProdutoNaoIndustrializadoPorQuilo) item;
-			quilo.setQuilo(Double.parseDouble(novoValor));
+			quilo.setQuilo(quilos);
+			break;
+		case "unidades":
+			int unidades = Integer.parseInt(novoValor);
+			if(unidades < 0) {
+				throw new CampoInvalidoException("Erro na atualizacao de item: valor de quantidade nao pode ser menor que zero.");
+			}
+			ProdutoPorUnidade produto = (ProdutoPorUnidade) item;
+			produto.setUnidade(unidades);
 			break;
 		case "categoria":
 			String categoria = novoValor;
@@ -169,6 +189,18 @@ public class Sistema {
 	}
 
 	public void adiciomaPrecoItem(Integer key, String local, double preco) {
+		if(key < 0) {
+			throw new CampoInvalidoException("Erro no cadastro de preco: id de item invalido.");
+		}
+		if(!this.produtos.containsKey(key)) {
+			throw new CampoInvalidoException("Erro no cadastro de preco: item nao existe.");
+		}
+		if(local == null || local.trim().isEmpty()) {
+			throw new CampoInvalidoException("Erro no cadastro de preco: local de compra nao pode ser vazio ou nulo.");
+		}
+		if(preco < 0) {
+			throw new CampoInvalidoException("Erro no cadastro de preco: preco de item invalido.");
+		}
 		Item item = this.produtos.get(key);
 		item.adicionarLocalCompra(local, preco);
 
@@ -206,6 +238,23 @@ public class Sistema {
 	public String listarPorNome() {
 		// TODO implementar os itens por nome e ordenado pelo nome
 		return null;
+	}
+
+	public String getItem(int position) {
+		List<Item> itens = new ArrayList<Item>(this.produtos.values());
+		Collections.sort(itens,new ComparaDescricao());
+		return itens.get(position).toString();
+	}
+
+	public String getItemPorCategoria(String categoria,int posicao) {
+		List<Item> itens = new ArrayList<Item>();
+		for(Item item : produtos.values()) {
+			if(item.getCategoria().equals(categoria)) {
+				itens.add(item);
+			}
+		}
+		Collections.sort(itens,new ComparaCategoria());
+		return itens.get(posicao).toString();
 	}
 
 }
