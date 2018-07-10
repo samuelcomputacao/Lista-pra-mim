@@ -14,6 +14,7 @@ public class ProdutoQuantidadeFixaTest {
 	/**
 	 * Produto utilizado como base para os testes.
 	 */
+	@SuppressWarnings("unused")
 	private ProdutoQuantidadeFixa produto;
 	
 	/**
@@ -30,7 +31,7 @@ public class ProdutoQuantidadeFixaTest {
 	 */
 	@Test(expected = CampoInvalidoException.class)
 	public void testProdutoQuantidadeFixaNomeNull() {
-		produto = new ProdutoQuantidadeFixa(1, null, "higiene pessoal", 5, "l", "Mercadinho São José", 10.00);
+		new ProdutoQuantidadeFixa(1, null, "higiene pessoal", 5, "l", "Mercadinho São José", 10.00);
 	}
 	
 	@Test

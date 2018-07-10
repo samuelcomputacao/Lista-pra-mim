@@ -22,7 +22,7 @@ public class ProdutoNaoIndustrializadoPorQuilo extends Item {
 	 */
 	public ProdutoNaoIndustrializadoPorQuilo(int id, String nome, String categoria, double quilo, String localCompra, double preco) {
 		super(id, nome, categoria);
-		if (ValidadorSistema.validaProdutoNaoIndustrializadoPorQuilo(quilo, localCompra, preco,nome,categoria)) {
+		if (ValidadorSistema.validaProdutoNaoIndustrializadoPorQuilo(quilo, localCompra, preco)) {
 			this.quilo = quilo;
 			super.adicionarLocalCompra(localCompra, preco);
 		}

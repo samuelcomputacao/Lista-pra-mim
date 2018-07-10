@@ -10,7 +10,7 @@ import com.projeto.util.ValidadorSistema;
  * Classe que representa um item no sistema
  *
  */
-public abstract class Item {
+public abstract class Item implements Comparable<Item>{
 
 	/**
 	 * Um inteiro representando a identificacao do item
@@ -172,5 +172,10 @@ public abstract class Item {
 				menor = valor * -1;
 		}
 		return menor * -1;
+	}
+	
+	@Override
+	public int compareTo(Item item) {
+		return this.nome.compareTo(item.getNome());
 	}
 }

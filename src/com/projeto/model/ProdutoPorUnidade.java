@@ -29,7 +29,7 @@ public class ProdutoPorUnidade extends Item {
      */
     public ProdutoPorUnidade(int id, String nome, String categoria, int unidade, String localCompra, double preco) {
         super(id, nome, categoria);
-        if (ValidadorSistema.validaProdutoPorUnidade(nome,unidade,categoria, localCompra, preco)) {
+        if (ValidadorSistema.validaProdutoPorUnidade(unidade,localCompra, preco)) {
             this.unidade = unidade;
             super.adicionarLocalCompra(localCompra, preco);
         }

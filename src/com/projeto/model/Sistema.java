@@ -5,23 +5,23 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-
-import com.projeto.comparadores.ComparaCadastro;
-import com.projeto.comparadores.ComparaCategoria;
-import com.projeto.comparadores.ComparaDescricao;
 import com.projeto.comparadores.ComparaValor;
 import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.excecoes.ItemInexistenteException;
 import com.projeto.util.ValidadorSistema;
 
+/**
+ * Classe que representa o sistema. Ela e responsavel por realizar grande parte
+ * das funcionalidades do sistema
+ *
+ */
 public class Sistema {
 
 	/**
 	 * Uma lista com todas as listaDeCompras do sistema.
 	 */
-	//private List<ListaDeCompra> listas;
+	// private List<ListaDeCompra> listas;
 
 	/**
 	 * Um mapa com todos os produtos cadastrados pelo sistema.
@@ -34,7 +34,7 @@ public class Sistema {
 	private Integer identificadorBase;
 
 	public Sistema() {
-		//this.listas = new ArrayList<>();
+		// this.listas = new ArrayList<>();
 		this.identificadorBase = 1;
 		/**
 		 * Mapa
@@ -43,73 +43,109 @@ public class Sistema {
 	}
 
 	/**
-	 * Metodo responsavel por adicionar um produto com quantidade fixa no
-	 * mapa de produtos.
+	 * Metodo responsavel por adicionar um produto com quantidade fixa no mapa de
+	 * produtos.
 	 * 
-	 * @param nome : nome do produto.
-	 * @param categoria : categoria do produto.
-	 * @param unidadeMedida : unidade de medida do produto.
-	 * @param localCompra : local de compra do produto.
-	 * @param preco : preco do produto.
-	 *            
-	 * @return : retorna um inteiro representando o identificador do item adicionado.
+	 * @param nome
+	 *            : nome do produto.
+	 * @param categoria
+	 *            : categoria do produto.
+	 * @param unidadeMedida
+	 *            : unidade de medida do produto.
+	 * @param localCompra
+	 *            : local de compra do produto.
+	 * @param preco
+	 *            : preco do produto.
+	 * 
+	 * @return : retorna um inteiro representando o identificador do item
+	 *         adicionado.
 	 */
-	public int adicionaItemPorQtd(String nome, String categoria, int quantidade, String unidadeMedida, String localCompra, double preco) {
-		if(ValidadorSistema.validaItem(nome, categoria) && ValidadorSistema.validaProdutoQuantidadeFixa(quantidade, unidadeMedida, localCompra, preco)) {
-			this.produtos.put(this.identificadorBase, new ProdutoQuantidadeFixa(this.identificadorBase, nome, categoria, quantidade, unidadeMedida, localCompra, preco));
+	public int adicionaItemPorQtd(String nome, String categoria, int quantidade, String unidadeMedida,
+			String localCompra, double preco) {
+		String erroException = "Erro no cadastro de item: ";
+		try {
+		if (ValidadorSistema.validaItem(nome, categoria)
+				&& ValidadorSistema.validaProdutoQuantidadeFixa(quantidade, unidadeMedida, localCompra, preco)) {
+			this.produtos.put(this.identificadorBase, new ProdutoQuantidadeFixa(this.identificadorBase, nome, categoria,
+					quantidade, unidadeMedida, localCompra, preco));
 			return this.identificadorBase++;
 		}
-		return 0;
+		}catch (CampoInvalidoException e) {
+			throw new CampoInvalidoException(erroException + e.getMessage());
+		}
+		return -1;
 	}
 
 	/**
 	 * Metodo responsavel por adicionar um produto não industrializado por quilo no
 	 * mapa de produtos.
 	 * 
-	 * @param nome Uma String indicando o nome do produto.
-	 * @param categoria Uma String indicando a categoria do produto.
-	 * @param quilo Um double indicando a quantidade em quilos do produto.
-	 * @param localCompra Uma String indicando o local de compra.
-	 * @param preco Um double indicando o preco produto.
+	 * @param nome
+	 *            Uma String indicando o nome do produto.
+	 * @param categoria
+	 *            Uma String indicando a categoria do produto.
+	 * @param quilo
+	 *            Um double indicando a quantidade em quilos do produto.
+	 * @param localCompra
+	 *            Uma String indicando o local de compra.
+	 * @param preco
+	 *            Um double indicando o preco produto.
 	 * @return Um Inteiro indicando o identificador do item adicionado.
 	 */
 	public int adicionaItemPorQuilo(String nome, String categoria, double quilo, String localCompra, double preco) {
-		if (ValidadorSistema.validaProdutoNaoIndustrializadoPorQuilo(quilo, localCompra, preco,nome,categoria)) {
-			this.produtos.put(this.identificadorBase, new ProdutoNaoIndustrializadoPorQuilo(this.identificadorBase, nome, categoria, quilo, localCompra, preco));
-			return this.identificadorBase++;
+		String erroException = "Erro no cadastro de item: ";
+		try {
+			if (ValidadorSistema.validaItem(nome, categoria) && ValidadorSistema.validaProdutoNaoIndustrializadoPorQuilo(quilo, localCompra, preco)) {
+				this.produtos.put(this.identificadorBase, new ProdutoNaoIndustrializadoPorQuilo(this.identificadorBase,
+						nome, categoria, quilo, localCompra, preco));
+				return this.identificadorBase++;
+			}
+		} catch (CampoInvalidoException e) {
+			throw new CampoInvalidoException(erroException + e.getMessage());
 		}
 		return -1;
 	}
 
 	/**
-	 * Metodo responsavel por adicionar um produto por unidade no
-	 * mapa de produtos.
+	 * Metodo responsavel por adicionar um produto por unidade no mapa de produtos.
 	 * 
-	 * @param nome Uma String indicando o nome do produto.
-	 * @param categoria Uma String indicando a categoria do produto.
-	 * @param unidade Um Inteiro indicando a quantidade de unidades.
-	 * @param localCompra Uma String indicando o local de compra.
-	 * @param preco Um double indicando o preco produto.
+	 * @param nome
+	 *            Uma String indicando o nome do produto.
+	 * @param categoria
+	 *            Uma String indicando a categoria do produto.
+	 * @param unidade
+	 *            Um Inteiro indicando a quantidade de unidades.
+	 * @param localCompra
+	 *            Uma String indicando o local de compra.
+	 * @param preco
+	 *            Um double indicando o preco produto.
 	 * @return Um Inteiro indicando o identificador do item adicionado.
 	 */
 	public int adicionaItemPorUnidade(String nome, String categoria, int unidade, String localCompra, double preco) {
-		if(ValidadorSistema.validaProdutoPorUnidade(nome,unidade, categoria, localCompra,preco)) {
-			this.produtos.put(this.identificadorBase, new ProdutoPorUnidade(this.identificadorBase, nome, categoria, unidade, localCompra, preco));
+		String erroException = "Erro no cadastro de item: ";
+		try {
+		if (ValidadorSistema.validaItem(nome, categoria) && ValidadorSistema.validaProdutoPorUnidade(unidade,localCompra, preco)) {
+			this.produtos.put(this.identificadorBase,
+					new ProdutoPorUnidade(this.identificadorBase, nome, categoria, unidade, localCompra, preco));
 			return this.identificadorBase++;
 		}
-		return 0;
+		}catch (CampoInvalidoException e) {
+			throw new CampoInvalidoException(erroException + e.getMessage());
+		}
+		return -1;
 	}
-
-	public int removerItem(Integer key) {
-		// TODO implementar remoção de itens
-		return 0;
-	}
-
+	
+	/**
+	 * Metodo responsavel por exibir um item que esta previamente cadastrado no sistema
+	 * 
+	 * @param key : Um inteiro indicando qual a chave do item
+	 * @return : Uma String com a representacao textual do item
+	 */
 	public String exibeItem(Integer key) {
-		if(key <= 0) {
+		if (key <= 0) {
 			throw new CampoInvalidoException("Erro na listagem de item: id invalido.");
 		}
-		if(!this.produtos.containsKey(key)) {
+		if (!this.produtos.containsKey(key)) {
 			throw new ItemInexistenteException("Erro na listagem de item: item nao existe.");
 		}
 		return this.produtos.get(key).toString();
@@ -119,16 +155,21 @@ public class Sistema {
 	 * Metodo responsavel por atualizar um item na colecao de itens cadastrados no
 	 * sistema.
 	 * 
-	 * @param atributo Uma String indicando qual o campo que sera atualizado.
-	 * @param novoValor Uma String indicando o novo valor que o capo ira assumir. Caso o
+	 * @param atributo
+	 *            Uma String indicando qual o campo que sera atualizado.
+	 * @param novoValor
+	 *            Uma String indicando o novo valor que o capo ira assumir. Caso o
 	 *            campo seja um valor numerico, esse valor deve ser transformado
 	 *            antes de prosseguir.
 	 * @return: Um Inteiro indicando o identificador do item atualizado.
 	 */
 	public int atualizaItem(Integer key, String atribulto, String novoValor) {
-		if(atribulto == null || atribulto.trim().isEmpty()) throw new CampoInvalidoException("Erro na atualizacao de item: atributo nao pode ser vazio ou nulo.");
-		if(novoValor == null || novoValor.trim().isEmpty()) throw new CampoInvalidoException("Erro na atualizacao de item: novo valor de atributo nao pode ser vazio ou nulo.");
-		
+		if (atribulto == null || atribulto.trim().isEmpty())
+			throw new CampoInvalidoException("Erro na atualizacao de item: atributo nao pode ser vazio ou nulo.");
+		if (novoValor == null || novoValor.trim().isEmpty())
+			throw new CampoInvalidoException(
+					"Erro na atualizacao de item: novo valor de atributo nao pode ser vazio ou nulo.");
+
 		if (!produtos.containsKey(key))
 			throw new ItemInexistenteException("Erro na atualizacao de item: item nao existe.");
 		Item item = produtos.get(key);
@@ -137,29 +178,32 @@ public class Sistema {
 			item.setNome(novoValor);
 			break;
 		case "unidade de medida":
-			ProdutoQuantidadeFixa fixa  = (ProdutoQuantidadeFixa) item;
+			ProdutoQuantidadeFixa fixa = (ProdutoQuantidadeFixa) item;
 			fixa.setUnidadeDeMedida(novoValor);
 			break;
 		case "quantidade":
 			int quantidade = Integer.parseInt(novoValor);
-			if(quantidade < 0) {
-				throw new CampoInvalidoException("Erro na atualizacao de item: valor de quantidade nao pode ser menor que zero.");
+			if (quantidade < 0) {
+				throw new CampoInvalidoException(
+						"Erro na atualizacao de item: valor de quantidade nao pode ser menor que zero.");
 			}
-			fixa  = (ProdutoQuantidadeFixa) item;
+			fixa = (ProdutoQuantidadeFixa) item;
 			fixa.setQuantidade(Integer.parseInt(novoValor));
 			break;
 		case "kg":
 			double quilos = Double.parseDouble(novoValor);
-			if(quilos < 0) {
-				throw new CampoInvalidoException("Erro na atualizacao de item: valor de quilos nao pode ser menor que zero.");
+			if (quilos < 0) {
+				throw new CampoInvalidoException(
+						"Erro na atualizacao de item: valor de quilos nao pode ser menor que zero.");
 			}
 			ProdutoNaoIndustrializadoPorQuilo quilo = (ProdutoNaoIndustrializadoPorQuilo) item;
 			quilo.setQuilo(quilos);
 			break;
 		case "unidades":
 			int unidades = Integer.parseInt(novoValor);
-			if(unidades < 0) {
-				throw new CampoInvalidoException("Erro na atualizacao de item: valor de quantidade nao pode ser menor que zero.");
+			if (unidades < 0) {
+				throw new CampoInvalidoException(
+						"Erro na atualizacao de item: valor de quantidade nao pode ser menor que zero.");
 			}
 			ProdutoPorUnidade produto = (ProdutoPorUnidade) item;
 			produto.setUnidade(unidades);
@@ -179,25 +223,24 @@ public class Sistema {
 		return item.getId();
 	}
 
-	private String imprimeSet(Set<Integer> keySet) {
-		String r= "";
-		for(Integer i : keySet) {
-			r += " "+i;
-		}
-		return r;
-	}
-
-	public void adiciomaPrecoItem(Integer key, String local, double preco) {
-		if(key < 0) {
+	/**
+	 * Metodo responsavel por adicionar um preco relacionado a um determinado local a um produto
+	 * 
+	 * @param key : Um inteiro que indica a chave do item onde o preco sera adicionado
+	 * @param local : Uma string que indica o local de compra que possui o preco indicado
+	 * @param preco : Um valor de ponto flutuante que indica o preco que sera adicionado
+	 */
+	public void adicionaPrecoItem(Integer key, String local, double preco) {
+		if (key < 0) {
 			throw new CampoInvalidoException("Erro no cadastro de preco: id de item invalido.");
 		}
-		if(!this.produtos.containsKey(key)) {
+		if (!this.produtos.containsKey(key)) {
 			throw new CampoInvalidoException("Erro no cadastro de preco: item nao existe.");
 		}
-		if(local == null || local.trim().isEmpty()) {
+		if (local == null || local.trim().isEmpty()) {
 			throw new CampoInvalidoException("Erro no cadastro de preco: local de compra nao pode ser vazio ou nulo.");
 		}
-		if(preco < 0) {
+		if (preco < 0) {
 			throw new CampoInvalidoException("Erro no cadastro de preco: preco de item invalido.");
 		}
 		Item item = this.produtos.get(key);
@@ -218,66 +261,66 @@ public class Sistema {
 		this.produtos.remove(key);
 	}
 
-	public String listarTodosItens() {
-		// TODO implementar o listamento d todos os itens
-		return null;
-	}
-
-	public String listarPorCategoria() {
-		// TODO implementar os itens por categorias e ordenado pelo nome
-		return null;
-	}
-
-	public String listarOrdemValor() {
-		// TODO implementar os itens se eles possuirem valor cadastrado e ordenado em
-		// ordem crescente
-		return null;
-	}
-
-	public String listarPorNome() {
-		// TODO implementar os itens por nome e ordenado pelo nome
-		return null;
-	}
-
+	/**
+	 * Metodo responsavel por buscar um item de acordo com uma posicao de forma que ele esteja ordenado pelo nome
+	 * 
+	 * @param position : Um inteiro indicando a posicao do item na lista de itens ordenada pelo nome
+	 * @return : Uma String com a representacao textual do item selecionado
+	 */
 	public String getItem(int position) {
 		List<Item> itens = new ArrayList<Item>(this.produtos.values());
-		Collections.sort(itens,new ComparaDescricao());
-		if(itens.isEmpty() || position >= itens.size()) {
+		Collections.sort(itens);
+		if (itens.isEmpty() || position >= itens.size()) {
 			return "";
 		}
 		return itens.get(position).toString();
 	}
 
-	public String getItemPorCategoria(String categoria,int posicao) {
+	/**
+	 * Metodo responsavel por buscar um item de acordo com uma posicao na lista de itens ordenados pelo nome
+	 * e que tenha a ctegoria indicada
+	 * 
+	 * @param categoria : Uma String indicando qual a categoria usada que sera utilizada no filtro 
+	 * @param posicao : Um inteiro indicando a posicao do item na lista ordenada 
+	 * @return Uma String com a representacao textual do item selecionado
+	 */
+	public String getItemPorCategoria(String categoria, int posicao) {
 		String msgExceptino = "Erro na listagem de item: ";
 		try {
-			if(ValidadorSistema.validaCategoria(categoria)) {
+			if (ValidadorSistema.validaCategoria(categoria)) {
 				List<Item> itens = new ArrayList<Item>();
-				for(Item item : produtos.values()) {
-					if(item.getCategoria().equals(categoria)) {
+				for (Item item : produtos.values()) {
+					if (item.getCategoria().equals(categoria)) {
 						itens.add(item);
 					}
 				}
-				if(!itens.isEmpty() && posicao < itens.size()) {
-				
-				Collections.sort(itens,new ComparaDescricao());
-				return itens.get(posicao).toString();
+				if (!itens.isEmpty() && posicao < itens.size()) {
+
+					Collections.sort(itens);
+					return itens.get(posicao).toString();
 				}
 			}
-		}catch (CampoInvalidoException e) {
+		} catch (CampoInvalidoException e) {
 			throw new CampoInvalidoException(msgExceptino + e.getMessage());
 		}
 		return "";
-	
+
 	}
-	
+
+	/**
+	 * Metodo responsavel pela busca de um item quando a lista de itens esta ordendo pelo preco
+	 * de forma crescente
+	 * 
+	 * @param posicao : Um inteiro que representa a posicao do item na lista de itens ordenados pelo preco
+	 * @return Uma string com a representacao textual do item indicado
+	 */
 	public String getItemPorMenorPreco(int posicao) {
-		if(posicao >= this.produtos.size()) {
+		if (posicao >= this.produtos.size()) {
 			return "";
 		}
 		ArrayList<Item> itens = new ArrayList<>();
 		itens.addAll(produtos.values());
 		Collections.sort(itens, new ComparaValor());
-		return itens.get(posicao).toString();	
+		return itens.get(posicao).toString();
 	}
 }

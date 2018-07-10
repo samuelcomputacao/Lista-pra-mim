@@ -39,11 +39,6 @@ public class ListaPraMimFacade implements ListaPraMim {
 	}
 
 	@Override
-	public int removerItem(Integer key) {
-		return this.sistema.removerItem(key);
-	}
-
-	@Override
 	public String exibeItem(Integer key) {
 		return this.sistema.exibeItem(key);
 	}
@@ -62,35 +57,14 @@ public class ListaPraMimFacade implements ListaPraMim {
 
 	@Override
 	public void adicionaPrecoItem(Integer key,String local, double preco) {
-		this.sistema.adiciomaPrecoItem(key,local, preco);
+		this.sistema.adicionaPrecoItem(key,local, preco);
 		
 	}
 
 	@Override
 	public void deletaItem(Integer key) {
 		this.sistema.deletaItem(key);
-	}
-
-	@Override
-	public String listarTodosItens() {
-		return this.sistema.listarTodosItens();
-	}
-
-	@Override
-	public String listarPorCategoria() {
-		return this.sistema.listarPorCategoria();
-	}
-
-	@Override
-	public String listarOrdemValor() {
-		return this.sistema.listarOrdemValor();
-	}
-
-	@Override
-	public String listarPorNome() {
-		return this.sistema.listarPorNome();
-	}
-	
+	}	
 	
 	public static void main(String[] args) {
 		args = new String[]{"com.projeto.model.ListaPraMimFacade","acceptance_test/use_case1.txt","acceptance_test/use_case1_exception.txt","acceptance_test/use_case2.txt","acceptance_test/use_case2_exception.txt"};

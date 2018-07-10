@@ -7,9 +7,7 @@ public interface ListaPraMim {
 	public int adicionaItemPorQuilo(String nome, String categoria, double quilo, String localCompra, double preco);
 	
 	public int adicionaItemPorUnidade(String nome, String categoria, int unidade, String localCompra, double preco);
-	
-	public int removerItem(Integer identificador);
-	
+		
 	public String exibeItem(Integer identificador);
 	
 	/**
@@ -24,14 +22,6 @@ public interface ListaPraMim {
 	public void adicionaPrecoItem(Integer key ,String local,double preco);
 	
 	public void deletaItem(Integer identificador);
-	
-	public String listarTodosItens();
-	
-	public String listarPorCategoria();
-	
-	public String listarOrdemValor();
-	
-	public String listarPorNome();
 	
 	public String getItem(int posicao);
 	
