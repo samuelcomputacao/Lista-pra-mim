@@ -5,7 +5,7 @@ import com.projeto.util.ValidadorSistema;
 /**
  * Representa um produto que possui uma quantidade fixa. Todo produto com quantidade 
  * fixa possui um id, nome, categoria, quantidade, unidade de medida, local de compra 
- * e um preço.
+ * e um preco.
  *
  */
 
@@ -25,7 +25,7 @@ public class ProdutoQuantidadeFixa extends Item {
 	 * Contrói um produto por quantidade fixa a partir do nome, categoria, quantidade, 
 	 * unidade de medida, local de compra e preco.
 	 * 
-	 * @param id : identificador único de um produto.
+	 * @param id : identificador unico de um produto.
 	 * @param nome : nome do produto.
 	 * @param categoria : categoria do produto. (higiene pessoal, alimentos nao industrializados ou alimentos industrializados)
 	 * @param quantidade : quantidade do produto.
@@ -52,6 +52,15 @@ public class ProdutoQuantidadeFixa extends Item {
 		return quantidade;
 	}
 	
+	/*
+	 * Altera a quantidade do produto.
+	 * 
+	 * @param quantidade : novo valor de quantidade.
+	 */
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
+	
 	/**
 	 * Retorna a unidade de medida do produto.
 	 * 
@@ -62,19 +71,20 @@ public class ProdutoQuantidadeFixa extends Item {
 	}
 	
 	/**
-	 * Representação String de um produto por quantidade fixa.
+	 * Altera a unidade de medida do produto.
+	 * 
+	 * @param unidadeDeMedida : unidade de medida do produto.
+	 */
+	public void setUnidadeDeMedida(String unidadeDeMedida) {
+		this.unidadeMedida =  unidadeDeMedida;
+	}
+	
+	/**
+	 * Representacao String de um produto por quantidade fixa.
 	 */
 	@Override
 	public String toString() {
 		return super.toString() + ", " + this.quantidade + " " + this.unidadeMedida + ", Preco: " + super.getListaPrecos(); 
-	}
-
-	public void setUnidadeDeMedida(String unidadeDeMedida) {
-		this.unidadeMedida =  unidadeDeMedida;
-	}
-
-	public void setQuantidade(int quantidade) {
-		this.quantidade = quantidade;
 	}
 
 }

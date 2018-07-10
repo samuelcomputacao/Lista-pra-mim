@@ -34,6 +34,18 @@ public class Sistema {
 		this.produtos = new HashMap<>();
 	}
 
+	/**
+	 * Metodo responsavel por adicionar um produto com quantidade fixa no
+	 * mapa de produtos.
+	 * 
+	 * @param nome : nome do produto.
+	 * @param categoria : categoria do produto.
+	 * @param unidadeMedida : unidade de medida do produto.
+	 * @param localCompra : local de compra do produto.
+	 * @param preco : preco do produto.
+	 *            
+	 * @return : retorna um inteiro representando o identificador do item adicionado.
+	 */
 	public int adicionaItemPorQtd(String nome, String categoria, int quantidade, String unidadeMedida, String localCompra, double preco) {
 		if(ValidadorSistema.validaItem(nome, categoria) && ValidadorSistema.validaProdutoQuantidadeFixa(quantidade, unidadeMedida, localCompra, preco)) {
 			this.produtos.put(this.identificadorBase, new ProdutoQuantidadeFixa(this.identificadorBase, nome, categoria, quantidade, unidadeMedida, localCompra, preco));
@@ -43,7 +55,7 @@ public class Sistema {
 	}
 
 	/**
-	 * Metodo responsavel por adicionar um produto não industrilizado por quilo no
+	 * Metodo responsavel por adicionar um produto não industrializado por quilo no
 	 * mapa de produtos.
 	 * 
 	 * @param nome
