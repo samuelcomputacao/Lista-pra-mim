@@ -42,6 +42,10 @@ public class ProdutoPorUnidade extends Item {
         return this.unidade;
     }
     
+    public void setUnidade(int unidade) {
+		this.unidade = unidade;
+	}
+    
     /**
      */
     public String toString() {

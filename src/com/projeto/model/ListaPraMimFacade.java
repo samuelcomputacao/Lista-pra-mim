@@ -93,9 +93,19 @@ public class ListaPraMimFacade implements ListaPraMim {
 	
 	
 	public static void main(String[] args) {
-		args = new String[]{"com.projeto.model.ListaPraMimFacade","acceptance_test/use_case1.txt","acceptance_test/use_case1_exception.txt"};
+		args = new String[]{"com.projeto.model.ListaPraMimFacade","acceptance_test/use_case1.txt","acceptance_test/use_case1_exception.txt","acceptance_test/use_case2.txt"};
 		EasyAccept.main(args);
 		
+	}
+
+	@Override
+	public String getItem(int posicao) {
+		return this.sistema.getItem(posicao);
+	}
+
+	@Override
+	public String getItemPorCategoria(String categoria,int posicao) {
+		return this.sistema.getItemPorCategoria(categoria, posicao);
 	}
 	
 
