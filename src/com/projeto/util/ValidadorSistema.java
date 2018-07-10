@@ -1,6 +1,7 @@
 package com.projeto.util;
 
 import com.projeto.excecoes.CampoInvalidoException;
+import com.projeto.excecoes.CategoriaInexistenteException;
 
 /**
  * Classe responsável por realizar validacoes de campos no sistema
@@ -120,7 +121,7 @@ public class ValidadorSistema {
 
 		if (!(categoria.equals("alimento industrializado") || categoria.equals("alimento nao industrializado")
 				|| categoria.equals("limpeza") || categoria.equalsIgnoreCase("higiene pessoal"))) {
-			throw new CampoInvalidoException("categoria nao existe.");
+			throw new CategoriaInexistenteException("");
 		}
 		return true;
 	}

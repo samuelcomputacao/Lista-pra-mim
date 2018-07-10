@@ -4,7 +4,7 @@ package com.projeto.excecoes;
 public class ItemInexistenteException extends RuntimeException {
 	
 	public ItemInexistenteException(String str) {
-		super(str);
+		super(str+"item nao existe.");
 	}
 
 }

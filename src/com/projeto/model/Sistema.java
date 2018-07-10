@@ -8,7 +8,9 @@ import java.util.Map;
 
 import com.projeto.comparadores.ComparaValor;
 import com.projeto.excecoes.CampoInvalidoException;
+import com.projeto.excecoes.CategoriaInexistenteException;
 import com.projeto.excecoes.ItemInexistenteException;
+import com.projeto.util.SistemaMensagens;
 import com.projeto.util.ValidadorSistema;
 
 /**
@@ -62,16 +64,17 @@ public class Sistema {
 	 */
 	public int adicionaItemPorQtd(String nome, String categoria, int quantidade, String unidadeMedida,
 			String localCompra, double preco) {
-		String erroException = "Erro no cadastro de item: ";
 		try {
-		if (ValidadorSistema.validaItem(nome, categoria)
-				&& ValidadorSistema.validaProdutoQuantidadeFixa(quantidade, unidadeMedida, localCompra, preco)) {
-			this.produtos.put(this.identificadorBase, new ProdutoQuantidadeFixa(this.identificadorBase, nome, categoria,
-					quantidade, unidadeMedida, localCompra, preco));
-			return this.identificadorBase++;
-		}
-		}catch (CampoInvalidoException e) {
-			throw new CampoInvalidoException(erroException + e.getMessage());
+			if (ValidadorSistema.validaItem(nome, categoria)
+					&& ValidadorSistema.validaProdutoQuantidadeFixa(quantidade, unidadeMedida, localCompra, preco)) {
+				this.produtos.put(this.identificadorBase, new ProdutoQuantidadeFixa(this.identificadorBase, nome,
+						categoria, quantidade, unidadeMedida, localCompra, preco));
+				return this.identificadorBase++;
+			}
+		} catch (CampoInvalidoException e) {
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_CADASTRO + e.getMessage());
+		} catch (CategoriaInexistenteException e) {
+			throw new CategoriaInexistenteException(SistemaMensagens.MSG_EXCECAO_CADASTRO);
 		}
 		return -1;
 	}
@@ -93,15 +96,17 @@ public class Sistema {
 	 * @return Um Inteiro indicando o identificador do item adicionado.
 	 */
 	public int adicionaItemPorQuilo(String nome, String categoria, double quilo, String localCompra, double preco) {
-		String erroException = "Erro no cadastro de item: ";
 		try {
-			if (ValidadorSistema.validaItem(nome, categoria) && ValidadorSistema.validaProdutoNaoIndustrializadoPorQuilo(quilo, localCompra, preco)) {
+			if (ValidadorSistema.validaItem(nome, categoria)
+					&& ValidadorSistema.validaProdutoNaoIndustrializadoPorQuilo(quilo, localCompra, preco)) {
 				this.produtos.put(this.identificadorBase, new ProdutoNaoIndustrializadoPorQuilo(this.identificadorBase,
 						nome, categoria, quilo, localCompra, preco));
 				return this.identificadorBase++;
 			}
 		} catch (CampoInvalidoException e) {
-			throw new CampoInvalidoException(erroException + e.getMessage());
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_CADASTRO + e.getMessage());
+		}catch (CategoriaInexistenteException e) {
+			throw new CategoriaInexistenteException(SistemaMensagens.MSG_EXCECAO_CADASTRO);
 		}
 		return -1;
 	}
@@ -122,31 +127,36 @@ public class Sistema {
 	 * @return Um Inteiro indicando o identificador do item adicionado.
 	 */
 	public int adicionaItemPorUnidade(String nome, String categoria, int unidade, String localCompra, double preco) {
-		String erroException = "Erro no cadastro de item: ";
 		try {
-		if (ValidadorSistema.validaItem(nome, categoria) && ValidadorSistema.validaProdutoPorUnidade(unidade,localCompra, preco)) {
-			this.produtos.put(this.identificadorBase,
-					new ProdutoPorUnidade(this.identificadorBase, nome, categoria, unidade, localCompra, preco));
-			return this.identificadorBase++;
-		}
-		}catch (CampoInvalidoException e) {
-			throw new CampoInvalidoException(erroException + e.getMessage());
+			if (ValidadorSistema.validaItem(nome, categoria)
+					&& ValidadorSistema.validaProdutoPorUnidade(unidade, localCompra, preco)) {
+				this.produtos.put(this.identificadorBase,
+						new ProdutoPorUnidade(this.identificadorBase, nome, categoria, unidade, localCompra, preco));
+				return this.identificadorBase++;
+			}
+		} catch (CampoInvalidoException e) {
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_CADASTRO + e.getMessage());
+		}catch (CategoriaInexistenteException e) {
+			throw new CategoriaInexistenteException(SistemaMensagens.MSG_EXCECAO_CADASTRO);
 		}
 		return -1;
 	}
-	
+
 	/**
-	 * Metodo responsavel por exibir um item que esta previamente cadastrado no sistema
+	 * Metodo responsavel por exibir um item que esta previamente cadastrado no
+	 * sistema
 	 * 
-	 * @param key : Um inteiro indicando qual a chave do item
+	 * @param key
+	 *            : Um inteiro indicando qual a chave do item
 	 * @return : Uma String com a representacao textual do item
 	 */
 	public String exibeItem(Integer key) {
+		
 		if (key <= 0) {
-			throw new CampoInvalidoException("Erro na listagem de item: id invalido.");
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_LISTA_ITEM + "id invalido.");
 		}
 		if (!this.produtos.containsKey(key)) {
-			throw new ItemInexistenteException("Erro na listagem de item: item nao existe.");
+			throw new ItemInexistenteException(SistemaMensagens.MSG_EXCECAO_LISTA_ITEM);
 		}
 		return this.produtos.get(key).toString();
 	}
@@ -164,14 +174,14 @@ public class Sistema {
 	 * @return: Um Inteiro indicando o identificador do item atualizado.
 	 */
 	public int atualizaItem(Integer key, String atribulto, String novoValor) {
+		
 		if (atribulto == null || atribulto.trim().isEmpty())
-			throw new CampoInvalidoException("Erro na atualizacao de item: atributo nao pode ser vazio ou nulo.");
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + "atributo nao pode ser vazio ou nulo.");
 		if (novoValor == null || novoValor.trim().isEmpty())
-			throw new CampoInvalidoException(
-					"Erro na atualizacao de item: novo valor de atributo nao pode ser vazio ou nulo.");
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + "novo valor de atributo nao pode ser vazio ou nulo.");
 
 		if (!produtos.containsKey(key))
-			throw new ItemInexistenteException("Erro na atualizacao de item: item nao existe.");
+			throw new ItemInexistenteException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM);
 		Item item = produtos.get(key);
 		switch (atribulto) {
 		case "nome":
@@ -184,8 +194,7 @@ public class Sistema {
 		case "quantidade":
 			int quantidade = Integer.parseInt(novoValor);
 			if (quantidade < 0) {
-				throw new CampoInvalidoException(
-						"Erro na atualizacao de item: valor de quantidade nao pode ser menor que zero.");
+				throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + "valor de quantidade nao pode ser menor que zero.");
 			}
 			fixa = (ProdutoQuantidadeFixa) item;
 			fixa.setQuantidade(Integer.parseInt(novoValor));
@@ -193,8 +202,7 @@ public class Sistema {
 		case "kg":
 			double quilos = Double.parseDouble(novoValor);
 			if (quilos < 0) {
-				throw new CampoInvalidoException(
-						"Erro na atualizacao de item: valor de quilos nao pode ser menor que zero.");
+				throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + "valor de quilos nao pode ser menor que zero.");
 			}
 			ProdutoNaoIndustrializadoPorQuilo quilo = (ProdutoNaoIndustrializadoPorQuilo) item;
 			quilo.setQuilo(quilos);
@@ -202,46 +210,55 @@ public class Sistema {
 		case "unidades":
 			int unidades = Integer.parseInt(novoValor);
 			if (unidades < 0) {
-				throw new CampoInvalidoException(
-						"Erro na atualizacao de item: valor de quantidade nao pode ser menor que zero.");
+				throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + "valor de quantidade nao pode ser menor que zero.");
 			}
 			ProdutoPorUnidade produto = (ProdutoPorUnidade) item;
 			produto.setUnidade(unidades);
 			break;
 		case "categoria":
 			String categoria = novoValor;
-			if (!(categoria.equals("alimento industrializado") || categoria.equals("alimento nao industrializado")
-					|| categoria.equals("limpeza") || categoria.equalsIgnoreCase("higiene pessoal"))) {
-				throw new CampoInvalidoException("Erro na atualizacao de item: categoria nao existe.");
+			try {
+			if (ValidadorSistema.validaCategoria(categoria)) {
+				item.setCategoria(novoValor);
 			}
-			item.setCategoria(novoValor);
+			}catch (CategoriaInexistenteException e) {
+				throw new CategoriaInexistenteException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM);
+			}
 			break;
 		default:
-			throw new CampoInvalidoException("Erro na atualizacao de item: atributo nao existe.");
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + "atributo nao existe.");
 		}
 
 		return item.getId();
 	}
 
 	/**
-	 * Metodo responsavel por adicionar um preco relacionado a um determinado local a um produto
+	 * Metodo responsavel por adicionar um preco relacionado a um determinado local
+	 * a um produto
 	 * 
-	 * @param key : Um inteiro que indica a chave do item onde o preco sera adicionado
-	 * @param local : Uma string que indica o local de compra que possui o preco indicado
-	 * @param preco : Um valor de ponto flutuante que indica o preco que sera adicionado
+	 * @param key
+	 *            : Um inteiro que indica a chave do item onde o preco sera
+	 *            adicionado
+	 * @param local
+	 *            : Uma string que indica o local de compra que possui o preco
+	 *            indicado
+	 * @param preco
+	 *            : Um valor de ponto flutuante que indica o preco que sera
+	 *            adicionado
 	 */
 	public void adicionaPrecoItem(Integer key, String local, double preco) {
+		
 		if (key < 0) {
-			throw new CampoInvalidoException("Erro no cadastro de preco: id de item invalido.");
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_CADASTO_PRECO + "id de item invalido.");
 		}
 		if (!this.produtos.containsKey(key)) {
-			throw new CampoInvalidoException("Erro no cadastro de preco: item nao existe.");
+			throw new ItemInexistenteException(SistemaMensagens.MSG_EXCECAO_CADASTO_PRECO);
 		}
 		if (local == null || local.trim().isEmpty()) {
-			throw new CampoInvalidoException("Erro no cadastro de preco: local de compra nao pode ser vazio ou nulo.");
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_CADASTO_PRECO + "local de compra nao pode ser vazio ou nulo.");
 		}
 		if (preco < 0) {
-			throw new CampoInvalidoException("Erro no cadastro de preco: preco de item invalido.");
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_CADASTO_PRECO + "preco de item invalido.");
 		}
 		Item item = this.produtos.get(key);
 		item.adicionarLocalCompra(local, preco);
@@ -252,7 +269,8 @@ public class Sistema {
 	 * Metodo responsavel por remover um item na colecao de itens cadastrados no
 	 * sistema.
 	 * 
-	 * @param key Um inteiro que representa o ID do item.
+	 * @param key
+	 *            Um inteiro que representa o ID do item.
 	 */
 	public void deletaItem(Integer key) {
 		if (!this.produtos.containsKey(key)) {
@@ -262,9 +280,12 @@ public class Sistema {
 	}
 
 	/**
-	 * Metodo responsavel por buscar um item de acordo com uma posicao de forma que ele esteja ordenado pelo nome
+	 * Metodo responsavel por buscar um item de acordo com uma posicao de forma que
+	 * ele esteja ordenado pelo nome
 	 * 
-	 * @param position : Um inteiro indicando a posicao do item na lista de itens ordenada pelo nome
+	 * @param position
+	 *            : Um inteiro indicando a posicao do item na lista de itens
+	 *            ordenada pelo nome
 	 * @return : Uma String com a representacao textual do item selecionado
 	 */
 	public String getItem(int position) {
@@ -277,15 +298,17 @@ public class Sistema {
 	}
 
 	/**
-	 * Metodo responsavel por buscar um item de acordo com uma posicao na lista de itens ordenados pelo nome
-	 * e que tenha a ctegoria indicada
+	 * Metodo responsavel por buscar um item de acordo com uma posicao na lista de
+	 * itens ordenados pelo nome e que tenha a ctegoria indicada
 	 * 
-	 * @param categoria : Uma String indicando qual a categoria usada que sera utilizada no filtro 
-	 * @param posicao : Um inteiro indicando a posicao do item na lista ordenada 
+	 * @param categoria
+	 *            : Uma String indicando qual a categoria usada que sera utilizada
+	 *            no filtro
+	 * @param posicao
+	 *            : Um inteiro indicando a posicao do item na lista ordenada
 	 * @return Uma String com a representacao textual do item selecionado
 	 */
 	public String getItemPorCategoria(String categoria, int posicao) {
-		String msgExceptino = "Erro na listagem de item: ";
 		try {
 			if (ValidadorSistema.validaCategoria(categoria)) {
 				List<Item> itens = new ArrayList<Item>();
@@ -301,17 +324,21 @@ public class Sistema {
 				}
 			}
 		} catch (CampoInvalidoException e) {
-			throw new CampoInvalidoException(msgExceptino + e.getMessage());
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_LISTA_ITEM + e.getMessage());
+		}catch (CategoriaInexistenteException e) {
+			throw new CategoriaInexistenteException(SistemaMensagens.MSG_EXCECAO_LISTA_ITEM);
 		}
 		return "";
 
 	}
 
 	/**
-	 * Metodo responsavel pela busca de um item quando a lista de itens esta ordendo pelo preco
-	 * de forma crescente
+	 * Metodo responsavel pela busca de um item quando a lista de itens esta ordendo
+	 * pelo preco de forma crescente
 	 * 
-	 * @param posicao : Um inteiro que representa a posicao do item na lista de itens ordenados pelo preco
+	 * @param posicao
+	 *            : Um inteiro que representa a posicao do item na lista de itens
+	 *            ordenados pelo preco
 	 * @return Uma string com a representacao textual do item indicado
 	 */
 	public String getItemPorMenorPreco(int posicao) {
@@ -322,5 +349,28 @@ public class Sistema {
 		itens.addAll(produtos.values());
 		Collections.sort(itens, new ComparaValor());
 		return itens.get(posicao).toString();
+	}
+
+	/**
+	 * Metodo responsavel por realizar a busca de um item de acordo com uma string de pesquisa
+	 * 
+	 * @param strPesquisa : Uma String indicando a string utilizada como filtro
+	 * @param posicao : uma String indicando a posicao do item na lista ordenada
+	 *  e que contem a string de pesquisa
+	 * @return Uma string com a representacao textual do item que esta na posicao informada
+	 */
+	public String getItemPorPesquisa(String strPesquisa, int posicao) {
+		List<Item> itens = new ArrayList<Item>();
+		for (Item item : produtos.values()) {
+			if (item.getNome().toLowerCase().contains(strPesquisa.toLowerCase())) {
+				itens.add(item);
+			}
+		}
+		if (!itens.isEmpty() && posicao < itens.size()) {
+
+			Collections.sort(itens);
+			return itens.get(posicao).toString();
+		}
+		return "";
 	}
 }

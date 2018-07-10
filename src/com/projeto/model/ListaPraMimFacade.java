@@ -88,9 +88,8 @@ public class ListaPraMimFacade implements ListaPraMim {
 	}
 
 	@Override
-	public String getItemPorPesquisa(String strPesquisa, int posicao) {
-		//@ TODO Implementar a busca 
-		return null;
+	public String getItemPorPesquisa(String strPesquisa, int posicao) { 
+		return this.sistema.getItemPorPesquisa(strPesquisa,posicao);
 	}
 	
 
