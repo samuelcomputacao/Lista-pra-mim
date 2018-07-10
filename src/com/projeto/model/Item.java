@@ -3,6 +3,7 @@ package com.projeto.model;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.util.ValidadorSistema;
 
 /**Classe que representa um item no sistema
@@ -148,5 +149,14 @@ public abstract class Item {
 		}
 		msg += ">";
 		return msg;
+	}
+
+	public void setCategoria(String categoria) {
+		if (!(categoria.equals("alimento industrializado") || categoria.equals("alimento nao industrializado")
+				|| categoria.equals("limpeza") || categoria.equalsIgnoreCase("higiene pessoal"))) {
+			throw new CampoInvalidoException("Erro na atualizacao de item: categoria nao existe.");
+		}
+		this.categoria = categoria;
+		
 	}
 }

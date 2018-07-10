@@ -45,4 +45,8 @@ public class ProdutoNaoIndustrializadoPorQuilo extends Item {
 		return super.toString() + ", Preco por quilo: " + super.getListaPrecos();
 	}
 
+	public void setQuilo(double quilo) {
+		this.quilo = quilo;
+	}
+
 }

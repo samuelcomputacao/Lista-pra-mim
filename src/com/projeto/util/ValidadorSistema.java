@@ -49,6 +49,9 @@ public class ValidadorSistema {
 	}
 
 	public static boolean validaProdutoPorUnidade(String nome, int unidade, String categoria, String localCompra, double preco) {
+		if(preco <=0) {
+			throw new CampoInvalidoException("Erro no cadastro de item: preco de item invalido.");
+		}
 		if(unidade <= 0) {
 			throw new CampoInvalidoException("Erro no cadastro de item: valor de unidade nao pode ser menor que zero.");
 		}
@@ -56,9 +59,7 @@ public class ValidadorSistema {
 			throw new CampoInvalidoException("Erro no cadastro de item: local de compra nao pode ser vazio ou nulo.");
 		}
 		
-		if(preco <=0) {
-			throw new CampoInvalidoException("Erro no cadastro de item: preco de item invalido.");
-		}
+		
 		validaItem(nome, categoria);
 		return true;
 	}

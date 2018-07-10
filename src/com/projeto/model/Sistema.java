@@ -118,7 +118,9 @@ public class Sistema {
 	 * @return: Um Inteiro indicando o identificador do item atualizado.
 	 */
 	public int atualizaItem(Integer key, String atribulto, String novoValor) {
-		System.out.println(imprimeSet(produtos.keySet()));
+		if(atribulto == null || atribulto.trim().isEmpty()) throw new CampoInvalidoException("Erro na atualizacao de item: atributo nao pode ser vazio ou nulo.");
+		if(novoValor == null || novoValor.trim().isEmpty()) throw new CampoInvalidoException("Erro na atualizacao de item: novo valor de atributo nao pode ser vazio ou nulo.");
+		
 		if (!produtos.containsKey(key))
 			throw new ItemInexistenteException("Erro na atualizacao de item: item nao existe.");
 		Item item = produtos.get(key);
@@ -131,11 +133,26 @@ public class Sistema {
 			fixa.setUnidadeDeMedida(novoValor);
 			break;
 		case "quantidade":
+			int quantidade = Integer.parseInt(novoValor);
+			if(quantidade < 0) {
+				throw new CampoInvalidoException("Erro na atualizacao de item: valor de quantidade nao pode ser menor que zero.");
+			}
 			fixa  = (ProdutoQuantidadeFixa) item;
 			fixa.setQuantidade(Integer.parseInt(novoValor));
 			break;
 		case "kg":
-			//fixa.setUnidadeDeMedida(unidadeDeMedida);
+			
+			ProdutoNaoIndustrializadoPorQuilo quilo = (ProdutoNaoIndustrializadoPorQuilo) item;
+			quilo.setQuilo(Double.parseDouble(novoValor));
+			break;
+		case "categoria":
+			String categoria = novoValor;
+			if (!(categoria.equals("alimento industrializado") || categoria.equals("alimento nao industrializado")
+					|| categoria.equals("limpeza") || categoria.equalsIgnoreCase("higiene pessoal"))) {
+				throw new CampoInvalidoException("Erro na atualizacao de item: categoria nao existe.");
+			}
+			item.setCategoria(novoValor);
+			break;
 		default:
 			throw new CampoInvalidoException("Erro na atualizacao de item: atributo nao existe.");
 		}
@@ -152,7 +169,8 @@ public class Sistema {
 	}
 
 	public void adiciomaPrecoItem(Integer key, String local, double preco) {
-		// TODO implementar o adicionamento de precos a um item
+		Item item = this.produtos.get(key);
+		item.adicionarLocalCompra(local, preco);
 
 	}
 
