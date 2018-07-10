@@ -144,7 +144,7 @@ public abstract class Item {
 	public String getListaPrecos() {
 		String msg = "<";
 		for (String local : this.mapaPrecos.keySet()) {
-			msg += local + ", R$ " + String.format("%.2f", this.mapaPrecos.get(local));
+			msg += local + ", R$ " + String.format("%.2f;", this.mapaPrecos.get(local));
 		}
 		msg += ">";
 		return msg;

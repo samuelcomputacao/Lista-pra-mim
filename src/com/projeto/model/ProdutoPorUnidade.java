@@ -45,7 +45,7 @@ public class ProdutoPorUnidade extends Item {
     /**
      */
     public String toString() {
-        return super.getId() + ". " + super.getNome() + ", " + super.getCategoria();
+        return super.getId() + ". " + super.getNome() + ", " + super.getCategoria()+", Preco: "+super.getListaPrecos();
     }
 
 }

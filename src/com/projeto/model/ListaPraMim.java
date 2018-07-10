@@ -21,7 +21,7 @@ public interface ListaPraMim {
 	 */
 	public int atualizaItem(Integer identificador , String atributo, String novoValor );
 	
-	public void adicionaPrecoItem(String local,double preco);
+	public void adicionaPrecoItem(Integer key ,String local,double preco);
 	
 	public void deletaItem(Integer identificador);
 	

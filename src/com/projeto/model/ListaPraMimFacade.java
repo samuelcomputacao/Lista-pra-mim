@@ -61,8 +61,8 @@ public class ListaPraMimFacade implements ListaPraMim {
 	}
 
 	@Override
-	public void adicionaPrecoItem(String local, double preco) {
-		this.sistema.adiciomaPrecoItem(local, preco);
+	public void adicionaPrecoItem(Integer key,String local, double preco) {
+		this.sistema.adiciomaPrecoItem(key,local, preco);
 		
 	}
 
@@ -93,7 +93,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	
 	
 	public static void main(String[] args) {
-		args = new String[]{"com.projeto.model.ListaPraMimFacade","acceptance_test/use_case1.txt","acceptance_test/use_case1_exception.txt"};
+		args = new String[]{"com.projeto.model.ListaPraMimFacade","acceptance_test/use_case1.txt"};
 		EasyAccept.main(args);
 		
 	}

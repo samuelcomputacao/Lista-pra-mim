@@ -104,7 +104,7 @@ public class Sistema {
 		if(!this.produtos.containsKey(key)) {
 			throw new ItemInexistenteException("Erro na listagem de item: item nao existe.");
 		}
-		return null;
+		return this.produtos.get(key).toString();
 	}
 
 	/**
@@ -134,6 +134,8 @@ public class Sistema {
 			fixa  = (ProdutoQuantidadeFixa) item;
 			fixa.setQuantidade(Integer.parseInt(novoValor));
 			break;
+		case "kg":
+			//fixa.setUnidadeDeMedida(unidadeDeMedida);
 		default:
 			throw new CampoInvalidoException("Erro na atualizacao de item: atributo nao existe.");
 		}
@@ -149,7 +151,7 @@ public class Sistema {
 		return r;
 	}
 
-	public void adiciomaPrecoItem(String local, double preco) {
+	public void adiciomaPrecoItem(Integer key, String local, double preco) {
 		// TODO implementar o adicionamento de precos a um item
 
 	}
