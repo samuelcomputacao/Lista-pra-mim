@@ -242,21 +242,39 @@ public class Sistema {
 	public String getItem(int position) {
 		List<Item> itens = new ArrayList<Item>(this.produtos.values());
 		Collections.sort(itens,new ComparaDescricao());
+		if(itens.isEmpty() || position >= itens.size()) {
+			return "";
+		}
 		return itens.get(position).toString();
 	}
 
 	public String getItemPorCategoria(String categoria,int posicao) {
-		List<Item> itens = new ArrayList<Item>();
-		for(Item item : produtos.values()) {
-			if(item.getCategoria().equals(categoria)) {
-				itens.add(item);
+		String msgExceptino = "Erro na listagem de item: ";
+		try {
+			if(ValidadorSistema.validaCategoria(categoria)) {
+				List<Item> itens = new ArrayList<Item>();
+				for(Item item : produtos.values()) {
+					if(item.getCategoria().equals(categoria)) {
+						itens.add(item);
+					}
+				}
+				if(!itens.isEmpty() && posicao < itens.size()) {
+				
+				Collections.sort(itens,new ComparaDescricao());
+				return itens.get(posicao).toString();
+				}
 			}
+		}catch (CampoInvalidoException e) {
+			throw new CampoInvalidoException(msgExceptino + e.getMessage());
 		}
-		Collections.sort(itens,new ComparaCategoria());
-		return itens.get(posicao).toString();
+		return "";
+	
 	}
 	
 	public String getItemPorMenorPreco(int posicao) {
+		if(posicao >= this.produtos.size()) {
+			return "";
+		}
 		ArrayList<Item> itens = new ArrayList<>();
 		itens.addAll(produtos.values());
 		Collections.sort(itens, new ComparaValor());

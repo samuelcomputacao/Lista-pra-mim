@@ -12,10 +12,10 @@ public class ComparaValor implements Comparator<Item> {
 	 * Metodo voltado para a comparacao de dois itens atravez dos seus precos
 	 */
 	@Override
-	public int compare(Item arg0, Item arg1) {
-		if (arg0.getMenorPreco() == arg1.getMenorPreco())
+	public int compare(Item item1, Item item2) {
+		if (item1.getMenorPreco() == item2.getMenorPreco())
 			return 0;
-		else if (arg0.getMenorPreco() > arg1.getMenorPreco())
+		else if (item1.getMenorPreco() > item2.getMenorPreco())
 			return 1;
 		else
 			return -1;

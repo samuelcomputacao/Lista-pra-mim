@@ -8,12 +8,12 @@ public class ValidadorSistema {
 		if (nome == null || nome.trim().isEmpty()) {
 			throw new CampoInvalidoException("Erro no cadastro de item: nome nao pode ser vazio ou nulo.");
 		}
-		if (categoria == null || categoria.trim().isEmpty()) {
-			throw new CampoInvalidoException("Erro no cadastro de item: categoria nao pode ser vazia ou nula.");
-		}
-		if (!(categoria.equals("alimento industrializado") || categoria.equals("alimento nao industrializado")
-				|| categoria.equals("limpeza") || categoria.equalsIgnoreCase("higiene pessoal"))) {
-			throw new CampoInvalidoException("Erro no cadastro de item: categoria nao existe.");
+		
+		String msgException = "Erro no cadastro de item: ";
+		try {
+			validaCategoria(categoria);
+		}catch (CampoInvalidoException e) {
+			throw new CampoInvalidoException(msgException+ e.getMessage());
 		}
 		return true;
 	}
@@ -61,6 +61,18 @@ public class ValidadorSistema {
 		
 		
 		validaItem(nome, categoria);
+		return true;
+	}
+
+	public static boolean validaCategoria(String categoria) {
+		if (categoria == null || categoria.trim().isEmpty()) {
+			throw new CampoInvalidoException("categoria nao pode ser vazia ou nula.");
+		}
+
+		if (!(categoria.equals("alimento industrializado") || categoria.equals("alimento nao industrializado")
+				|| categoria.equals("limpeza") || categoria.equalsIgnoreCase("higiene pessoal"))) {
+			throw new CampoInvalidoException("categoria nao existe.");
+		}
 		return true;
 	}
 
