@@ -58,16 +58,11 @@ public class Sistema {
 	 * Metodo responsavel por adicionar um produto não industrializado por quilo no
 	 * mapa de produtos.
 	 * 
-	 * @param nome
-	 *            Uma String indicando o nome do produto.
-	 * @param categoria
-	 *            Uma String indicando a categoria do produto.
-	 * @param quilo
-	 *            Um double indicando a quantidade em quilos do produto.
-	 * @param localCompra
-	 *            Uma String indicando o local de compra.
-	 * @param preco
-	 *            Um double indicando o preco produto.
+	 * @param nome Uma String indicando o nome do produto.
+	 * @param categoria Uma String indicando a categoria do produto.
+	 * @param quilo Um double indicando a quantidade em quilos do produto.
+	 * @param localCompra Uma String indicando o local de compra.
+	 * @param preco Um double indicando o preco produto.
 	 * @return Um Inteiro indicando o identificador do item adicionado.
 	 */
 	public int adicionaItemPorQuilo(String nome, String categoria, double quilo, String localCompra, double preco) {
@@ -78,11 +73,21 @@ public class Sistema {
 		return -1;
 	}
 
+	/**
+	 * Metodo responsavel por adicionar um produto por unidade no
+	 * mapa de produtos.
+	 * 
+	 * @param nome Uma String indicando o nome do produto.
+	 * @param categoria Uma String indicando a categoria do produto.
+	 * @param unidade Um Inteiro indicando a quantidade de unidades.
+	 * @param localCompra Uma String indicando o local de compra.
+	 * @param preco Um double indicando o preco produto.
+	 * @return Um Inteiro indicando o identificador do item adicionado.
+	 */
 	public int adicionaItemPorUnidade(String nome, String categoria, int unidade, String localCompra, double preco) {
 		if(ValidadorSistema.validaProdutoPorUnidade(nome,unidade, categoria, localCompra,preco)) {
 			this.produtos.put(this.identificadorBase, new ProdutoPorUnidade(this.identificadorBase, nome, categoria, unidade, localCompra, preco));
 			return this.identificadorBase++;
-					
 		}
 		return 0;
 	}
@@ -106,10 +111,8 @@ public class Sistema {
 	 * Metodo responsavel por atualizar um item na colecao de itens cadastrados no
 	 * sistema.
 	 * 
-	 * @param atributo
-	 *            : Uma String indicando qual o campo que sera atualizado.
-	 * @param novoValor
-	 *            : Uma String indicando o novo valor que o capo ira assumir. Caso o
+	 * @param atributo Uma String indicando qual o campo que sera atualizado.
+	 * @param novoValor Uma String indicando o novo valor que o capo ira assumir. Caso o
 	 *            campo seja um valor numerico, esse valor deve ser transformado
 	 *            antes de prosseguir.
 	 * @return: Um Inteiro indicando o identificador do item atualizado.
