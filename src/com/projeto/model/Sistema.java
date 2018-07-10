@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.omg.PortableServer.POA;
 
 import com.projeto.comparadores.ComparaCadastro;
 import com.projeto.comparadores.ComparaCategoria;
@@ -16,7 +15,6 @@ import com.projeto.comparadores.ComparaValor;
 import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.excecoes.ItemInexistenteException;
 import com.projeto.util.ValidadorSistema;
-import com.sun.xml.internal.ws.dump.LoggingDumpTube.Position;
 
 public class Sistema {
 
