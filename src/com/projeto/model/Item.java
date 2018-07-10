@@ -6,39 +6,46 @@ import java.util.Map;
 import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.util.ValidadorSistema;
 
-/**Classe que representa um item no sistema
-*
-*/
+/**
+ * Classe que representa um item no sistema
+ *
+ */
 public abstract class Item {
 
 	/**
 	 * Um inteiro representando a identificacao do item
 	 */
 	private int id;
-	
+
 	/**
 	 * Uma String representando o nome do item
 	 */
 	private String nome;
-	
+
 	/**
 	 * Uma String representando a qual categoria o item pertence
 	 */
 	private String categoria;
-	
+
 	/**
-	 * Uma mapa de precos onde estao guardados locais e respectivos precos do item compravel
+	 * Uma mapa de precos onde estao guardados locais e respectivos precos do item
+	 * compravel
 	 */
 	private Map<String, Double> mapaPrecos;
 
-
 	/**
 	 * Método reponsável por inicializar um item no sistema
-	 * @param id : O identificador do item
-	 * @param nome : O nome do item
-	 * @param categoria : A categoria do item
+	 * 
+	 * @param id
+	 *            : O identificador do item
+	 * @param nome
+	 *            : O nome do item
+	 * @param categoria
+	 *            : A categoria do item
 	 */
 	public Item(int id, String nome, String categoria) {
+		if (id < 0)
+			throw new IllegalArgumentException("Erro na atualizacao de item: item nao existe.");
 		if (ValidadorSistema.validaItem(nome, categoria)) {
 			this.id = id;
 			this.nome = nome;
@@ -46,18 +53,24 @@ public abstract class Item {
 			this.mapaPrecos = new HashMap<>();
 		}
 	}
-	
+
 	/**
-	 * Método responsável por adicionar ao mapa de locais de compra um novo local de compra do produto.
-	 * @param local : Uma String representando um nome de um local para compra
-	 * @param preco : Um double representando o preco do produto no local indicado
+	 * Método responsável por adicionar ao mapa de locais de compra um novo local de
+	 * compra do produto.
+	 * 
+	 * @param local
+	 *            : Uma String representando um nome de um local para compra
+	 * @param preco
+	 *            : Um double representando o preco do produto no local indicado
 	 */
 	public void adicionarLocalCompra(String local, Double preco) {
 		mapaPrecos.put(local, preco);
 	}
 
 	/**
-	 * Metodo responsavel por gerar uma numeracao unica para um item de acordo com sua categoria e nome
+	 * Metodo responsavel por gerar uma numeracao unica para um item de acordo com
+	 * sua categoria e nome
+	 * 
 	 * @return : Um inteiro que representa o item de maneira unica
 	 */
 	@Override
@@ -71,7 +84,9 @@ public abstract class Item {
 
 	/**
 	 * Metodo responsavel por comparar dois objetos e verificar se ele e um item.
-	 * Caso seja um item ele verifica se sao iguais de acordo com seu nome e categoria.
+	 * Caso seja um item ele verifica se sao iguais de acordo com seu nome e
+	 * categoria.
+	 * 
 	 * @return Um valor bolleano que indica se os objetos sao iguais ou nao
 	 */
 	@Override
@@ -98,22 +113,26 @@ public abstract class Item {
 
 	/**
 	 * Metodo acessivel que permite alteracao do nome do item
-	 * @param nome : Uma String que representa o nome do item
+	 * 
+	 * @param nome
+	 *            : Uma String que representa o nome do item
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 	/**
 	 * Metodo acessivel que permite a recuperacao do nome do item
+	 * 
 	 * @return : Uma String que representa o nome do item
 	 */
 	public String getNome() {
 		return this.nome;
 	}
-	
+
 	/**
 	 * Metodo acessivel que permite a recuperacao da categoria do item
+	 * 
 	 * @return : Uma String que representa a categoria do item
 	 */
 	public String getCategoria() {
@@ -122,23 +141,24 @@ public abstract class Item {
 
 	/**
 	 * Metodo acessivel que permite o acesso ao identificador do item
+	 * 
 	 * @return : Um inteiro que representa o identificador do item
 	 */
 	public int getId() {
 		return this.id;
 	}
-	
+
 	/**
 	 * Metodo que sobrescreve o toString
 	 */
 	@Override
 	public String toString() {
-		return this.id  + ". " + this.nome + ", " + this.categoria;
+		return this.id + ". " + this.nome + ", " + this.categoria;
 	}
-	
+
 	/**
-	 * ######### Metodo com falha, corrigir depois...
-	 * Metodo responsavel por gerar uma String do mapa de precos
+	 * ######### Metodo com falha, corrigir depois... Metodo responsavel por gerar
+	 * uma String do mapa de precos
 	 * 
 	 * @return Uma String que representa o mapa de precos de um item
 	 */
@@ -157,6 +177,19 @@ public abstract class Item {
 			throw new CampoInvalidoException("Erro na atualizacao de item: categoria nao existe.");
 		}
 		this.categoria = categoria;
-		
+	}
+
+	/**
+	 * Metodo criado para pegar o menor preco de um item.
+	 * 
+	 * @return : numero em ponto flutuante correspondente ao menor preco
+	 */
+	public double getMenorPreco() {
+		double menor = 0;
+		for (double valor : mapaPrecos.values()) {
+			if ((-1 * valor) < menor)
+				menor = valor * -1;
+		}
+		return menor * -1;
 	}
 }

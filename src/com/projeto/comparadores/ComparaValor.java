@@ -8,8 +8,12 @@ public class ComparaValor implements Comparator<Item>{
 
 	@Override
 	public int compare(Item arg0, Item arg1) {
-		// TODO Auto-generated method stub
-		return 0;
+		if(arg0.getMenorPreco() == arg1.getMenorPreco())
+			return 0;
+		else if (arg0.getMenorPreco() > arg1.getMenorPreco())
+			return 1;
+		else
+			return -1;
 	}
 
 }

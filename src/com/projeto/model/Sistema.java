@@ -12,6 +12,7 @@ import org.omg.PortableServer.POA;
 import com.projeto.comparadores.ComparaCadastro;
 import com.projeto.comparadores.ComparaCategoria;
 import com.projeto.comparadores.ComparaDescricao;
+import com.projeto.comparadores.ComparaValor;
 import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.excecoes.ItemInexistenteException;
 import com.projeto.util.ValidadorSistema;
@@ -256,5 +257,11 @@ public class Sistema {
 		Collections.sort(itens,new ComparaCategoria());
 		return itens.get(posicao).toString();
 	}
-
+	
+	public String getItemPorMenorPreco(int posicao) {
+		ArrayList<Item> itens = new ArrayList<>();
+		itens.addAll(produtos.values());
+		Collections.sort(itens, new ComparaValor());
+		return itens.get(posicao).toString();	
+	}
 }

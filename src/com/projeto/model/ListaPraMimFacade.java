@@ -107,6 +107,9 @@ public class ListaPraMimFacade implements ListaPraMim {
 	public String getItemPorCategoria(String categoria,int posicao) {
 		return this.sistema.getItemPorCategoria(categoria, posicao);
 	}
+	public String getItemPorMenorPreco (int posicao) {
+		return this.sistema.getItemPorMenorPreco(posicao);
+	}
 	
 
 }
