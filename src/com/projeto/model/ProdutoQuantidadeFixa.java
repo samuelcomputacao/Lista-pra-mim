@@ -58,7 +58,9 @@ public class ProdutoQuantidadeFixa extends Item {
 	 * @param quantidade : novo valor de quantidade.
 	 */
 	public void setQuantidade(int quantidade) {
-		this.quantidade = quantidade;
+		if (ValidadorSistema.validaQuantidade(quantidade)) {
+			this.quantidade = quantidade;
+		}
 	}
 
 	/**
@@ -76,7 +78,9 @@ public class ProdutoQuantidadeFixa extends Item {
 	 * @param unidadeDeMedida : unidade de medida do produto.
 	 */
 	public void setUnidadeDeMedida(String unidadeDeMedida) {
-		this.unidadeMedida = unidadeDeMedida;
+		if (ValidadorSistema.validaUnidadeMedida(unidadeDeMedida)) {
+			this.unidadeMedida = unidadeDeMedida;
+		}
 	}
 
 	/**
