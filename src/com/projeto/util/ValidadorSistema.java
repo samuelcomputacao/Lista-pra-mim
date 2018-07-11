@@ -63,12 +63,8 @@ public class ValidadorSistema {
 	public static boolean validaProdutoQuantidadeFixa(int quantidade, String unidadeMedida, String localCompra,
 			double preco) {
 		validaLocalDeCompra(localCompra, preco);
-		if (quantidade <= 0) {
-			throw new CampoInvalidoException("valor de quantidade nao pode ser menor que zero.");
-		}
-		if (unidadeMedida == null || unidadeMedida.trim().isEmpty()) {
-			throw new CampoInvalidoException("unidade de medida nao pode ser vazia ou nula.");
-		}
+		validaQuantidade(quantidade);
+		validaUnidadeMedida(unidadeMedida);
 		return true;
 	}
 
@@ -86,9 +82,7 @@ public class ValidadorSistema {
 	 */
 	public static boolean validaProdutoPorUnidade(int unidade, String localCompra, double preco) {
 		validaLocalDeCompra(localCompra, preco);
-		if (unidade <= 0) {
-			throw new CampoInvalidoException("valor de unidade nao pode ser menor que zero.");
-		}
+		validaUnidade(unidade);
 		return true;
 	}
 
@@ -157,4 +151,49 @@ public class ValidadorSistema {
 		}
 		return true;
 	}
+
+	/**
+	 * Metodo responsavel por validar uma quantidade de itens que nao pode ser menor
+	 * ou igual a zero.
+	 * 
+	 * @param quantidade
+	 *            Um Inteiro indicando a quantidade do produto
+	 * @return Um valor bolleano indicando se a quantidade eh valida
+	 */
+	public static boolean validaQuantidade(int quantidade) {
+		if (quantidade <= 0) {
+			throw new CampoInvalidoException("valor de quantidade nao pode ser menor que zero.");
+		}
+		return true;
+	}
+
+	/**
+	 * Metodo responsavel por validar uma unidade de medida
+	 * 
+	 * @param unidadeMedida
+	 *            Uma String indicando a unidade de medida do produto
+	 * @return Um valor bolleano indicando se a unidade de medida eh valida
+	 */
+	public static boolean validaUnidadeMedida(String unidadeMedida) {
+		if (unidadeMedida == null || unidadeMedida.trim().isEmpty()) {
+			throw new CampoInvalidoException("unidade de medida nao pode ser vazia ou nula.");
+		}
+		return true;
+	}
+
+	/**
+	 * Metodo responsavel por validar a quantidade de unidades do produto
+	 * 
+	 * @param unidade
+	 *            Um inteiro indicando a quantidade de unidades do produto
+	 * @return Um valor bolleano indicando se a quantidade de unidades de medida eh
+	 *         valida
+	 */
+	public static boolean validaUnidade(int unidade) {
+		if (unidade <= 0) {
+			throw new CampoInvalidoException("valor de unidade nao pode ser menor que zero.");
+		}
+		return true;
+	}
+
 }
