@@ -10,6 +10,7 @@ import com.projeto.comparadores.ComparaValor;
 import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.excecoes.CategoriaInexistenteException;
 import com.projeto.excecoes.ItemInexistenteException;
+import com.projeto.excecoes.ItemJaExisteException;
 import com.projeto.util.SistemaMensagens;
 import com.projeto.util.ValidadorSistema;
 
@@ -67,8 +68,13 @@ public class Sistema {
 		try {
 			if (ValidadorSistema.validaItem(nome, categoria)
 					&& ValidadorSistema.validaProdutoQuantidadeFixa(quantidade, unidadeMedida, localCompra, preco)) {
-				this.produtos.put(this.identificadorBase, new ProdutoQuantidadeFixa(this.identificadorBase, nome,
-						categoria, quantidade, unidadeMedida, localCompra, preco));
+				ProdutoQuantidadeFixa produto = new ProdutoQuantidadeFixa(this.identificadorBase, nome,categoria, quantidade, unidadeMedida, localCompra, preco);
+				
+				if(produtos.containsValue(produto)) {
+					throw new ItemJaExisteException("Item ja cadastrado");
+				}
+				
+				this.produtos.put(this.identificadorBase, produto);
 				return this.identificadorBase++;
 			}
 		} catch (CampoInvalidoException e) {
@@ -99,8 +105,12 @@ public class Sistema {
 		try {
 			if (ValidadorSistema.validaItem(nome, categoria)
 					&& ValidadorSistema.validaProdutoNaoIndustrializadoPorQuilo(quilo, localCompra, preco)) {
-				this.produtos.put(this.identificadorBase, new ProdutoNaoIndustrializadoPorQuilo(this.identificadorBase,
-						nome, categoria, quilo, localCompra, preco));
+				ProdutoNaoIndustrializadoPorQuilo produto = new ProdutoNaoIndustrializadoPorQuilo(this.identificadorBase,nome, categoria, quilo, localCompra, preco);
+				
+				if(produtos.containsValue(produto)) {
+					throw new ItemJaExisteException("Item ja cadastrado");
+				}
+				this.produtos.put(this.identificadorBase, produto);
 				return this.identificadorBase++;
 			}
 		} catch (CampoInvalidoException e) {
@@ -130,8 +140,11 @@ public class Sistema {
 		try {
 			if (ValidadorSistema.validaItem(nome, categoria)
 					&& ValidadorSistema.validaProdutoPorUnidade(unidade, localCompra, preco)) {
-				this.produtos.put(this.identificadorBase,
-						new ProdutoPorUnidade(this.identificadorBase, nome, categoria, unidade, localCompra, preco));
+				ProdutoPorUnidade porUnidade = new ProdutoPorUnidade(this.identificadorBase, nome, categoria, unidade, localCompra, preco);
+				if(produtos.containsValue(porUnidade)) {
+					throw new ItemJaExisteException("Item ja cadastrado");
+				}
+				this.produtos.put(this.identificadorBase,porUnidade);
 				return this.identificadorBase++;
 			}
 		} catch (CampoInvalidoException e) {
@@ -207,10 +220,10 @@ public class Sistema {
 			ProdutoNaoIndustrializadoPorQuilo quilo = (ProdutoNaoIndustrializadoPorQuilo) item;
 			quilo.setQuilo(quilos);
 			break;
-		case "unidades":
+		case "unidade":
 			int unidades = Integer.parseInt(novoValor);
 			if (unidades < 0) {
-				throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + "valor de quantidade nao pode ser menor que zero.");
+				throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + "valor de unidade nao pode ser menor que zero.");
 			}
 			ProdutoPorUnidade produto = (ProdutoPorUnidade) item;
 			produto.setUnidade(unidades);
