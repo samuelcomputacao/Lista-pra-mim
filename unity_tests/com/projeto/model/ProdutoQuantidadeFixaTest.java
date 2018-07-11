@@ -1,5 +1,7 @@
 package com.projeto.model;
 
+import static org.junit.Assert.*;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -100,79 +102,167 @@ public class ProdutoQuantidadeFixaTest {
 		new ProdutoQuantidadeFixa(1, "Carne de Sol", "alimento industrializado", 5, "  ", "Atacadão Rio do Peixe", 14.49);
 	}
 	
-	@Test
-	public void testToString() {
-		//fail("Not yet implemented");
+	/**
+	 * Testa o construtor da classe ProdutoQuantidadeFixa com o local de compra nulo.
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testProdutoQuantidadeFixaLocalDeCompraNulo() {
+		new ProdutoQuantidadeFixa(1, "Carne de Charque", "alimento industrializado", 5, "kg", null, 7.50);
 	}
 	
+	/**
+	 * Testa o construtor da classe ProdutoQuantidadeFixa com o local de compra vazio.
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testProdutoQuantidadeFixaLocalDeCompraVazio() {
+		new ProdutoQuantidadeFixa(1, "Detergente Ypê", "limpeza", 2, "l", "   ", 3.00);
+	}
+	
+	/**
+	 * Testa o construtor da classe ProdutoQuantidadeFixa com o preco negativo.
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testProdutoQuantidadeFixaPrecoNegativo() {
+		new ProdutoQuantidadeFixa(1, "Desinfetante Ypê", "limpeza", 2, "l", "Hiper Bom Preço", -100.2);
+	}
+	
+	/**
+	 * Testa o construtor da classe ProdutoQuantidadeFixa com o preco igual a zero.
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testProdutoQuantidadeFixaPrecoNulo() {
+		new ProdutoQuantidadeFixa(1, "Desinfetante Ypê", "limpeza", 2, "l", "Hiper Bom Preço", 0);
+	}
+	
+	/**
+	 * Testa a representação String de um ProdutoQuantidadeFixa.
+	 */
+	@Test
+	public void testToString() {
+		assertEquals("1. Feijão Boa Safra, alimento nao industrializado, 10 kg, Preco: <Hiper Bom Preço, R$ 4,99;>", produto.toString());
+	}
+	
+	/**
+	 * Testa o metodo que retorna a quantidade de um produto.
+	 */
 	@Test
 	public void testGetQuantidade() {
-		//fail("Not yet implemented");
+		assertEquals(10, produto.getQuantidade());
 	}
 
+	/**
+	 * Testa o metodo que altera a quantidade de um produto.
+	 */
 	@Test
 	public void testSetQuantidade() {
-		//fail("Not yet implemented");
+		assertEquals(10, produto.getQuantidade());
+		produto.setQuantidade(20);
+		assertEquals(20, produto.getQuantidade());
 	}
 
+	/**
+	 * Testa o metodo que retorna a unidade de medida de um produto.
+	 */
 	@Test
 	public void testGetUnidadeMedida() {
-		//fail("Not yet implemented");
+		assertEquals("kg", produto.getUnidadeMedida());
 	}
 
+	/**
+	 * Testa o metodo que altera a unidade de medida de um produto.
+	 */
 	@Test
 	public void testSetUnidadeDeMedida() {
-		//fail("Not yet implemented");
+		assertEquals("kg", produto.getUnidadeMedida());
+		produto.setUnidadeDeMedida("g");
+		assertEquals("g", produto.getUnidadeMedida());
 	}
 
+	/**
+	 * Testa o metodo adicionarLocalCompra com todos os seus parametros validos.
+	 */
 	@Test
-	public void testHashCode() {
-		//fail("Not yet implemented");
+	public void testAdicionarLocalCompraValidos() {
+		produto.adicionarLocalCompra("Assaí", 4.30);
+		produto.adicionarLocalCompra("Atacadão", 3.80);
+		produto.adicionarLocalCompra("Carrefour", 3.00);
 	}
 
-	@Test
-	public void testItem() {
-		//fail("Not yet implemented");
-	}
-
-	@Test
-	public void testAdicionarLocalCompra() {
-		//fail("Not yet implemented");
-	}
-
+//	/**
+//	 * Testa o metodo adicionarLocalCompra com parametro localCompra vazio.
+//	 */
+//	@Test(expected = CampoInvalidoException.class)
+//	public void testAdicionarLocalCompraVazio() {
+//		produto.adicionarLocalCompra(" ", 10.1);
+//	}
+//	
+//	/**
+//	 * Testa o metodo adicionarLocalCompra com parametro localCompra nulo.
+//	 */
+//	@Test(expected = CampoInvalidoException.class)
+//	public void testAdicionarLocalCompraNull() {
+//		produto.adicionarLocalCompra(null, 10.1);
+//	}
+	
+	/**
+	 * Testa o metodo equals, dois ProdutoQuantidadeFixa sao iguais se possuem mesmo nome e categoria.
+	 */
 	@Test
 	public void testEqualsObject() {
-		//fail("Not yet implemented");
+		ProdutoQuantidadeFixa produto2 = new ProdutoQuantidadeFixa(2, "Feijão Boa Safra", "alimento nao industrializado", 2, "kg", "Carrefour", 3.50);
+		assertEquals(produto, produto2);
 	}
 
+	/**
+	 * Testa o metodo setNome que altera o nome de um ProdutoQuantidadeFixa.
+	 */
 	@Test
 	public void testSetNome() {
-		//fail("Not yet implemented");
+		assertEquals("Feijão Boa Safra", produto.getNome());
+		produto.setNome("Arroz Chinês");
+		assertEquals("Arroz Chinês", produto.getNome());
 	}
 
+	/**
+	 * Testa o metodo getNome que retorna o nome de um ProdutoQuantidadeFixa.
+	 */
 	@Test
 	public void testGetNome() {
-		//fail("Not yet implemented");
+		assertEquals("Feijão Boa Safra", produto.getNome());
 	}
 
+	/**
+	 * Testa o metodo getCategoria que altera a categoria do produto.
+	 */
 	@Test
 	public void testGetCategoria() {
-		//fail("Not yet implemented");
+		assertEquals("alimento nao industrializado", produto.getCategoria());
 	}
 
+	/**
+	 * Testa o metodo getId que retorna o identintificador unico do produto.
+	 */
 	@Test
 	public void testGetId() {
-		//fail("Not yet implemented");
+		assertEquals(1, produto.getId());
 	}
 
+	/**
+	 * Testa o metodo getListaPrecos que mostra uma lista dos locais de compra que possuem determinado produto e seus respectivos valores.
+	 */
 	@Test
 	public void testGetListaPrecos() {
-		//fail("Not yet implemented");
+		assertEquals("<Hiper Bom Preço, R$ 4,99;>", produto.getListaPrecos());
 	}
 
+	/**
+	 * Testa o metodo setCategoria que altera a categoria de um produto.
+	 */
 	@Test
 	public void testSetCategoria() {
-		//fail("Not yet implemented");
+		assertEquals("alimento nao industrializado", produto.getCategoria());
+		produto.setCategoria("alimento industrializado");
+		assertEquals("alimento industrializado", produto.getCategoria());
 	}
 
 }
