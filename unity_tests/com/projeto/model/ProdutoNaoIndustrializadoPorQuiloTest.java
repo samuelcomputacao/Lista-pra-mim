@@ -1,25 +1,28 @@
 package com.projeto.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.projeto.excecoes.CampoInvalidoException;
+import com.projeto.excecoes.CategoriaInexistenteException;
 
 /**
- * Classe responsavel por testar a classe ProdutoNaoIndustrializadoPorQuilo
+ * Classe responsavel por testar a classe ProdutoNaoIndustrializadoPorQuilo.
  *
  */
 public class ProdutoNaoIndustrializadoPorQuiloTest {
 	
 	/**
-	 *  Produto utilizado como base para os testes
+	 *  Produto utilizado como base para os testes.
 	 */
 	private ProdutoNaoIndustrializadoPorQuilo produto;
 	
 	/**
-	 * Metodo responsavel por inicialiazar o produto base e testar o construtor quando ele deve acontecer
+	 * Metodo responsavel por inicialiazar o produto base e testar o construtor quando ele deve acontecer.
 	 */
 	@Before
 	@Test
@@ -28,7 +31,7 @@ public class ProdutoNaoIndustrializadoPorQuiloTest {
 	}
 	
 	/**
-	 * Testa o construtor com parametro nome invalido(nulo)
+	 * Testa o construtor com parametro nome invalido(nulo).
 	 */
 	@Test(expected = CampoInvalidoException.class)
 	public void testProdutoNaoIndustrializadoPorQuiloNomeNull() {
@@ -36,7 +39,7 @@ public class ProdutoNaoIndustrializadoPorQuiloTest {
 	}
 	
 	/**
-	 * Testa o construtor com parametro nome invalido(vazio)
+	 * Testa o construtor com parametro nome invalido(vazio).
 	 */
 	@Test(expected = CampoInvalidoException.class)
 	public void testProdutoNaoIndustrializadoPorQuiloNomeVazio() {
@@ -44,7 +47,7 @@ public class ProdutoNaoIndustrializadoPorQuiloTest {
 	}
 	
 	/**
-	 * Testa o construtor com parametro categoria invalido(nulo)
+	 * Testa o construtor com parametro categoria invalido(nulo).
 	 */
 	@Test(expected = CampoInvalidoException.class)
 	public void testProdutoNaoIndustrializadoPorQuiloCategoriaNull() {
@@ -52,7 +55,7 @@ public class ProdutoNaoIndustrializadoPorQuiloTest {
 	}
 	
 	/**
-	 * Testa o construtor com parametro categoria invalido(vazio)
+	 * Testa o construtor com parametro categoria invalido(vazio).
 	 */
 	@Test(expected = CampoInvalidoException.class)
 	public void testProdutoNaoIndustrializadoPorQuiloCategoriaVazia() {
@@ -60,15 +63,15 @@ public class ProdutoNaoIndustrializadoPorQuiloTest {
 	}
 	
 	/**
-	 * Testa o construtor com parametro categoria invalido(inexistente)
+	 * Testa o construtor com parametro categoria invalido(inexistente).
 	 */
-	@Test(expected = CampoInvalidoException.class)
+	@Test(expected = CategoriaInexistenteException.class)
 	public void testProdutoNaoIndustrializadoPorQuiloCategoriaInexistente() {
 		new ProdutoNaoIndustrializadoPorQuilo(1, "Sabonete", "higiene", 1, "Hiper", 100);
 	}
 	
 	/**
-	 * Testa o construtor com parametro localCompra invalido(nulo)
+	 * Testa o construtor com parametro localCompra invalido(nulo).
 	 */
 	@Test(expected = CampoInvalidoException.class)
 	public void testProdutoNaoIndustrializadoPorQuiloLocalNull() {
@@ -76,7 +79,7 @@ public class ProdutoNaoIndustrializadoPorQuiloTest {
 	}
 	
 	/**
-	 * Testa o construtor com parametro localCompra invalido(vazio)
+	 * Testa o construtor com parametro localCompra invalido(vazio).
 	 */
 	@Test(expected = CampoInvalidoException.class)
 	public void testProdutoNaoIndustrializadoPorQuiloLocalVazio() {
@@ -84,7 +87,7 @@ public class ProdutoNaoIndustrializadoPorQuiloTest {
 	}
 	
 	/**
-	 * Testa o construtor com parametro quilo invalido(negativo)
+	 * Testa o construtor com parametro quilo invalido(negativo).
 	 */
 	@Test(expected = CampoInvalidoException.class)
 	public void testProdutoNaoIndustrializadoPorQuiloKgNegativo() {
@@ -92,7 +95,7 @@ public class ProdutoNaoIndustrializadoPorQuiloTest {
 	}
 	
 	/**
-	 * Testa o construtor com parametro quilo invalido(zero)
+	 * Testa o construtor com parametro quilo invalido(zero).
 	 */
 	@Test(expected = CampoInvalidoException.class)
 	public void testProdutoNaoIndustrializadoPorQuiloKGZerado() {
@@ -100,7 +103,7 @@ public class ProdutoNaoIndustrializadoPorQuiloTest {
 	}
 	
 	/**
-	 * Testa o construtor com parametro preco invalido(negativo)
+	 * Testa o construtor com parametro preco invalido(negativo).
 	 */
 	@Test(expected = CampoInvalidoException.class)
 	public void testProdutoNaoIndustrializadoPorQuiloPrecoNegativo() {
@@ -108,7 +111,7 @@ public class ProdutoNaoIndustrializadoPorQuiloTest {
 	}
 	
 	/**
-	 * Testa o construtor com parametro preco invalido(zero)
+	 * Testa o construtor com parametro preco invalido(zero).
 	 */
 	@Test(expected = CampoInvalidoException.class)
 	public void testProdutoNaoIndustrializadoPorQuiloPrecoZerado() {
@@ -116,7 +119,7 @@ public class ProdutoNaoIndustrializadoPorQuiloTest {
 	}
 	
 	/**
-	 * Testa o metodo getItem
+	 * Testa o metodo getItem.
 	 */
 	@Test
 	public void testGetQuilo() {
@@ -124,7 +127,7 @@ public class ProdutoNaoIndustrializadoPorQuiloTest {
 	}
 
 	/**
-	 * Testa o metodo toString
+	 * Testa o metodo toString.
 	 */
 	@Test
 	public void testToString() {
@@ -161,7 +164,7 @@ public class ProdutoNaoIndustrializadoPorQuiloTest {
 	/**
 	 * Testa o metodo adicionarLocalCompra com parametro preco igual a zero.
 	 */
-	@Test
+	@Test(expected = CampoInvalidoException.class)
 	public void testAdicionarLocalCompraPrecoZero() {
 		this.produto.adicionarLocalCompra("hiper", 0.0);
 	}
@@ -175,7 +178,7 @@ public class ProdutoNaoIndustrializadoPorQuiloTest {
 	}
 
 	/**
-	 * Testa o metodo equals baseando nos nomes de dois produtos
+	 * Testa o metodo equals baseando nos nomes de dois produtos.
 	 */
 	@Test
 	public void testEqualsObjectNome() {
@@ -186,7 +189,7 @@ public class ProdutoNaoIndustrializadoPorQuiloTest {
 	}
 	
 	/**
-	 * Testa o metodo equals baseando nas categorias de dois produtos
+	 * Testa o metodo equals baseando nas categorias de dois produtos.
 	 */
 	@Test
 	public void testEqualsObjectCategoria() {
@@ -197,7 +200,7 @@ public class ProdutoNaoIndustrializadoPorQuiloTest {
 	}
 
 	/**
-	 * Testa o metodo setNome
+	 * Testa o metodo setNome.
 	 */
 	@Test
 	public void testSetNome() {
@@ -207,7 +210,7 @@ public class ProdutoNaoIndustrializadoPorQuiloTest {
 	}
 
 	/**
-	 * Testa o metodo getNome
+	 * Testa o metodo getNome.
 	 */
 	@Test
 	public void testGetNome() {
@@ -215,7 +218,7 @@ public class ProdutoNaoIndustrializadoPorQuiloTest {
 	}
 
 	/**
-	 * Testa o metodo getCategoria
+	 * Testa o metodo getCategoria.
 	 */
 	@Test
 	public void testGetCategoria() {
@@ -223,7 +226,7 @@ public class ProdutoNaoIndustrializadoPorQuiloTest {
 	}
 
 	/**
-	 * Testa o metodo getId
+	 * Testa o metodo getId.
 	 */
 	@Test
 	public void testGetId() {

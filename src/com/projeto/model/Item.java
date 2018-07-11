@@ -56,7 +56,9 @@ public abstract class Item implements Comparable<Item>{
 	 * @param preco : Um double representando o preco do produto no local indicado.
 	 */
 	public void adicionarLocalCompra(String local, Double preco) {
-		mapaPrecos.put(local, preco);
+		if (ValidadorSistema.validaLocalDeCompra(local, preco)) {
+			mapaPrecos.put(local, preco);
+		}
 	}
 
 	/**
