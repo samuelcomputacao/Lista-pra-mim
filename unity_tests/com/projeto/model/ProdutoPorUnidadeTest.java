@@ -8,7 +8,7 @@ import org.junit.Test;
 import com.projeto.excecoes.CampoInvalidoException;
 
 /**
- * Classe responsavel por testar a calsse Produto por Unidade
+ * Classe responsavel por testar a classe Produto por Unidade
  */
 public class ProdutoPorUnidadeTest {
 	private ProdutoPorUnidade produtoPorUnidade;
@@ -30,7 +30,7 @@ public class ProdutoPorUnidadeTest {
 	}
 
 	/**
-	 * Testa a criacao do Contrutor
+	 * Testa a criacao do Construtor
 	 */
 	@Test
 	public void testProdutoPorUnidade() {
@@ -39,7 +39,7 @@ public class ProdutoPorUnidadeTest {
 	}
 
 	/**
-	 * Testa o levantamento de erro atravez de um nome null
+	 * Testa o levantamento de erro atraves de um nome null
 	 */
 	@Test(expected = CampoInvalidoException.class)
 	public void testProdutoPorUnidadeComNomeNull() {
@@ -47,14 +47,14 @@ public class ProdutoPorUnidadeTest {
 	}
 
 	/**
-	 * Testa o levantamento de erro atravez da categoria com valor null
+	 * Testa o levantamento de erro atraves da categoria com valor null
 	 */
 	public void testProdutoPorUnidadeComCategoriaNull() {
 		produtoPorUnidade = new ProdutoPorUnidade(2, "Cha de linho", null, 2, "Ervas & CIA", 4.20);
 	}
 
 	/**
-	 * Testa o levantamento de erro atravez da quantitade de unidades abaixo de zero
+	 * Testa o levantamento de erro atraves da quantidade de unidades abaixo de zero
 	 */
 	@Test(expected = CampoInvalidoException.class)
 	public void testProdutoPorUnidadeComUnidadeAbaixoZero() {
@@ -62,7 +62,7 @@ public class ProdutoPorUnidadeTest {
 	}
 
 	/**
-	 * Testa o levantamento de erro atravez do preco abaixo de zero
+	 * Testa o levantamento de erro atraves do preco abaixo de zero
 	 */
 	@Test(expected = CampoInvalidoException.class)
 	public void testProdutoPorUnidadeComPrecoAbaixoZero() {
@@ -71,7 +71,7 @@ public class ProdutoPorUnidadeTest {
 	}
 
 	/**
-	 * Testa o levantamento de erro atravez do id abaixo de 0
+	 * Testa o levantamento de erro atraves do id abaixo de 0
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testProdutoPorUnidadeComIdAbaixoZero() {
