@@ -109,7 +109,9 @@ public abstract class Item implements Comparable<Item>{
 	 * @param nome : uma String que representa o nome do item.
 	 */
 	public void setNome(String nome) {
-		this.nome = nome;
+		if (ValidadorSistema.validaNome(nome)) {
+			this.nome = nome;
+		}
 	}
 	
 	/**
@@ -140,7 +142,7 @@ public abstract class Item implements Comparable<Item>{
 	}
 	
 	/**
-	 * Metodo que sobrescreve o toString
+	 * Metodo que sobrescreve o toString.
 	 */
 	@Override
 	public String toString() {
@@ -149,9 +151,9 @@ public abstract class Item implements Comparable<Item>{
 	
 	/**
 	 * ######### Metodo com falha, corrigir depois...
-	 * Metodo responsavel por gerar uma String do mapa de precos
+	 * Metodo responsavel por gerar uma String do mapa de precos.
 	 * 
-	 * @return : uma String que representa o mapa de precos de um item
+	 * @return : uma String que representa o mapa de precos de um item.
 	 */
 	public String getListaPrecos() {
 		String msg = "<";
@@ -162,16 +164,20 @@ public abstract class Item implements Comparable<Item>{
 		return msg;
 	}
 
+	/**
+	 * Metodo acessivel que altera a categoria do item. 
+	 * 
+	 * @param categoria uma String que representa a nova categoria do item.
+	 */
 	public void setCategoria(String categoria) {
-		if (!(categoria.equals("alimento industrializado") || categoria.equals("alimento nao industrializado")
-				|| categoria.equals("limpeza") || categoria.equalsIgnoreCase("higiene pessoal"))) {
-			throw new CampoInvalidoException("Erro na atualizacao de item: categoria nao existe.");
+		if (ValidadorSistema.validaCategoria(categoria)) {
+			this.categoria = categoria;
 		}
-		this.categoria = categoria;
+		
 	}
 
 	/**
-	 * Metodo criado para pegar o menor preco de um item.
+	 * Metodo criado para pegar o menor preco do item.
 	 * 
 	 * @return : numero em ponto flutuante correspondente ao menor preco.
 	 */
@@ -184,6 +190,9 @@ public abstract class Item implements Comparable<Item>{
 		return menor * -1;
 	}
 	
+	/**
+	 * Metodo que sobrescreve o CompareTO baseado no nome dos itens.
+	 */
 	@Override
 	public int compareTo(Item item) {
 		return this.nome.compareTo(item.getNome());

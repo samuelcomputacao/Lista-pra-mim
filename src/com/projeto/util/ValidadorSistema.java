@@ -19,29 +19,8 @@ public class ValidadorSistema {
 	 * @return Um valor bolleano indicado se os campos sao validos ou nao
 	 */
 	public static boolean validaItem(String nome, String categoria) {
-		if (nome == null || nome.trim().isEmpty()) {
-			throw new CampoInvalidoException("nome nao pode ser vazio ou nulo.");
-		}
+		validaNome(nome);
 		validaCategoria(categoria);
-		return true;
-	}
-
-	/**
-	 * Metodo responsavel por validar um local de compra juntamente com seu preco
-	 * 
-	 * @param local
-	 *            : Uma string que representa o local de compra
-	 * @param preco
-	 *            :Um double que representa o preco do item
-	 * @return Um valor bolleano indicado se os campos sao validos
-	 */
-	public static boolean validaLocalDeCompra(String local, Double preco) {
-		if (local == null || local.trim().isEmpty()) {
-			throw new CampoInvalidoException("local de compra nao pode ser vazio ou nulo.");
-		}
-		if (preco <= 0) {
-			throw new CampoInvalidoException("preco de item invalido.");
-		}
 		return true;
 	}
 
@@ -116,6 +95,25 @@ public class ValidadorSistema {
 	}
 
 	/**
+	 * Metodo responsavel por validar um local de compra juntamente com seu preco
+	 * 
+	 * @param local
+	 *            : Uma string que representa o local de compra
+	 * @param preco
+	 *            :Um double que representa o preco do item
+	 * @return Um valor bolleano indicado se os campos sao validos
+	 */
+	public static boolean validaLocalDeCompra(String local, Double preco) {
+		if (local == null || local.trim().isEmpty()) {
+			throw new CampoInvalidoException("local de compra nao pode ser vazio ou nulo.");
+		}
+		if (preco <= 0) {
+			throw new CampoInvalidoException("preco de item invalido.");
+		}
+		return true;
+	}
+	
+	/**
 	 * Metodo responsavel por validar uma categoria
 	 * 
 	 * @param categoria
@@ -134,4 +132,15 @@ public class ValidadorSistema {
 		return true;
 	}
 
+	/**
+	 * Metodo responsavel por validar um nome
+	 * @param nome :Uma String que representa o nome a ser validado
+	 * @return Uma String indicando se o nome eh valido
+	 */
+	public static boolean validaNome(String nome) {
+		if (nome == null || nome.trim().isEmpty()) {
+			throw new CampoInvalidoException("nome nao pode ser vazio ou nulo.");
+		}
+		return true;
+	}
 }
