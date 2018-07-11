@@ -187,21 +187,21 @@ public class ProdutoQuantidadeFixaTest {
 		produto.adicionarLocalCompra("Carrefour", 3.00);
 	}
 
-//	/**
-//	 * Testa o metodo adicionarLocalCompra com parametro localCompra vazio.
-//	 */
-//	@Test(expected = CampoInvalidoException.class)
-//	public void testAdicionarLocalCompraVazio() {
-//		produto.adicionarLocalCompra(" ", 10.1);
-//	}
-//	
-//	/**
-//	 * Testa o metodo adicionarLocalCompra com parametro localCompra nulo.
-//	 */
-//	@Test(expected = CampoInvalidoException.class)
-//	public void testAdicionarLocalCompraNull() {
-//		produto.adicionarLocalCompra(null, 10.1);
-//	}
+	/**
+	 * Testa o metodo adicionarLocalCompra com parametro localCompra vazio.
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionarLocalCompraVazio() {
+		produto.adicionarLocalCompra("   ", 10.1);
+	}
+	
+	/**
+	 * Testa o metodo adicionarLocalCompra com parametro localCompra nulo.
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionarLocalCompraNull() {
+		produto.adicionarLocalCompra(null, 10.1);
+	}
 	
 	/**
 	 * Testa o metodo equals, dois ProdutoQuantidadeFixa sao iguais se possuem mesmo nome e categoria.
