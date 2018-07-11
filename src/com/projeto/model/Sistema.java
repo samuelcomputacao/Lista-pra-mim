@@ -59,6 +59,8 @@ public class Sistema {
 	 *            : local de compra do produto.
 	 * @param preco
 	 *            : preco do produto.
+	 *            
+	 *@param quantidade :Um inteiro indicando a quantidade do produto
 	 * 
 	 * @return : retorna um inteiro representando o identificador do item
 	 *         adicionado.
@@ -178,13 +180,15 @@ public class Sistema {
 	 * Metodo responsavel por atualizar um item na colecao de itens cadastrados no
 	 * sistema.
 	 * 
-	 * @param atributo
+	 * @param key : Um inteiro indicando a chave do item onde sera adicionado
+	 * o novo valor.
+	 * @param atribulto
 	 *            Uma String indicando qual o campo que sera atualizado.
 	 * @param novoValor
 	 *            Uma String indicando o novo valor que o capo ira assumir. Caso o
 	 *            campo seja um valor numerico, esse valor deve ser transformado
 	 *            antes de prosseguir.
-	 * @return: Um Inteiro indicando o identificador do item atualizado.
+	 * @return : Um Inteiro indicando o identificador do item atualizado.
 	 */
 	public int atualizaItem(Integer key, String atribulto, String novoValor) {
 		
