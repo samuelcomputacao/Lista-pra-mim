@@ -43,9 +43,7 @@ public class ValidadorSistema {
 	 */
 	public static boolean validaProdutoNaoIndustrializadoPorQuilo(double quilo, String localCompra, double preco) {
 		validaLocalDeCompra(localCompra, preco);
-		if (quilo <= 0) {
-			throw new CampoInvalidoException("valor de quilos nao pode ser menor que zero.");
-		}
+		validaQuilo(quilo);
 		return true;
 	}
 
@@ -101,7 +99,7 @@ public class ValidadorSistema {
 	 *            : Uma string que representa o local de compra
 	 * @param preco
 	 *            :Um double que representa o preco do item
-	 * @return Um valor bolleano indicado se os campos sao validos
+	 * @return Um valor bolleano indicando se os campos sao validos
 	 */
 	public static boolean validaLocalDeCompra(String local, Double preco) {
 		if (local == null || local.trim().isEmpty()) {
@@ -112,13 +110,13 @@ public class ValidadorSistema {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Metodo responsavel por validar uma categoria
 	 * 
 	 * @param categoria
 	 *            : Uma String que representa a categoria que sera validada
-	 * @return Uma String indicando se a categorria e valida ou nao
+	 * @return Um valor bolleano indicando se a categorria e valida ou nao
 	 */
 	public static boolean validaCategoria(String categoria) {
 		if (categoria == null || categoria.trim().isEmpty()) {
@@ -134,12 +132,28 @@ public class ValidadorSistema {
 
 	/**
 	 * Metodo responsavel por validar um nome
-	 * @param nome :Uma String que representa o nome a ser validado
-	 * @return Uma String indicando se o nome eh valido
+	 * 
+	 * @param nome
+	 *            :Uma String que representa o nome a ser validado
+	 * @return Um valor bolleano indicando se o nome eh valido
 	 */
 	public static boolean validaNome(String nome) {
 		if (nome == null || nome.trim().isEmpty()) {
 			throw new CampoInvalidoException("nome nao pode ser vazio ou nulo.");
+		}
+		return true;
+	}
+
+	/**
+	 * Metodo responsavel por validar uma quantia em quilos
+	 * 
+	 * @param quilo
+	 *            :Um double com os quilos
+	 * @return Um valor bolleano indicando se a qtd em quilos eh valida
+	 */
+	public static boolean validaQuilo(Double quilo) {
+		if (quilo <= 0) {
+			throw new CampoInvalidoException("valor de quilos nao pode ser menor que zero.");
 		}
 		return true;
 	}
