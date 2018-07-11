@@ -15,7 +15,7 @@ import com.projeto.util.ValidadorSistema;
 
 /**
  * Classe que representa o sistema. Ela e responsavel por realizar grande parte
- * das funcionalidades do sistema
+ * das funcionalidades do sistema.
  *
  */
 public class Sistema {

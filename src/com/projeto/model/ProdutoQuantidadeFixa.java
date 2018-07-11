@@ -25,21 +25,13 @@ public class ProdutoQuantidadeFixa extends Item {
 	 * Contrói um produto por quantidade fixa a partir do nome, categoria,
 	 * quantidade, unidade de medida, local de compra e preco.
 	 * 
-	 * @param id
-	 *            : identificador unico de um produto.
-	 * @param nome
-	 *            : nome do produto.
-	 * @param categoria
-	 *            : categoria do produto. (higiene pessoal, alimentos nao
-	 *            industrializados ou alimentos industrializados)
-	 * @param quantidade
-	 *            : quantidade do produto.
-	 * @param unidadeMedida
-	 *            : unidade de medida do produto.
-	 * @param localCompra
-	 *            : local de compra do produto.
-	 * @param preco
-	 *            : preco do produto
+	 * @param id : identificador unico de um produto.
+	 * @param nome : nome do produto.
+	 * @param categoria : categoria do produto. (higiene pessoal, alimentos nao industrializados ou alimentos industrializados).
+	 * @param quantidade : quantidade do produto.
+	 * @param unidadeMedida : unidade de medida do produto.
+	 * @param localCompra : local de compra do produto.
+	 * @param preco : preco do produto.
 	 */
 	public ProdutoQuantidadeFixa(int id, String nome, String categoria, int quantidade, String unidadeMedida,
 			String localCompra, double preco) {
@@ -60,7 +52,7 @@ public class ProdutoQuantidadeFixa extends Item {
 		return quantidade;
 	}
 
-	/*
+	/**
 	 * Altera a quantidade do produto.
 	 * 
 	 * @param quantidade : novo valor de quantidade.
@@ -81,8 +73,7 @@ public class ProdutoQuantidadeFixa extends Item {
 	/**
 	 * Altera a unidade de medida do produto.
 	 * 
-	 * @param unidadeDeMedida
-	 *            : unidade de medida do produto.
+	 * @param unidadeDeMedida : unidade de medida do produto.
 	 */
 	public void setUnidadeDeMedida(String unidadeDeMedida) {
 		this.unidadeMedida = unidadeDeMedida;

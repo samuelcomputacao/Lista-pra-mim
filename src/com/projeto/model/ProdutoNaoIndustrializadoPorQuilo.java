@@ -11,14 +11,14 @@ public class ProdutoNaoIndustrializadoPorQuilo extends Item {
 
 	/**
 	 * Construtor que constroi um produto nao industrializado por quilo atraves de
-	 * um id, nome, categoria, qtd em quili, local de compra do produto e um preco.
+	 * um id, nome, categoria, qtd em quilos, local de compra do produto e um preco.
 	 * 
-	 * @param id Um inteiro que representa o id do produto.
-	 * @param nome Uma string que representa o nome do produto
-	 * @param categoria Uma string que representa a categoria do produto.
-	 * @param quilo Um double que representa a quantidade em quilos do produto.
-	 * @param localCompra Uma string que representa o local de compra.
-	 * @param preco Um double que representa o preco do produto.
+	 * @param id : um inteiro que representa o id do produto.
+	 * @param nome : uma string que representa o nome do produto.
+	 * @param categoria : uma string que representa a categoria do produto.
+	 * @param quilo : um double que representa a quantidade em quilos do produto.
+	 * @param localCompra : uma string que representa o local de compra.
+	 * @param preco : um double que representa o preco do produto.
 	 */
 	public ProdutoNaoIndustrializadoPorQuilo(int id, String nome, String categoria, double quilo, String localCompra, double preco) {
 		super(id, nome, categoria);
@@ -31,7 +31,7 @@ public class ProdutoNaoIndustrializadoPorQuilo extends Item {
 	/**
 	 * Metodo acessivel que retorna a quantidade em quilos do produto.
 	 * 
-	 * @return : Um double que representa a quantidade em quilos do produto.
+	 * @return : um double que representa a quantidade em quilos do produto.
 	 */
 	public double getQuilo() {
 		return quilo;

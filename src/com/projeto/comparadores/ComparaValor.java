@@ -5,11 +5,12 @@ import java.util.Comparator;
 import com.projeto.model.Item;
 
 /**
- * Classe Voltada para a comparação de dois itens atravez do seu menor preco
+ * Classe Voltada para a comparacao de dois itens atraves do seu menor preco.
  */
 public class ComparaValor implements Comparator<Item> {
+	
 	/**
-	 * Metodo voltado para a comparacao de dois itens atravez dos seus precos
+	 * Metodo voltado para a comparacao de dois itens atraves dos seus respectivos precos.
 	 */
 	@Override
 	public int compare(Item item1, Item item2) {

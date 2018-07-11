@@ -18,7 +18,6 @@ public class ProdutoQuantidadeFixaTest {
 	/**
 	 * Produto utilizado como base para os testes.
 	 */
-	@SuppressWarnings("unused")
 	private ProdutoQuantidadeFixa produto;
 	
 	/**

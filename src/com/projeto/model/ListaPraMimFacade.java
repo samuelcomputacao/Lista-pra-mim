@@ -3,17 +3,17 @@ package com.projeto.model;
 import easyaccept.EasyAccept;
 
 /**
- * Fachada do sistema responsável pela delegação de todos os metodos que o sistema possui
+ * Fachada do sistema responsavel pela delegacao de todos os metodos que o sistema possui.
  */
 public class ListaPraMimFacade implements ListaPraMim {
 	
 	/**
-	 * Representa um sistema. É nele onde estara os codigos que realizarao a funcionalidades 
+	 * Representa um sistema. eh nele onde estara os codigos que realizarao a funcionalidades. 
 	 */
 	private Sistema sistema;
 	
 	/**
-	 * Metodo responsável por inicializar a facade no sistema
+	 * Metodo responsavel por inicializar a facade no sistema.
 	 */
 	public ListaPraMimFacade() {
 		this.sistema = new Sistema();
@@ -26,7 +26,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	}
 
 	/**
-	 * Sobrescreve o metodo adicionaItemPorQuilo
+	 * Sobrescreve o metodo adicionaItemPorQuilo.
 	 */
 	@Override
 	public int adicionaItemPorQuilo(String nome, String categoria, double quilo, String localCompra, double preco) {
@@ -44,11 +44,12 @@ public class ListaPraMimFacade implements ListaPraMim {
 	}
 
 	/**
-	 * Metodo responsavel por atualizar um determinado atributo de um item do sistema
-	 * @param identificador : Um inteiro indicando o identificador do item a ser atualizado
-	 * @param atributo : Uma String indicanco o atributo do item que deve ser alerado
-	 * @param novoValor : Uma string indicando o novo valor do atributo 
-	 * @return : Um inteiro indicando o identificador do item atualizado
+	 * Metodo responsavel por atualizar um determinado atributo de um item do sistema.
+	 * 
+	 * @param identificador : um inteiro indicando o identificador do item a ser atualizado
+	 * @param atributo : uma String indicanco o atributo do item que deve ser alerado
+	 * @param novoValor : uma string indicando o novo valor do atributo 
+	 * @return : um inteiro indicando o identificador do item atualizado
 	 */
 	@Override
 	public int atualizaItem(Integer key,String atributo, String novoValor) {

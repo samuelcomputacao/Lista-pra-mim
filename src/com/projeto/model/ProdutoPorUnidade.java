@@ -3,12 +3,11 @@ package com.projeto.model;
 import com.projeto.util.ValidadorSistema;
 
 /**
- * Classe responsavel por Cadastrar os produtos por unidade
- * 
- * @author Igor de Sousa Pereira
+ * Classe responsavel por Cadastrar os produtos por unidade.
  *
  */
 public class ProdutoPorUnidade extends Item {
+	
     /**
      * Quantidade de itens que o produto tem.
      */
@@ -16,7 +15,7 @@ public class ProdutoPorUnidade extends Item {
 
     /**
      * Construtor do ProdutoPorUnidade que cria um objeto atraves do id, nome,
-     * categoria, preco
+     * categoria e preco.
      * 
      * @param id
      *            indentificacao do produto
@@ -49,7 +48,7 @@ public class ProdutoPorUnidade extends Item {
     /**
      */
     public String toString() {
-        return super.getId() + ". " + super.getNome() + ", " + super.getCategoria()+", Preco: "+super.getListaPrecos();
+        return super.getId() + ". " + super.getNome() + ", " + super.getCategoria()+", Preco: " + super.getListaPrecos();
     }
 
 }
