@@ -136,7 +136,7 @@ public abstract class Item implements Comparable<Item>{
 	}
 	
 	/**
-	 * Metodo que sobrescreve o toString.
+	 * Metodo responsavel por gerar uma representacao textual para um item.
 	 */
 	@Override
 	public String toString() {
@@ -175,7 +175,7 @@ public abstract class Item implements Comparable<Item>{
 	}
 	
 	/**
-	 * Metodo que sobrescreve o CompareTO baseado no nome dos itens.
+	 * Metodo responsavel por comparar dois itens a partir do nome.
 	 */
 	@Override
 	public int compareTo(Item item) {

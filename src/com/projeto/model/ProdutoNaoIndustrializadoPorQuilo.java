@@ -63,7 +63,10 @@ public class ProdutoNaoIndustrializadoPorQuilo extends Item {
 	}
 
 	/**
-	 * Método que sobrescreve o toString.
+	 * Metodo responsavel por gerar uma representacao textual
+	 * para um produto nao industrializado por quilo.
+	 * 
+	 * @return Uma String com a representacao textual gerada
 	 */
 	@Override
 	public String toString() {

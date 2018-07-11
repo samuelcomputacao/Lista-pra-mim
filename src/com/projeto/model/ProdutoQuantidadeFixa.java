@@ -84,7 +84,10 @@ public class ProdutoQuantidadeFixa extends Item {
 	}
 
 	/**
-	 * Representacao String de um produto por quantidade fixa.
+	 * Metodo responsavel pela geracao de uma representacao textual para
+	 * o produto.
+	 * 
+	 * @return A representacao textual gerada
 	 */
 	@Override
 	public String toString() {

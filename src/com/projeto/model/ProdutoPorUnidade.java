@@ -35,18 +35,29 @@ public class ProdutoPorUnidade extends Item {
     }
 
     /**
-     * Metodo de retorno das unidades compradass
+     * Metodo de retorno da quantidade de unidades
+     *  que o produto possui
      */
     public int getUnidade() {
         return this.unidade;
     }
     
+    /**
+     * Metodo responsavel por alterar a quantidade
+     * de unidades que o produto possui
+     * 
+     * @param unidade : Um inteiro que indica a nova quantidade de unidades do produto 
+     */
     public void setUnidade(int unidade) {
 		this.unidade = unidade;
 	}
     
     /**
+     * Metodo responsavel por gerar uma representacao textual para o produto
+     * 
+     * @return a repressentacao textual gerada
      */
+    @Override
     public String toString() {
         return super.getId() + ". " + super.getNome() + ", " + super.getCategoria()+", Preco: " + super.getListaPrecos();
     }
