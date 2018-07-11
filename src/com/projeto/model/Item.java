@@ -1,9 +1,5 @@
 package com.projeto.model;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.util.ValidadorSistema;
 
 /**
@@ -26,12 +22,11 @@ public abstract class Item implements Comparable<Item>{
 	 * Uma String representando a qual categoria o item pertence.
 	 */
 	private String categoria;
-
+	
 	/**
-	 * Uma mapa de precos onde estao guardados locais e respectivos precos do item compravel.
+	 * Controlador dos precos e respectivos locais de compras que um produto possui
 	 */
-	private Map<String, Double> mapaPrecos;
-
+	private PrecoController precoController;
 
 	/**
 	 * Metodo reponsavel por inicializar um item no sistema.
@@ -45,20 +40,19 @@ public abstract class Item implements Comparable<Item>{
 			this.id = id;
 			this.nome = nome;
 			this.categoria = categoria;
-			this.mapaPrecos = new HashMap<>();
+			this.precoController = new PrecoController();
 		}
 	}
 	
 	/**
-	 * Metodo responsavel por adicionar ao mapa de locais de compra um novo local de compra do produto.
+	 * Metodo responsavel por invocar o controlador de precos para ser
+	 * adicionado um novo local de compra ao produto.
 	 * 
 	 * @param local : Uma String representando um nome de um local para compra.
 	 * @param preco : Um double representando o preco do produto no local indicado.
 	 */
 	public void adicionarLocalCompra(String local, Double preco) {
-		if (ValidadorSistema.validaLocalDeCompra(local, preco)) {
-			mapaPrecos.put(local, preco);
-		}
+		this.precoController.adicionarLocalCompra(local, preco);
 	}
 
 	/**
@@ -150,18 +144,13 @@ public abstract class Item implements Comparable<Item>{
 	}
 	
 	/**
-	 * ######### Metodo com falha, corrigir depois...
-	 * Metodo responsavel por gerar uma String do mapa de precos.
+	 * Metodo responsavel invocar o controlador de precos para
+	 * a geracao da lista de locais de compra e precos
 	 * 
 	 * @return : uma String que representa o mapa de precos de um item.
 	 */
 	public String getListaPrecos() {
-		String msg = "<";
-		for (String local : this.mapaPrecos.keySet()) {
-			msg += local + ", R$ " + String.format("%.2f;", this.mapaPrecos.get(local));
-		}
-		msg += ">";
-		return msg;
+		return this.precoController.getListaPrecos();
 	}
 
 	/**
@@ -173,21 +162,16 @@ public abstract class Item implements Comparable<Item>{
 		if (ValidadorSistema.validaCategoria(categoria)) {
 			this.categoria = categoria;
 		}
-		
 	}
 
 	/**
-	 * Metodo criado para pegar o menor preco do item.
+	 * Metodo responsavel por invocar o controlador de precos 
+	 * para a recuperacao do menor preco
 	 * 
 	 * @return : numero em ponto flutuante correspondente ao menor preco.
 	 */
 	public double getMenorPreco() {
-		double menor = 0;
-		for (double valor : mapaPrecos.values()) {
-			if ((-1 * valor) < menor)
-				menor = valor * -1;
-		}
-		return menor * -1;
+		return this.precoController.getMenorPreco();
 	}
 	
 	/**
