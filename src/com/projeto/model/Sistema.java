@@ -208,75 +208,139 @@ public class Sistema {
 		Item item = produtos.get(key);
 		switch (atribulto) {
 		case "nome":
-			try {
-			if (ValidadorSistema.validaNome(novoValor)) {
-				item.setNome(novoValor);
-			}
-			}catch (CampoInvalidoException e) {
-				throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + e.getMessage());
-			}
+			atualizaNome(novoValor, item);
 			break;
 		case "unidade de medida":
-			try {
-				if (ValidadorSistema.validaUnidadeMedida(novoValor)) {
-					ProdutoQuantidadeFixa fixa = (ProdutoQuantidadeFixa) item;
-					fixa.setUnidadeDeMedida(novoValor);
-				}
-			} catch (CampoInvalidoException e) {
-				throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + e.getMessage());
-			}
+			atualizaUnidadeMedida(novoValor, item);
 			break;
 		case "quantidade":
-			int quantidade = Integer.parseInt(novoValor);
-			try {
-				if (ValidadorSistema.validaQuantidade(quantidade)) {
-					ProdutoQuantidadeFixa fixa = (ProdutoQuantidadeFixa) item;
-					fixa = (ProdutoQuantidadeFixa) item;
-					fixa.setQuantidade(Integer.parseInt(novoValor));
-				}
-			} catch (CampoInvalidoException e) {
-				throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + e.getMessage());
-			}
-
+			atualizaQuantidade(novoValor, item);
 			break;
 		case "kg":
-			double quilos = Double.parseDouble(novoValor);
-			try {
-				if (ValidadorSistema.validaQuilo(quilos)) {
-
-					ProdutoNaoIndustrializadoPorQuilo quilo = (ProdutoNaoIndustrializadoPorQuilo) item;
-					quilo.setQuilo(quilos);
-				}
-			} catch (CampoInvalidoException e) {
-				throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + e.getMessage());
-			}
+			atualizaQuilo(novoValor, item);
 			break;
 		case "unidade":
-			int unidades = Integer.parseInt(novoValor);
-			try {
-				if (ValidadorSistema.validaUnidade(unidades)) {
-					ProdutoPorUnidade produto = (ProdutoPorUnidade) item;
-					produto.setUnidade(unidades);
-				}
-			} catch (CampoInvalidoException e) {
-				throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + e.getMessage());
-			}
+			atualizaUnidade(novoValor, item);
 			break;
 		case "categoria":
-			String categoria = novoValor;
-			try {
-				if (ValidadorSistema.validaCategoria(categoria)) {
-					item.setCategoria(novoValor);
-				}
-			} catch (CategoriaInexistenteException e) {
-				throw new CategoriaInexistenteException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM);
-			}
+			atualizaCategoria(novoValor, item);
 			break;
 		default:
 			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + "atributo nao existe.");
 		}
 
 		return item.getId();
+	}
+
+	/**
+	 * Metodo responsavel por atualizar uma categoria 
+	 * 
+	 * @param novoValor : O novovalor para a categoria do item
+	 * 
+	 * @param item Item que sera atualizado
+	 */
+	private void atualizaCategoria(String novoValor, Item item) {
+		String categoria = novoValor;
+		try {
+			if (ValidadorSistema.validaCategoria(categoria)) {
+				item.setCategoria(novoValor);
+			}
+		} catch (CategoriaInexistenteException e) {
+			throw new CategoriaInexistenteException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM);
+		}
+	}
+
+	/**
+	 * Metodo responsavel por atualizar as unidades de um produto
+	 *  
+	 * @param novoValor : O novo valor das uniades
+	 * 
+	 * @param item : O item que sera atualizado
+	 */
+	private void atualizaUnidade(String novoValor, Item item) {
+		int unidades = Integer.parseInt(novoValor);
+		try {
+			if (ValidadorSistema.validaUnidade(unidades)) {
+				ProdutoPorUnidade produto = (ProdutoPorUnidade) item;
+				produto.setUnidade(unidades);
+			}
+		} catch (CampoInvalidoException e) {
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + e.getMessage());
+		}
+	}
+
+	/**
+	 * Metodo responsavel por atualizar os quilos de um item
+	 * 
+	 * @param novoValor : Novo valor para um item
+	 * 
+	 * @param item : Item que sera atualizado
+	 */
+	private void atualizaQuilo(String novoValor, Item item) {
+		double quilos = Double.parseDouble(novoValor);
+		try {
+			if (ValidadorSistema.validaQuilo(quilos)) {
+
+				ProdutoNaoIndustrializadoPorQuilo quilo = (ProdutoNaoIndustrializadoPorQuilo) item;
+				quilo.setQuilo(quilos);
+			}
+		} catch (CampoInvalidoException e) {
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + e.getMessage());
+		}
+	}
+
+	/**
+	 * Metodo responsavel por atualizar a quantidade de um item
+	 * 
+	 * @param novoValor : O novo valor de quantidade para um item
+	 *  
+	 * @param item : o item que sera atualizado
+	 */
+	private void atualizaQuantidade(String novoValor, Item item) {
+		int quantidade = Integer.parseInt(novoValor);
+		try {
+			if (ValidadorSistema.validaQuantidade(quantidade)) {
+				ProdutoQuantidadeFixa fixa = (ProdutoQuantidadeFixa) item;
+				fixa = (ProdutoQuantidadeFixa) item;
+				fixa.setQuantidade(Integer.parseInt(novoValor));
+			}
+		} catch (CampoInvalidoException e) {
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + e.getMessage());
+		}
+	}
+
+	/**
+	 * metodo responsavel por atualizar a unidade de medida de um item
+	 * 
+	 * @param novoValor : novo valor da unidade de medida
+	 * 
+	 * @param item item que sera atualizado
+	 */
+	private void atualizaUnidadeMedida(String novoValor, Item item) {
+		try {
+			if (ValidadorSistema.validaUnidadeMedida(novoValor)) {
+				ProdutoQuantidadeFixa fixa = (ProdutoQuantidadeFixa) item;
+				fixa.setUnidadeDeMedida(novoValor);
+			}
+		} catch (CampoInvalidoException e) {
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + e.getMessage());
+		}
+	}
+
+	/**
+	 * Metodo responjsavel por atualizar o nome de um item
+	 * 
+	 * @param novoValor : novo valor do nome
+	 * @param item : item que sera atualizado
+	 */
+	private void atualizaNome(String novoValor, Item item) {
+		try {
+		if (ValidadorSistema.validaNome(novoValor)) {
+			item.setNome(novoValor);
+		}
+		}catch (CampoInvalidoException e) {
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + e.getMessage());
+		}
 	}
 
 	/**
