@@ -105,6 +105,14 @@ public class ProdutoQuantidadeFixa extends Item {
 				+ super.getListaPrecos();
 	}
 
+	/**
+	 * Metodo  reponsavel pela  atualizacao
+	 * para os seus valores
+	 * 
+	 * @param atribulto : Nome do atribulto que sera atualizado
+	 * @param novoValor : O novo valor que sera atribuido ao atribulto
+	 * @return : O identificador do item
+	 */
 	@Override
 	public int atualiza(String atribulto, String novoValor) {
 		if (ValidadorSistema.validaAtualizacao(atribulto, novoValor)) {

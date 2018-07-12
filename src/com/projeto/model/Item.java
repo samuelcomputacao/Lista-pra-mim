@@ -182,5 +182,14 @@ public abstract class Item implements Comparable<Item>{
 		return this.nome.compareTo(item.getNome());
 	}
 
+	
+	/**
+	 * Metodo abstrado reponsavel por obrigar as classes filhas a implementar uma atualizacao
+	 * para os seus valores
+	 * 
+	 * @param atribulto : Nome do atribulto que sera atualizado
+	 * @param novoValor : O novo valor que sera atribuido ao atribulto
+	 * @return : O identificador do item
+	 */
 	public abstract int atualiza(String atribulto, String novoValor);
 }
