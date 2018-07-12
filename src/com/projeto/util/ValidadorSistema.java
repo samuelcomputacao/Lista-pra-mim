@@ -196,4 +196,12 @@ public class ValidadorSistema {
 		return true;
 	}
 
+	public static boolean validaAtualizacao(String atribulto, String novoValor) {
+		if (atribulto == null || atribulto.trim().isEmpty())
+			throw new CampoInvalidoException("atributo nao pode ser vazio ou nulo.");
+		if (novoValor == null || novoValor.trim().isEmpty())
+			throw new CampoInvalidoException("novo valor de atributo nao pode ser vazio ou nulo.");
+		return true;
+	}
+
 }

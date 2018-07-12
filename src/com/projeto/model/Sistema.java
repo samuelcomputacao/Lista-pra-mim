@@ -59,8 +59,9 @@ public class Sistema {
 	 *            : local de compra do produto.
 	 * @param preco
 	 *            : preco do produto.
-	 *            
-	 *@param quantidade :Um inteiro indicando a quantidade do produto
+	 * 
+	 * @param quantidade
+	 *            :Um inteiro indicando a quantidade do produto
 	 * 
 	 * @return : retorna um inteiro representando o identificador do item
 	 *         adicionado.
@@ -70,12 +71,13 @@ public class Sistema {
 		try {
 			if (ValidadorSistema.validaItem(nome, categoria)
 					&& ValidadorSistema.validaProdutoQuantidadeFixa(quantidade, unidadeMedida, localCompra, preco)) {
-				ProdutoQuantidadeFixa produto = new ProdutoQuantidadeFixa(this.identificadorBase, nome,categoria, quantidade, unidadeMedida, localCompra, preco);
-				
-				if(produtos.containsValue(produto)) {
+				ProdutoQuantidadeFixa produto = new ProdutoQuantidadeFixa(this.identificadorBase, nome, categoria,
+						quantidade, unidadeMedida, localCompra, preco);
+
+				if (produtos.containsValue(produto)) {
 					throw new ItemJaExisteException("Item ja cadastrado");
 				}
-				
+
 				this.produtos.put(this.identificadorBase, produto);
 				return this.identificadorBase++;
 			}
@@ -107,9 +109,10 @@ public class Sistema {
 		try {
 			if (ValidadorSistema.validaItem(nome, categoria)
 					&& ValidadorSistema.validaProdutoNaoIndustrializadoPorQuilo(quilo, localCompra, preco)) {
-				ProdutoNaoIndustrializadoPorQuilo produto = new ProdutoNaoIndustrializadoPorQuilo(this.identificadorBase,nome, categoria, quilo, localCompra, preco);
-				
-				if(produtos.containsValue(produto)) {
+				ProdutoNaoIndustrializadoPorQuilo produto = new ProdutoNaoIndustrializadoPorQuilo(
+						this.identificadorBase, nome, categoria, quilo, localCompra, preco);
+
+				if (produtos.containsValue(produto)) {
 					throw new ItemJaExisteException("Item ja cadastrado");
 				}
 				this.produtos.put(this.identificadorBase, produto);
@@ -117,7 +120,7 @@ public class Sistema {
 			}
 		} catch (CampoInvalidoException e) {
 			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_CADASTRO + e.getMessage());
-		}catch (CategoriaInexistenteException e) {
+		} catch (CategoriaInexistenteException e) {
 			throw new CategoriaInexistenteException(SistemaMensagens.MSG_EXCECAO_CADASTRO);
 		}
 		return -1;
@@ -142,16 +145,17 @@ public class Sistema {
 		try {
 			if (ValidadorSistema.validaItem(nome, categoria)
 					&& ValidadorSistema.validaProdutoPorUnidade(unidade, localCompra, preco)) {
-				ProdutoPorUnidade porUnidade = new ProdutoPorUnidade(this.identificadorBase, nome, categoria, unidade, localCompra, preco);
-				if(produtos.containsValue(porUnidade)) {
+				ProdutoPorUnidade porUnidade = new ProdutoPorUnidade(this.identificadorBase, nome, categoria, unidade,
+						localCompra, preco);
+				if (produtos.containsValue(porUnidade)) {
 					throw new ItemJaExisteException("Item ja cadastrado");
 				}
-				this.produtos.put(this.identificadorBase,porUnidade);
+				this.produtos.put(this.identificadorBase, porUnidade);
 				return this.identificadorBase++;
 			}
 		} catch (CampoInvalidoException e) {
 			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_CADASTRO + e.getMessage());
-		}catch (CategoriaInexistenteException e) {
+		} catch (CategoriaInexistenteException e) {
 			throw new CategoriaInexistenteException(SistemaMensagens.MSG_EXCECAO_CADASTRO);
 		}
 		return -1;
@@ -166,7 +170,7 @@ public class Sistema {
 	 * @return : Uma String com a representacao textual do item
 	 */
 	public String exibeItem(Integer key) {
-		
+
 		if (key <= 0) {
 			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_LISTA_ITEM + "id invalido.");
 		}
@@ -180,8 +184,9 @@ public class Sistema {
 	 * Metodo responsavel por atualizar um item na colecao de itens cadastrados no
 	 * sistema.
 	 * 
-	 * @param key : Um inteiro indicando a chave do item onde sera adicionado
-	 * o novo valor.
+	 * @param key
+	 *            : Um inteiro indicando a chave do item onde sera adicionado o novo
+	 *            valor.
 	 * @param atribulto
 	 *            Uma String indicando qual o campo que sera atualizado.
 	 * @param novoValor
@@ -191,54 +196,79 @@ public class Sistema {
 	 * @return : Um Inteiro indicando o identificador do item atualizado.
 	 */
 	public int atualizaItem(Integer key, String atribulto, String novoValor) {
-		
-		if (atribulto == null || atribulto.trim().isEmpty())
-			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + "atributo nao pode ser vazio ou nulo.");
-		if (novoValor == null || novoValor.trim().isEmpty())
-			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + "novo valor de atributo nao pode ser vazio ou nulo.");
 
+		try {
+			ValidadorSistema.validaAtualizacao(atribulto,novoValor);
+		}catch (CampoInvalidoException e) {
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + e.getMessage());
+		}
+	
 		if (!produtos.containsKey(key))
 			throw new ItemInexistenteException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM);
 		Item item = produtos.get(key);
 		switch (atribulto) {
 		case "nome":
-			item.setNome(novoValor);
+			try {
+			if (ValidadorSistema.validaNome(novoValor)) {
+				item.setNome(novoValor);
+			}
+			}catch (CampoInvalidoException e) {
+				throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + e.getMessage());
+			}
 			break;
 		case "unidade de medida":
-			ProdutoQuantidadeFixa fixa = (ProdutoQuantidadeFixa) item;
-			fixa.setUnidadeDeMedida(novoValor);
+			try {
+				if (ValidadorSistema.validaUnidadeMedida(novoValor)) {
+					ProdutoQuantidadeFixa fixa = (ProdutoQuantidadeFixa) item;
+					fixa.setUnidadeDeMedida(novoValor);
+				}
+			} catch (CampoInvalidoException e) {
+				throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + e.getMessage());
+			}
 			break;
 		case "quantidade":
 			int quantidade = Integer.parseInt(novoValor);
-			if (quantidade < 0) {
-				throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + "valor de quantidade nao pode ser menor que zero.");
+			try {
+				if (ValidadorSistema.validaQuantidade(quantidade)) {
+					ProdutoQuantidadeFixa fixa = (ProdutoQuantidadeFixa) item;
+					fixa = (ProdutoQuantidadeFixa) item;
+					fixa.setQuantidade(Integer.parseInt(novoValor));
+				}
+			} catch (CampoInvalidoException e) {
+				throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + e.getMessage());
 			}
-			fixa = (ProdutoQuantidadeFixa) item;
-			fixa.setQuantidade(Integer.parseInt(novoValor));
+
 			break;
 		case "kg":
 			double quilos = Double.parseDouble(novoValor);
-			if (quilos < 0) {
-				throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + "valor de quilos nao pode ser menor que zero.");
+			try {
+				if (ValidadorSistema.validaQuilo(quilos)) {
+
+					ProdutoNaoIndustrializadoPorQuilo quilo = (ProdutoNaoIndustrializadoPorQuilo) item;
+					quilo.setQuilo(quilos);
+				}
+			} catch (CampoInvalidoException e) {
+				throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + e.getMessage());
 			}
-			ProdutoNaoIndustrializadoPorQuilo quilo = (ProdutoNaoIndustrializadoPorQuilo) item;
-			quilo.setQuilo(quilos);
 			break;
 		case "unidade":
 			int unidades = Integer.parseInt(novoValor);
-			if (unidades < 0) {
-				throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + "valor de unidade nao pode ser menor que zero.");
+			try {
+				if (ValidadorSistema.validaUnidade(unidades)) {
+					ProdutoPorUnidade produto = (ProdutoPorUnidade) item;
+					produto.setUnidade(unidades);
+				}
+			} catch (CampoInvalidoException e) {
+				throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + e.getMessage());
 			}
-			ProdutoPorUnidade produto = (ProdutoPorUnidade) item;
-			produto.setUnidade(unidades);
 			break;
 		case "categoria":
 			String categoria = novoValor;
 			try {
-			if (ValidadorSistema.validaCategoria(categoria)) {
-				item.setCategoria(novoValor);
-			}
-			}catch (CategoriaInexistenteException e) {
+				if (ValidadorSistema.validaCategoria(categoria)) {
+					item.setCategoria(novoValor);
+				}
+			} catch (CategoriaInexistenteException e) {
 				throw new CategoriaInexistenteException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM);
 			}
 			break;
@@ -264,7 +294,7 @@ public class Sistema {
 	 *            adicionado
 	 */
 	public void adicionaPrecoItem(Integer key, String local, double preco) {
-		
+
 		if (key < 0) {
 			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_CADASTO_PRECO + "id de item invalido.");
 		}
@@ -272,7 +302,8 @@ public class Sistema {
 			throw new ItemInexistenteException(SistemaMensagens.MSG_EXCECAO_CADASTO_PRECO);
 		}
 		if (local == null || local.trim().isEmpty()) {
-			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_CADASTO_PRECO + "local de compra nao pode ser vazio ou nulo.");
+			throw new CampoInvalidoException(
+					SistemaMensagens.MSG_EXCECAO_CADASTO_PRECO + "local de compra nao pode ser vazio ou nulo.");
 		}
 		if (preco < 0) {
 			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_CADASTO_PRECO + "preco de item invalido.");
@@ -342,7 +373,7 @@ public class Sistema {
 			}
 		} catch (CampoInvalidoException e) {
 			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_LISTA_ITEM + e.getMessage());
-		}catch (CategoriaInexistenteException e) {
+		} catch (CategoriaInexistenteException e) {
 			throw new CategoriaInexistenteException(SistemaMensagens.MSG_EXCECAO_LISTA_ITEM);
 		}
 		return "";
@@ -369,12 +400,16 @@ public class Sistema {
 	}
 
 	/**
-	 * Metodo responsavel por realizar a busca de um item de acordo com uma string de pesquisa
+	 * Metodo responsavel por realizar a busca de um item de acordo com uma string
+	 * de pesquisa
 	 * 
-	 * @param strPesquisa : Uma String indicando a string utilizada como filtro
-	 * @param posicao : uma String indicando a posicao do item na lista ordenada
-	 *  e que contem a string de pesquisa
-	 * @return Uma string com a representacao textual do item que esta na posicao informada
+	 * @param strPesquisa
+	 *            : Uma String indicando a string utilizada como filtro
+	 * @param posicao
+	 *            : uma String indicando a posicao do item na lista ordenada e que
+	 *            contem a string de pesquisa
+	 * @return Uma string com a representacao textual do item que esta na posicao
+	 *         informada
 	 */
 	public String getItemPorPesquisa(String strPesquisa, int posicao) {
 		List<Item> itens = new ArrayList<Item>();
