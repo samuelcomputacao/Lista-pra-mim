@@ -119,7 +119,7 @@ public class ValidadorSistema {
 
 		if (!(categoria.equals("alimento industrializado") || categoria.equals("alimento nao industrializado")
 				|| categoria.equals("limpeza") || categoria.equalsIgnoreCase("higiene pessoal"))) {
-			throw new CategoriaInexistenteException("");
+			throw new CategoriaInexistenteException();
 		}
 		return true;
 	}

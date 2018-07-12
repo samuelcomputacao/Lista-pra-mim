@@ -18,6 +18,10 @@ public class CampoInvalidoException extends RuntimeException {
 		super(str);
 	}
 	
+	/**
+	 * Inicializador da excecao que nao recebe mensagens para exibicao quando a excecao for
+	 * lancada
+	 */
 	public CampoInvalidoException() {
 	}
 

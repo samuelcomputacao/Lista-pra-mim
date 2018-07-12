@@ -19,6 +19,10 @@ public class ItemInexistenteException extends RuntimeException {
 		super(str+"item nao existe.");
 	}
 	
+	/**
+	 * Inicializador da excecao que nao recebe mensagens para exibicao quando a excecao for
+	 * lancada
+	 */
 	public ItemInexistenteException() {
 	}
 
