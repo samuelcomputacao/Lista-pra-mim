@@ -52,6 +52,114 @@ public class SistemaTest {
 	}
 
 	/**
+	 * Testa o metodo adicionaItemPorQtd com parametros válidos.
+	 */
+	@Test
+	public void testAdicionaItemPorQtd() {
+		sistema.adicionaItemPorQtd("algodao", "higiene pessoal", 2, "gramas", "ideal supermercados", 1.75);
+	}
+
+	/**
+	 * Testa o metodo adicionaItemPorQtd com parametro nome invalido(null).
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaItemPorQtdNomeNull() {
+		sistema.adicionaItemPorQtd(null, "higiene pessoal", 2, "gramas", "ideal supermercados", 1.75);
+	}
+
+	/**
+	 * Testa o metodo adicionaItemPorQtd com parametro nome invalido(vazio).
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaItemPorQtdNomeVazio() {
+		sistema.adicionaItemPorQtd("  ", "higiene pessoal", 2, "gramas", "ideal supermercados", 1.75);
+	}
+
+	/**
+	 * Testa o metodo adicionaItemPorQtd com parametro categoria invalido(null).
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaItemPorQtdCategoriaNull() {
+		sistema.adicionaItemPorQtd("algodao", null, 2, "gramas", "ideal supermercados", 1.75);
+	}
+
+	/**
+	 * Testa o metodo adicionaItemPorQtd com parametro categoria invalido(vazia).
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaItemPorQtdCategoriaVazia() {
+		sistema.adicionaItemPorQtd("algodao", " ", 2, "gramas", "ideal supermercados", 1.75);
+	}
+
+	/**
+	 * Testa o metodo adicionaItemPorQtd com parametro quantidade invalido(zero).
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaItemPorQtdQuantidadeNula() {
+		sistema.adicionaItemPorQtd("algodao", "higiene pessoal", 0, "gramas", "ideal supermercados", 1.75);
+	}
+
+	/**
+	 * Testa o metodo adicionaItemPorQtd com parametro quantidade
+	 * invalido(negativo).
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaItemPorQtdQuantidadeNegativa() {
+		sistema.adicionaItemPorQtd("algodao", "higiene pessoal", -1, "gramas", "ideal supermercados", 1.75);
+	}
+
+	/**
+	 * Testa o metodo adicionaItemPorQtd com parametro unidadeMedida invalido(null).
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaItemPorQtdUnidadeMedidaNull() {
+		sistema.adicionaItemPorQtd("algodao", "higiene pessoal", 2, null, "ideal supermercados", 1.75);
+	}
+
+	/**
+	 * Testa o metodo adicionaItemPorQtd com parametro unidadeMedida
+	 * invalido(vazio).
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaItemPorQtdUnidadeMedidaVazia() {
+		sistema.adicionaItemPorQtd("algodao", "higiene pessoal", 2, "", "ideal supermercados", 1.75);
+	}
+
+	/**
+	 * Testa o metodo adicionaItemPorQtd com parametro localDeCompra invalido(null).
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaItemPorQtdLocalDeCompraNull() {
+		sistema.adicionaItemPorQtd("algodao", "higiene pessoal", 2, "gramas", null, 1.75);
+	}
+
+	/**
+	 * Testa o metodo adicionaItemPorQtd com parametro localDeCompra
+	 * invalido(vazio).
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaItemPorQtdLocalDeCompraVazio() {
+		sistema.adicionaItemPorQtd("algodao", "higiene pessoal", 2, "gramas", "       ", 1.75);
+	}
+
+	/**
+	 * Testa o metodo adicionaItemPorQtd com parametro preco invalido(zero).
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaItemPorQtdPrecoNulo() {
+		sistema.adicionaItemPorQtd("algodao", "higiene pessoal", 2, "gramas", "ideal supermercados", 0.0);
+	}
+
+	/**
+	 * Testa o metodo adicionaItemPorQtd com parametro preco invalido(zero).
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaItemPorQtdPrecoNegativo() {
+		sistema.adicionaItemPorQtd("algodao", "higiene pessoal", 2, "gramas", "ideal supermercados", -1.0);
+	}
+
+	
+	/**
 	 * Testa o metodo adicionaItemPorQuilo com categoria invalida(nula).
 	 */
 	@Test(expected = CampoInvalidoException.class)
@@ -138,5 +246,6 @@ public class SistemaTest {
 	public void testAdicionaItemPorUnidadeNomeNull() {
 		sistema.adicionaItemPorUnidade(null, "limpeza", 1000, "extra", 29.99);
 	}
-
+	
+	
 }
