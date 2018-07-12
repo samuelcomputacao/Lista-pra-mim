@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.excecoes.CategoriaInexistenteException;
+import com.projeto.principal.Sistema;
 
 public class SistemaTest {
 

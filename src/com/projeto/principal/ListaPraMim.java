@@ -1,4 +1,4 @@
-package com.projeto.model;
+package com.projeto.principal;
 
 public interface ListaPraMim {
 

@@ -1,4 +1,4 @@
-package com.projeto.model;
+package com.projeto.principal;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,6 +12,10 @@ import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.excecoes.CategoriaInexistenteException;
 import com.projeto.excecoes.ItemInexistenteException;
 import com.projeto.excecoes.ItemJaExisteException;
+import com.projeto.model.Item;
+import com.projeto.model.ProdutoNaoIndustrializadoPorQuilo;
+import com.projeto.model.ProdutoPorUnidade;
+import com.projeto.model.ProdutoQuantidadeFixa;
 import com.projeto.util.SistemaMensagens;
 import com.projeto.util.ValidadorSistema;
 

@@ -1,4 +1,4 @@
-package com.projeto.model;
+package com.projeto.principal;
 
 import easyaccept.EasyAccept;
 
@@ -157,7 +157,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 * Metodo responsavel por realizar os testes de aceitacao
 	 */
 	public static void main(String[] args) {
-		args = new String[]{"com.projeto.model.ListaPraMimFacade","acceptance_test/use_case1.txt","acceptance_test/use_case1_exception.txt","acceptance_test/use_case2.txt","acceptance_test/use_case2_exception.txt"};
+		args = new String[]{"com.projeto.principal.ListaPraMimFacade","acceptance_test/use_case1.txt","acceptance_test/use_case1_exception.txt","acceptance_test/use_case2.txt","acceptance_test/use_case2_exception.txt"};
 		EasyAccept.main(args);
 		
 	}

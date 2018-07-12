@@ -1,5 +1,6 @@
 package com.projeto.model;
 
+import com.projeto.controller.PrecoController;
 import com.projeto.util.ValidadorSistema;
 
 /**
