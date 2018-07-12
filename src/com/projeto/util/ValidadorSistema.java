@@ -196,6 +196,12 @@ public class ValidadorSistema {
 		return true;
 	}
 
+	/**
+	 * Metodo responsavel pela valizacao de compos exigidos pela atualizacao de itens
+	 * @param atribulto : Nome do atribulto que sera atualizado
+	 * @param novoValor : Novo valor que sera alocado ao atribulto
+	 * @return Um bolleano que indica se os campos estao validos 
+	 */
 	public static boolean validaAtualizacao(String atribulto, String novoValor) {
 		if (atribulto == null || atribulto.trim().isEmpty())
 			throw new CampoInvalidoException("atributo nao pode ser vazio ou nulo.");
