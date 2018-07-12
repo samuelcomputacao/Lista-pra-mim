@@ -246,5 +246,29 @@ public class SistemaTest {
 	public void testAdicionaItemPorUnidadeNomeNull() {
 		sistema.adicionaItemPorUnidade(null, "limpeza", 1000, "extra", 29.99);
 	}
+	/**
+	 * Testa o metodo adicionaItemPorUnidade com valor inaceitavel(nome vazio).
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaItemPorUnidadeNomeVazio() {
+		sistema.adicionaItemPorUnidade("   ", "higiene pessoal", 100, "extra", 29.99);
+	}
+	
+	/**
+	 * Testa o metodo adicionaItemPorUnidade com valor inaceitavel(categoria invalida).
+	 */
+	@Test(expected = CategoriaInexistenteException.class)
+	public void testAdicionaItemPorUnidadeCategoriaInvalida() {
+		sistema.adicionaItemPorUnidade("mouse", "eletronica", 100, "extra", 29.99);
+	}
+	
+	@Test
+	public void testGetItemPorMenorPreco() {
+		sistema.adicionaItemPorUnidade("sabonete", "limpeza", 1 , "carrefuor", 92.3);
+		sistema.adicionaItemPorUnidade("mais sabonete", "limpeza", 2 , "uau mart", 50.1);
+		sistema.adicionaItemPorUnidade("mais outro sabonete", "limpeza", 1 , "uau mart", 20.1);
+		sistema.adicionaItemPorUnidade("por fim sabonete", "limpeza", 1 , "uau mart", 1.0);
+		assertEquals(sistema.getItemPorMenorPreco(1),"3. mais outro sabonete, limpeza, Preco: <uau mart, R$ 20,10;>");
+	}
 
 }
