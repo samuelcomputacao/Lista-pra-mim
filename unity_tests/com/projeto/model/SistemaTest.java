@@ -1,5 +1,7 @@
 package com.projeto.model;
 
+import static org.junit.Assert.*;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -64,7 +66,7 @@ public class SistemaTest {
 	public void testAdicionaItemPorQuiloCategoriaVazia() {
 		sistema.adicionaItemPorQuilo("cuzcuz", "   ", 12.5, "bar do cuzcuz", 30);
 	}
-	
+
 	/**
 	 * Testa o metodo adicionaItemPorQuilo com categoria invalida(nome diferente).
 	 */
@@ -120,5 +122,21 @@ public class SistemaTest {
 	public void testAdicionaItemPorQuiloPrecoIgualZero() {
 		sistema.adicionaItemPorQuilo("cuzcuz", "limpeza", 12.5, "bar do cuzcuz", 0);
 	}
-	
+
+	/**
+	 * Testa o metodo adicionaItemPorUnidade com valores aceitaveis.
+	 */
+	@Test
+	public void testAdicionaItemPorUnidade() {
+		assertEquals(sistema.adicionaItemPorUnidade("Saco de Lixo", "limpeza", 1000, "extra", 29.99), 1);
+	}
+
+	/**
+	 * Testa o metodo adicionaItemPorUnidade com valor inaceitavel(nome nulo).
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaItemPorUnidadeNomeNull() {
+		sistema.adicionaItemPorUnidade(null, "limpeza", 1000, "extra", 29.99);
+	}
+
 }
