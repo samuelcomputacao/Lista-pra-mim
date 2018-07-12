@@ -61,7 +61,7 @@ public class Sistema {
 	 *            : preco do produto.
 	 * 
 	 * @param quantidade
-	 *            :Um inteiro indicando a quantidade do produto
+	 *            : um inteiro indicando a quantidade do produto
 	 * 
 	 * @return : retorna um inteiro representando o identificador do item
 	 *         adicionado.
