@@ -17,5 +17,8 @@ public class CampoInvalidoException extends RuntimeException {
 	public CampoInvalidoException(String str) {
 		super(str);
 	}
+	
+	public CampoInvalidoException() {
+	}
 
 }

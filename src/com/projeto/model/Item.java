@@ -181,4 +181,6 @@ public abstract class Item implements Comparable<Item>{
 	public int compareTo(Item item) {
 		return this.nome.compareTo(item.getNome());
 	}
+
+	public abstract int atualiza(String atribulto, String novoValor);
 }

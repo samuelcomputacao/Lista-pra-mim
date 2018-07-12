@@ -1,5 +1,6 @@
 package com.projeto.model;
 
+import com.projeto.excecoes.AtribultoInexistenteException;
 import com.projeto.util.ValidadorSistema;
 
 /**
@@ -71,5 +72,30 @@ public class ProdutoNaoIndustrializadoPorQuilo extends Item {
 	@Override
 	public String toString() {
 		return super.toString() + ", Preco por quilo: " + super.getListaPrecos();
+	}
+
+	@Override
+	public int atualiza(String atribulto, String novoValor) {
+		if(ValidadorSistema.validaAtualizacao(atribulto, novoValor)) {
+			switch (atribulto) {
+			
+			case "nome":
+				super.setNome(novoValor);
+				break;
+			case "categoria":
+				super.setCategoria(novoValor);
+				break;
+			case "kg":
+				double quilos = Double.parseDouble(novoValor);
+				if(ValidadorSistema.validaQuilo(quilos)) {
+					this.setQuilo(quilos);
+				}
+				break;
+			default:
+				throw new AtribultoInexistenteException();
+			}
+
+		}
+		return super.getId();
 	}
 }
