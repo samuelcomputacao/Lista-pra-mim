@@ -32,7 +32,15 @@ public class ListaPraMimFacade implements ListaPraMim {
 	public int adicionaItemPorQuilo(String nome, String categoria, double quilo, String localCompra, double preco) {
 		return this.sistema.adicionaItemPorQuilo(nome, categoria, quilo, localCompra, preco);
 	}
-
+	/**
+	 * Metodo responsavel por adicionar um Item por unidade,
+	 * @param nome : Nome do produto que sera adicionado.
+	 * @param categoria : Categoria em que o produto que esta sendo adicionado sera classificado.
+	 * @param unidade : Quantidade de itens que estao sendo adicionados.
+	 * @param localCompra : Local onde o produto foi comprado.
+	 * @param preco : Preco que o produto tem, por unidade.
+	 * @return : Um inteiro indicando o identificador do item cadastrado
+	 */
 	@Override
 	public int adicionaItemPorUnidade(String nome, String categoria, int unidade, String localCompra, double preco) {
 		return this.sistema.adicionaItemPorUnidade(nome, categoria, unidade, localCompra, preco);
@@ -82,12 +90,16 @@ public class ListaPraMimFacade implements ListaPraMim {
 	public String getItemPorCategoria(String categoria,int posicao) {
 		return this.sistema.getItemPorCategoria(categoria, posicao);
 	}
-	
+	/**
+	 * Metodo responsavel por retornar o item em determinada posicao. Para isso os itens estarao sendo classificados do menor preco ao maior preco 
+	 * @param posicao : posicao em que o item sera recuperado
+	 * @return : Representacao textual do item nessa posicao
+	 */
 	@Override
 	public String getItemPorMenorPreco (int posicao) {
 		return this.sistema.getItemPorMenorPreco(posicao);
 	}
-
+	
 	@Override
 	public String getItemPorPesquisa(String strPesquisa, int posicao) { 
 		return this.sistema.getItemPorPesquisa(strPesquisa,posicao);

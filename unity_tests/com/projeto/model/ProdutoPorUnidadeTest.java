@@ -30,7 +30,7 @@ public class ProdutoPorUnidadeTest {
 	}
 
 	/**
-	 * Testa a criacao do Construtor
+	 * Testa a criacao do Construtor e verifica se não ocorre nenhum erro.
 	 */
 	@Test
 	public void testProdutoPorUnidade() {
@@ -47,10 +47,25 @@ public class ProdutoPorUnidadeTest {
 	}
 
 	/**
+	 * Testa o levantamento de erro atraves de um nome vazio
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testProdutoPorUnidadeComNomeVazio() {
+		produtoPorUnidade = new ProdutoPorUnidade(1, "   ", "higiene pessoal", 2, "carefur", 99.99);
+	}
+
+	/**
 	 * Testa o levantamento de erro atraves da categoria com valor null
 	 */
 	public void testProdutoPorUnidadeComCategoriaNull() {
 		produtoPorUnidade = new ProdutoPorUnidade(2, "Cha de linho", null, 2, "Ervas & CIA", 4.20);
+	}
+
+	/**
+	 * Testa o levantamento de erro atraves da categoria com valor vazio
+	 */
+	public void testProdutoPorUnidadeComCategoriaVazia() {
+		produtoPorUnidade = new ProdutoPorUnidade(2, "Cha de linho", "  ", 2, "Ervas & CIA", 4.20);
 	}
 
 	/**
@@ -70,15 +85,25 @@ public class ProdutoPorUnidadeTest {
 				-20.43);
 	}
 
-	/**
-	 * Testa o levantamento de erro atraves do id abaixo de 0
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testProdutoPorUnidadeComIdAbaixoZero() {
-		produtoPorUnidade = new ProdutoPorUnidade(-1, "lingua de gato", "alimento industrializado", 3, "Cacau xou",
-				20.43);
+	@Test
+	public void testAdicionarLocalCompra() {
+		this.produtoPorUnidade.adicionarLocalCompra("Cacau xou", 60.0);
+	}
+	@Test(expected= CampoInvalidoException.class)
+	public void testAdicionarLocalCompraNomeVazio() {
+		this.produtoPorUnidade.adicionarLocalCompra("   ", 60.0);
 	}
 
+	@Test(expected= CampoInvalidoException.class)
+	public void testAdicionarLocalCompraValorAbaixoZero() {
+		this.produtoPorUnidade.adicionarLocalCompra("Matins&Co", -502.0);
+	}
+	
+	@Test(expected= CampoInvalidoException.class)
+	public void testAdicionarLocalCompraNomeNull() {
+		this.produtoPorUnidade.adicionarLocalCompra(null, 60.0);
+	}
+	
 	/**
 	 * Testa a igualdade do getUnidade
 	 */
@@ -87,4 +112,5 @@ public class ProdutoPorUnidadeTest {
 		assertEquals(produtoPorUnidade.getUnidade(), 1);
 
 	}
+
 }

@@ -37,6 +37,7 @@ public class ProdutoPorUnidade extends Item {
     /**
      * Metodo de retorno da quantidade de unidades
      *  que o produto possui
+     *  @return inteiro correspondente a quantidade.
      */
     public int getUnidade() {
         return this.unidade;
