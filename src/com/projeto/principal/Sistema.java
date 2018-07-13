@@ -87,9 +87,9 @@ public class Sistema {
 				return this.identificadorBase++;
 			}
 		} catch (CampoInvalidoException e) {
-			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_CADASTRO + e.getMessage());
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_CADASTRO.get() + e.getMessage());
 		} catch (CategoriaInexistenteException e) {
-			throw new CategoriaInexistenteException(SistemaMensagens.MSG_EXCECAO_CADASTRO);
+			throw new CategoriaInexistenteException(SistemaMensagens.MSG_EXCECAO_CADASTRO.get());
 		}
 		return -1;
 	}
@@ -124,9 +124,9 @@ public class Sistema {
 				return this.identificadorBase++;
 			}
 		} catch (CampoInvalidoException e) {
-			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_CADASTRO + e.getMessage());
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_CADASTRO.get() + e.getMessage());
 		} catch (CategoriaInexistenteException e) {
-			throw new CategoriaInexistenteException(SistemaMensagens.MSG_EXCECAO_CADASTRO);
+			throw new CategoriaInexistenteException(SistemaMensagens.MSG_EXCECAO_CADASTRO.get());
 		}
 		return -1;
 	}
@@ -159,9 +159,9 @@ public class Sistema {
 				return this.identificadorBase++;
 			}
 		} catch (CampoInvalidoException e) {
-			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_CADASTRO + e.getMessage());
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_CADASTRO.get() + e.getMessage());
 		} catch (CategoriaInexistenteException e) {
-			throw new CategoriaInexistenteException(SistemaMensagens.MSG_EXCECAO_CADASTRO);
+			throw new CategoriaInexistenteException(SistemaMensagens.MSG_EXCECAO_CADASTRO.get());
 		}
 		return -1;
 	}
@@ -177,10 +177,10 @@ public class Sistema {
 	public String exibeItem(Integer key) {
 
 		if (key <= 0) {
-			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_LISTA_ITEM + "id invalido.");
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_LISTA_ITEM.get() + "id invalido.");
 		}
 		if (!this.produtos.containsKey(key)) {
-			throw new ItemInexistenteException(SistemaMensagens.MSG_EXCECAO_LISTA_ITEM);
+			throw new ItemInexistenteException(SistemaMensagens.MSG_EXCECAO_LISTA_ITEM.get());
 		}
 		return this.produtos.get(key).toString();
 	}
@@ -202,7 +202,7 @@ public class Sistema {
 	 */
 	public int atualizaItem(Integer key, String atribulto, String novoValor) {
 		if (!produtos.containsKey(key))
-			throw new ItemInexistenteException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM);
+			throw new ItemInexistenteException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM.get());
 		Item item = null;
 		try {
 			if (ValidadorSistema.validaAtualizacao(atribulto, novoValor)) {
@@ -210,11 +210,11 @@ public class Sistema {
 				return item.atualiza(atribulto, novoValor);
 			}
 		} catch (CampoInvalidoException e) {
-			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM + e.getMessage());
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM.get() + e.getMessage());
 		} catch (CategoriaInexistenteException e) {
-			throw new CategoriaInexistenteException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM);
+			throw new CategoriaInexistenteException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM.get());
 		} catch (AtribultoInexistenteException e) {
-			throw new AtribultoInexistenteException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM);
+			throw new AtribultoInexistenteException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM.get());
 		}
 		return -1;
 	}
@@ -236,17 +236,17 @@ public class Sistema {
 	public void adicionaPrecoItem(Integer key, String local, double preco) {
 
 		if (key < 0) {
-			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_CADASTO_PRECO + "id de item invalido.");
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_CADASTO_PRECO.get() + "id de item invalido.");
 		}
 		if (!this.produtos.containsKey(key)) {
-			throw new ItemInexistenteException(SistemaMensagens.MSG_EXCECAO_CADASTO_PRECO);
+			throw new ItemInexistenteException(SistemaMensagens.MSG_EXCECAO_CADASTO_PRECO.get());
 		}
 		if (local == null || local.trim().isEmpty()) {
 			throw new CampoInvalidoException(
-					SistemaMensagens.MSG_EXCECAO_CADASTO_PRECO + "local de compra nao pode ser vazio ou nulo.");
+					SistemaMensagens.MSG_EXCECAO_CADASTO_PRECO.get() + "local de compra nao pode ser vazio ou nulo.");
 		}
 		if (preco < 0) {
-			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_CADASTO_PRECO + "preco de item invalido.");
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_CADASTO_PRECO.get() + "preco de item invalido.");
 		}
 		Item item = this.produtos.get(key);
 		item.adicionarLocalCompra(local, preco);
@@ -314,7 +314,7 @@ public class Sistema {
 		} catch (CampoInvalidoException e) {
 			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_LISTA_ITEM + e.getMessage());
 		} catch (CategoriaInexistenteException e) {
-			throw new CategoriaInexistenteException(SistemaMensagens.MSG_EXCECAO_LISTA_ITEM);
+			throw new CategoriaInexistenteException(SistemaMensagens.MSG_EXCECAO_LISTA_ITEM.get());
 		}
 		return "";
 
