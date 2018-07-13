@@ -26,7 +26,7 @@ public enum  SistemaMensagens {
 	 */
 	MSG_EXCECAO_CADASTO_PRECO("Erro no cadastro de preco: ");
 	
-	String valor;
+	private String valor;
 	
 	private SistemaMensagens(String valor) {
 		this.valor = valor;
