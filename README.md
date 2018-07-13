@@ -15,3 +15,9 @@ O **Lista pra mim ©** é um app que vai revolucionar a forma como você faz com
 
 
 [Especificação](https://docs.google.com/document/d/e/2PACX-1vSPmbKNWnCSXkLTLvzhenxLEtTOUURfeIsICQNQW9Q648gDDnozgehm7b5CvZWciklkM-7HKSqeWp7X/pub)
+
+
+Diagrama de Classes
+------------------
+
+![diagrama](https://github.com/samuelcomputacao/Lista-pra-mim/blob/master/diagrama/DIAGRAMA_SPRINT1.png)
