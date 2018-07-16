@@ -160,5 +160,24 @@ public interface ListaPraMim {
 	 * @return : Representacao textual do item nessa posicao
 	 */
 	public String getItemPorMenorPreco(int posicao);
+	
+	public String adicionaListaDeCompras(String descritor);
+	
+	public void adicionaCompraALista(String descritor, int quantidade , Integer idItem);
+	
+	public void adicionaCompraALista(String descritor, double quantidade , Integer idItem);
+	
+	public void finalizarListaDeCompras(String descritor, String localCompra, int valorFinalDaCompra);
+	
+	public String pesquisaCompraEmLista(String descritor, Integer idItem);
+	
+	public void atualizaCompraDeLista(String descritor, Integer idItem, int quantidade);
+	
+	public void atualizaCompraDeLista(String descritor, Integer idItem, double quantidade);
+	
+	public void getItemLista(String descritor, int posicao);
+	
+	
+	
 
 }

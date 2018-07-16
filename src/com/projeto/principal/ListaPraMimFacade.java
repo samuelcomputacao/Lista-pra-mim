@@ -221,6 +221,53 @@ public class ListaPraMimFacade implements ListaPraMim {
 	public String getItemPorPesquisa(String strPesquisa, int posicao) { 
 		return this.sistema.getItemPorPesquisa(strPesquisa,posicao);
 	}
+
+	@Override
+	public String adicionaListaDeCompras(String descritor) {
+		return null;
+	}
+
+	@Override
+	public void adicionaCompraALista(String descritor, int quantidade, Integer idItem) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void adicionaCompraALista(String descritor, double quantidade, Integer idItem) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void finalizarListaDeCompras(String descritor, String localCompra, int valorFinalDaCompra) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String pesquisaCompraEmLista(String descritor, Integer idItem) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void atualizaCompraDeLista(String descritor, Integer idItem, int quantidade) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void atualizaCompraDeLista(String descritor, Integer idItem, double quantidade) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void getItemLista(String descritor, int posicao) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 	
