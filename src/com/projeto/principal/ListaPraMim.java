@@ -144,7 +144,7 @@ public interface ListaPraMim {
 	 * @param strPesquisa
 	 *            : Uma String indicando a string utilizada como filtro
 	 * @param posicao
-	 *            : uma String indicando a posicao do item na lista ordenada e que
+	 *            : Uma String indicando a posicao do item na lista ordenada e que
 	 *            contem a string de pesquisa
 	 * @return Uma string com a representacao textual do item que esta na posicao
 	 *         informada
@@ -160,31 +160,92 @@ public interface ListaPraMim {
 	 * @return : Representacao textual do item nessa posicao
 	 */
 	public String getItemPorMenorPreco(int posicao);
-	
+
 	/**
 	 * Adiciona uma nova lista de compras as listas do sistema.
 	 * 
-	 * @param descritor : descricao de uma lista de compras.
+	 * @param descritor
+	 *            : Descricao de uma lista de compras.
 	 * 
-	 * @return : retorna a descricao da lista de compras.
+	 * @return : Retorna a descricao da lista de compras.
 	 */
 	public String adicionaListaDeCompras(String descritor);
-	
-	public void adicionaCompraALista(String descritor, int quantidade , Integer idItem);
-	
-	public void adicionaCompraALista(String descritor, double quantidade , Integer idItem);
-	
+
+	/**
+	 * Adiciona uma compra a lista de compras (quantidade inteira).
+	 * 
+	 * @param descritor
+	 *            : Descricao da compra a ser inserida na lista.
+	 * @param quantidade
+	 *            : Quantidade de unidades do produto.
+	 * @param idItem
+	 *            : Id do produto a ser inserido na lista.
+	 */
+	public void adicionaCompraALista(String descritor, int quantidade, Integer idItem);
+
+	/**
+	 * Adiciona uma compra a lista de compras (podendo ser uma quantidade
+	 * nao-inteira).
+	 * 
+	 * @param descritor
+	 *            : Descricao da compra a ser inserida na lista.
+	 * @param quantidade
+	 *            : Quantidade de unidades do produto.
+	 * @param idItem
+	 *            : Id do produto a ser inserido na lista.
+	 */
+	public void adicionaCompraALista(String descritor, double quantidade, Integer idItem);
+
+	/**
+	 * Finaliza uma lista de compras já inicializada.
+	 * 
+	 * @param descritor
+	 *            : Descricao da lista de compras a ser finalizada.
+	 * @param localCompra
+	 *            : Local onde a compra foi realizada.
+	 * @param valorFinalDaCompra
+	 *            : Valor final da compra.
+	 */
 	public void finalizarListaDeCompras(String descritor, String localCompra, int valorFinalDaCompra);
-	
+
+	/**
+	 * Pesquisa por uma compra em uma lista de compras.
+	 * 
+	 * @param descritor
+	 *            : Descricao da lista de compras.
+	 * @param idItem
+	 *            : Id do item compravel.
+	 * 
+	 * @return : Retorna a representacao String da compra contida na lista de
+	 *         compras.
+	 */
 	public String pesquisaCompraEmLista(String descritor, Integer idItem);
-	
+
+	/**
+	 * Atualiza a quantidade de uma compra em uma lista de compras.
+	 * 
+	 * @param descritor
+	 *            : Descricao da lista de compras.
+	 * @param idItem
+	 *            : Id do item a ser alterado.
+	 * @param quantidade
+	 *            : Nova quantidade a ser atualizada.
+	 */
 	public void atualizaCompraDeLista(String descritor, Integer idItem, int quantidade);
-	
+
+	/**
+	 * Atualiza a quantidade (podendo ser um valor nao inteiro) de uma compra em uma
+	 * lista de compras.
+	 * 
+	 * @param descritor
+	 *            : Descricao da lista de compras.
+	 * @param idItem
+	 *            : Id do item a ser alterado.
+	 * @param quantidade
+	 *            : Nova quantidade a ser atualizada.
+	 */
 	public void atualizaCompraDeLista(String descritor, Integer idItem, double quantidade);
-	
+
 	public void getItemLista(String descritor, int posicao);
-	
-	
-	
 
 }
