@@ -161,6 +161,13 @@ public interface ListaPraMim {
 	 */
 	public String getItemPorMenorPreco(int posicao);
 	
+	/**
+	 * Adiciona uma nova lista de compras as listas do sistema.
+	 * 
+	 * @param descritor : descricao de uma lista de compras.
+	 * 
+	 * @return : retorna a descricao da lista de compras.
+	 */
 	public String adicionaListaDeCompras(String descritor);
 	
 	public void adicionaCompraALista(String descritor, int quantidade , Integer idItem);
