@@ -246,6 +246,17 @@ public interface ListaPraMim {
 	 */
 	public void atualizaCompraDeLista(String descritor, Integer idItem, double quantidade);
 
+	/**
+	 * Retorna a representação String do item em uma lista de compras ordenada.
+	 * 
+	 * @param descritor
+	 *            : Descricao da lista de compras.
+	 * @param posicao
+	 *            : Posicao do item escolhido na lista.
+	 * 
+	 * @return : Retorna a representação String do item na posicao escolhida contida
+	 *         na lista de compras ordenada.
+	 */
 	public String getItemLista(String descritor, int posicao);
 
 }
