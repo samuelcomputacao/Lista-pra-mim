@@ -7,15 +7,16 @@ public  class Compra {
 	
 	private int quantidade;
 	
-	public Compra(Integer iditem,int quantidade) {
+	public Compra(Integer idItem,int quantidade) {
 		this.idItem = idItem;
 		this.quantidade = quantidade;
 	}
 	
-	
 	public  void atualizar(int valor) {
 		this.quantidade =  valor;
 	}
+	
+	
 	
 
 }

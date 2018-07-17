@@ -158,7 +158,13 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 * Metodo responsavel por realizar os testes de aceitacao
 	 */
 	public static void main(String[] args) {
-		args = new String[]{"com.projeto.principal.ListaPraMimFacade","acceptance_test/use_case1.txt","acceptance_test/use_case1_exception.txt","acceptance_test/use_case2.txt","acceptance_test/use_case2_exception.txt"};
+		args = new String[]{"com.projeto.principal.ListaPraMimFacade",
+							"acceptance_test/use_case1.txt",
+							"acceptance_test/use_case1_exception.txt",
+							"acceptance_test/use_case2.txt",
+							"acceptance_test/use_case2_exception.txt",
+							"acceptance_test/use_case3.txt"
+							};
 		EasyAccept.main(args);
 		
 	}
@@ -256,8 +262,13 @@ public class ListaPraMimFacade implements ListaPraMim {
 
 	@Override
 	public String getItemLista(String descritor, int posicao) {
-	return this.sistema.getItemLista(descritor, posicao);
+		return this.sistema.getItemLista(descritor, posicao);
 		
+	}
+
+	@Override
+	public String pesquisaListaDeCompras(String descritor) {
+		return this.sistema.pesquisaListaDeCompras(descritor);
 	}
 	
 

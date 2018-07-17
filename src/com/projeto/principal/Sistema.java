@@ -374,19 +374,20 @@ public class Sistema {
 	}
 
 	public void adicionaCompraALista(String descritor, int quantidade, Integer idItem) {
-		// TODO Auto-generated method stub
-		
+		ListaDeCompra  listaDeCompra = this.listas.get(descritor);
+		listaDeCompra.adicionaCompraALista(quantidade, idItem);	
 	}
 
 
 	public void finalizarListaDeCompras(String descritor, String localCompra, int valorFinalDaCompra) {
-		
+		ListaDeCompra listaDeCompra = this.listas.get(descritor);
+		listaDeCompra.finalizar(localCompra,valorFinalDaCompra);
 		
 	}
 
 	public String pesquisaCompraEmLista(String descritor, Integer idItem) {
-		// TODO Auto-generated method stub
-		return null;
+		ListaDeCompra listaDeCompra = this.listas.get(descritor);
+		return listaDeCompra.pesquisaCompraEmLista(idItem);
 	}
 
 	public void atualizaCompraDeLista(String descritor, Integer idItem, int quantidade) {
@@ -397,7 +398,14 @@ public class Sistema {
 
 
 	public String getItemLista(String descritor, int posicao) {
-		// TODO Auto-generated method stub
+		ListaDeCompra listaDeCompra = this.listas.get(descritor);
+		return listaDeCompra.getItemLista(posicao);
+	}
+	
+	public String pesquisaListaDeCompras(String descritor) {
+		if(this.listas.containsKey(descritor)) {
+			return descritor;
+		}
 		return null;
 	}
 }

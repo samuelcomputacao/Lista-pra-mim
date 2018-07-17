@@ -234,5 +234,7 @@ public interface ListaPraMim {
 	 *         na lista de compras ordenada.
 	 */
 	public String getItemLista(String descritor, int posicao);
+	
+	public String pesquisaListaDeCompras(String descritor);
 
 }
