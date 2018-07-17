@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.projeto.excecoes.AtribultoInexistenteException;
 import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.excecoes.CategoriaInexistenteException;
 
@@ -281,6 +282,54 @@ public class ProdutoQuantidadeFixaTest {
 		assertEquals("alimento nao industrializado", produto.getCategoria());
 		produto.setCategoria("alimento industrializado");
 		assertEquals("alimento industrializado", produto.getCategoria());
+	}
+	
+	/**
+	 * Testa o metodo atualizar item, onde o atributo a ser atualizado eh o nome.
+	 */
+	@Test
+	public void testAtualizaItemPorNome() {
+		assertEquals("1. Feijão Boa Safra, alimento nao industrializado, 10 kg, Preco: <Hiper Bom Preço, R$ 4,99;>", produto.toString());
+		produto.atualiza("nome", "Café Maratá");
+		assertEquals("1. Café Maratá, alimento nao industrializado, 10 kg, Preco: <Hiper Bom Preço, R$ 4,99;>", produto.toString());
+	}
+	
+	/**
+	 * Testa o metodo atualizar item, onde o atributo a ser atualizado eh a categoria.
+	 */
+	@Test
+	public void testAtualizaItemPorCategoria() {
+		assertEquals("1. Feijão Boa Safra, alimento nao industrializado, 10 kg, Preco: <Hiper Bom Preço, R$ 4,99;>", produto.toString());
+		produto.atualiza("categoria", "alimento industrializado");
+		assertEquals("1. Feijão Boa Safra, alimento industrializado, 10 kg, Preco: <Hiper Bom Preço, R$ 4,99;>", produto.toString());
+	}
+	
+	/**
+	 * Testa o metodo atualizar item, onde o atributo a ser atualizado eh a unidade de medida.
+	 */
+	@Test
+	public void testAtualizaItemPorUnidadeDeMedida() {
+		assertEquals("1. Feijão Boa Safra, alimento nao industrializado, 10 kg, Preco: <Hiper Bom Preço, R$ 4,99;>", produto.toString());
+		produto.atualiza("unidade de medida", "g");
+		assertEquals("1. Feijão Boa Safra, alimento nao industrializado, 10 g, Preco: <Hiper Bom Preço, R$ 4,99;>", produto.toString());
+	}
+	
+	/**
+	 * Testa o metodo atualizar item, onde o atributo a ser atualizado eh a quantidade.
+	 */
+	public void testAtualizaItemPorQuantidade() {
+		assertEquals("1. Feijão Boa Safra, alimento nao industrializado, 10 kg, Preco: <Hiper Bom Preço, R$ 4,99;>", produto.toString());
+		produto.atualiza("quantidade", "20");
+		assertEquals("1. Feijão Boa Safra, alimento nao industrializado, 20 kg, Preco: <Hiper Bom Preço, R$ 4,99;>", produto.toString());
+	}
+	
+	/**
+	 * Testa o metodo atualizar item, onde o atributo a ser atualizado eh um atributo inexistente.
+	 */
+	@Test(expected = AtribultoInexistenteException.class)
+	public void testAtualizaItemPorAtributoInexistente() {
+		assertEquals("1. Feijão Boa Safra, alimento nao industrializado, 10 kg, Preco: <Hiper Bom Preço, R$ 4,99;>", produto.toString());
+		produto.atualiza("nenhum", "hello");	
 	}
 
 }

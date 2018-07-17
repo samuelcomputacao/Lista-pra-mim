@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.projeto.excecoes.AtribultoInexistenteException;
 import com.projeto.excecoes.CampoInvalidoException;
 
 /**
@@ -176,7 +177,34 @@ public class ProdutoPorUnidadeTest {
 	@Test
 	public void testProdutoPorUnidade1() {
 		assertEquals(produtoPorUnidade.getUnidade(), 1);
-
+	}
+	/**
+	 * Testa o metodo atualiza recebendo parametros validos.
+	 */
+	@Test
+	public void testAtualiza() {
+		assertEquals(produtoPorUnidade.atualiza("nome", "100"),1);
+		assertEquals(produtoPorUnidade.atualiza("unidade", "200"),1);
+		
+	}
+	/**
+	 * Testa o metodo atualiza recebendo em parametro "atribulto" um valor invalido 
+	 */
+	@Test(expected=AtribultoInexistenteException.class)
+	public void testAtualizaComAtribultoInvalido() {
+		assertEquals(produtoPorUnidade.atualiza("nome", "100"),1);
+		assertEquals(produtoPorUnidade.atualiza("unidade", "200"),1);
+		assertEquals(produtoPorUnidade.atualiza("viagem", "2"),1);
+		
+	}
+	/**
+	 * Testa o metodo atualiza recebendo em parametro "novoValor" um valor invalido
+	 */
+	@Test(expected=CampoInvalidoException.class)
+	public void testAtualizaComNovoValorInvalido() {
+		assertEquals(produtoPorUnidade.atualiza("nome", "100"),1);
+		assertEquals(produtoPorUnidade.atualiza("unidade", "-200"),1);
+		
 	}
 
 }

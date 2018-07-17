@@ -106,11 +106,13 @@ public class ProdutoQuantidadeFixa extends Item {
 	}
 
 	/**
-	 * Metodo  reponsavel pela  atualizacao
-	 * para os seus valores
+	 * Metodo reponsavel pela atualizacao para os seus valores
 	 * 
-	 * @param atribulto : Nome do atribulto que sera atualizado
-	 * @param novoValor : O novo valor que sera atribuido ao atribulto
+	 * @param atributo
+	 *            : Nome do atributo que sera atualizado.
+	 * @param novoValor
+	 *            : O novo valor que sera atribuido ao atributo.
+	 * 
 	 * @return : O identificador do item
 	 */
 	@Override

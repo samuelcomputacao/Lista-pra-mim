@@ -298,6 +298,14 @@ public class SistemaTest {
 	}
 	
 	/**
+	 * Testa o metodo adicionaItemPorUnidade com nome repetido.
+	 */
+	@Test(expected = ItemJaExisteException.class)
+	public void testAdicionaItemPorUnidadeNomeIgual() {
+		sistema.adicionaItemPorUnidade("sabao", "limpeza", 1000, "extra", 29.99);
+		sistema.adicionaItemPorUnidade("sabao", "limpeza", 1000, "extra", 29.99);
+	}
+	/**
 	 * Testa o metodo exibeItem com parametro key valido (e item devidamente cadastrado).
 	 */
 	@Test
@@ -332,7 +340,9 @@ public class SistemaTest {
 		testAdicionaItemPorQtd();
 		sistema.exibeItem(4);	
 	}
-
+	/**
+	 * Testa o metodo que retorna o produto na respectiva posicao requerida, depois de ordenada a partir do menor preco.
+	 */
 	@Test
 	public void testGetItemPorMenorPreco() {
 		sistema.adicionaItemPorUnidade("sabonete", "limpeza", 1, "carrefuor", 92.3);
