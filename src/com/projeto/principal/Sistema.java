@@ -12,7 +12,6 @@ import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.excecoes.CategoriaInexistenteException;
 import com.projeto.excecoes.ItemInexistenteException;
 import com.projeto.excecoes.ItemJaExisteException;
-import com.projeto.model.CompraQTD;
 import com.projeto.model.Item;
 import com.projeto.model.ListaDeCompra;
 import com.projeto.model.ProdutoNaoIndustrializadoPorQuilo;
@@ -375,15 +374,10 @@ public class Sistema {
 	}
 
 	public void adicionaCompraALista(String descritor, int quantidade, Integer idItem) {
-		ListaDeCompra listaDeCompra = this.listas.get(descritor);
-		listaDeCompra.adicionaCompraALista(quantidade,idItem);
-
+		// TODO Auto-generated method stub
+		
 	}
 
-	public void adicionaCompraALista(String descritor, double quantidade, Integer idItem) {
-		ListaDeCompra listaDeCompra = this.listas.get(descritor);
-		listaDeCompra.adicionaCompraALista(quantidade,idItem);
-	}
 
 	public void finalizarListaDeCompras(String descritor, String localCompra, int valorFinalDaCompra) {
 		

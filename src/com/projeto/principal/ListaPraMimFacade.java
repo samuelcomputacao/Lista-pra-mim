@@ -233,11 +233,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 		
 	}
 
-	@Override
-	public void adicionaCompraALista(String descritor, double quantidade, Integer idItem) {
-		this.sistema.adicionaCompraALista(descritor,quantidade, idItem);
-		
-	}
+	
 
 	@Override
 	public void finalizarListaDeCompras(String descritor, String localCompra, int valorFinalDaCompra) {
@@ -256,11 +252,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 		
 	}
 
-	@Override
-	public void atualizaCompraDeLista(String descritor, Integer idItem, double quantidade) {
-		this.sistema.atualizaCompraDeLista(descritor, idItem, quantidade);
-		
-	}
+	
 
 	@Override
 	public String getItemLista(String descritor, int posicao) {

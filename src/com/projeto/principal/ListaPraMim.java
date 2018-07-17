@@ -183,18 +183,6 @@ public interface ListaPraMim {
 	 */
 	public void adicionaCompraALista(String descritor, int quantidade, Integer idItem);
 
-	/**
-	 * Adiciona uma compra a lista de compras (podendo ser uma quantidade
-	 * nao-inteira).
-	 * 
-	 * @param descritor
-	 *            : Descricao da compra a ser inserida na lista.
-	 * @param quantidade
-	 *            : Quantidade de unidades do produto.
-	 * @param idItem
-	 *            : Id do produto a ser inserido na lista.
-	 */
-	public void adicionaCompraALista(String descritor, double quantidade, Integer idItem);
 
 	/**
 	 * Finaliza uma lista de compras já inicializada.
@@ -233,18 +221,6 @@ public interface ListaPraMim {
 	 */
 	public void atualizaCompraDeLista(String descritor, Integer idItem, int quantidade);
 
-	/**
-	 * Atualiza a quantidade (podendo ser um valor nao inteiro) de uma compra em uma
-	 * lista de compras.
-	 * 
-	 * @param descritor
-	 *            : Descricao da lista de compras.
-	 * @param idItem
-	 *            : Id do item a ser alterado.
-	 * @param quantidade
-	 *            : Nova quantidade a ser atualizada.
-	 */
-	public void atualizaCompraDeLista(String descritor, Integer idItem, double quantidade);
 
 	/**
 	 * Retorna a representação String do item em uma lista de compras ordenada.
