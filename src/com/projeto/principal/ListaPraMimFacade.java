@@ -1,18 +1,19 @@
 package com.projeto.principal;
 
-
 import easyaccept.EasyAccept;
 
 /**
- * Fachada do sistema responsavel pela delegacao de todos os metodos que o sistema possui.
+ * Fachada do sistema responsavel pela delegacao de todos os metodos que o
+ * sistema possui.
  */
 public class ListaPraMimFacade implements ListaPraMim {
-	
+
 	/**
-	 * Representa um sistema. eh nele onde estara os codigos que realizarao a funcionalidades. 
+	 * Representa um sistema. eh nele onde estara os codigos que realizarao a
+	 * funcionalidades.
 	 */
 	private Sistema sistema;
-	
+
 	/**
 	 * Metodo responsavel por inicializar a facade no sistema.
 	 */
@@ -67,7 +68,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	public int adicionaItemPorQuilo(String nome, String categoria, double quilo, String localCompra, double preco) {
 		return this.sistema.adicionaItemPorQuilo(nome, categoria, quilo, localCompra, preco);
 	}
-	
+
 	/**
 	 * Metodo responsavel por adicionar um Item por unidade.
 	 * 
@@ -117,10 +118,9 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 * @return : Um inteiro indicando o identificador do item atualizado
 	 */
 	@Override
-	public int atualizaItem(Integer key,String atributo, String novoValor) {
+	public int atualizaItem(Integer key, String atributo, String novoValor) {
 		return this.sistema.atualizaItem(key, atributo, novoValor);
 	}
-
 
 	/**
 	 * Metodo responsavel por adicionar um preco relacionado a um determinado local
@@ -137,9 +137,9 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 *            adicionado
 	 */
 	@Override
-	public void adicionaPrecoItem(Integer key,String local, double preco) {
-		this.sistema.adicionaPrecoItem(key,local, preco);
-		
+	public void adicionaPrecoItem(Integer key, String local, double preco) {
+		this.sistema.adicionaPrecoItem(key, local, preco);
+
 	}
 
 	/**
@@ -152,21 +152,17 @@ public class ListaPraMimFacade implements ListaPraMim {
 	@Override
 	public void deletaItem(Integer key) {
 		this.sistema.deletaItem(key);
-	}	
-	
+	}
+
 	/**
 	 * Metodo responsavel por realizar os testes de aceitacao
 	 */
 	public static void main(String[] args) {
-		args = new String[]{"com.projeto.principal.ListaPraMimFacade",
-							"acceptance_test/use_case1.txt",
-							"acceptance_test/use_case1_exception.txt",
-							"acceptance_test/use_case2.txt",
-							"acceptance_test/use_case2_exception.txt",
-							"acceptance_test/use_case3.txt"
-							};
+		args = new String[] { "com.projeto.principal.ListaPraMimFacade", "acceptance_test/use_case1.txt",
+				"acceptance_test/use_case1_exception.txt", "acceptance_test/use_case2.txt",
+				"acceptance_test/use_case2_exception.txt", "acceptance_test/use_case3.txt" };
 		EasyAccept.main(args);
-		
+
 	}
 
 	/**
@@ -195,9 +191,10 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 * @return Uma String com a representacao textual do item selecionado
 	 */
 	@Override
-	public String getItemPorCategoria(String categoria,int posicao) {
+	public String getItemPorCategoria(String categoria, int posicao) {
 		return this.sistema.getItemPorCategoria(categoria, posicao);
 	}
+
 	/**
 	 * Metodo responsavel por retornar o item em determinada posicao. Para isso os
 	 * itens estarao sendo classificados do menor preco ao maior preco
@@ -207,10 +204,10 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 * @return : Representacao textual do item nessa posicao
 	 */
 	@Override
-	public String getItemPorMenorPreco (int posicao) {
+	public String getItemPorMenorPreco(int posicao) {
 		return this.sistema.getItemPorMenorPreco(posicao);
 	}
-	
+
 	/**
 	 * Metodo responsavel por realizar a busca de um item de acordo com uma string
 	 * de pesquisa
@@ -224,54 +221,108 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 *         informada
 	 */
 	@Override
-	public String getItemPorPesquisa(String strPesquisa, int posicao) { 
-		return this.sistema.getItemPorPesquisa(strPesquisa,posicao);
+	public String getItemPorPesquisa(String strPesquisa, int posicao) {
+		return this.sistema.getItemPorPesquisa(strPesquisa, posicao);
 	}
 
+	/**
+	 * Metodo responsavel por criar uma lista de compras com um nome
+	 * 
+	 * @param descritor
+	 *            : Nome da lista de compras
+	 */
 	@Override
 	public String adicionaListaDeCompras(String descritor) {
 		return this.sistema.adicionaListaDeCompras(descritor);
 	}
 
+	/**
+	 * Metodo responsavel por adicionar a uma lista de compras um item com uma certa
+	 * quantidade.
+	 * 
+	 * @param descritor
+	 *            : Nome da lista de compras.
+	 * @param quantidade
+	 *            : quantidade de itens que serao cadastrados.
+	 * @param idItem
+	 *            : id do item que sera adicionado na lista de compras.
+	 */
 	@Override
 	public void adicionaCompraALista(String descritor, int quantidade, Integer idItem) {
-		this.sistema.adicionaCompraALista(descritor, quantidade,idItem);
-		
+		this.sistema.adicionaCompraALista(descritor, quantidade, idItem);
+
 	}
 
-	
-
+	/**
+	 * Metodo responsavel por finalizar uma lista de compras
+	 * 
+	 * @param descritor
+	 *            : Nome da lista de compras.
+	 * @param localCompra
+	 *            : Local onde as compras foram efetuadas.
+	 * @param valorFinalCompra
+	 *            : Valor final da compra.
+	 */
 	@Override
 	public void finalizarListaDeCompras(String descritor, String localCompra, int valorFinalDaCompra) {
 		this.sistema.finalizarListaDeCompras(descritor, localCompra, valorFinalDaCompra);
-		
+
 	}
 
+	/**
+	 * Metodo responsavel por pesquisar na lista de compras um determinado produto.
+	 * 
+	 * @param descritor
+	 *            : Nome da lista de compras.
+	 * @param idItem
+	 *            : id do item que sera pesquisado na lista de compras.
+	 *  @return Representacao textual do item que esta na lista. 
+	 */
 	@Override
 	public String pesquisaCompraEmLista(String descritor, Integer idItem) {
 		return this.sistema.pesquisaCompraEmLista(descritor, idItem);
 	}
 
+	/**
+	 *  Metodo responsavel por atualizar um produto da lista de compras.
+	 *   
+	 * @param descritor
+	 *            : Nome da lista de compras.
+	 * @param idItem
+	 *            : id do item que sera atualizado na lista de compras.
+	 * @param quantidade
+	 *            : nova quantidae de itens.
+	 */
 	@Override
 	public void atualizaCompraDeLista(String descritor, Integer idItem, int quantidade) {
 		this.sistema.atualizaCompraDeLista(descritor, idItem, quantidade);
-		
+
 	}
 
-	
-
+	/**
+	 * Metodo responsavel retornar o item na posicao da lista.
+	 * 
+	 * @param descritor
+	 *            : Nome da lista de compras.
+	 * @param posicao
+	 *            : posicao do item que sera pesquisado.
+	 * @return representacao textual do item na posicao requerida.
+	 */
 	@Override
 	public String getItemLista(String descritor, int posicao) {
 		return this.sistema.getItemLista(descritor, posicao);
-		
 	}
 
+	/**
+	 * Metodo responsavel por verificar a existencia de uma lista de compras.
+	 * 
+	 * @param descritor
+	 *            : Nome da lista de compras que sera pesquisada.
+	 *  @return O nome do descritor, se existir, e null caso nao exista.
+	 */
 	@Override
 	public String pesquisaListaDeCompras(String descritor) {
 		return this.sistema.pesquisaListaDeCompras(descritor);
 	}
-	
-
-	
 
 }

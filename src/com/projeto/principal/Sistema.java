@@ -372,36 +372,87 @@ public class Sistema {
 		this.listas.put(descritor, listaDeCompra);
 		return descritor;
 	}
-
+	/**
+	 * Metodo responsavel por adicionar a uma lista de compras um item com uma certa
+	 * quantidade.
+	 * 
+	 * @param descritor
+	 *            : Nome da lista de compras.
+	 * @param quantidade
+	 *            : quantidade de itens que serao cadastrados.
+	 * @param idItem
+	 *            : id do item que sera adicionado na lista de compras.
+	 */
 	public void adicionaCompraALista(String descritor, int quantidade, Integer idItem) {
 		ListaDeCompra  listaDeCompra = this.listas.get(descritor);
 		listaDeCompra.adicionaCompraALista(quantidade, idItem);	
 	}
 
-
+	/**
+	 * Metodo responsavel por finalizar uma lista de compras.
+	 * 
+	 * @param descritor
+	 *            : Nome da lista de compras.
+	 * @param localCompra
+	 *            : Local onde as compras foram efetuadas.
+	 * @param valorFinalCompra
+	 *            : Valor final da compra.
+	 */
 	public void finalizarListaDeCompras(String descritor, String localCompra, int valorFinalDaCompra) {
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		listaDeCompra.finalizar(localCompra,valorFinalDaCompra);
 		
 	}
-
+	
+	/**
+	 * Metodo responsavel por pesquisar na lista de compras um determinado produto.
+	 * 
+	 * @param descritor
+	 *            : Nome da lista de compras.
+	 * @param idItem
+	 *            : id do item que sera pesquisado na lista de compras.
+	 *  @return Representacao textual do item que esta na lista. 
+	 */
 	public String pesquisaCompraEmLista(String descritor, Integer idItem) {
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		return listaDeCompra.pesquisaCompraEmLista(idItem);
 	}
-
+	/**
+	 * Metodo responsavel por atualizar um produto da lista de compras.
+	 * 
+	 * @param descritor
+	 *            : Nome da lista de compras.
+	 * @param idItem
+	 *            : id do item que sera atualizado na lista de compras.
+	 * @param quantidade
+	 *            : nova quantidae de itens.
+	 */
 	public void atualizaCompraDeLista(String descritor, Integer idItem, int quantidade) {
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		listaDeCompra.atualizaCompraDeLista(idItem,quantidade);
 		
 	}
-
-
+	/**
+	 * Metodo responsavel retornar o item na posicao da lista.
+	 * 
+	 * @param descritor
+	 *            : Nome da lista de compras.
+	 * @param posicao
+	 *            : posicao do item que sera pesquisado.
+	 * @return representacao textual do item na posicao requerida.
+	 */
+	
 	public String getItemLista(String descritor, int posicao) {
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		return listaDeCompra.getItemLista(posicao);
 	}
-	
+	/**
+	 * Metodo responsavel por verificar a existencia de uma lista de compras.
+	 * 
+	 * @param descritor
+	 *            : Nome da lista de compras que sera pesquisada.
+	 *  @return O nome do descritor, se existir, e null caso nao exista.
+	 */
 	public String pesquisaListaDeCompras(String descritor) {
 		if(this.listas.containsKey(descritor)) {
 			return descritor;
