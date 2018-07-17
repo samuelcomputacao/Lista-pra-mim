@@ -380,10 +380,8 @@ public class Sistema {
 		if (descritor == null || descritor.trim().isEmpty())
 			throw new CampoInvalidoException(
 					"Erro na criacao de lista de compras: descritor nao pode ser vazio ou nulo.");
-		for (ListaDeCompra lista : this.listas.values()) {
-			if (lista.getDescritor().equals(descritor)) {
-				throw new CampoInvalidoException("Erro na criacao de lista de compras: descritor indisponivel.");
-			}
+		if(this.listas.containsKey(descritor)) {
+			throw new CampoInvalidoException("Erro na criacao de lista de compras: descritor indisponivel.");
 		}
 		ListaDeCompra listaDeCompra = new ListaDeCompra(descritor);
 		this.listas.put(descritor, listaDeCompra);
