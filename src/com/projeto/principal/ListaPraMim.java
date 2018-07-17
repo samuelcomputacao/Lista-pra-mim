@@ -246,6 +246,6 @@ public interface ListaPraMim {
 	 */
 	public void atualizaCompraDeLista(String descritor, Integer idItem, double quantidade);
 
-	public void getItemLista(String descritor, int posicao);
+	public String getItemLista(String descritor, int posicao);
 
 }

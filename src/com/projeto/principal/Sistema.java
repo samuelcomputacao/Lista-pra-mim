@@ -366,4 +366,44 @@ public class Sistema {
 		}
 		return "";
 	}
+
+	public String adicionaListaDeCompras(String descritor) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void adicionaCompraALista(String descritor, int quantidade, Integer idItem) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void adicionaCompraALista(String descritor, double quantidade, Integer idItem) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void finalizarListaDeCompras(String descritor, String localCompra, int valorFinalDaCompra) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public String pesquisaCompraEmLista(String descritor, Integer idItem) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void atualizaCompraDeLista(String descritor, Integer idItem, int quantidade) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void atualizaCompraDeLista(String descritor, Integer idItem, double quantidade) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public String getItemLista(String descritor, int posicao) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

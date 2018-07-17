@@ -224,48 +224,47 @@ public class ListaPraMimFacade implements ListaPraMim {
 
 	@Override
 	public String adicionaListaDeCompras(String descritor) {
-		return null;
+		return this.sistema.adicionaListaDeCompras(descritor);
 	}
 
 	@Override
 	public void adicionaCompraALista(String descritor, int quantidade, Integer idItem) {
-		// TODO Auto-generated method stub
+		this.sistema.adicionaCompraALista(descritor, quantidade,idItem);
 		
 	}
 
 	@Override
 	public void adicionaCompraALista(String descritor, double quantidade, Integer idItem) {
-		// TODO Auto-generated method stub
+		this.sistema.adicionaCompraALista(descritor,quantidade, idItem);
 		
 	}
 
 	@Override
 	public void finalizarListaDeCompras(String descritor, String localCompra, int valorFinalDaCompra) {
-		// TODO Auto-generated method stub
+		this.sistema.finalizarListaDeCompras(descritor, localCompra, valorFinalDaCompra);
 		
 	}
 
 	@Override
 	public String pesquisaCompraEmLista(String descritor, Integer idItem) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.sistema.pesquisaCompraEmLista(descritor, idItem);
 	}
 
 	@Override
 	public void atualizaCompraDeLista(String descritor, Integer idItem, int quantidade) {
-		// TODO Auto-generated method stub
+		this.sistema.atualizaCompraDeLista(descritor, idItem, quantidade);
 		
 	}
 
 	@Override
 	public void atualizaCompraDeLista(String descritor, Integer idItem, double quantidade) {
-		// TODO Auto-generated method stub
+		this.sistema.atualizaCompraDeLista(descritor, idItem, quantidade);
 		
 	}
 
 	@Override
-	public void getItemLista(String descritor, int posicao) {
-		// TODO Auto-generated method stub
+	public String getItemLista(String descritor, int posicao) {
+	return this.sistema.getItemLista(descritor, posicao);
 		
 	}
 	
