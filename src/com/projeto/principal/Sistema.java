@@ -13,6 +13,7 @@ import com.projeto.excecoes.CategoriaInexistenteException;
 import com.projeto.excecoes.ItemInexistenteException;
 import com.projeto.excecoes.ItemJaExisteException;
 import com.projeto.model.Item;
+import com.projeto.model.ListaDeCompra;
 import com.projeto.model.ProdutoNaoIndustrializadoPorQuilo;
 import com.projeto.model.ProdutoPorUnidade;
 import com.projeto.model.ProdutoQuantidadeFixa;
@@ -29,7 +30,7 @@ public class Sistema {
 	/**
 	 * Uma lista com todas as listaDeCompras do sistema.
 	 */
-	// private List<ListaDeCompra> listas;
+	 private Map<String,ListaDeCompra> listas;
 
 	/**
 	 * Um mapa com todos os produtos cadastrados pelo sistema.
@@ -42,7 +43,7 @@ public class Sistema {
 	private Integer identificadorBase;
 
 	public Sistema() {
-		// this.listas = new ArrayList<>();
+		this.listas = new HashMap<>();
 		this.identificadorBase = 1;
 		/**
 		 * Mapa
