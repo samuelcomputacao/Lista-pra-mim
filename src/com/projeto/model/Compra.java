@@ -46,15 +46,6 @@ public class Compra {
 	}
 
 	/**
-	 * Metodo que retorna o item da compra.
-	 * 
-	 * @return Item da compra.
-	 */
-	public Item getItem() {
-		return item;
-	}
-
-	/**
 	 * Metodo que retorna uma String com a quantidade de itens da compra junto com a
 	 * descricao do item.
 	 * 
