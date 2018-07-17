@@ -282,5 +282,5 @@ public class ProdutoQuantidadeFixaTest {
 		produto.setCategoria("alimento industrializado");
 		assertEquals("alimento industrializado", produto.getCategoria());
 	}
-	
+
 }
