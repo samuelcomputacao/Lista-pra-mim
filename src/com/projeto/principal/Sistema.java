@@ -30,7 +30,7 @@ public class Sistema {
 	/**
 	 * Uma lista com todas as listaDeCompras do sistema.
 	 */
-	 private Map<String,ListaDeCompra> listas;
+	private Map<String, ListaDeCompra> listas;
 
 	/**
 	 * Um mapa com todos os produtos cadastrados pelo sistema.
@@ -247,7 +247,8 @@ public class Sistema {
 					SistemaMensagens.MSG_EXCECAO_CADASTO_PRECO.get() + "local de compra nao pode ser vazio ou nulo.");
 		}
 		if (preco < 0) {
-			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_CADASTO_PRECO.get() + "preco de item invalido.");
+			throw new CampoInvalidoException(
+					SistemaMensagens.MSG_EXCECAO_CADASTO_PRECO.get() + "preco de item invalido.");
 		}
 		Item item = this.produtos.get(key);
 		item.adicionarLocalCompra(local, preco);
@@ -368,19 +369,27 @@ public class Sistema {
 	}
 
 	/**
-	 * Metodo responsavel por criar uma lista de compras com um nome.
+	 * Metodo responsavel por criar uma lista de compras com um nome. Alem disso,
+	 * nao permite que descritores de listas de compras sejam repetidos.
 	 * 
 	 * @param descritor
-	 *            : Nome da lista de compras
+	 *            : descritor da lista de compras
 	 * @return representacao textual do nome do descritor
 	 */
 	public String adicionaListaDeCompras(String descritor) {
-		if(descritor == null || descritor.trim().isEmpty())
-			throw new CampoInvalidoException("Erro na criacao de lista de compras: descritor nao pode ser vazio ou nulo.");
+		if (descritor == null || descritor.trim().isEmpty())
+			throw new CampoInvalidoException(
+					"Erro na criacao de lista de compras: descritor nao pode ser vazio ou nulo.");
 		ListaDeCompra listaDeCompra = new ListaDeCompra(descritor);
+		for (ListaDeCompra lista : this.listas.values()) {
+			if (lista.getDescritor().equals(descritor)) {
+				throw new CampoInvalidoException("Erro na criacao de lista de compras: descritor indisponivel.");
+			}
+		}
 		this.listas.put(descritor, listaDeCompra);
 		return descritor;
 	}
+
 	/**
 	 * Metodo responsavel por adicionar a uma lista de compras um item com uma certa
 	 * quantidade.
@@ -393,13 +402,13 @@ public class Sistema {
 	 *            : id do item que sera adicionado na lista de compras.
 	 */
 	public void adicionaCompraALista(String descritor, int quantidade, Integer idItem) {
-		if(descritor == null || descritor.trim().isEmpty())
-			throw new CampoInvalidoException("Erro na criacao de lista de compras: descritor nao pode ser vazio ou nulo.");
+		if (descritor == null || descritor.trim().isEmpty())
+			throw new CampoInvalidoException(
+					"Erro na criacao de lista de compras: descritor nao pode ser vazio ou nulo.");
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		Item item = this.produtos.get(idItem);
 		listaDeCompra.adicionaCompraALista(quantidade, item);
-		
-		
+
 	}
 
 	/**
@@ -414,10 +423,10 @@ public class Sistema {
 	 */
 	public void finalizarListaDeCompras(String descritor, String localCompra, int valorFinalDaCompra) {
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
-		listaDeCompra.finalizar(localCompra,valorFinalDaCompra);
-		
+		listaDeCompra.finalizar(localCompra, valorFinalDaCompra);
+
 	}
-	
+
 	/**
 	 * Metodo responsavel por pesquisar na lista de compras um determinado produto.
 	 * 
@@ -425,14 +434,15 @@ public class Sistema {
 	 *            : Nome da lista de compras.
 	 * @param idItem
 	 *            : id do item que sera pesquisado na lista de compras.
-	 *  @return Representacao textual do item que esta na lista. 
+	 * @return Representacao textual do item que esta na lista.
 	 */
 	public String pesquisaCompraEmLista(String descritor, Integer idItem) {
-		if(descritor == null || descritor.trim().isEmpty())
+		if (descritor == null || descritor.trim().isEmpty())
 			throw new CampoInvalidoException("Erro na pesquisa de compra: descritor nao pode ser vazio ou nulo.");
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		return listaDeCompra.pesquisaCompraEmLista(idItem);
 	}
+
 	/**
 	 * Metodo responsavel por atualizar um produto da lista de compras.
 	 * 
@@ -443,10 +453,11 @@ public class Sistema {
 	 * @param quantidade
 	 *            : nova quantidae de itens.
 	 */
-	public void atualizaCompraDeLista(String descritorLista, Integer idItem,String operacao,int quantidade) {
+	public void atualizaCompraDeLista(String descritorLista, Integer idItem, String operacao, int quantidade) {
 		ListaDeCompra listaDeCompra = this.listas.get(descritorLista);
 		listaDeCompra.atualizaCompraDeLista(idItem, operacao, quantidade);
 	}
+
 	/**
 	 * Metodo responsavel retornar o item na posicao da lista.
 	 * 
@@ -456,20 +467,21 @@ public class Sistema {
 	 *            : posicao do item que sera pesquisado.
 	 * @return representacao textual do item na posicao requerida.
 	 */
-	
+
 	public String getItemLista(String descritor, int posicao) {
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		return listaDeCompra.getItemLista(posicao);
 	}
+
 	/**
 	 * Metodo responsavel por verificar a existencia de uma lista de compras.
 	 * 
 	 * @param descritor
 	 *            : Nome da lista de compras que sera pesquisada.
-	 *  @return O nome do descritor, se existir, e null caso nao exista.
+	 * @return O nome do descritor, se existir, e null caso nao exista.
 	 */
 	public String pesquisaListaDeCompras(String descritor) {
-		if(this.listas.containsKey(descritor)) {
+		if (this.listas.containsKey(descritor)) {
 			return descritor;
 		}
 		return null;
