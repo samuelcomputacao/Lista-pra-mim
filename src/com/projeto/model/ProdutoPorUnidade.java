@@ -96,5 +96,8 @@ public class ProdutoPorUnidade extends Item {
 		}
 		return super.getId();
 	}
-
+	@Override
+	public String getDescricao() {
+		return super.getNome() + ", " + super.getCategoria();
+	}
 }

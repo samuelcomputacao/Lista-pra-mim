@@ -219,8 +219,7 @@ public interface ListaPraMim {
 	 * @param quantidade
 	 *            : Nova quantidade a ser atualizada.
 	 */
-	public void atualizaCompraDeLista(String descritor, Integer idItem, int quantidade);
-
+	public void atualizaCompraDeLista(String descritor, Integer idItem, String operacao,int quantidade);
 
 	/**
 	 * Retorna a representação String do item em uma lista de compras ordenada.

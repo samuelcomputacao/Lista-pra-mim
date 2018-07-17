@@ -143,5 +143,10 @@ public class ProdutoQuantidadeFixa extends Item {
 		}
 		return super.getId();
 	}
+	
+	@Override
+	public String getDescricao() {
+		return  super.getDescricao()+", "+ this.getQuantidade() + " " + this.unidadeMedida;
+	}
 
 }

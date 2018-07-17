@@ -367,7 +367,16 @@ public class Sistema {
 		return "";
 	}
 
+	/**
+	 * Metodo responsavel por criar uma lista de compras com um nome.
+	 * 
+	 * @param descritor
+	 *            : Nome da lista de compras
+	 * @return representacao textual do nome do descritor
+	 */
 	public String adicionaListaDeCompras(String descritor) {
+		if(descritor == null || descritor.trim().isEmpty())
+			throw new CampoInvalidoException("Erro na criacao de lista de compras: descritor nao pode ser vazio ou nulo.");
 		ListaDeCompra listaDeCompra = new ListaDeCompra(descritor);
 		this.listas.put(descritor, listaDeCompra);
 		return descritor;
@@ -384,8 +393,13 @@ public class Sistema {
 	 *            : id do item que sera adicionado na lista de compras.
 	 */
 	public void adicionaCompraALista(String descritor, int quantidade, Integer idItem) {
-		ListaDeCompra  listaDeCompra = this.listas.get(descritor);
-		listaDeCompra.adicionaCompraALista(quantidade, idItem);	
+		if(descritor == null || descritor.trim().isEmpty())
+			throw new CampoInvalidoException("Erro na criacao de lista de compras: descritor nao pode ser vazio ou nulo.");
+		ListaDeCompra listaDeCompra = this.listas.get(descritor);
+		Item item = this.produtos.get(idItem);
+		listaDeCompra.adicionaCompraALista(quantidade, item);
+		
+		
 	}
 
 	/**
@@ -414,6 +428,8 @@ public class Sistema {
 	 *  @return Representacao textual do item que esta na lista. 
 	 */
 	public String pesquisaCompraEmLista(String descritor, Integer idItem) {
+		if(descritor == null || descritor.trim().isEmpty())
+			throw new CampoInvalidoException("Erro na pesquisa de compra: descritor nao pode ser vazio ou nulo.");
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		return listaDeCompra.pesquisaCompraEmLista(idItem);
 	}
@@ -427,10 +443,9 @@ public class Sistema {
 	 * @param quantidade
 	 *            : nova quantidae de itens.
 	 */
-	public void atualizaCompraDeLista(String descritor, Integer idItem, int quantidade) {
-		ListaDeCompra listaDeCompra = this.listas.get(descritor);
-		listaDeCompra.atualizaCompraDeLista(idItem,quantidade);
-		
+	public void atualizaCompraDeLista(String descritorLista, Integer idItem,String operacao,int quantidade) {
+		ListaDeCompra listaDeCompra = this.listas.get(descritorLista);
+		listaDeCompra.atualizaCompraDeLista(idItem, operacao, quantidade);
 	}
 	/**
 	 * Metodo responsavel retornar o item na posicao da lista.

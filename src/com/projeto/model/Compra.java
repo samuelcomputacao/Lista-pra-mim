@@ -1,22 +1,25 @@
 package com.projeto.model;
 
-public  class Compra {
-	
+public class Compra {
 
-	private Integer idItem;
-	
+	private Item item;
+
 	private int quantidade;
-	
-	public Compra(Integer idItem,int quantidade) {
-		this.idItem = idItem;
+
+	public Compra(Item item, int quantidade) {
+		this.item = item;
 		this.quantidade = quantidade;
 	}
-	
-	public  void atualizar(int valor) {
-		this.quantidade =  valor;
+
+	public void atualizar(String operacao,int valor) {
+		if(operacao.equals("adiciona"))
+			this.quantidade += valor;
+		else if (operacao.equals("diminui"))
+			this.quantidade -= valor;
+			
 	}
 	
-	
-	
-
+	public String getDescricao() {
+		return this.quantidade + " " + item.getDescricao();
+	}
 }

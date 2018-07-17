@@ -193,4 +193,8 @@ public abstract class Item implements Comparable<Item>{
 	 * @return : O identificador do item
 	 */
 	public abstract int atualiza(String atribulto, String novoValor);
+	
+	public String getDescricao() {
+		return getNome() +", "+ getCategoria();
+	}
 }

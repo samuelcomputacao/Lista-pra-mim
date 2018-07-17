@@ -160,7 +160,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	public static void main(String[] args) {
 		args = new String[] { "com.projeto.principal.ListaPraMimFacade", "acceptance_test/use_case1.txt",
 				"acceptance_test/use_case1_exception.txt", "acceptance_test/use_case2.txt",
-				"acceptance_test/use_case2_exception.txt", "acceptance_test/use_case3.txt" };
+				"acceptance_test/use_case2_exception.txt", "acceptance_test/use_case3.txt"/*,"acceptance_test/use_case3_exception.txt"*/};
 		EasyAccept.main(args);
 
 	}
@@ -250,7 +250,6 @@ public class ListaPraMimFacade implements ListaPraMim {
 	@Override
 	public void adicionaCompraALista(String descritor, int quantidade, Integer idItem) {
 		this.sistema.adicionaCompraALista(descritor, quantidade, idItem);
-
 	}
 
 	/**
@@ -284,22 +283,6 @@ public class ListaPraMimFacade implements ListaPraMim {
 	}
 
 	/**
-	 *  Metodo responsavel por atualizar um produto da lista de compras.
-	 *   
-	 * @param descritor
-	 *            : Nome da lista de compras.
-	 * @param idItem
-	 *            : id do item que sera atualizado na lista de compras.
-	 * @param quantidade
-	 *            : nova quantidae de itens.
-	 */
-	@Override
-	public void atualizaCompraDeLista(String descritor, Integer idItem, int quantidade) {
-		this.sistema.atualizaCompraDeLista(descritor, idItem, quantidade);
-
-	}
-
-	/**
 	 * Metodo responsavel retornar o item na posicao da lista.
 	 * 
 	 * @param descritor
@@ -324,5 +307,15 @@ public class ListaPraMimFacade implements ListaPraMim {
 	public String pesquisaListaDeCompras(String descritor) {
 		return this.sistema.pesquisaListaDeCompras(descritor);
 	}
-
+	/**
+	 * Metodo responsavel por atualizar a quantidade de um item da lista de compras
+	 * @param descritor :Nome do descritor em que sera feita a modificacao
+	 * @param itemId : id do item que sera modificado
+	 * @param operacao : operacao que o item sofrera
+	 * @param quantidade : quantidade que o item ira mudar
+	 */
+	@Override
+	public void atualizaCompraDeLista(String descritor, Integer itemId,String operacao,int quantidade) {
+		this.sistema.atualizaCompraDeLista(descritor, itemId, operacao,quantidade);
+	}
 }

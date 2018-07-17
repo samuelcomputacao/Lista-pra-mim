@@ -1,7 +1,10 @@
-package com.projeto.model;
+package 	com.projeto.model;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
+
+import com.projeto.excecoes.ItemInexistenteException;
 
 public class ListaDeCompra {
 	
@@ -20,19 +23,17 @@ public class ListaDeCompra {
 	public ListaDeCompra(String descritor) {
 		this.dataCriacao = new Date();
 		this.descritor = descritor;
+		compras = new HashMap<>();
 		this.finalizada = false;
 	}
 
-	public void adicionaCompraALista(int quantidade, Integer idItem) {
-		Compra compra = new Compra(idItem, quantidade);
-		this.compras.put(idItem, compra);
-		
+	public void adicionaCompraALista(int quantidade, Item item) {
+		Compra compra = new Compra(item, quantidade);
+		this.compras.put(item.getId(), compra);
 	}
 
-	
-
-	public void atualizaCompraDeLista(Integer idItem, int quantidade) {
-		this.compras.get(idItem).atualizar(quantidade);
+	public void atualizaCompraDeLista(Integer idItem, String operacao,int quantidade) {
+		this.compras.get(idItem).atualizar(operacao,quantidade);
 		
 	}
 
@@ -42,8 +43,7 @@ public class ListaDeCompra {
 	}
 
 	public String pesquisaCompraEmLista(Integer idItem) {
-		// TODO Auto-generated method stub
-		return null;
+		return  this.compras.get(idItem).getDescricao();
 	}
 	
 	public void finalizar(String local,int valorFinal) {
@@ -55,7 +55,4 @@ public class ListaDeCompra {
 	public boolean isFinalizada() {
 		return this.finalizada;
 	}
-
-
-
 }
