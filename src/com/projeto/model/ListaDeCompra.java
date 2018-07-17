@@ -1,5 +1,8 @@
 package 	com.projeto.model;
 
+import java.awt.List;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,16 +37,21 @@ public class ListaDeCompra {
 
 	public void atualizaCompraDeLista(Integer idItem, String operacao,int quantidade) {
 		this.compras.get(idItem).atualizar(operacao,quantidade);
-		
+		if(this.compras.get(idItem).getQuantidade() <= 0)
+			this.compras.remove(idItem);
 	}
 
 	public String getItemLista(int posicao) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	public String pesquisaCompraEmLista(Integer idItem) {
-		return  this.compras.get(idItem).getDescricao();
+		try {
+			return this.compras.get(idItem).getDescricao();
+		}catch(NullPointerException e) {
+			throw new NullPointerException("Erro na pesquisa de compra: compra nao encontrada na lista.");
+		}
 	}
 	
 	public void finalizar(String local,int valorFinal) {

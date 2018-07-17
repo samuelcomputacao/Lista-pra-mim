@@ -15,11 +15,12 @@ public class Compra {
 		if(operacao.equals("adiciona"))
 			this.quantidade += valor;
 		else if (operacao.equals("diminui"))
-			this.quantidade -= valor;
-			
+			this.quantidade -= valor;	
 	}
-	
 	public String getDescricao() {
 		return this.quantidade + " " + item.getDescricao();
+	}
+	public int getQuantidade() {
+		return this.quantidade;
 	}
 }
