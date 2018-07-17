@@ -1,10 +1,18 @@
 package com.projeto.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import com.projeto.comparadores.ComparaCategoria;
+import com.projeto.comparadores.ComparaNome;
 import com.projeto.excecoes.CampoInvalidoException;
+import com.projeto.excecoes.CompraNaoCadastrada;
+import com.projeto.util.SistemaMensagens;
+import com.projeto.util.ValidadorSistema;
 
 public class ListaDeCompra {
 
@@ -65,14 +73,46 @@ public class ListaDeCompra {
 	 *            qtd a ser removida ou adicionada no atributo quantidade.
 	 */
 	public void atualizaCompraDeLista(Integer idItem, String operacao, int quantidade) {
+		try {
+			if (ValidadorSistema.validaOperacao(operacao)) {
+				if (!this.compras.containsKey(idItem)) {
+					throw new CompraNaoCadastrada(SistemaMensagens.MSG_EXCECAO_ATUALIZA_COMPRA.get());
+				}
+			}
+		} catch (CampoInvalidoException e) {
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_COMPRA.get() + e.getMessage());
+		}
+
 		this.compras.get(idItem).atualizar(operacao, quantidade);
 		if (this.compras.get(idItem).getQuantidade() <= 0)
 			this.compras.remove(idItem);
+
 	}
 
 	public String getItemLista(int posicao) {
 
-		return null;
+		List<Compra> lista = new ArrayList<>(this.compras.values());
+		Collections.sort(lista, new ComparaCategoria());
+		Collections.sort(lista, new ComparaNome());
+
+		Compra compra = lista.get(posicao);
+		Item item = compra.getItem();
+
+		int qtd = item.getQuantidade();
+		String unidadeMedida = item.getUnidadeMedida();
+
+		String quantidade = String.valueOf(qtd * compra.getQuantidade()) + " " + unidadeMedida;
+		String retorno = String.format("%d %s, %s, %s", compra.getQuantidade(), item.getNome(), item.getCategoria(),
+				quantidade);
+		return retorno;
+	}
+
+	private List<Item> buscatodosItens() {
+		List<Item> itens = new ArrayList<Item>();
+		for (Compra compra : this.compras.values()) {
+			itens.add(compra.getItem());
+		}
+		return itens;
 	}
 
 	public String pesquisaCompraEmLista(Integer idItem) {
@@ -96,5 +136,12 @@ public class ListaDeCompra {
 	 */
 	public boolean isFinalizada() {
 		return this.finalizada;
+	}
+
+	public void deletaCompraDeLista(Integer idItem) {
+		if (!this.compras.containsKey(idItem)) {
+			throw new CompraNaoCadastrada(SistemaMensagens.MSG_EXCECAO_EXCLUSAO_COMPRA.get());
+		}
+		this.compras.remove(idItem);
 	}
 }

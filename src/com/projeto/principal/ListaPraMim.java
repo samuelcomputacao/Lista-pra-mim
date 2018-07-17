@@ -235,5 +235,7 @@ public interface ListaPraMim {
 	public String getItemLista(String descritor, int posicao);
 	
 	public String pesquisaListaDeCompras(String descritor);
+	
+	public void deletaCompraDeLista(String descritor, Integer idItem);
 
 }

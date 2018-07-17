@@ -197,4 +197,8 @@ public abstract class Item implements Comparable<Item>{
 	public String getDescricao() {
 		return getNome() +", "+ getCategoria();
 	}
+	
+	public abstract int getQuantidade();
+	
+	public abstract String getUnidadeMedida();
 }

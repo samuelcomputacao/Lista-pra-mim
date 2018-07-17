@@ -319,4 +319,10 @@ public class ListaPraMimFacade implements ListaPraMim {
 	public void atualizaCompraDeLista(String descritor, Integer itemId,String operacao,int quantidade) {
 		this.sistema.atualizaCompraDeLista(descritor, itemId, operacao,quantidade);
 	}
+
+	@Override
+	public void deletaCompraDeLista(String descritor, Integer idItem) {
+		this.sistema.deletaCompraDeLista(descritor,idItem);
+		
+	}
 }

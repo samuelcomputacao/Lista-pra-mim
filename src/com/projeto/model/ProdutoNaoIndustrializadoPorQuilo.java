@@ -94,9 +94,11 @@ public class ProdutoNaoIndustrializadoPorQuilo extends Item {
 				super.setCategoria(novoValor);
 				break;
 			case "kg":
+				
 				double quilos = Double.parseDouble(novoValor);
 				if(ValidadorSistema.validaQuilo(quilos)) {
 					this.setQuilo(quilos);
+					System.out.println("Atualizou " +  novoValor);
 				}
 				break;
 			default:
@@ -109,5 +111,16 @@ public class ProdutoNaoIndustrializadoPorQuilo extends Item {
 	@Override
 	public String getDescricao() {
 		return super.getDescricao()+", "+ this.quilo;
+	}
+
+	@Override
+	public int getQuantidade() {
+		int quilos = (int) (this.quilo*100);
+		return  quilos;
+	}
+
+	@Override
+	public String getUnidadeMedida() {
+		return "gramas";
 	}
 }

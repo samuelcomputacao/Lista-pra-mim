@@ -16,7 +16,7 @@ public class ItemInexistenteException extends RuntimeException {
 	 * pela excecao
 	 */
 	public ItemInexistenteException(String str) {
-		super(str+"item nao existe.");
+		super(str);
 	}
 	
 	/**

@@ -210,4 +210,12 @@ public class ValidadorSistema {
 		return true;
 	}
 
+	public static boolean validaOperacao(String operacao) {
+		if (!operacao.equals("adiciona") && !operacao.equals("diminui")) {
+			throw new CampoInvalidoException("operacao invalida para atualizacao.");
+		}
+		
+		return true;
+	}
+
 }

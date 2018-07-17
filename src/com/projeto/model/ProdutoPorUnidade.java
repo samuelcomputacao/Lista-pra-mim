@@ -100,4 +100,15 @@ public class ProdutoPorUnidade extends Item {
 	public String getDescricao() {
 		return super.getNome() + ", " + super.getCategoria();
 	}
+
+
+	@Override
+	public int getQuantidade() {
+		return 0;
+	}
+
+	@Override
+	public String getUnidadeMedida() {
+		return "";
+	}
 }

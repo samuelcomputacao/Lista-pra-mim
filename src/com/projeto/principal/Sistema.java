@@ -10,8 +10,8 @@ import com.projeto.comparadores.ComparaValor;
 import com.projeto.excecoes.AtribultoInexistenteException;
 import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.excecoes.CategoriaInexistenteException;
+import com.projeto.excecoes.CompraNaoCadastrada;
 import com.projeto.excecoes.ItemInexistenteException;
-import com.projeto.excecoes.ItemJaExisteException;
 import com.projeto.model.Item;
 import com.projeto.model.ListaDeCompra;
 import com.projeto.model.ProdutoNaoIndustrializadoPorQuilo;
@@ -80,9 +80,9 @@ public class Sistema {
 				ProdutoQuantidadeFixa produto = new ProdutoQuantidadeFixa(this.identificadorBase, nome, categoria,
 						quantidade, unidadeMedida, localCompra, preco);
 
-				if (produtos.containsValue(produto)) {
-					throw new ItemJaExisteException("Item ja cadastrado");
-				}
+				// if (produtos.containsValue(produto)) {
+				// throw new ItemJaExisteException("Item ja cadastrado");
+				// }
 
 				this.produtos.put(this.identificadorBase, produto);
 				return this.identificadorBase++;
@@ -118,9 +118,9 @@ public class Sistema {
 				ProdutoNaoIndustrializadoPorQuilo produto = new ProdutoNaoIndustrializadoPorQuilo(
 						this.identificadorBase, nome, categoria, quilo, localCompra, preco);
 
-				if (produtos.containsValue(produto)) {
-					throw new ItemJaExisteException("Item ja cadastrado");
-				}
+				// if (produtos.containsValue(produto)) {
+				// throw new ItemJaExisteException("Item ja cadastrado");
+				// }
 				this.produtos.put(this.identificadorBase, produto);
 				return this.identificadorBase++;
 			}
@@ -153,9 +153,9 @@ public class Sistema {
 					&& ValidadorSistema.validaProdutoPorUnidade(unidade, localCompra, preco)) {
 				ProdutoPorUnidade porUnidade = new ProdutoPorUnidade(this.identificadorBase, nome, categoria, unidade,
 						localCompra, preco);
-				if (produtos.containsValue(porUnidade)) {
-					throw new ItemJaExisteException("Item ja cadastrado");
-				}
+				// if (produtos.containsValue(porUnidade)) {
+				// throw new ItemJaExisteException("Item ja cadastrado");
+				// }
 				this.produtos.put(this.identificadorBase, porUnidade);
 				return this.identificadorBase++;
 			}
@@ -181,7 +181,7 @@ public class Sistema {
 			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_LISTA_ITEM.get() + "id invalido.");
 		}
 		if (!this.produtos.containsKey(key)) {
-			throw new ItemInexistenteException(SistemaMensagens.MSG_EXCECAO_LISTA_ITEM.get());
+			throw new ItemInexistenteException(SistemaMensagens.MSG_EXCECAO_LISTA_ITEM.get() + "item nao existe.");
 		}
 		return this.produtos.get(key).toString();
 	}
@@ -203,7 +203,7 @@ public class Sistema {
 	 */
 	public int atualizaItem(Integer key, String atribulto, String novoValor) {
 		if (!produtos.containsKey(key))
-			throw new ItemInexistenteException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM.get());
+			throw new ItemInexistenteException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM.get() + "item nao existe.");
 		Item item = null;
 		try {
 			if (ValidadorSistema.validaAtualizacao(atribulto, novoValor)) {
@@ -240,7 +240,7 @@ public class Sistema {
 			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_CADASTO_PRECO.get() + "id de item invalido.");
 		}
 		if (!this.produtos.containsKey(key)) {
-			throw new ItemInexistenteException(SistemaMensagens.MSG_EXCECAO_CADASTO_PRECO.get());
+			throw new ItemInexistenteException(SistemaMensagens.MSG_EXCECAO_CADASTO_PRECO.get() + "item nao existe.");
 		}
 		if (local == null || local.trim().isEmpty()) {
 			throw new CampoInvalidoException(
@@ -380,7 +380,7 @@ public class Sistema {
 		if (descritor == null || descritor.trim().isEmpty())
 			throw new CampoInvalidoException(
 					"Erro na criacao de lista de compras: descritor nao pode ser vazio ou nulo.");
-		if(this.listas.containsKey(descritor)) {
+		if (this.listas.containsKey(descritor)) {
 			throw new CampoInvalidoException("Erro na criacao de lista de compras: descritor indisponivel.");
 		}
 		ListaDeCompra listaDeCompra = new ListaDeCompra(descritor);
@@ -403,6 +403,10 @@ public class Sistema {
 		if (descritor == null || descritor.trim().isEmpty())
 			throw new CampoInvalidoException(
 					"Erro na criacao de lista de compras: descritor nao pode ser vazio ou nulo.");
+		if (!this.produtos.containsKey(idItem)) {
+			throw new ItemInexistenteException(
+					SistemaMensagens.MSG_EXCECAO_COMPRA_ITEM.get() + "item nao existe no sistema.");
+		}
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		Item item = this.produtos.get(idItem);
 		listaDeCompra.adicionaCompraALista(quantidade, item);
@@ -435,8 +439,12 @@ public class Sistema {
 	 * @return Representacao textual do item que esta na lista.
 	 */
 	public String pesquisaCompraEmLista(String descritor, Integer idItem) {
+		if (idItem < 0) {
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_PESQUISA_COMPRA.get() + "item id invalido.");
+		}
 		if (descritor == null || descritor.trim().isEmpty())
 			throw new CampoInvalidoException("Erro na pesquisa de compra: descritor nao pode ser vazio ou nulo.");
+
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		return listaDeCompra.pesquisaCompraEmLista(idItem);
 	}
@@ -452,7 +460,9 @@ public class Sistema {
 	 *            : nova quantidae de itens.
 	 */
 	public void atualizaCompraDeLista(String descritorLista, Integer idItem, String operacao, int quantidade) {
+
 		ListaDeCompra listaDeCompra = this.listas.get(descritorLista);
+
 		listaDeCompra.atualizaCompraDeLista(idItem, operacao, quantidade);
 	}
 
@@ -483,5 +493,16 @@ public class Sistema {
 			return descritor;
 		}
 		return null;
+	}
+
+	public void deletaCompraDeLista(String descritor, Integer idItem) {
+		if (descritor == null || descritor.trim().isEmpty())
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_EXCLUSAO_COMPRA.get() + "descritor nao pode ser vazio ou nulo.");
+		if (!this.produtos.containsKey(idItem)) {
+			throw new ItemInexistenteException(SistemaMensagens.MSG_EXCECAO_EXCLUSAO_COMPRA.get() +"item nao existe no sistema.");
+		}
+		ListaDeCompra listaDeCompra = this.listas.get(descritor);
+		listaDeCompra.deletaCompraDeLista(idItem);
+
 	}
 }

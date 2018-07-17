@@ -1,5 +1,9 @@
 package com.projeto.model;
 
+import com.projeto.excecoes.CampoInvalidoException;
+import com.projeto.util.SistemaMensagens;
+import com.projeto.util.ValidadorSistema;
+
 /**
  * Representa uma Compra. Toda compra possui um Item e a sua quantidade.
  * 
@@ -39,10 +43,17 @@ public class Compra {
 	 *            qtd a ser removida ou adicionada no atributo quantidade.
 	 */
 	public void atualizar(String operacao, int quantidade) {
-		if (operacao.equals("adiciona"))
-			this.quantidade += quantidade;
-		else if (operacao.equals("diminui"))
-			this.quantidade -= quantidade;
+		try {
+		if(ValidadorSistema.validaOperacao(operacao)) {
+			if (operacao.equals("adiciona"))
+				this.quantidade += quantidade;
+			else if (operacao.equals("diminui"))
+				this.quantidade -= quantidade;
+		}
+		}catch (CampoInvalidoException e) {
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_COMPRA.get() + e.getMessage());
+		}
+		
 	}
 
 	/**
@@ -62,5 +73,9 @@ public class Compra {
 	 */
 	public int getQuantidade() {
 		return this.quantidade;
+	}
+
+	public Item getItem() {
+		return this.item;
 	}
 }
