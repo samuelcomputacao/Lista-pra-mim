@@ -1,5 +1,7 @@
 package com.projeto.principal;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -524,8 +526,12 @@ public class Sistema {
 		return new Date();
 	}
 
-	public String getItemListaPorData(Date data, int posicao) {
-		// TODO Auto-generated method stub
+	public String getItemListaPorData(String dataString, int posicao) {
+		SimpleDateFormat formato  = new SimpleDateFormat("dd/MM/yyyy");
+		try {
+			Date data = formato.parse(dataString);
+		} catch (ParseException e) {
+		}
 		return null;
 	}
 

@@ -15,7 +15,7 @@ public class ComparaCategoria implements Comparator<Compra> {
 	 */
 	@Override
 	public int compare(Compra compra1, Compra compra2) {
-		return compra1.getItem().getCategoria().compareTo(compra2.getItem().getCategoria());
+		return compra2.getItem().getCategoria().compareTo(compra1.getItem().getCategoria());
 	}
 
 }

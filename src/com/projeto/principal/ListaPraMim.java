@@ -242,7 +242,7 @@ public interface ListaPraMim {
 	
 	public Date dataAtual();
 	
-	public String getItemListaPorData(Date data , int posicao);
+	public String getItemListaPorData(String data , int posicao);
 	
 	public String getItemListaPorItem(Integer idItem, int posicao);
 	

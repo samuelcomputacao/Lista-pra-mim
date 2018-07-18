@@ -1,5 +1,6 @@
 package com.projeto.principal;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import easyaccept.EasyAccept;
@@ -334,10 +335,10 @@ public class ListaPraMimFacade implements ListaPraMim {
 		return this.sistema.dataAtual();
 	}
 
-	@Override
-	public String getItemListaPorData(Date data, int posicao) {
-		return this.sistema.getItemListaPorData(data,posicao);
+	public String getItemListaPorData(String data, int posicao) {
+		return this.sistema.getItemListaPorData(data, posicao);
 	}
+	
 
 	@Override
 	public String getItemListaPorItem(Integer idItem, int posicao) {
