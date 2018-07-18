@@ -95,16 +95,7 @@ public class ListaDeCompra {
 		Collections.sort(lista, new ComparaCategoria());
 		Collections.sort(lista, new ComparaNome());
 
-		Compra compra = lista.get(posicao);
-		Item item = compra.getItem();
-
-		int qtd = item.getQuantidade();
-		String unidadeMedida = item.getUnidadeMedida();
-
-		String quantidade = String.valueOf(qtd * compra.getQuantidade()) + " " + unidadeMedida;
-		String retorno = String.format("%d %s, %s, %s", compra.getQuantidade(), item.getNome(), item.getCategoria(),
-				quantidade);
-		return retorno;
+		return lista.get(posicao).toString();
 	}
 
 	private List<Item> buscatodosItens() {

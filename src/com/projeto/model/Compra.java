@@ -44,16 +44,16 @@ public class Compra {
 	 */
 	public void atualizar(String operacao, int quantidade) {
 		try {
-		if(ValidadorSistema.validaOperacao(operacao)) {
-			if (operacao.equals("adiciona"))
-				this.quantidade += quantidade;
-			else if (operacao.equals("diminui"))
-				this.quantidade -= quantidade;
-		}
-		}catch (CampoInvalidoException e) {
+			if (ValidadorSistema.validaOperacao(operacao)) {
+				if (operacao.equals("adiciona"))
+					this.quantidade += quantidade;
+				else if (operacao.equals("diminui"))
+					this.quantidade -= quantidade;
+			}
+		} catch (CampoInvalidoException e) {
 			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_COMPRA.get() + e.getMessage());
 		}
-		
+
 	}
 
 	/**
@@ -77,5 +77,18 @@ public class Compra {
 
 	public Item getItem() {
 		return this.item;
+	}
+
+	/**
+	 * Representacao visual em String de uma Compra.
+	 */
+	@Override
+	public String toString() {
+		String msg = this.quantidade + " " + this.item.getNome() + ", " + this.item.getCategoria();
+		// instanceof feio e temporario
+		if (this.item instanceof ProdutoQuantidadeFixa) {
+			msg += ", " +this.item.getQuantidade() + " " + this.item.getUnidadeMedida();
+		}
+		return msg;
 	}
 }
