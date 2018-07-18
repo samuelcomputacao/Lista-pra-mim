@@ -197,10 +197,14 @@ public class ValidadorSistema {
 	}
 
 	/**
-	 * Metodo responsavel pela valizacao de compos exigidos pela atualizacao de itens
-	 * @param atribulto : Nome do atribulto que sera atualizado
-	 * @param novoValor : Novo valor que sera alocado ao atribulto
-	 * @return Um bolleano que indica se os campos estao validos 
+	 * Metodo responsavel pela valizacao de compos exigidos pela atualizacao de
+	 * itens
+	 * 
+	 * @param atribulto
+	 *            : Nome do atribulto que sera atualizado
+	 * @param novoValor
+	 *            : Novo valor que sera alocado ao atribulto
+	 * @return Um bolleano que indica se os campos estao validos
 	 */
 	public static boolean validaAtualizacao(String atribulto, String novoValor) {
 		if (atribulto == null || atribulto.trim().isEmpty())
@@ -210,11 +214,17 @@ public class ValidadorSistema {
 		return true;
 	}
 
+	/**
+	 * Metodo que valida uma operacao.
+	 * 
+	 * @param operacao
+	 *            String com a operacao desejada.
+	 * @return true se a operacao for valida.
+	 */
 	public static boolean validaOperacao(String operacao) {
 		if (!operacao.equals("adiciona") && !operacao.equals("diminui")) {
 			throw new CampoInvalidoException("operacao invalida para atualizacao.");
 		}
-		
 		return true;
 	}
 

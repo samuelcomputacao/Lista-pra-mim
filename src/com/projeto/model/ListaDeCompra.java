@@ -90,7 +90,8 @@ public class ListaDeCompra {
 	}
 
 	/**
-	 * Retorna a representacao visual de uma compra de uma lista de compras 
+	 * Retorna a representacao visual de uma compra de uma lista de compras
+	 * 
 	 * @param posicao
 	 * @return
 	 */
@@ -103,7 +104,7 @@ public class ListaDeCompra {
 		listaOrdenada.addAll(this.adicionaListaComprasPorCategoria("limpeza", lista));
 		listaOrdenada.addAll(this.adicionaListaComprasPorCategoria("alimento industrializado", lista));
 		listaOrdenada.addAll(this.adicionaListaComprasPorCategoria("alimento nao industrializado", lista));
-		
+
 		if (posicao < listaOrdenada.size()) {
 			return listaOrdenada.get(posicao).toString();
 		}
@@ -111,14 +112,14 @@ public class ListaDeCompra {
 	}
 
 	/**
-	 * Metodo privado que auxilia o metodo getItemLista. Retorna uma lista de itens
-	 * de uma listaDeCompras com determinada categoria.
+	 * Metodo privado que auxilia o metodo getItemLista. Retorna uma lista de
+	 * compras de uma listaDeCompras com determinada categoria.
 	 * 
 	 * @param categoria
 	 *            categoria desejada.
 	 * @param lista
 	 *            lista de compras.
-	 * @return lista com apenas uma categoria(a categoria inserida).
+	 * @return lista de compras com apenas uma categoria (a categoria inserida).
 	 */
 	private List<Compra> adicionaListaComprasPorCategoria(String categoria, List<Compra> lista) {
 		List<Compra> listaCategoria = new ArrayList<>();

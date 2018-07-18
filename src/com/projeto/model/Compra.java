@@ -75,6 +75,11 @@ public class Compra {
 		return this.quantidade;
 	}
 
+	/**
+	 * Metodo que retorna o item associado a compra.
+	 * 
+	 * @return Item associado a compra.
+	 */
 	public Item getItem() {
 		return this.item;
 	}
@@ -87,7 +92,7 @@ public class Compra {
 		String msg = this.quantidade + " " + this.item.getNome() + ", " + this.item.getCategoria();
 		// instanceof feio e temporario
 		if (this.item instanceof ProdutoQuantidadeFixa) {
-			msg += ", " +this.item.getQuantidade() + " " + this.item.getUnidadeMedida();
+			msg += ", " + this.item.getQuantidade() + " " + this.item.getUnidadeMedida();
 		}
 		return msg;
 	}
