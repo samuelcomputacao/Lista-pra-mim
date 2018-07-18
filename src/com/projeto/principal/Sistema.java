@@ -424,6 +424,18 @@ public class Sistema {
 	 *            : Valor final da compra.
 	 */
 	public void finalizarListaDeCompras(String descritor, String localCompra, int valorFinalDaCompra) {
+		if (descritor == null || descritor.trim().isEmpty()) {
+			throw new CampoInvalidoException(
+					"Erro na finalizacao de lista de compras: descritor nao pode ser vazio ou nulo.");
+		}
+		if (localCompra == null || localCompra.trim().isEmpty()) {
+			throw new CampoInvalidoException(
+					"Erro na finalizacao de lista de compras: local nao pode ser vazio ou nulo.");
+		}
+		if (valorFinalDaCompra <= 0) {
+			throw new CampoInvalidoException(
+					"Erro na finalizacao de lista de compras: valor final da lista invalido.");
+		}
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		listaDeCompra.finalizar(localCompra, valorFinalDaCompra);
 
@@ -497,9 +509,11 @@ public class Sistema {
 
 	public void deletaCompraDeLista(String descritor, Integer idItem) {
 		if (descritor == null || descritor.trim().isEmpty())
-			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_EXCLUSAO_COMPRA.get() + "descritor nao pode ser vazio ou nulo.");
+			throw new CampoInvalidoException(
+					SistemaMensagens.MSG_EXCECAO_EXCLUSAO_COMPRA.get() + "descritor nao pode ser vazio ou nulo.");
 		if (!this.produtos.containsKey(idItem)) {
-			throw new ItemInexistenteException(SistemaMensagens.MSG_EXCECAO_EXCLUSAO_COMPRA.get() +"item nao existe no sistema.");
+			throw new ItemInexistenteException(
+					SistemaMensagens.MSG_EXCECAO_EXCLUSAO_COMPRA.get() + "item nao existe no sistema.");
 		}
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		listaDeCompra.deletaCompraDeLista(idItem);
