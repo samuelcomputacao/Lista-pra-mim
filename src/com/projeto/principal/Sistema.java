@@ -377,9 +377,10 @@ public class Sistema {
 	 * @return representacao textual do nome do descritor
 	 */
 	public String adicionaListaDeCompras(String descritor) {
-		if (descritor == null || descritor.trim().isEmpty())
+		if (descritor == null || descritor.trim().isEmpty()) {
 			throw new CampoInvalidoException(
 					"Erro na criacao de lista de compras: descritor nao pode ser vazio ou nulo.");
+		}
 		if (this.listas.containsKey(descritor)) {
 			throw new CampoInvalidoException("Erro na criacao de lista de compras: descritor indisponivel.");
 		}
@@ -433,8 +434,7 @@ public class Sistema {
 					"Erro na finalizacao de lista de compras: local nao pode ser vazio ou nulo.");
 		}
 		if (valorFinalDaCompra <= 0) {
-			throw new CampoInvalidoException(
-					"Erro na finalizacao de lista de compras: valor final da lista invalido.");
+			throw new CampoInvalidoException("Erro na finalizacao de lista de compras: valor final da lista invalido.");
 		}
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		listaDeCompra.finalizar(localCompra, valorFinalDaCompra);
