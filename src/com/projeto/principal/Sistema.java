@@ -2,6 +2,7 @@ package com.projeto.principal;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +11,6 @@ import com.projeto.comparadores.ComparaValor;
 import com.projeto.excecoes.AtribultoInexistenteException;
 import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.excecoes.CategoriaInexistenteException;
-import com.projeto.excecoes.CompraNaoCadastrada;
 import com.projeto.excecoes.ItemInexistenteException;
 import com.projeto.model.Item;
 import com.projeto.model.ListaDeCompra;
@@ -518,5 +518,19 @@ public class Sistema {
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		listaDeCompra.deletaCompraDeLista(idItem);
 
+	}
+
+	public Date dataAtual() {
+		return new Date();
+	}
+
+	public String getItemListaPorData(Date data, int posicao) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getItemListaPorItem(Integer idItem, int posicao) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

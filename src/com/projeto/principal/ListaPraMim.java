@@ -1,5 +1,7 @@
 package com.projeto.principal;
 
+import java.util.Date;
+
 public interface ListaPraMim {
 
 	/**
@@ -237,5 +239,14 @@ public interface ListaPraMim {
 	public String pesquisaListaDeCompras(String descritor);
 	
 	public void deletaCompraDeLista(String descritor, Integer idItem);
+	
+	public Date dataAtual();
+	
+	public String getItemListaPorData(Date data , int posicao);
+	
+	public String getItemListaPorItem(Integer idItem, int posicao);
+	
+	
+	
 
 }

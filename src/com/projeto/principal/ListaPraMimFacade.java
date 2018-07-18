@@ -1,5 +1,7 @@
 package com.projeto.principal;
 
+import java.util.Date;
+
 import easyaccept.EasyAccept;
 
 /**
@@ -325,5 +327,20 @@ public class ListaPraMimFacade implements ListaPraMim {
 	public void deletaCompraDeLista(String descritor, Integer idItem) {
 		this.sistema.deletaCompraDeLista(descritor,idItem);
 		
+	}
+
+	@Override
+	public Date dataAtual() {
+		return this.sistema.dataAtual();
+	}
+
+	@Override
+	public String getItemListaPorData(Date data, int posicao) {
+		return this.sistema.getItemListaPorData(data,posicao);
+	}
+
+	@Override
+	public String getItemListaPorItem(Integer idItem, int posicao) {
+		return this.sistema.getItemListaPorItem(idItem,posicao);
 	}
 }
