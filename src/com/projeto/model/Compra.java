@@ -44,12 +44,12 @@ public class Compra {
 	 */
 	public void atualizar(String operacao, int quantidade) {
 		try {
-			if (ValidadorSistema.validaOperacao(operacao)) {
-				if (operacao.equals("adiciona"))
-					this.quantidade += quantidade;
-				else if (operacao.equals("diminui"))
-					this.quantidade -= quantidade;
-			}
+				if (ValidadorSistema.validaOperacao(operacao) && ValidadorSistema.validaQuantidade(quantidade)) {
+					if (operacao.equals("adiciona"))
+						this.quantidade += quantidade;
+					else if (operacao.equals("diminui"))
+						this.quantidade -= quantidade;
+				}
 		} catch (CampoInvalidoException e) {
 			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_COMPRA.get() + e.getMessage());
 		}
