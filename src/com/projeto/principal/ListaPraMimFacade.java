@@ -331,7 +331,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	}
 
 	@Override
-	public Date dataAtual() {
+	public String dataAtual() {
 		return this.sistema.dataAtual();
 	}
 

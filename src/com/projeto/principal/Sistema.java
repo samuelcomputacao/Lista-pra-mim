@@ -1,5 +1,7 @@
 package com.projeto.principal;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -13,6 +15,7 @@ import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.excecoes.CategoriaInexistenteException;
 import com.projeto.excecoes.ItemInexistenteException;
 import com.projeto.excecoes.ItemJaExisteException;
+import com.projeto.model.Compra;
 import com.projeto.model.Item;
 import com.projeto.model.ListaDeCompra;
 import com.projeto.model.ProdutoNaoIndustrializadoPorQuilo;
@@ -81,9 +84,10 @@ public class Sistema {
 				ProdutoQuantidadeFixa produto = new ProdutoQuantidadeFixa(this.identificadorBase, nome, categoria,
 						quantidade, unidadeMedida, localCompra, preco);
 
-				 if (produtos.containsValue(produto)) {
-				 throw new ItemJaExisteException("Item ja cadastrado");
-				 }
+				if (produtos.containsValue(produto)) {
+					throw new ItemJaExisteException(
+							SistemaMensagens.MSG_EXCECAO_CADASTRO.get() + "item ja cadastrado no sistema.");
+				}
 
 				this.produtos.put(this.identificadorBase, produto);
 				return this.identificadorBase++;
@@ -120,7 +124,8 @@ public class Sistema {
 						this.identificadorBase, nome, categoria, quilo, localCompra, preco);
 
 				if (produtos.containsValue(produto)) {
-					throw new ItemJaExisteException("Item ja cadastrado");
+					throw new ItemJaExisteException(
+							SistemaMensagens.MSG_EXCECAO_CADASTRO.get() + "item ja cadastrado no sistema.");
 				}
 				this.produtos.put(this.identificadorBase, produto);
 				return this.identificadorBase++;
@@ -155,7 +160,8 @@ public class Sistema {
 				ProdutoPorUnidade porUnidade = new ProdutoPorUnidade(this.identificadorBase, nome, categoria, unidade,
 						localCompra, preco);
 				if (produtos.containsValue(porUnidade)) {
-					throw new ItemJaExisteException("Item ja cadastrado");
+					throw new ItemJaExisteException(
+							SistemaMensagens.MSG_EXCECAO_CADASTRO.get() + "item ja cadastrado no sistema.");
 				}
 				this.produtos.put(this.identificadorBase, porUnidade);
 				return this.identificadorBase++;
@@ -521,30 +527,22 @@ public class Sistema {
 
 	}
 
-	public Date dataAtual() {
-		return new Date();
+	public String dataAtual() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		return dateFormat.format(new Date());
 	}
 
 	public String getItemListaPorData(String data, int posicao) {
-//		SimpleDateFormat format = new SimpleDateFormat("dd-mm-yyyy");
-//	
-//		try {
-//			Date date = format.parse(data);
-//			List<ListaDeCompra> lista = buscaPorData(date);
-//			return lista.get(posicao).getDescritor();
-//		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		return null;
+		List<ListaDeCompra> lista = buscaPorData(data);
+		Collections.sort(lista);
+		return lista.get(posicao).getDescritor();
 
-		
 	}
 
-	private List<ListaDeCompra> buscaPorData(Date data) {
+	private List<ListaDeCompra> buscaPorData(String data) {
 		List<ListaDeCompra> lista = new ArrayList<>();
-		for(ListaDeCompra list : this.listas.values()) {
-			if(list.getData().equals(data)) {
+		for (ListaDeCompra list : this.listas.values()) {
+			if (list.getData().equals(data)) {
 				lista.add(list);
 			}
 		}
@@ -552,7 +550,20 @@ public class Sistema {
 	}
 
 	public String getItemListaPorItem(Integer idItem, int posicao) {
-		// TODO Auto-generated method stub
-		return null;
+		List<ListaDeCompra> lista = buscaPorItem(idItem);
+		Collections.sort(lista);
+		ListaDeCompra listaCompra =lista.get(posicao); 
+		String retorno = listaCompra.getData() + " - " +  listaCompra.getDescritor();
+		return retorno;
+	}
+
+	private List<ListaDeCompra> buscaPorItem(Integer idItem) {
+		List<ListaDeCompra> lista = new ArrayList<>();
+		for(ListaDeCompra list : this.listas.values()) {
+			if(list.possuiCompra(idItem)) {
+				lista.add(list);
+			}
+		}
+		return lista;
 	}
 }

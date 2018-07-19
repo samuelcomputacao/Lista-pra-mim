@@ -15,14 +15,14 @@ import com.projeto.excecoes.CompraNaoCadastrada;
 import com.projeto.util.SistemaMensagens;
 import com.projeto.util.ValidadorSistema;
 
-public class ListaDeCompra {
+public class ListaDeCompra implements Comparable<ListaDeCompra>{
 
 	/**
 	 * Representa o descritor da lista de compras.
 	 */
 	private String descritor;
 
-	private Date dataCriacao;
+	private String dataCriacao;
 
 	private Map<Integer, Compra> compras;
 
@@ -39,7 +39,8 @@ public class ListaDeCompra {
 	 *            String que representa o descritor da lista de compras.
 	 */
 	public ListaDeCompra(String descritor) {
-		this.dataCriacao = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		this.dataCriacao = dateFormat.format(new Date());
 		this.descritor = descritor;
 		compras = new HashMap<>();
 		this.finalizada = false;
@@ -171,11 +172,36 @@ public class ListaDeCompra {
 		this.compras.remove(idItem);
 	}
 
-	public Date getData() {
+	public String getData() {
 		return this.dataCriacao;
 	}
 
 	public String getDescritor() {
 		return this.descritor;
+	}
+
+	@Override
+	public int compareTo(ListaDeCompra o) {
+		
+		return this.descritor.toLowerCase().compareTo(o.getDescritor().toLowerCase());
+	}
+	
+	@Override
+	public String toString() {
+		return this.descritor;
+	}
+
+	public Compra getItem(Integer idItem) {
+		
+		return this.compras.get(idItem);
+	}
+
+	public boolean possuiCompra(int idItem) {
+		for (Compra compra : this.compras.values()) {
+			if(compra.getItem().getId()==idItem) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

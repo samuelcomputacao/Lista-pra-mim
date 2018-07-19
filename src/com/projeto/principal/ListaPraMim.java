@@ -262,7 +262,7 @@ public interface ListaPraMim {
 	 * 
 	 * @return : Retorna a data atual.
 	 */
-	public Date dataAtual();
+	public String dataAtual();
 
 	/**
 	 * Retorna o descritor de uma lista de compras que foi cadastrada na data e
