@@ -1,5 +1,6 @@
 package com.projeto.model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -168,5 +169,13 @@ public class ListaDeCompra {
 			throw new CompraNaoCadastrada(SistemaMensagens.MSG_EXCECAO_EXCLUSAO_COMPRA.get());
 		}
 		this.compras.remove(idItem);
+	}
+
+	public Date getData() {
+		return this.dataCriacao;
+	}
+
+	public String getDescritor() {
+		return this.descritor;
 	}
 }

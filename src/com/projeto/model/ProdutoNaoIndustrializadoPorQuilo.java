@@ -98,7 +98,6 @@ public class ProdutoNaoIndustrializadoPorQuilo extends Item {
 				double quilos = Double.parseDouble(novoValor);
 				if(ValidadorSistema.validaQuilo(quilos)) {
 					this.setQuilo(quilos);
-					System.out.println("Atualizou " +  novoValor);
 				}
 				break;
 			default:

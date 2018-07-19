@@ -526,13 +526,30 @@ public class Sistema {
 		return new Date();
 	}
 
-	public String getItemListaPorData(String dataString, int posicao) {
-		SimpleDateFormat formato  = new SimpleDateFormat("dd/MM/yyyy");
-		try {
-			Date data = formato.parse(dataString);
-		} catch (ParseException e) {
-		}
+	public String getItemListaPorData(String data, int posicao) {
+//		SimpleDateFormat format = new SimpleDateFormat("dd-mm-yyyy");
+//	
+//		try {
+//			Date date = format.parse(data);
+//			List<ListaDeCompra> lista = buscaPorData(date);
+//			return lista.get(posicao).getDescritor();
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		return null;
+
+		
+	}
+
+	private List<ListaDeCompra> buscaPorData(Date data) {
+		List<ListaDeCompra> lista = new ArrayList<>();
+		for(ListaDeCompra list : this.listas.values()) {
+			if(list.getData().equals(data)) {
+				lista.add(list);
+			}
+		}
+		return lista;
 	}
 
 	public String getItemListaPorItem(Integer idItem, int posicao) {
