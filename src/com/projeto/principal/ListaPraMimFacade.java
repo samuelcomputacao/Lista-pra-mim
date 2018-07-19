@@ -323,25 +323,74 @@ public class ListaPraMimFacade implements ListaPraMim {
 	public void atualizaCompraDeLista(String descritor, Integer itemId,String operacao,int quantidade) {
 		this.sistema.atualizaCompraDeLista(descritor, itemId, operacao,quantidade);
 	}
-
+	/**
+	 * Deleta uma compra de uma lista de compras.
+	 * 
+	 * @param descritor
+	 *            : Descricao da lista de compras.
+	 * @param idItem
+	 *            : Identificador da compra a ser deletada da lista de compras.
+	 */
 	@Override
 	public void deletaCompraDeLista(String descritor, Integer idItem) {
 		this.sistema.deletaCompraDeLista(descritor,idItem);
 		
 	}
-
+	/**
+	 * Retorna a data atual.
+	 * 
+	 * @return : Retorna a data atual.
+	 */
 	@Override
 	public String dataAtual() {
 		return this.sistema.dataAtual();
 	}
-
+	/**
+	 * Retorna o descritor de uma lista de compras que foi cadastrada na data e
+	 * posicao especificada.
+	 * 
+	 * @param data
+	 *            : Data da criacao da lista de compras.
+	 * @param posicao
+	 *            : Posicao da lista de compras.
+	 * 
+	 * @return : Retorna o descritor da lista de compras.
+	 */
 	public String getItemListaPorData(String data, int posicao) {
 		return this.sistema.getItemListaPorData(data, posicao);
 	}
 	
-
+	/**
+	 * Retorna a data e o descritor de uma lista de compras que foi contem o item
+	 * com id e posicao especificada.
+	 * 
+	 * @param idItem
+	 *            : Identificador do item da lista de compras.
+	 * @param posicao
+	 *            : Posicao da lista de compras.
+	 * 
+	 * @return : Retorna a data de criacao e o descritor da lista de compras.
+	 */
 	@Override
 	public String getItemListaPorItem(Integer idItem, int posicao) {
 		return this.sistema.getItemListaPorItem(idItem,posicao);
+	}
+	/**
+	 * Retorna a pesquisa de listas de compras por data.
+	 * @param data: data a ser pesquisada.
+	 * @return representacao textual das listas de compra.
+	 */
+	@Override
+	public String pesquisaListasDeComprasPorData(String data) {
+		return this.sistema.pesquisaListasDeComprasPorData(data);
+	}
+	/**
+	 * Retorna as listas que possuem tal produto.
+	 * @param id :indentificador do produto.
+	 * @return representacao textual das listas que contem o produto
+	 */
+	@Override
+	public String pesquisaListasDeComprasPorItem(int id) {
+		return this.sistema.pesquisaListasDeComprasPorItem(id);
 	}
 }

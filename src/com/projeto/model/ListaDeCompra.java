@@ -139,7 +139,13 @@ public class ListaDeCompra implements Comparable<ListaDeCompra>{
 		}
 		return itens;
 	}
-
+	public String buscaTodosItens() {
+		String itens = "";
+		for (Compra compra : this.compras.values()) {
+			itens += compra.getDescricao() + "\n";
+		}
+		return itens;
+	}
 	public String pesquisaCompraEmLista(Integer idItem) {
 		if(!this.compras.containsKey(idItem)) {
 			throw new CompraNaoCadastrada(SistemaMensagens.MSG_EXCECAO_PESQUISA_COMPRA.get());

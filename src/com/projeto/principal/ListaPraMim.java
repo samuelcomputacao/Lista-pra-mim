@@ -289,5 +289,16 @@ public interface ListaPraMim {
 	 * @return : Retorna a data de criacao e o descritor da lista de compras.
 	 */
 	public String getItemListaPorItem(Integer idItem, int posicao);
-
+	/**
+	 * Retorna a pesquisa de listas de compras por data.
+	 * @param data: data a ser pesquisada.
+	 * @return representacao textual das listas de compra.
+	 */
+	public String pesquisaListasDeComprasPorData(String data);
+	/**
+	 * Retorna as listas que possuem tal produto.
+	 * @param id :indentificador do produto.
+	 * @return representacao textual das listas que contem o produto
+	 */
+	public String pesquisaListasDeComprasPorItem(int id);
 }

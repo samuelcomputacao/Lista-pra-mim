@@ -519,7 +519,14 @@ public class Sistema {
 		}
 		return descritor;
 	}
-
+	/**
+	 * Deleta uma compra de uma lista de compras.
+	 * 
+	 * @param descritor
+	 *            : Descricao da lista de compras.
+	 * @param idItem
+	 *            : Identificador da compra a ser deletada da lista de compras.
+	 */
 	public void deletaCompraDeLista(String descritor, Integer idItem) {
 		if (descritor == null || descritor.trim().isEmpty())
 			throw new CampoInvalidoException(
@@ -532,12 +539,26 @@ public class Sistema {
 		listaDeCompra.deletaCompraDeLista(idItem);
 
 	}
-
+	/**
+	 * Retorna a data atual.
+	 * 
+	 * @return : Retorna a data atual.
+	 */
 	public String dataAtual() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		return dateFormat.format(new Date());
 	}
-
+	/**
+	 * Retorna o descritor de uma lista de compras que foi cadastrada na data e
+	 * posicao especificada.
+	 * 
+	 * @param data
+	 *            : Data da criacao da lista de compras.
+	 * @param posicao
+	 *            : Posicao da lista de compras.
+	 * 
+	 * @return : Retorna o descritor da lista de compras.
+	 */
 	public String getItemListaPorData(String data, int posicao) {
 		List<ListaDeCompra> lista = buscaPorData(data);
 		Collections.sort(lista);
@@ -554,7 +575,17 @@ public class Sistema {
 		}
 		return lista;
 	}
-
+	/**
+	 * Retorna a data e o descritor de uma lista de compras que foi contem o item
+	 * com id e posicao especificada.
+	 * 
+	 * @param idItem
+	 *            : Identificador do item da lista de compras.
+	 * @param posicao
+	 *            : Posicao da lista de compras.
+	 * 
+	 * @return : Retorna a data de criacao e o descritor da lista de compras.
+	 */
 	public String getItemListaPorItem(Integer idItem, int posicao) {
 		List<ListaDeCompra> lista = buscaPorItem(idItem);
 		Collections.sort(lista);
@@ -571,5 +602,36 @@ public class Sistema {
 			}
 		}
 		return lista;
+	}
+	/**
+	 * Retorna a pesquisa de listas de compras por data.
+	 * @param data: data a ser pesquisada.
+	 * @return representacao textual das listas de compra.
+	 */
+	public String pesquisaListasDeComprasPorData(String data) {
+		if(data.trim().equals(""))
+			throw new IllegalArgumentException("Erro na pesquisa de compra: data nao pode ser vazia ou nula.");
+		for(ListaDeCompra lista : listas.values()) {
+			if(lista.getData().equals(data)) {
+				return lista.buscaTodosItens();
+			}
+		}
+		return "(nao consegui entender esse jogo de transforma para data ou nao)";
+	}
+	/**
+	 * Retorna as listas que possuem tal produto.
+	 * @param id :indentificador do produto.
+	 * @return representacao textual das listas que contem o produto
+	 */
+	public String pesquisaListasDeComprasPorItem(int id) {
+		String volta = "";
+		for(ListaDeCompra lista : listas.values()) {
+			if(lista.possuiCompra(id)) {
+				volta += lista.getDescritor() + "\n";
+			}
+		}if(volta.equals("")){
+			throw new IllegalArgumentException("Erro na pesquisa de compra: compra nao encontrada na lista.");
+		}
+		return volta;
 	}
 }
