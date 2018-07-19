@@ -11,10 +11,18 @@ import com.projeto.excecoes.ItemInexistenteException;
 import com.projeto.excecoes.ItemJaExisteException;
 import com.projeto.principal.Sistema;
 
+/**
+ * Classe de teste que verifica se todas as unidades da classe Sistema estao
+ * funcionando da maneira esperada.
+ *
+ */
 public class SistemaTest {
 
 	private Sistema sistema;
 
+	/**
+	 * Inicializando o sistema que sera testado.
+	 */
 	@Before
 	public void inicalizar() {
 		sistema = new Sistema();
@@ -256,11 +264,12 @@ public class SistemaTest {
 	}
 
 	/**
-	 * Testa o metodo adicionaItemPorUnidade com valores aceitaveis.
+	 * Testa o metodo adicionaItemPorUnidade com valores validos.
 	 */
 	@Test
 	public void testAdicionaItemPorUnidade() {
 		assertEquals(sistema.adicionaItemPorUnidade("Saco de Lixo", "limpeza", 1000, "extra", 29.99), 1);
+		assertEquals(sistema.adicionaItemPorUnidade("Sabao em po", "limpeza", 5, "extra", 26.88), 2);
 	}
 
 	/**
@@ -273,7 +282,7 @@ public class SistemaTest {
 	}
 
 	/**
-	 * Testa o metodo adicionaItemPorUnidade com valor inaceitavel(nome nulo).
+	 * Testa o metodo adicionaItemPorUnidade com valor invalido(nome nulo).
 	 */
 	@Test(expected = CampoInvalidoException.class)
 	public void testAdicionaItemPorUnidadeNomeNull() {
@@ -281,7 +290,7 @@ public class SistemaTest {
 	}
 
 	/**
-	 * Testa o metodo adicionaItemPorUnidade com valor inaceitavel(nome vazio).
+	 * Testa o metodo adicionaItemPorUnidade com valor invalido(nome vazio).
 	 */
 	@Test(expected = CampoInvalidoException.class)
 	public void testAdicionaItemPorUnidadeNomeVazio() {
@@ -289,59 +298,175 @@ public class SistemaTest {
 	}
 
 	/**
-	 * Testa o metodo adicionaItemPorUnidade com valor inaceitavel(categoria
-	 * invalida).
+	 * Testa o metodo adicionaItemPorUnidade com valor invalido(Categoria nula).
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaItemPorUnidadeCategoriaNull() {
+		sistema.adicionaItemPorUnidade("Saco de lixo", null, 100, "extra", 29.99);
+	}
+
+	/**
+	 * Testa o metodo adicionaItemPorUnidade com valor invalido(Categoria vazia).
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaItemPorUnidadeCategoriaVazia() {
+		sistema.adicionaItemPorUnidade("Saco de lixo", "   ", 100, "extra", 29.99);
+	}
+
+	/**
+	 * Testa o metodo adicionaItemPorUnidade com valor invalido(categoria
+	 * inexistente).
 	 */
 	@Test(expected = CategoriaInexistenteException.class)
 	public void testAdicionaItemPorUnidadeCategoriaInvalida() {
 		sistema.adicionaItemPorUnidade("mouse", "eletronica", 100, "extra", 29.99);
 	}
-	
+
 	/**
-	 * Testa o metodo adicionaItemPorUnidade com nome repetido.
+	 * Testa o metodo adicionaItemPorUnidade com item ja existente.
 	 */
 	@Test(expected = ItemJaExisteException.class)
 	public void testAdicionaItemPorUnidadeNomeIgual() {
-		sistema.adicionaItemPorUnidade("sabao", "limpeza", 1000, "extra", 29.99);
+		sistema.adicionaItemPorUnidade("sabao", "limpeza", 455, "maxx", 39.99);
 		sistema.adicionaItemPorUnidade("sabao", "limpeza", 1000, "extra", 29.99);
 	}
+
 	/**
-	 * Testa o metodo exibeItem com parametro key valido (e item devidamente cadastrado).
+	 * Testa o metodo adicionaItemPorUnidade com valor invalido(unidade nula).
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaItemPorUnidadeIgualAZero() {
+		sistema.adicionaItemPorUnidade("sabao em po", "limpeza", 0, "maxx atacado", 39.99);
+	}
+
+	/**
+	 * Testa o metodo adicionaItemPorUnidade com valor invalido(unidade negativa).
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaItemPorUnidadeNegativa() {
+		sistema.adicionaItemPorUnidade("sabao em po", "limpeza", -1, "maxx atacado", 39.99);
+	}
+
+	/**
+	 * Testa o metodo adicionaItemPorUnidade com valor invalido(localDeCompra null).
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaItemPorUnidadeLocalCompraNull() {
+		sistema.adicionaItemPorUnidade("sabao em po", "limpeza", 5, null, 39.99);
+	}
+
+	/**
+	 * Testa o metodo adicionaItemPorUnidade com valor invalido(localDeCompra
+	 * vazio).
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaItemPorUnidadeLocalCompraVazio() {
+		sistema.adicionaItemPorUnidade("sabao em po", "limpeza", 5, "  ", 39.99);
+	}
+
+	/**
+	 * Testa o metodo adicionaItemPorUnidade com valor invalido(preco igual a zero).
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaItemPorUnidadePrecoIgualAZero() {
+		sistema.adicionaItemPorUnidade("sabao em po", "limpeza", 5, "  ", 0.000);
+	}
+
+	/**
+	 * Testa o metodo adicionaItemPorUnidade com valor invalido(preco negativo).
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaItemPorUnidadePrecoNegativo() {
+		sistema.adicionaItemPorUnidade("sabao em po", "limpeza", 5, "  ", -1.22);
+	}
+
+	/**
+	 * Testa o metodo exibeItem com parametro key valido (e item devidamente
+	 * cadastrado).
 	 */
 	@Test
 	public void testExibeItem() {
 		testAdicionaItemPorQtd();
-		assertEquals("1. algodao, higiene pessoal, 2 gramas, Preco: <ideal supermercados, R$ 1,75;>", sistema.exibeItem(1));
-		assertEquals("2. sabonete, higiene pessoal, 10 gramas, Preco: <ideal supermercados, R$ 14,41;>",sistema.exibeItem(2));
-		assertEquals("3. detergente, higiene pessoal, 600 ml, Preco: <ideal supermercados, R$ 1,75;>",sistema.exibeItem(3));
+		assertEquals("1. algodao, higiene pessoal, 2 gramas, Preco: <ideal supermercados, R$ 1,75;>",
+				sistema.exibeItem(1));
+		assertEquals("2. sabonete, higiene pessoal, 10 gramas, Preco: <ideal supermercados, R$ 14,41;>",
+				sistema.exibeItem(2));
+		assertEquals("3. detergente, higiene pessoal, 600 ml, Preco: <ideal supermercados, R$ 1,75;>",
+				sistema.exibeItem(3));
 	}
-	
+
 	/**
 	 * Testa o metodo exibeItem com parametro key invalido (zero).
 	 */
 	@Test(expected = CampoInvalidoException.class)
 	public void testExibeItemValorNulo() {
-		sistema.exibeItem(0);	
+		sistema.exibeItem(0);
 	}
-	
+
 	/**
 	 * Testa o metodo exibeItem com parametro key invalido (negativo).
 	 */
 	@Test(expected = CampoInvalidoException.class)
 	public void testExibeItemValorNegativo() {
-		sistema.exibeItem(-1);	
+		sistema.exibeItem(-1);
 	}
-	
+
 	/**
 	 * Testa o metodo exibeItem com parametro key invalido (inexistente).
 	 */
 	@Test(expected = ItemInexistenteException.class)
 	public void testExibeItemInexistente() {
 		testAdicionaItemPorQtd();
-		sistema.exibeItem(4);	
+		sistema.exibeItem(4);
 	}
+
 	/**
-	 * Testa o metodo que retorna o produto na respectiva posicao requerida, depois de ordenada a partir do menor preco.
+	 * Testa o metodo atualizaItem com parametro invalido(key nula).
+	 */
+	@Test(expected = ItemInexistenteException.class)
+	public void testAtualizaItem() {
+		sistema.atualizaItem(0, "nome", "new name");
+	}
+
+	/**
+	 * Testa o metodo atualizaItem com parametro invalido(atributo null).
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAtualizaItemAtributoNull() {
+		sistema.adicionaItemPorUnidade("sabonete", "limpeza", 1, "carrefuor", 92.3);
+		sistema.atualizaItem(1, null, "new name");
+	}
+
+	/**
+	 * Testa o metodo atualizaItem com parametro invalido(atributo vazio).
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAtualizaItemAtributoVazio() {
+		sistema.adicionaItemPorUnidade("sabonete", "limpeza", 1, "carrefuor", 92.3);
+		sistema.atualizaItem(1, "     ", "new name");
+	}
+
+	/**
+	 * Testa o metodo atualizaItem com parametro invalido(novoValor null).
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAtualizaItemNovoValorComValorNull() {
+		sistema.adicionaItemPorUnidade("sabonete", "limpeza", 1, "carrefuor", 92.3);
+		sistema.atualizaItem(1, "nome", null);
+	}
+
+	/**
+	 * Testa o metodo atualizaItem com parametro invalido(novoValor vazio).
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAtualizaItemNovoValorComValorVazio() {
+		sistema.adicionaItemPorUnidade("sabonete", "limpeza", 1, "carrefuor", 92.3);
+		sistema.atualizaItem(1, "nome", "   ");
+	}
+
+	/**
+	 * Testa o metodo que retorna o produto na respectiva posicao requerida, depois
+	 * de ordenada a partir do menor preco.
 	 */
 	@Test
 	public void testGetItemPorMenorPreco() {
