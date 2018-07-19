@@ -1,7 +1,5 @@
 package com.projeto.principal;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -14,6 +12,7 @@ import com.projeto.excecoes.AtribultoInexistenteException;
 import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.excecoes.CategoriaInexistenteException;
 import com.projeto.excecoes.ItemInexistenteException;
+import com.projeto.excecoes.ItemJaExisteException;
 import com.projeto.model.Item;
 import com.projeto.model.ListaDeCompra;
 import com.projeto.model.ProdutoNaoIndustrializadoPorQuilo;
@@ -82,9 +81,9 @@ public class Sistema {
 				ProdutoQuantidadeFixa produto = new ProdutoQuantidadeFixa(this.identificadorBase, nome, categoria,
 						quantidade, unidadeMedida, localCompra, preco);
 
-				// if (produtos.containsValue(produto)) {
-				// throw new ItemJaExisteException("Item ja cadastrado");
-				// }
+				 if (produtos.containsValue(produto)) {
+				 throw new ItemJaExisteException("Item ja cadastrado");
+				 }
 
 				this.produtos.put(this.identificadorBase, produto);
 				return this.identificadorBase++;
@@ -120,9 +119,9 @@ public class Sistema {
 				ProdutoNaoIndustrializadoPorQuilo produto = new ProdutoNaoIndustrializadoPorQuilo(
 						this.identificadorBase, nome, categoria, quilo, localCompra, preco);
 
-				// if (produtos.containsValue(produto)) {
-				// throw new ItemJaExisteException("Item ja cadastrado");
-				// }
+				if (produtos.containsValue(produto)) {
+					throw new ItemJaExisteException("Item ja cadastrado");
+				}
 				this.produtos.put(this.identificadorBase, produto);
 				return this.identificadorBase++;
 			}
@@ -155,9 +154,9 @@ public class Sistema {
 					&& ValidadorSistema.validaProdutoPorUnidade(unidade, localCompra, preco)) {
 				ProdutoPorUnidade porUnidade = new ProdutoPorUnidade(this.identificadorBase, nome, categoria, unidade,
 						localCompra, preco);
-				// if (produtos.containsValue(porUnidade)) {
-				// throw new ItemJaExisteException("Item ja cadastrado");
-				// }
+				if (produtos.containsValue(porUnidade)) {
+					throw new ItemJaExisteException("Item ja cadastrado");
+				}
 				this.produtos.put(this.identificadorBase, porUnidade);
 				return this.identificadorBase++;
 			}
