@@ -98,14 +98,12 @@ public class ListaDeCompra implements Comparable<ListaDeCompra>{
 	 * @return
 	 */
 	public String getItemLista(int posicao) {
-
-		List<Compra> lista = new ArrayList<>(this.compras.values());
 		List<Compra> listaOrdenada = new ArrayList<>();
 
-		listaOrdenada.addAll(this.adicionaListaComprasPorCategoria("higiene pessoal", lista));
-		listaOrdenada.addAll(this.adicionaListaComprasPorCategoria("limpeza", lista));
-		listaOrdenada.addAll(this.adicionaListaComprasPorCategoria("alimento industrializado", lista));
-		listaOrdenada.addAll(this.adicionaListaComprasPorCategoria("alimento nao industrializado", lista));
+		listaOrdenada.addAll(this.adicionaListaComprasPorCategoria("higiene pessoal"));
+		listaOrdenada.addAll(this.adicionaListaComprasPorCategoria("limpeza"));
+		listaOrdenada.addAll(this.adicionaListaComprasPorCategoria("alimento industrializado"));
+		listaOrdenada.addAll(this.adicionaListaComprasPorCategoria("alimento nao industrializado"));
 
 		if (posicao < listaOrdenada.size()) {
 			return listaOrdenada.get(posicao).toString();
@@ -123,9 +121,9 @@ public class ListaDeCompra implements Comparable<ListaDeCompra>{
 	 *            lista de compras.
 	 * @return lista de compras com apenas uma categoria (a categoria inserida).
 	 */
-	private List<Compra> adicionaListaComprasPorCategoria(String categoria, List<Compra> lista) {
+	private List<Compra> adicionaListaComprasPorCategoria(String categoria) {
 		List<Compra> listaCategoria = new ArrayList<>();
-		for (Compra compra : lista) {
+		for (Compra compra : this.compras.values()) {
 			if (compra.getItem().getCategoria().equals(categoria)) {
 				listaCategoria.add(compra);
 			}
@@ -143,11 +141,10 @@ public class ListaDeCompra implements Comparable<ListaDeCompra>{
 	}
 
 	public String pesquisaCompraEmLista(Integer idItem) {
-		try {
-			return this.compras.get(idItem).getDescricao();
-		} catch (NullPointerException e) {
-			throw new NullPointerException("Erro na pesquisa de compra: compra nao encontrada na lista.");
+		if(!this.compras.containsKey(idItem)) {
+			throw new CompraNaoCadastrada(SistemaMensagens.MSG_EXCECAO_PESQUISA_COMPRA.get());
 		}
+		return this.compras.get(idItem).getDescricao();
 	}
 
 	public void finalizar(String local, int valorFinal) {
@@ -182,7 +179,6 @@ public class ListaDeCompra implements Comparable<ListaDeCompra>{
 
 	@Override
 	public int compareTo(ListaDeCompra o) {
-		
 		return this.descritor.toLowerCase().compareTo(o.getDescritor().toLowerCase());
 	}
 	
@@ -192,7 +188,6 @@ public class ListaDeCompra implements Comparable<ListaDeCompra>{
 	}
 
 	public Compra getItem(Integer idItem) {
-		
 		return this.compras.get(idItem);
 	}
 
