@@ -462,7 +462,8 @@ public class Sistema {
 			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_PESQUISA_COMPRA.get() + "item id invalido.");
 		}
 		if (descritor == null || descritor.trim().isEmpty())
-			throw new CampoInvalidoException("Erro na pesquisa de compra: descritor nao pode ser vazio ou nulo.");
+			throw new CampoInvalidoException(
+					SistemaMensagens.MSG_EXCECAO_PESQUISA_COMPRA.get() + "descritor nao pode ser vazio ou nulo.");
 
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		return listaDeCompra.pesquisaCompraEmLista(idItem);
@@ -508,10 +509,15 @@ public class Sistema {
 	 * @return O nome do descritor, se existir, e null caso nao exista.
 	 */
 	public String pesquisaListaDeCompras(String descritor) {
-		if (this.listas.containsKey(descritor)) {
-			return descritor;
+		if (descritor == null || descritor.trim().isEmpty()) {
+			throw new CampoInvalidoException(
+					SistemaMensagens.MSG_EXCECAO_PESQUISA_COMPRA.get() + "descritor nao pode ser vazio ou nulo.");
 		}
-		return null;
+		if (!this.listas.containsKey(descritor)) {
+			throw new ItemInexistenteException(
+					SistemaMensagens.MSG_EXCECAO_PESQUISA_COMPRA.get() + "lista de compras nao existe.");
+		}
+		return descritor;
 	}
 
 	public void deletaCompraDeLista(String descritor, Integer idItem) {
@@ -552,15 +558,15 @@ public class Sistema {
 	public String getItemListaPorItem(Integer idItem, int posicao) {
 		List<ListaDeCompra> lista = buscaPorItem(idItem);
 		Collections.sort(lista);
-		ListaDeCompra listaCompra =lista.get(posicao); 
-		String retorno = listaCompra.getData() + " - " +  listaCompra.getDescritor();
+		ListaDeCompra listaCompra = lista.get(posicao);
+		String retorno = listaCompra.getData() + " - " + listaCompra.getDescritor();
 		return retorno;
 	}
 
 	private List<ListaDeCompra> buscaPorItem(Integer idItem) {
 		List<ListaDeCompra> lista = new ArrayList<>();
-		for(ListaDeCompra list : this.listas.values()) {
-			if(list.possuiCompra(idItem)) {
+		for (ListaDeCompra list : this.listas.values()) {
+			if (list.possuiCompra(idItem)) {
 				lista.add(list);
 			}
 		}
