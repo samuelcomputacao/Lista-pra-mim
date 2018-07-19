@@ -185,7 +185,6 @@ public interface ListaPraMim {
 	 */
 	public void adicionaCompraALista(String descritor, int quantidade, Integer idItem);
 
-
 	/**
 	 * Finaliza uma lista de compras já inicializada.
 	 * 
@@ -221,7 +220,7 @@ public interface ListaPraMim {
 	 * @param quantidade
 	 *            : Nova quantidade a ser atualizada.
 	 */
-	public void atualizaCompraDeLista(String descritor, Integer idItem, String operacao,int quantidade);
+	public void atualizaCompraDeLista(String descritor, Integer idItem, String operacao, int quantidade);
 
 	/**
 	 * Retorna a representação String do item em uma lista de compras ordenada.
@@ -235,18 +234,60 @@ public interface ListaPraMim {
 	 *         na lista de compras ordenada.
 	 */
 	public String getItemLista(String descritor, int posicao);
-	
+
+	/**
+	 * Pesquisa uma lista de compras nas listas de compras ja cadastradas a partir
+	 * do seu descritor.
+	 * 
+	 * @param descritor
+	 *            : Descricao da lista de compras.
+	 * 
+	 * @return : Retorna a lista das compras cadastradas na lista de compras com o
+	 *         descritor inserido.
+	 */
 	public String pesquisaListaDeCompras(String descritor);
-	
+
+	/**
+	 * Deleta uma compra de uma lista de compras.
+	 * 
+	 * @param descritor
+	 *            : Descricao da lista de compras.
+	 * @param idItem
+	 *            : Identificador da compra a ser deletada da lista de compras.
+	 */
 	public void deletaCompraDeLista(String descritor, Integer idItem);
-	
+
+	/**
+	 * Retorna a data atual.
+	 * 
+	 * @return : Retorna a data atual.
+	 */
 	public Date dataAtual();
-	
-	public String getItemListaPorData(String data , int posicao);
-	
+
+	/**
+	 * Retorna o descritor de uma lista de compras que foi cadastrada na data e
+	 * posicao especificada.
+	 * 
+	 * @param data
+	 *            : Data da criacao da lista de compras.
+	 * @param posicao
+	 *            : Posicao da lista de compras.
+	 * 
+	 * @return : Retorna o descritor da lista de compras.
+	 */
+	public String getItemListaPorData(String data, int posicao);
+
+	/**
+	 * Retorna a data e o descritor de uma lista de compras que foi contem o item
+	 * com id e posicao especificada.
+	 * 
+	 * @param idItem
+	 *            : Identificador do item da lista de compras.
+	 * @param posicao
+	 *            : Posicao da lista de compras.
+	 * 
+	 * @return : Retorna a data de criacao e o descritor da lista de compras.
+	 */
 	public String getItemListaPorItem(Integer idItem, int posicao);
-	
-	
-	
 
 }
