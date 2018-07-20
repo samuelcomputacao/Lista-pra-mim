@@ -97,6 +97,10 @@ public class Compra implements Comparable<Compra> {
 		return msg;
 	}
 
+	/**
+	 * Metodo responsavel por comparar duas compras em 2 niveis: 1) baseado nas
+	 * categorias dos itens e 2) ordem lexicografica.
+	 */
 	@Override
 	public int compareTo(Compra compra) {
 		int valor1 = this.getCategoria(compra.getItem().getCategoria());
@@ -107,6 +111,14 @@ public class Compra implements Comparable<Compra> {
 		return valor2 - valor1;
 	}
 
+	/**
+	 * Metodo auxiliar(usado no compareTo) que retorna um inteiro associado a cada
+	 * categoria disponivel.
+	 * 
+	 * @param categoria
+	 *            String que representa a categoria de um item.
+	 * @return inteiro que sera usado no compareTo.
+	 */
 	private int getCategoria(String categoria) {
 		switch (categoria) {
 		case "higiene pessoal":

@@ -7,13 +7,13 @@ import com.projeto.util.ValidadorSistema;
  * Classe que representa um item no sistema.
  *
  */
-public abstract class Item implements Comparable<Item>{
+public abstract class Item implements Comparable<Item> {
 
 	/**
 	 * Um inteiro representando a identificacao do item.
 	 */
 	private int id;
-	
+
 	/**
 	 * Uma String representando o nome do item.
 	 */
@@ -23,7 +23,7 @@ public abstract class Item implements Comparable<Item>{
 	 * Uma String representando a qual categoria o item pertence.
 	 */
 	private String categoria;
-	
+
 	/**
 	 * Controlador dos precos e respectivos locais de compras que um produto possui
 	 */
@@ -32,9 +32,12 @@ public abstract class Item implements Comparable<Item>{
 	/**
 	 * Metodo reponsavel por inicializar um item no sistema.
 	 * 
-	 * @param id : O identificador do item.
-	 * @param nome : O nome do item.
-	 * @param categoria : A categoria do item.
+	 * @param id
+	 *            : O identificador do item.
+	 * @param nome
+	 *            : O nome do item.
+	 * @param categoria
+	 *            : A categoria do item.
 	 */
 	public Item(int id, String nome, String categoria) {
 		if (ValidadorSistema.validaItem(nome, categoria)) {
@@ -44,20 +47,23 @@ public abstract class Item implements Comparable<Item>{
 			this.precoController = new PrecoController();
 		}
 	}
-	
+
 	/**
-	 * Metodo responsavel por invocar o controlador de precos para ser
-	 * adicionado um novo local de compra ao produto.
+	 * Metodo responsavel por invocar o controlador de precos para ser adicionado um
+	 * novo local de compra ao produto.
 	 * 
-	 * @param local : Uma String representando um nome de um local para compra.
-	 * @param preco : Um double representando o preco do produto no local indicado.
+	 * @param local
+	 *            : Uma String representando um nome de um local para compra.
+	 * @param preco
+	 *            : Um double representando o preco do produto no local indicado.
 	 */
 	public void adicionarLocalCompra(String local, Double preco) {
 		this.precoController.adicionarLocalCompra(local, preco);
 	}
 
 	/**
-	 * Metodo responsavel por gerar uma numeracao unica para um item de acordo com sua categoria e nome.
+	 * Metodo responsavel por gerar uma numeracao unica para um item de acordo com
+	 * sua categoria e nome.
 	 * 
 	 * @return : Um inteiro que representa o item de maneira unica
 	 */
@@ -72,7 +78,8 @@ public abstract class Item implements Comparable<Item>{
 
 	/**
 	 * Metodo responsavel por comparar dois objetos e verificar se ele e um item.
-	 * Caso seja um item ele verifica se sao iguais de acordo com seu nome e categoria.
+	 * Caso seja um item ele verifica se sao iguais de acordo com seu nome e
+	 * categoria.
 	 * 
 	 * @return : um valor bolleano que indica se os objetos sao iguais ou nao
 	 */
@@ -101,14 +108,15 @@ public abstract class Item implements Comparable<Item>{
 	/**
 	 * Metodo acessivel que permite alteracao do nome do item.
 	 * 
-	 * @param nome : uma String que representa o nome do item.
+	 * @param nome
+	 *            : uma String que representa o nome do item.
 	 */
 	public void setNome(String nome) {
 		if (ValidadorSistema.validaNome(nome)) {
 			this.nome = nome;
 		}
 	}
-	
+
 	/**
 	 * Metodo acessivel que permite a recuperacao do nome do item.
 	 * 
@@ -117,7 +125,7 @@ public abstract class Item implements Comparable<Item>{
 	public String getNome() {
 		return this.nome;
 	}
-	
+
 	/**
 	 * Metodo acessivel que permite a recuperacao da categoria do item.
 	 * 
@@ -135,18 +143,18 @@ public abstract class Item implements Comparable<Item>{
 	public int getId() {
 		return this.id;
 	}
-	
+
 	/**
 	 * Metodo responsavel por gerar uma representacao textual para um item.
 	 */
 	@Override
 	public String toString() {
-		return this.id  + ". " + this.nome + ", " + this.categoria;
+		return this.id + ". " + this.nome + ", " + this.categoria;
 	}
-	
+
 	/**
-	 * Metodo responsavel invocar o controlador de precos para
-	 * a geracao da lista de locais de compra e precos
+	 * Metodo responsavel invocar o controlador de precos para a geracao da lista de
+	 * locais de compra e precos
 	 * 
 	 * @return : uma String que representa o mapa de precos de um item.
 	 */
@@ -155,9 +163,10 @@ public abstract class Item implements Comparable<Item>{
 	}
 
 	/**
-	 * Metodo acessivel que altera a categoria do item. 
+	 * Metodo acessivel que altera a categoria do item.
 	 * 
-	 * @param categoria uma String que representa a nova categoria do item.
+	 * @param categoria
+	 *            uma String que representa a nova categoria do item.
 	 */
 	public void setCategoria(String categoria) {
 		if (ValidadorSistema.validaCategoria(categoria)) {
@@ -166,15 +175,15 @@ public abstract class Item implements Comparable<Item>{
 	}
 
 	/**
-	 * Metodo responsavel por invocar o controlador de precos 
-	 * para a recuperacao do menor preco
+	 * Metodo responsavel por invocar o controlador de precos para a recuperacao do
+	 * menor preco
 	 * 
 	 * @return : numero em ponto flutuante correspondente ao menor preco.
 	 */
 	public double getMenorPreco() {
 		return this.precoController.getMenorPreco();
 	}
-	
+
 	/**
 	 * Metodo responsavel por comparar dois itens a partir do nome.
 	 */
@@ -183,22 +192,29 @@ public abstract class Item implements Comparable<Item>{
 		return this.nome.compareTo(item.getNome());
 	}
 
-	
 	/**
-	 * Metodo abstrado reponsavel por obrigar as classes filhas a implementar uma atualizacao
-	 * para os seus valores
+	 * Metodo abstrado reponsavel por obrigar as classes filhas a implementar uma
+	 * atualizacao para os seus valores
 	 * 
-	 * @param atribulto : Nome do atribulto que sera atualizado
-	 * @param novoValor : O novo valor que sera atribuido ao atribulto
+	 * @param atribulto
+	 *            : Nome do atribulto que sera atualizado
+	 * @param novoValor
+	 *            : O novo valor que sera atribuido ao atribulto
 	 * @return : O identificador do item
 	 */
 	public abstract int atualiza(String atribulto, String novoValor);
-	
+
+	/**
+	 * Metodo que retorna uma String com a descricao de um item no seguinte formato
+	 * "nome, categoria".
+	 * 
+	 * @return String representando a descricao do item.
+	 */
 	public String getDescricao() {
-		return getNome() +", "+ getCategoria();
+		return getNome() + ", " + getCategoria();
 	}
-	
+
 	public abstract int getQuantidade();
-	
+
 	public abstract String getUnidadeMedida();
 }
