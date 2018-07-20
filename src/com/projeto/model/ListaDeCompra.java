@@ -15,7 +15,7 @@ import com.projeto.excecoes.CompraNaoCadastrada;
 import com.projeto.util.SistemaMensagens;
 import com.projeto.util.ValidadorSistema;
 
-public class ListaDeCompra implements Comparable<ListaDeCompra>{
+public class ListaDeCompra implements Comparable<ListaDeCompra> {
 
 	/**
 	 * Representa o descritor da lista de compras.
@@ -98,47 +98,14 @@ public class ListaDeCompra implements Comparable<ListaDeCompra>{
 	 * @return
 	 */
 	public String getItemLista(int posicao) {
-		List<Compra> listaOrdenada = new ArrayList<>();
-
-		listaOrdenada.addAll(this.adicionaListaComprasPorCategoria("higiene pessoal"));
-		listaOrdenada.addAll(this.adicionaListaComprasPorCategoria("limpeza"));
-		listaOrdenada.addAll(this.adicionaListaComprasPorCategoria("alimento industrializado"));
-		listaOrdenada.addAll(this.adicionaListaComprasPorCategoria("alimento nao industrializado"));
-
+		List<Compra> listaOrdenada = new ArrayList<>(this.compras.values());
+		Collections.sort(listaOrdenada);
 		if (posicao < listaOrdenada.size()) {
 			return listaOrdenada.get(posicao).toString();
 		}
 		return "";
 	}
 
-	/**
-	 * Metodo privado que auxilia o metodo getItemLista. Retorna uma lista de
-	 * compras de uma listaDeCompras com determinada categoria.
-	 * 
-	 * @param categoria
-	 *            categoria desejada.
-	 * @param lista
-	 *            lista de compras.
-	 * @return lista de compras com apenas uma categoria (a categoria inserida).
-	 */
-	private List<Compra> adicionaListaComprasPorCategoria(String categoria) {
-		List<Compra> listaCategoria = new ArrayList<>();
-		for (Compra compra : this.compras.values()) {
-			if (compra.getItem().getCategoria().equals(categoria)) {
-				listaCategoria.add(compra);
-			}
-		}
-		Collections.sort(listaCategoria, new ComparaNome());
-		return listaCategoria;
-	}
-
-	private List<Item> buscatodosItens() {
-		List<Item> itens = new ArrayList<Item>();
-		for (Compra compra : this.compras.values()) {
-			itens.add(compra.getItem());
-		}
-		return itens;
-	}
 	public String buscaTodosItens() {
 		String itens = "";
 		for (Compra compra : this.compras.values()) {
@@ -146,8 +113,9 @@ public class ListaDeCompra implements Comparable<ListaDeCompra>{
 		}
 		return itens;
 	}
+
 	public String pesquisaCompraEmLista(Integer idItem) {
-		if(!this.compras.containsKey(idItem)) {
+		if (!this.compras.containsKey(idItem)) {
 			throw new CompraNaoCadastrada(SistemaMensagens.MSG_EXCECAO_PESQUISA_COMPRA.get());
 		}
 		return this.compras.get(idItem).getDescricao();
@@ -187,7 +155,7 @@ public class ListaDeCompra implements Comparable<ListaDeCompra>{
 	public int compareTo(ListaDeCompra o) {
 		return this.descritor.toLowerCase().compareTo(o.getDescritor().toLowerCase());
 	}
-	
+
 	@Override
 	public String toString() {
 		return this.descritor;
@@ -199,7 +167,7 @@ public class ListaDeCompra implements Comparable<ListaDeCompra>{
 
 	public boolean possuiCompra(int idItem) {
 		for (Compra compra : this.compras.values()) {
-			if(compra.getItem().getId()==idItem) {
+			if (compra.getItem().getId() == idItem) {
 				return true;
 			}
 		}

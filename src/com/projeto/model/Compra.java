@@ -8,7 +8,7 @@ import com.projeto.util.ValidadorSistema;
  * Representa uma Compra. Toda compra possui um Item e a sua quantidade.
  * 
  */
-public class Compra {
+public class Compra implements Comparable<Compra> {
 
 	/**
 	 * Item associado a compra.
@@ -44,12 +44,12 @@ public class Compra {
 	 */
 	public void atualizar(String operacao, int quantidade) {
 		try {
-				if (ValidadorSistema.validaOperacao(operacao) && ValidadorSistema.validaQuantidade(quantidade)) {
-					if (operacao.equals("adiciona"))
-						this.quantidade += quantidade;
-					else if (operacao.equals("diminui"))
-						this.quantidade -= quantidade;
-				}
+			if (ValidadorSistema.validaOperacao(operacao) && ValidadorSistema.validaQuantidade(quantidade)) {
+				if (operacao.equals("adiciona"))
+					this.quantidade += quantidade;
+				else if (operacao.equals("diminui"))
+					this.quantidade -= quantidade;
+			}
 		} catch (CampoInvalidoException e) {
 			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_COMPRA.get() + e.getMessage());
 		}
@@ -95,5 +95,29 @@ public class Compra {
 			msg += ", " + this.item.getQuantidade() + " " + this.item.getUnidadeMedida();
 		}
 		return msg;
+	}
+
+	@Override
+	public int compareTo(Compra compra) {
+		int valor1 = this.getCategoria(compra.getItem().getCategoria());
+		int valor2 = this.getCategoria(this.item.getCategoria());
+		if (valor1 == valor2) {
+			return this.getItem().getNome().compareTo(compra.getItem().getNome());
+		}
+		return valor2 - valor1;
+	}
+
+	private int getCategoria(String categoria) {
+		switch (categoria) {
+		case "higiene pessoal":
+			return 1;
+		case "limpeza":
+			return 2;
+		case "alimento industrializado":
+			return 3;
+		case "alimento nao industrializado":
+			return 4;
+		}
+		return 0;
 	}
 }
