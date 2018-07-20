@@ -1,11 +1,12 @@
 package com.projeto.util;
 
-import java.text.SimpleDateFormat;
 import java.util.Map;
 
 import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.excecoes.CategoriaInexistenteException;
 import com.projeto.excecoes.ItemInexistenteException;
+import com.projeto.model.Item;
+import com.projeto.model.ListaDeCompra;
 
 /**
  * Classe responsavel por realizar validacoes de campos no sistema.
@@ -249,7 +250,7 @@ public class ValidadorSistema {
 	 * @param descritor
 	 *            String que representa o descritor a ser validado.
 	 * @param msgExcecaoMetodo
-	 *            String com a mensagem especifica de cada metodo que usara este
+	 *            String com a mensagem especifica de cada metodo que ira usar este
 	 *            validador.
 	 * @return true se o descritor for valido
 	 */
@@ -260,21 +261,59 @@ public class ValidadorSistema {
 		return true;
 	}
 
-	public static boolean validaExistenciaDeProduto(int idItem, Map produtos, String msgExcecaoMetodo) {
+	/**
+	 * Metodo que valida a existencia de um produto em um mapa de produtos.
+	 * 
+	 * @param idItem
+	 *            inteiro com o id do item.
+	 * @param produtos
+	 *            Mapa de produtos.
+	 * @param msgExcecaoMetodo
+	 *            String com a mensagem especifica de cada metodo que ira usar este
+	 *            validador.
+	 * @return true se o produto nao pertence ao mapa de produtos.
+	 */
+	public static boolean validaExistenciaDeProduto(int idItem, Map<Integer, Item> produtos, String msgExcecaoMetodo) {
 		if (produtos.containsKey(idItem)) {
 			throw new ItemInexistenteException(msgExcecaoMetodo + "item existente no sistema.");
 		}
 		return true;
 	}
 
-	public static boolean validaInexistenciaDeProduto(int idItem, Map produtos, String msgExcecaoMetodo) {
+	/**
+	 * Metodo que valida a inexistencia de um produto em um mapa de produtos.
+	 * 
+	 * @param idItem
+	 *            inteiro com o id do item.
+	 * @param produtos
+	 *            Mapa de produtos.
+	 * @param msgExcecaoMetodo
+	 *            String com a mensagem especifica de cada metodo que ira usar este
+	 *            validador.
+	 * @return true se o produto pertence ao mapa de produtos.
+	 */
+	public static boolean validaInexistenciaDeProduto(int idItem, Map<Integer, Item> produtos,
+			String msgExcecaoMetodo) {
 		if (!produtos.containsKey(idItem)) {
 			throw new ItemInexistenteException(msgExcecaoMetodo + "item nao existe no sistema.");
 		}
 		return true;
 	}
 
-	public static boolean validaExistenciaDeListaDeCompras(String descritor, Map listaCompras,
+	/**
+	 * Metodo que valida a existencia de uma lista de compras um mapa de lista de
+	 * compras.
+	 * 
+	 * @param descritor
+	 *            String com o descritor da lista de compras.
+	 * @param listaCompras
+	 *            Mapa com listas de compras.
+	 * @param msgExcecaoMetodo
+	 *            String com a mensagem especifica de cada metodo que ira usar este
+	 *            validador.
+	 * @return true se a lista de compras nao pertence ao mapa de lista de compras.
+	 */
+	public static boolean validaExistenciaDeListaDeCompras(String descritor, Map<String, ListaDeCompra> listaCompras,
 			String msgExcecaoMetodo) {
 		if (listaCompras.containsKey(descritor)) {
 			throw new CampoInvalidoException(msgExcecaoMetodo + "lista de compras ja existe.");
@@ -282,7 +321,20 @@ public class ValidadorSistema {
 		return true;
 	}
 
-	public static boolean validaInexistenciaDeListaDeCompras(String descritor, Map listaCompras,
+	/**
+	 * Metodo que valida a inexistencia de uma lista de compras um mapa de lista de
+	 * compras.
+	 * 
+	 * @param descritor
+	 *            String com o descritor da lista de compras.
+	 * @param listaCompras
+	 *            Mapa com listas de compras.
+	 * @param msgExcecaoMetodo
+	 *            String com a mensagem especifica de cada metodo que ira usar este
+	 *            validador.
+	 * @return true se a lista de compras pertence ao mapa de lista de compras.
+	 */
+	public static boolean validaInexistenciaDeListaDeCompras(String descritor, Map<String, ListaDeCompra> listaCompras,
 			String msgExcecaoMetodo) {
 		if (!listaCompras.containsKey(descritor)) {
 			throw new CampoInvalidoException(msgExcecaoMetodo + "lista de compras nao existe.");
@@ -290,6 +342,16 @@ public class ValidadorSistema {
 		return true;
 	}
 
+	/**
+	 * Metodo que valida um local de compra.
+	 * 
+	 * @param localCompra
+	 *            String representando o local de compra.
+	 * @param msgExcecaoMetodo
+	 *            String com a mensagem especifica de cada metodo que ira usar este
+	 *            validador.
+	 * @return true se o local de compra for valido.
+	 */
 	public static boolean validaLocalCompra(String localCompra, String msgExcecaoMetodo) {
 		if (localCompra == null || localCompra.trim().isEmpty()) {
 			throw new CampoInvalidoException(msgExcecaoMetodo + "local nao pode ser vazio ou nulo.");
@@ -297,6 +359,16 @@ public class ValidadorSistema {
 		return true;
 	}
 
+	/**
+	 * Metodo que valida um valor final de compra.
+	 * 
+	 * @param valor
+	 *            Inteiro com o valor a ser validado.
+	 * @param msgExcecaoMetodo
+	 *            String com a mensagem especifica de cada metodo que ira usar este
+	 *            validador.
+	 * @return true se o valor for valido.
+	 */
 	public static boolean validaValorFinalDaCompra(int valor, String msgExcecaoMetodo) {
 		if (valor <= 0) {
 			throw new CampoInvalidoException(msgExcecaoMetodo + "valor final da lista invalido.");
@@ -304,6 +376,16 @@ public class ValidadorSistema {
 		return true;
 	}
 
+	/**
+	 * Metodo que valida um id de um item.
+	 * 
+	 * @param idItem
+	 *            Inteiro com o id do item.
+	 * @param msgExcecaoMetodoString
+	 *            com a mensagem especifica de cada metodo que ira usar este
+	 *            validador.
+	 * @return true se o idTem for valido.
+	 */
 	public static boolean validaIdItem(int idItem, String msgExcecaoMetodo) {
 		if (idItem < 0) {
 			throw new CampoInvalidoException(msgExcecaoMetodo + "item id invalido.");
