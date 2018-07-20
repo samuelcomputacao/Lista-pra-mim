@@ -1,6 +1,5 @@
 package com.projeto.principal;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,7 +14,6 @@ import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.excecoes.CategoriaInexistenteException;
 import com.projeto.excecoes.ItemInexistenteException;
 import com.projeto.excecoes.ItemJaExisteException;
-import com.projeto.model.Compra;
 import com.projeto.model.Item;
 import com.projeto.model.ListaDeCompra;
 import com.projeto.model.ProdutoNaoIndustrializadoPorQuilo;
@@ -519,6 +517,7 @@ public class Sistema {
 		}
 		return descritor;
 	}
+
 	/**
 	 * Deleta uma compra de uma lista de compras.
 	 * 
@@ -539,6 +538,7 @@ public class Sistema {
 		listaDeCompra.deletaCompraDeLista(idItem);
 
 	}
+
 	/**
 	 * Retorna a data atual.
 	 * 
@@ -548,6 +548,7 @@ public class Sistema {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		return dateFormat.format(new Date());
 	}
+
 	/**
 	 * Retorna o descritor de uma lista de compras que foi cadastrada na data e
 	 * posicao especificada.
@@ -560,9 +561,16 @@ public class Sistema {
 	 * @return : Retorna o descritor da lista de compras.
 	 */
 	public String getItemListaPorData(String data, int posicao) {
-		List<ListaDeCompra> lista = buscaPorData(data);
-		Collections.sort(lista);
-		return lista.get(posicao).getDescritor();
+		try {
+			if (ValidadorSistema.validaData(data)) {
+				List<ListaDeCompra> lista = buscaPorData(data);
+				Collections.sort(lista);
+				return lista.get(posicao).getDescritor();
+			}
+		} catch (CampoInvalidoException e) {
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_PESQUISA_COMPRA.get() + e.getMessage());
+		}
+		return null;
 
 	}
 
@@ -575,6 +583,7 @@ public class Sistema {
 		}
 		return lista;
 	}
+
 	/**
 	 * Retorna a data e o descritor de uma lista de compras que foi contem o item
 	 * com id e posicao especificada.
@@ -603,33 +612,46 @@ public class Sistema {
 		}
 		return lista;
 	}
+
 	/**
 	 * Retorna a pesquisa de listas de compras por data.
-	 * @param data: data a ser pesquisada.
+	 * 
+	 * @param data:
+	 *            data a ser pesquisada.
 	 * @return representacao textual das listas de compra.
 	 */
 	public String pesquisaListasDeComprasPorData(String data) {
-		if(data.trim().equals(""))
-			throw new IllegalArgumentException("Erro na pesquisa de compra: data nao pode ser vazia ou nula.");
-		for(ListaDeCompra lista : listas.values()) {
-			if(lista.getData().equals(data)) {
-				return lista.buscaTodosItens();
+		try {
+		if (ValidadorSistema.validaData(data)) {
+			if (data.trim().equals(""))
+				throw new IllegalArgumentException("Erro na pesquisa de compra: data nao pode ser vazia ou nula.");
+			for (ListaDeCompra lista : listas.values()) {
+				if (lista.getData().equals(data)) {
+					return lista.buscaTodosItens();
+				}
 			}
+		}
+		}catch (CampoInvalidoException e) {
+			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_PESQUISA_COMPRA.get() + e.getMessage());
 		}
 		return "(nao consegui entender esse jogo de transforma para data ou nao)";
 	}
+
 	/**
 	 * Retorna as listas que possuem tal produto.
-	 * @param id :indentificador do produto.
+	 * 
+	 * @param id
+	 *            :indentificador do produto.
 	 * @return representacao textual das listas que contem o produto
 	 */
 	public String pesquisaListasDeComprasPorItem(int id) {
 		String volta = "";
-		for(ListaDeCompra lista : listas.values()) {
-			if(lista.possuiCompra(id)) {
+		for (ListaDeCompra lista : listas.values()) {
+			if (lista.possuiCompra(id)) {
 				volta += lista.getDescritor() + "\n";
 			}
-		}if(volta.equals("")){
+		}
+		if (volta.equals("")) {
 			throw new IllegalArgumentException("Erro na pesquisa de compra: compra nao encontrada na lista.");
 		}
 		return volta;

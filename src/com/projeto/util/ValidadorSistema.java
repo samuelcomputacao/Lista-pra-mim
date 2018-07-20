@@ -1,5 +1,7 @@
 package com.projeto.util;
 
+import java.text.SimpleDateFormat;
+
 import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.excecoes.CategoriaInexistenteException;
 
@@ -224,6 +226,17 @@ public class ValidadorSistema {
 	public static boolean validaOperacao(String operacao) {
 		if (!operacao.equals("adiciona") && !operacao.equals("diminui")) {
 			throw new CampoInvalidoException("operacao invalida para atualizacao.");
+		}
+		return true;
+	}
+
+	public static boolean validaData(String data) {
+		if(data== null || data.trim().isEmpty()) {
+			throw new CampoInvalidoException("data nao pode ser vazia ou nula.");
+		}
+		String[] dataArray = data.split("/");
+		if(dataArray.length!=3) {
+			throw new CampoInvalidoException("data em formato invalido, tente dd/MM/yyyy");
 		}
 		return true;
 	}
