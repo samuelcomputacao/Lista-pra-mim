@@ -181,7 +181,6 @@ public class SistemaController {
 	 * @return : Uma String com a representacao textual do item
 	 */
 	public String exibeItem(Integer key) {
-
 		if (key <= 0) {
 			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_LISTA_ITEM.get() + "id invalido.");
 		}
@@ -268,9 +267,8 @@ public class SistemaController {
 	 *            Um inteiro que representa o ID do item.
 	 */
 	public void deletaItem(Integer key) {
-		if (!this.produtos.containsKey(key)) {
-			throw new ItemInexistenteException("Erro na remoção de item: item nao existe.");
-		}
+		ValidadorSistema.validaInexistenciaDeProduto(key, produtos, SistemaMensagens.MSG_EXCECAO_REMOCAO_ITEM.get());
+
 		this.produtos.remove(key);
 	}
 
@@ -382,15 +380,11 @@ public class SistemaController {
 	 * @return representacao textual do nome do descritor
 	 */
 	public String adicionaListaDeCompras(String descritor) {
-		if (descritor == null || descritor.trim().isEmpty()) {
-			throw new CampoInvalidoException(
-					"Erro na criacao de lista de compras: descritor nao pode ser vazio ou nulo.");
-		}
-		if (this.listas.containsKey(descritor)) {
-			throw new CampoInvalidoException("Erro na criacao de lista de compras: descritor indisponivel.");
-		}
-		ListaDeCompra listaDeCompra = new ListaDeCompra(descritor);
-		this.listas.put(descritor, listaDeCompra);
+		ValidadorSistema.validaDescritor(descritor, SistemaMensagens.MSG_EXCECAO_CRIACAO_COMPRA.get());
+		ValidadorSistema.validaExistenciaDeListaDeCompras(descritor, this.listas,
+				SistemaMensagens.MSG_EXCECAO_CRIACAO_COMPRA.get());
+
+		this.listas.put(descritor, new ListaDeCompra(descritor));
 		return descritor;
 	}
 
@@ -406,13 +400,10 @@ public class SistemaController {
 	 *            : id do item que sera adicionado na lista de compras.
 	 */
 	public void adicionaCompraALista(String descritor, int quantidade, Integer idItem) {
-		if (descritor == null || descritor.trim().isEmpty())
-			throw new CampoInvalidoException(
-					"Erro na criacao de lista de compras: descritor nao pode ser vazio ou nulo.");
-		if (!this.produtos.containsKey(idItem)) {
-			throw new ItemInexistenteException(
-					SistemaMensagens.MSG_EXCECAO_COMPRA_ITEM.get() + "item nao existe no sistema.");
-		}
+		ValidadorSistema.validaDescritor(descritor, SistemaMensagens.MSG_EXCECAO_COMPRA_ITEM.get());
+		ValidadorSistema.validaInexistenciaDeProduto(idItem, this.produtos,
+				SistemaMensagens.MSG_EXCECAO_COMPRA_ITEM.get());
+
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		Item item = this.produtos.get(idItem);
 		listaDeCompra.adicionaCompraALista(quantidade, item);
@@ -430,17 +421,11 @@ public class SistemaController {
 	 *            : Valor final da compra.
 	 */
 	public void finalizarListaDeCompras(String descritor, String localCompra, int valorFinalDaCompra) {
-		if (descritor == null || descritor.trim().isEmpty()) {
-			throw new CampoInvalidoException(
-					"Erro na finalizacao de lista de compras: descritor nao pode ser vazio ou nulo.");
-		}
-		if (localCompra == null || localCompra.trim().isEmpty()) {
-			throw new CampoInvalidoException(
-					"Erro na finalizacao de lista de compras: local nao pode ser vazio ou nulo.");
-		}
-		if (valorFinalDaCompra <= 0) {
-			throw new CampoInvalidoException("Erro na finalizacao de lista de compras: valor final da lista invalido.");
-		}
+		ValidadorSistema.validaDescritor(descritor, SistemaMensagens.MSG_EXCECAO_FINALIZACAO_LISTA_COMPRAS.get());
+		ValidadorSistema.validaLocalCompra(localCompra, SistemaMensagens.MSG_EXCECAO_FINALIZACAO_LISTA_COMPRAS.get());
+		ValidadorSistema.validaValorFinalDaCompra(valorFinalDaCompra,
+				SistemaMensagens.MSG_EXCECAO_FINALIZACAO_LISTA_COMPRAS.get());
+
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		listaDeCompra.finalizar(localCompra, valorFinalDaCompra);
 
@@ -456,12 +441,8 @@ public class SistemaController {
 	 * @return Representacao textual do item que esta na lista.
 	 */
 	public String pesquisaCompraEmLista(String descritor, Integer idItem) {
-		if (idItem < 0) {
-			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_PESQUISA_COMPRA.get() + "item id invalido.");
-		}
-		if (descritor == null || descritor.trim().isEmpty())
-			throw new CampoInvalidoException(
-					SistemaMensagens.MSG_EXCECAO_PESQUISA_COMPRA.get() + "descritor nao pode ser vazio ou nulo.");
+		ValidadorSistema.validaIdItem(idItem, SistemaMensagens.MSG_EXCECAO_PESQUISA_COMPRA.get());
+		ValidadorSistema.validaDescritor(descritor, SistemaMensagens.MSG_EXCECAO_PESQUISA_COMPRA.get());
 
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		return listaDeCompra.pesquisaCompraEmLista(idItem);
@@ -507,14 +488,10 @@ public class SistemaController {
 	 * @return O nome do descritor, se existir, e null caso nao exista.
 	 */
 	public String pesquisaListaDeCompras(String descritor) {
-		if (descritor == null || descritor.trim().isEmpty()) {
-			throw new CampoInvalidoException(
-					SistemaMensagens.MSG_EXCECAO_PESQUISA_COMPRA.get() + "descritor nao pode ser vazio ou nulo.");
-		}
-		if (!this.listas.containsKey(descritor)) {
-			throw new ItemInexistenteException(
-					SistemaMensagens.MSG_EXCECAO_PESQUISA_COMPRA.get() + "lista de compras nao existe.");
-		}
+		ValidadorSistema.validaDescritor(descritor, SistemaMensagens.MSG_EXCECAO_PESQUISA_COMPRA.get());
+		ValidadorSistema.validaInexistenciaDeListaDeCompras(descritor, this.listas,
+				SistemaMensagens.MSG_EXCECAO_PESQUISA_COMPRA.get());
+
 		return descritor;
 	}
 
@@ -527,13 +504,10 @@ public class SistemaController {
 	 *            : Identificador da compra a ser deletada da lista de compras.
 	 */
 	public void deletaCompraDeLista(String descritor, Integer idItem) {
-		if (descritor == null || descritor.trim().isEmpty())
-			throw new CampoInvalidoException(
-					SistemaMensagens.MSG_EXCECAO_EXCLUSAO_COMPRA.get() + "descritor nao pode ser vazio ou nulo.");
-		if (!this.produtos.containsKey(idItem)) {
-			throw new ItemInexistenteException(
-					SistemaMensagens.MSG_EXCECAO_EXCLUSAO_COMPRA.get() + "item nao existe no sistema.");
-		}
+		ValidadorSistema.validaDescritor(descritor, SistemaMensagens.MSG_EXCECAO_EXCLUSAO_COMPRA.get());
+		ValidadorSistema.validaInexistenciaDeProduto(idItem, produtos,
+				SistemaMensagens.MSG_EXCECAO_EXCLUSAO_COMPRA.get());
+
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		listaDeCompra.deletaCompraDeLista(idItem);
 
@@ -622,16 +596,16 @@ public class SistemaController {
 	 */
 	public String pesquisaListasDeComprasPorData(String data) {
 		try {
-		if (ValidadorSistema.validaData(data)) {
-			if (data.trim().equals(""))
-				throw new IllegalArgumentException("Erro na pesquisa de compra: data nao pode ser vazia ou nula.");
-			for (ListaDeCompra lista : listas.values()) {
-				if (lista.getData().equals(data)) {
-					return lista.buscaTodosItens();
+			if (ValidadorSistema.validaData(data)) {
+				if (data.trim().equals(""))
+					throw new IllegalArgumentException("Erro na pesquisa de compra: data nao pode ser vazia ou nula.");
+				for (ListaDeCompra lista : listas.values()) {
+					if (lista.getData().equals(data)) {
+						return lista.buscaTodosItens();
+					}
 				}
 			}
-		}
-		}catch (CampoInvalidoException e) {
+		} catch (CampoInvalidoException e) {
 			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_PESQUISA_COMPRA.get() + e.getMessage());
 		}
 		return "(nao consegui entender esse jogo de transforma para data ou nao)";

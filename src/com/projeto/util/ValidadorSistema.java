@@ -1,9 +1,11 @@
 package com.projeto.util;
 
 import java.text.SimpleDateFormat;
+import java.util.Map;
 
 import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.excecoes.CategoriaInexistenteException;
+import com.projeto.excecoes.ItemInexistenteException;
 
 /**
  * Classe responsavel por realizar validacoes de campos no sistema.
@@ -231,14 +233,81 @@ public class ValidadorSistema {
 	}
 
 	public static boolean validaData(String data) {
-		if(data== null || data.trim().isEmpty()) {
+		if (data == null || data.trim().isEmpty()) {
 			throw new CampoInvalidoException("data nao pode ser vazia ou nula.");
 		}
 		String[] dataArray = data.split("/");
-		if(dataArray.length!=3) {
+		if (dataArray.length != 3) {
 			throw new CampoInvalidoException("data em formato invalido, tente dd/MM/yyyy");
 		}
 		return true;
 	}
 
+	/**
+	 * Metodo que valida um Descritor.
+	 * 
+	 * @param descritor
+	 *            String que representa o descritor a ser validado.
+	 * @param msgExcecaoMetodo
+	 *            String com a mensagem especifica de cada metodo que usara este
+	 *            validador.
+	 * @return true se o descritor for valido
+	 */
+	public static boolean validaDescritor(String descritor, String msgExcecaoMetodo) {
+		if (descritor == null || descritor.trim().isEmpty()) {
+			throw new CampoInvalidoException(msgExcecaoMetodo + "descritor nao pode ser vazio ou nulo.");
+		}
+		return true;
+	}
+
+	public static boolean validaExistenciaDeProduto(int idItem, Map produtos, String msgExcecaoMetodo) {
+		if (produtos.containsKey(idItem)) {
+			throw new ItemInexistenteException(msgExcecaoMetodo + "item existente no sistema.");
+		}
+		return true;
+	}
+
+	public static boolean validaInexistenciaDeProduto(int idItem, Map produtos, String msgExcecaoMetodo) {
+		if (!produtos.containsKey(idItem)) {
+			throw new ItemInexistenteException(msgExcecaoMetodo + "item nao existe no sistema.");
+		}
+		return true;
+	}
+
+	public static boolean validaExistenciaDeListaDeCompras(String descritor, Map listaCompras,
+			String msgExcecaoMetodo) {
+		if (listaCompras.containsKey(descritor)) {
+			throw new CampoInvalidoException(msgExcecaoMetodo + "lista de compras ja existe.");
+		}
+		return true;
+	}
+
+	public static boolean validaInexistenciaDeListaDeCompras(String descritor, Map listaCompras,
+			String msgExcecaoMetodo) {
+		if (!listaCompras.containsKey(descritor)) {
+			throw new CampoInvalidoException(msgExcecaoMetodo + "lista de compras nao existe.");
+		}
+		return true;
+	}
+
+	public static boolean validaLocalCompra(String localCompra, String msgExcecaoMetodo) {
+		if (localCompra == null || localCompra.trim().isEmpty()) {
+			throw new CampoInvalidoException(msgExcecaoMetodo + "local nao pode ser vazio ou nulo.");
+		}
+		return true;
+	}
+
+	public static boolean validaValorFinalDaCompra(int valor, String msgExcecaoMetodo) {
+		if (valor <= 0) {
+			throw new CampoInvalidoException(msgExcecaoMetodo + "valor final da lista invalido.");
+		}
+		return true;
+	}
+
+	public static boolean validaIdItem(int idItem, String msgExcecaoMetodo) {
+		if (idItem < 0) {
+			throw new CampoInvalidoException(msgExcecaoMetodo + "item id invalido.");
+		}
+		return true;
+	}
 }
