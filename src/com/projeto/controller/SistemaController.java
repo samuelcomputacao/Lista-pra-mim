@@ -1,4 +1,4 @@
-package com.projeto.principal;
+package com.projeto.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ import com.projeto.util.ValidadorSistema;
  * das funcionalidades do sistema.
  *
  */
-public class Sistema {
+public class SistemaController {
 
 	/**
 	 * Uma lista com todas as listaDeCompras do sistema.
@@ -44,7 +44,7 @@ public class Sistema {
 	 */
 	private Integer identificadorBase;
 
-	public Sistema() {
+	public SistemaController() {
 		this.listas = new HashMap<>();
 		this.identificadorBase = 1;
 		/**

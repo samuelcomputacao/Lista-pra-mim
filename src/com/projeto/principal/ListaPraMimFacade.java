@@ -3,6 +3,8 @@ package com.projeto.principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.projeto.controller.SistemaController;
+
 import easyaccept.EasyAccept;
 
 /**
@@ -15,13 +17,13 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 * Representa um sistema. eh nele onde estara os codigos que realizarao a
 	 * funcionalidades.
 	 */
-	private Sistema sistema;
+	private SistemaController sistemaController;
 
 	/**
 	 * Metodo responsavel por inicializar a facade no sistema.
 	 */
 	public ListaPraMimFacade() {
-		this.sistema = new Sistema();
+		this.sistemaController = new SistemaController();
 	}
 
 	/**
@@ -47,7 +49,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	@Override
 	public int adicionaItemPorQtd(String nome, String categoria, int quantidade, String unidadeMedida,
 			String localCompra, double preco) {
-		return this.sistema.adicionaItemPorQtd(nome, categoria, quantidade, unidadeMedida, localCompra, preco);
+		return this.sistemaController.adicionaItemPorQtd(nome, categoria, quantidade, unidadeMedida, localCompra, preco);
 	}
 
 	/**
@@ -69,7 +71,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 */
 	@Override
 	public int adicionaItemPorQuilo(String nome, String categoria, double quilo, String localCompra, double preco) {
-		return this.sistema.adicionaItemPorQuilo(nome, categoria, quilo, localCompra, preco);
+		return this.sistemaController.adicionaItemPorQuilo(nome, categoria, quilo, localCompra, preco);
 	}
 
 	/**
@@ -91,7 +93,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 */
 	@Override
 	public int adicionaItemPorUnidade(String nome, String categoria, int unidade, String localCompra, double preco) {
-		return this.sistema.adicionaItemPorUnidade(nome, categoria, unidade, localCompra, preco);
+		return this.sistemaController.adicionaItemPorUnidade(nome, categoria, unidade, localCompra, preco);
 	}
 
 	/**
@@ -104,7 +106,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 */
 	@Override
 	public String exibeItem(Integer key) {
-		return this.sistema.exibeItem(key);
+		return this.sistemaController.exibeItem(key);
 	}
 
 	/**
@@ -122,7 +124,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 */
 	@Override
 	public int atualizaItem(Integer key, String atributo, String novoValor) {
-		return this.sistema.atualizaItem(key, atributo, novoValor);
+		return this.sistemaController.atualizaItem(key, atributo, novoValor);
 	}
 
 	/**
@@ -141,7 +143,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 */
 	@Override
 	public void adicionaPrecoItem(Integer key, String local, double preco) {
-		this.sistema.adicionaPrecoItem(key, local, preco);
+		this.sistemaController.adicionaPrecoItem(key, local, preco);
 
 	}
 
@@ -154,7 +156,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 */
 	@Override
 	public void deletaItem(Integer key) {
-		this.sistema.deletaItem(key);
+		this.sistemaController.deletaItem(key);
 	}
 
 	/**
@@ -181,7 +183,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 */
 	@Override
 	public String getItem(int posicao) {
-		return this.sistema.getItem(posicao);
+		return this.sistemaController.getItem(posicao);
 	}
 
 	/**
@@ -197,7 +199,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 */
 	@Override
 	public String getItemPorCategoria(String categoria, int posicao) {
-		return this.sistema.getItemPorCategoria(categoria, posicao);
+		return this.sistemaController.getItemPorCategoria(categoria, posicao);
 	}
 
 	/**
@@ -210,7 +212,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 */
 	@Override
 	public String getItemPorMenorPreco(int posicao) {
-		return this.sistema.getItemPorMenorPreco(posicao);
+		return this.sistemaController.getItemPorMenorPreco(posicao);
 	}
 
 	/**
@@ -227,7 +229,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 */
 	@Override
 	public String getItemPorPesquisa(String strPesquisa, int posicao) {
-		return this.sistema.getItemPorPesquisa(strPesquisa, posicao);
+		return this.sistemaController.getItemPorPesquisa(strPesquisa, posicao);
 	}
 
 	/**
@@ -238,7 +240,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 */
 	@Override
 	public String adicionaListaDeCompras(String descritor) {
-		return this.sistema.adicionaListaDeCompras(descritor);
+		return this.sistemaController.adicionaListaDeCompras(descritor);
 	}
 
 	/**
@@ -254,7 +256,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 */
 	@Override
 	public void adicionaCompraALista(String descritor, int quantidade, Integer idItem) {
-		this.sistema.adicionaCompraALista(descritor, quantidade, idItem);
+		this.sistemaController.adicionaCompraALista(descritor, quantidade, idItem);
 	}
 
 	/**
@@ -269,7 +271,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 */
 	@Override
 	public void finalizarListaDeCompras(String descritor, String localCompra, int valorFinalDaCompra) {
-		this.sistema.finalizarListaDeCompras(descritor, localCompra, valorFinalDaCompra);
+		this.sistemaController.finalizarListaDeCompras(descritor, localCompra, valorFinalDaCompra);
 
 	}
 
@@ -284,7 +286,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 */
 	@Override
 	public String pesquisaCompraEmLista(String descritor, Integer idItem) {
-		return this.sistema.pesquisaCompraEmLista(descritor, idItem);
+		return this.sistemaController.pesquisaCompraEmLista(descritor, idItem);
 	}
 
 	/**
@@ -298,7 +300,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 */
 	@Override
 	public String getItemLista(String descritor, int posicao) {
-		return this.sistema.getItemLista(descritor, posicao);
+		return this.sistemaController.getItemLista(descritor, posicao);
 	}
 
 	/**
@@ -310,7 +312,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 */
 	@Override
 	public String pesquisaListaDeCompras(String descritor) {
-		return this.sistema.pesquisaListaDeCompras(descritor);
+		return this.sistemaController.pesquisaListaDeCompras(descritor);
 	}
 	/**
 	 * Metodo responsavel por atualizar a quantidade de um item da lista de compras
@@ -321,7 +323,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 */
 	@Override
 	public void atualizaCompraDeLista(String descritor, Integer itemId,String operacao,int quantidade) {
-		this.sistema.atualizaCompraDeLista(descritor, itemId, operacao,quantidade);
+		this.sistemaController.atualizaCompraDeLista(descritor, itemId, operacao,quantidade);
 	}
 	/**
 	 * Deleta uma compra de uma lista de compras.
@@ -333,7 +335,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 */
 	@Override
 	public void deletaCompraDeLista(String descritor, Integer idItem) {
-		this.sistema.deletaCompraDeLista(descritor,idItem);
+		this.sistemaController.deletaCompraDeLista(descritor,idItem);
 		
 	}
 	/**
@@ -343,7 +345,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 */
 	@Override
 	public String dataAtual() {
-		return this.sistema.dataAtual();
+		return this.sistemaController.dataAtual();
 	}
 	/**
 	 * Retorna o descritor de uma lista de compras que foi cadastrada na data e
@@ -357,7 +359,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 * @return : Retorna o descritor da lista de compras.
 	 */
 	public String getItemListaPorData(String data, int posicao) {
-		return this.sistema.getItemListaPorData(data, posicao);
+		return this.sistemaController.getItemListaPorData(data, posicao);
 	}
 	
 	/**
@@ -373,7 +375,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 */
 	@Override
 	public String getItemListaPorItem(Integer idItem, int posicao) {
-		return this.sistema.getItemListaPorItem(idItem,posicao);
+		return this.sistemaController.getItemListaPorItem(idItem,posicao);
 	}
 	/**
 	 * Retorna a pesquisa de listas de compras por data.
@@ -382,7 +384,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 */
 	@Override
 	public String pesquisaListasDeComprasPorData(String data) {
-		return this.sistema.pesquisaListasDeComprasPorData(data);
+		return this.sistemaController.pesquisaListasDeComprasPorData(data);
 	}
 	/**
 	 * Retorna as listas que possuem tal produto.
@@ -391,6 +393,6 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 */
 	@Override
 	public String pesquisaListasDeComprasPorItem(int id) {
-		return this.sistema.pesquisaListasDeComprasPorItem(id);
+		return this.sistemaController.pesquisaListasDeComprasPorItem(id);
 	}
 }
