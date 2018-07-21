@@ -12,7 +12,7 @@ import com.projeto.comparadores.ComparaCategoria;
 import com.projeto.comparadores.ComparaNome;
 import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.excecoes.CompraNaoCadastrada;
-import com.projeto.util.SistemaMensagens;
+import com.projeto.util.Mensagem;
 import com.projeto.util.ValidadorSistema;
 
 public class ListaDeCompra implements Comparable<ListaDeCompra> {
@@ -78,11 +78,11 @@ public class ListaDeCompra implements Comparable<ListaDeCompra> {
 		try {
 			if (ValidadorSistema.validaOperacao(operacao)) {
 				if (!this.compras.containsKey(idItem)) {
-					throw new CompraNaoCadastrada(SistemaMensagens.MSG_EXCECAO_ATUALIZA_COMPRA.get());
+					throw new CompraNaoCadastrada(Mensagem.MSG_EXCECAO_ATUALIZA_COMPRA.get());
 				}
 			}
 		} catch (CampoInvalidoException e) {
-			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_COMPRA.get() + e.getMessage());
+			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_ATUALIZA_COMPRA.get() + e.getMessage());
 		}
 
 		this.compras.get(idItem).atualizar(operacao, quantidade);
@@ -116,7 +116,7 @@ public class ListaDeCompra implements Comparable<ListaDeCompra> {
 
 	public String pesquisaCompraEmLista(Integer idItem) {
 		if (!this.compras.containsKey(idItem)) {
-			throw new CompraNaoCadastrada(SistemaMensagens.MSG_EXCECAO_PESQUISA_COMPRA.get());
+			throw new CompraNaoCadastrada(Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get());
 		}
 		return this.compras.get(idItem).getDescricao();
 	}
@@ -138,7 +138,7 @@ public class ListaDeCompra implements Comparable<ListaDeCompra> {
 
 	public void deletaCompraDeLista(Integer idItem) {
 		if (!this.compras.containsKey(idItem)) {
-			throw new CompraNaoCadastrada(SistemaMensagens.MSG_EXCECAO_EXCLUSAO_COMPRA.get());
+			throw new CompraNaoCadastrada(Mensagem.MSG_EXCECAO_EXCLUSAO_COMPRA.get());
 		}
 		this.compras.remove(idItem);
 	}

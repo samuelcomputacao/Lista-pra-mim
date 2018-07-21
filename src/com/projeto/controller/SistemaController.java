@@ -19,7 +19,7 @@ import com.projeto.model.ListaDeCompra;
 import com.projeto.model.ProdutoNaoIndustrializadoPorQuilo;
 import com.projeto.model.ProdutoPorUnidade;
 import com.projeto.model.ProdutoQuantidadeFixa;
-import com.projeto.util.SistemaMensagens;
+import com.projeto.util.Mensagem;
 import com.projeto.util.ValidadorSistema;
 
 /**
@@ -84,16 +84,16 @@ public class SistemaController {
 
 				if (produtos.containsValue(produto)) {
 					throw new ItemJaExisteException(
-							SistemaMensagens.MSG_EXCECAO_CADASTRO.get() + "item ja cadastrado no sistema.");
+							Mensagem.MSG_EXCECAO_CADASTRO.get() + "item ja cadastrado no sistema.");
 				}
 
 				this.produtos.put(this.identificadorBase, produto);
 				return this.identificadorBase++;
 			}
 		} catch (CampoInvalidoException e) {
-			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_CADASTRO.get() + e.getMessage());
+			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_CADASTRO.get() + e.getMessage());
 		} catch (CategoriaInexistenteException e) {
-			throw new CategoriaInexistenteException(SistemaMensagens.MSG_EXCECAO_CADASTRO.get());
+			throw new CategoriaInexistenteException(Mensagem.MSG_EXCECAO_CADASTRO.get());
 		}
 		return -1;
 	}
@@ -123,15 +123,15 @@ public class SistemaController {
 
 				if (produtos.containsValue(produto)) {
 					throw new ItemJaExisteException(
-							SistemaMensagens.MSG_EXCECAO_CADASTRO.get() + "item ja cadastrado no sistema.");
+							Mensagem.MSG_EXCECAO_CADASTRO.get() + "item ja cadastrado no sistema.");
 				}
 				this.produtos.put(this.identificadorBase, produto);
 				return this.identificadorBase++;
 			}
 		} catch (CampoInvalidoException e) {
-			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_CADASTRO.get() + e.getMessage());
+			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_CADASTRO.get() + e.getMessage());
 		} catch (CategoriaInexistenteException e) {
-			throw new CategoriaInexistenteException(SistemaMensagens.MSG_EXCECAO_CADASTRO.get());
+			throw new CategoriaInexistenteException(Mensagem.MSG_EXCECAO_CADASTRO.get());
 		}
 		return -1;
 	}
@@ -159,15 +159,15 @@ public class SistemaController {
 						localCompra, preco);
 				if (produtos.containsValue(porUnidade)) {
 					throw new ItemJaExisteException(
-							SistemaMensagens.MSG_EXCECAO_CADASTRO.get() + "item ja cadastrado no sistema.");
+							Mensagem.MSG_EXCECAO_CADASTRO.get() + "item ja cadastrado no sistema.");
 				}
 				this.produtos.put(this.identificadorBase, porUnidade);
 				return this.identificadorBase++;
 			}
 		} catch (CampoInvalidoException e) {
-			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_CADASTRO.get() + e.getMessage());
+			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_CADASTRO.get() + e.getMessage());
 		} catch (CategoriaInexistenteException e) {
-			throw new CategoriaInexistenteException(SistemaMensagens.MSG_EXCECAO_CADASTRO.get());
+			throw new CategoriaInexistenteException(Mensagem.MSG_EXCECAO_CADASTRO.get());
 		}
 		return -1;
 	}
@@ -182,10 +182,10 @@ public class SistemaController {
 	 */
 	public String exibeItem(Integer key) {
 		if (key <= 0) {
-			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_LISTA_ITEM.get() + "id invalido.");
+			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_LISTA_ITEM.get() + "id invalido.");
 		}
 		if (!this.produtos.containsKey(key)) {
-			throw new ItemInexistenteException(SistemaMensagens.MSG_EXCECAO_LISTA_ITEM.get() + "item nao existe.");
+			throw new ItemInexistenteException(Mensagem.MSG_EXCECAO_LISTA_ITEM.get() + "item nao existe.");
 		}
 		return this.produtos.get(key).toString();
 	}
@@ -207,7 +207,7 @@ public class SistemaController {
 	 */
 	public int atualizaItem(Integer key, String atribulto, String novoValor) {
 		if (!produtos.containsKey(key))
-			throw new ItemInexistenteException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM.get() + "item nao existe.");
+			throw new ItemInexistenteException(Mensagem.MSG_EXCECAO_ATUALIZA_ITEM.get() + "item nao existe.");
 		Item item = null;
 		try {
 			if (ValidadorSistema.validaAtualizacao(atribulto, novoValor)) {
@@ -215,11 +215,11 @@ public class SistemaController {
 				return item.atualiza(atribulto, novoValor);
 			}
 		} catch (CampoInvalidoException e) {
-			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM.get() + e.getMessage());
+			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_ATUALIZA_ITEM.get() + e.getMessage());
 		} catch (CategoriaInexistenteException e) {
-			throw new CategoriaInexistenteException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM.get());
+			throw new CategoriaInexistenteException(Mensagem.MSG_EXCECAO_ATUALIZA_ITEM.get());
 		} catch (AtribultoInexistenteException e) {
-			throw new AtribultoInexistenteException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_ITEM.get());
+			throw new AtribultoInexistenteException(Mensagem.MSG_EXCECAO_ATUALIZA_ITEM.get());
 		}
 		return -1;
 	}
@@ -241,18 +241,18 @@ public class SistemaController {
 	public void adicionaPrecoItem(Integer key, String local, double preco) {
 
 		if (key < 0) {
-			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_CADASTO_PRECO.get() + "id de item invalido.");
+			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_CADASTO_PRECO.get() + "id de item invalido.");
 		}
 		if (!this.produtos.containsKey(key)) {
-			throw new ItemInexistenteException(SistemaMensagens.MSG_EXCECAO_CADASTO_PRECO.get() + "item nao existe.");
+			throw new ItemInexistenteException(Mensagem.MSG_EXCECAO_CADASTO_PRECO.get() + "item nao existe.");
 		}
 		if (local == null || local.trim().isEmpty()) {
 			throw new CampoInvalidoException(
-					SistemaMensagens.MSG_EXCECAO_CADASTO_PRECO.get() + "local de compra nao pode ser vazio ou nulo.");
+					Mensagem.MSG_EXCECAO_CADASTO_PRECO.get() + "local de compra nao pode ser vazio ou nulo.");
 		}
 		if (preco < 0) {
 			throw new CampoInvalidoException(
-					SistemaMensagens.MSG_EXCECAO_CADASTO_PRECO.get() + "preco de item invalido.");
+					Mensagem.MSG_EXCECAO_CADASTO_PRECO.get() + "preco de item invalido.");
 		}
 		Item item = this.produtos.get(key);
 		item.adicionarLocalCompra(local, preco);
@@ -267,7 +267,7 @@ public class SistemaController {
 	 *            Um inteiro que representa o ID do item.
 	 */
 	public void deletaItem(Integer key) {
-		ValidadorSistema.validaInexistenciaDeProduto(key, produtos, SistemaMensagens.MSG_EXCECAO_REMOCAO_ITEM.get());
+		ValidadorSistema.validaInexistenciaDeProduto(key, produtos, Mensagem.MSG_EXCECAO_REMOCAO_ITEM.get());
 
 		this.produtos.remove(key);
 	}
@@ -317,9 +317,9 @@ public class SistemaController {
 				}
 			}
 		} catch (CampoInvalidoException e) {
-			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_LISTA_ITEM + e.getMessage());
+			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_LISTA_ITEM + e.getMessage());
 		} catch (CategoriaInexistenteException e) {
-			throw new CategoriaInexistenteException(SistemaMensagens.MSG_EXCECAO_LISTA_ITEM.get());
+			throw new CategoriaInexistenteException(Mensagem.MSG_EXCECAO_LISTA_ITEM.get());
 		}
 		return "";
 
@@ -380,9 +380,9 @@ public class SistemaController {
 	 * @return representacao textual do nome do descritor
 	 */
 	public String adicionaListaDeCompras(String descritor) {
-		ValidadorSistema.validaDescritor(descritor, SistemaMensagens.MSG_EXCECAO_CRIACAO_COMPRA.get());
+		ValidadorSistema.validaDescritor(descritor, Mensagem.MSG_EXCECAO_CRIACAO_COMPRA.get());
 		ValidadorSistema.validaExistenciaDeListaDeCompras(descritor, this.listas,
-				SistemaMensagens.MSG_EXCECAO_CRIACAO_COMPRA.get());
+				Mensagem.MSG_EXCECAO_CRIACAO_COMPRA.get());
 
 		this.listas.put(descritor, new ListaDeCompra(descritor));
 		return descritor;
@@ -400,9 +400,9 @@ public class SistemaController {
 	 *            : id do item que sera adicionado na lista de compras.
 	 */
 	public void adicionaCompraALista(String descritor, int quantidade, Integer idItem) {
-		ValidadorSistema.validaDescritor(descritor, SistemaMensagens.MSG_EXCECAO_COMPRA_ITEM.get());
+		ValidadorSistema.validaDescritor(descritor, Mensagem.MSG_EXCECAO_COMPRA_ITEM.get());
 		ValidadorSistema.validaInexistenciaDeProduto(idItem, this.produtos,
-				SistemaMensagens.MSG_EXCECAO_COMPRA_ITEM.get());
+				Mensagem.MSG_EXCECAO_COMPRA_ITEM.get());
 
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		Item item = this.produtos.get(idItem);
@@ -421,10 +421,10 @@ public class SistemaController {
 	 *            : Valor final da compra.
 	 */
 	public void finalizarListaDeCompras(String descritor, String localCompra, int valorFinalDaCompra) {
-		ValidadorSistema.validaDescritor(descritor, SistemaMensagens.MSG_EXCECAO_FINALIZACAO_LISTA_COMPRAS.get());
-		ValidadorSistema.validaLocalCompra(localCompra, SistemaMensagens.MSG_EXCECAO_FINALIZACAO_LISTA_COMPRAS.get());
+		ValidadorSistema.validaDescritor(descritor, Mensagem.MSG_EXCECAO_FINALIZACAO_LISTA_COMPRAS.get());
+		ValidadorSistema.validaLocalCompra(localCompra, Mensagem.MSG_EXCECAO_FINALIZACAO_LISTA_COMPRAS.get());
 		ValidadorSistema.validaValorFinalDaCompra(valorFinalDaCompra,
-				SistemaMensagens.MSG_EXCECAO_FINALIZACAO_LISTA_COMPRAS.get());
+				Mensagem.MSG_EXCECAO_FINALIZACAO_LISTA_COMPRAS.get());
 
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		listaDeCompra.finalizar(localCompra, valorFinalDaCompra);
@@ -441,8 +441,8 @@ public class SistemaController {
 	 * @return Representacao textual do item que esta na lista.
 	 */
 	public String pesquisaCompraEmLista(String descritor, Integer idItem) {
-		ValidadorSistema.validaIdItem(idItem, SistemaMensagens.MSG_EXCECAO_PESQUISA_COMPRA.get());
-		ValidadorSistema.validaDescritor(descritor, SistemaMensagens.MSG_EXCECAO_PESQUISA_COMPRA.get());
+		ValidadorSistema.validaIdItem(idItem, Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get());
+		ValidadorSistema.validaDescritor(descritor, Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get());
 
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		return listaDeCompra.pesquisaCompraEmLista(idItem);
@@ -488,9 +488,9 @@ public class SistemaController {
 	 * @return O nome do descritor, se existir, e null caso nao exista.
 	 */
 	public String pesquisaListaDeCompras(String descritor) {
-		ValidadorSistema.validaDescritor(descritor, SistemaMensagens.MSG_EXCECAO_PESQUISA_COMPRA.get());
+		ValidadorSistema.validaDescritor(descritor, Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get());
 		ValidadorSistema.validaInexistenciaDeListaDeCompras(descritor, this.listas,
-				SistemaMensagens.MSG_EXCECAO_PESQUISA_COMPRA.get());
+				Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get());
 
 		return descritor;
 	}
@@ -504,9 +504,9 @@ public class SistemaController {
 	 *            : Identificador da compra a ser deletada da lista de compras.
 	 */
 	public void deletaCompraDeLista(String descritor, Integer idItem) {
-		ValidadorSistema.validaDescritor(descritor, SistemaMensagens.MSG_EXCECAO_EXCLUSAO_COMPRA.get());
+		ValidadorSistema.validaDescritor(descritor, Mensagem.MSG_EXCECAO_EXCLUSAO_COMPRA.get());
 		ValidadorSistema.validaInexistenciaDeProduto(idItem, produtos,
-				SistemaMensagens.MSG_EXCECAO_EXCLUSAO_COMPRA.get());
+				Mensagem.MSG_EXCECAO_EXCLUSAO_COMPRA.get());
 
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		listaDeCompra.deletaCompraDeLista(idItem);
@@ -542,7 +542,7 @@ public class SistemaController {
 				return lista.get(posicao).getDescritor();
 			}
 		} catch (CampoInvalidoException e) {
-			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_PESQUISA_COMPRA.get() + e.getMessage());
+			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get() + e.getMessage());
 		}
 		return null;
 
@@ -597,8 +597,6 @@ public class SistemaController {
 	public String pesquisaListasDeComprasPorData(String data) {
 		try {
 			if (ValidadorSistema.validaData(data)) {
-				if (data.trim().equals(""))
-					throw new IllegalArgumentException("Erro na pesquisa de compra: data nao pode ser vazia ou nula.");
 				for (ListaDeCompra lista : listas.values()) {
 					if (lista.getData().equals(data)) {
 						return lista.buscaTodosItens();
@@ -606,9 +604,9 @@ public class SistemaController {
 				}
 			}
 		} catch (CampoInvalidoException e) {
-			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_PESQUISA_COMPRA.get() + e.getMessage());
+			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get() + e.getMessage());
 		}
-		return "(nao consegui entender esse jogo de transforma para data ou nao)";
+		return "";
 	}
 
 	/**

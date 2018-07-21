@@ -122,8 +122,8 @@ public class ValidadorSistema {
 			throw new CampoInvalidoException("categoria nao pode ser vazia ou nula.");
 		}
 
-		if (!(categoria.equals("alimento industrializado") || categoria.equals("alimento nao industrializado")
-				|| categoria.equals("limpeza") || categoria.equalsIgnoreCase("higiene pessoal"))) {
+		if (!(categoria.equals(Categoria.ALIMENTO_INDUSTRIALIZADO.get()) || categoria.equals(Categoria.ALIMENTO_NAO_INDUSTRIALIZADO.get())
+				|| categoria.equals(Categoria.LIMPEZA.get()) || categoria.equalsIgnoreCase(Categoria.HIGIENE_PERSOAL.get()))) {
 			throw new CategoriaInexistenteException();
 		}
 		return true;

@@ -1,7 +1,7 @@
 package com.projeto.model;
 
 import com.projeto.excecoes.CampoInvalidoException;
-import com.projeto.util.SistemaMensagens;
+import com.projeto.util.Mensagem;
 import com.projeto.util.ValidadorSistema;
 
 /**
@@ -51,7 +51,7 @@ public class Compra implements Comparable<Compra> {
 					this.quantidade -= quantidade;
 			}
 		} catch (CampoInvalidoException e) {
-			throw new CampoInvalidoException(SistemaMensagens.MSG_EXCECAO_ATUALIZA_COMPRA.get() + e.getMessage());
+			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_ATUALIZA_COMPRA.get() + e.getMessage());
 		}
 
 	}

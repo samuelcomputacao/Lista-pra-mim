@@ -4,7 +4,7 @@ package com.projeto.util;
  * Classe responsavel por armazenar algumas mensagens exibidas pelo sistema.
  *
  */
-public enum SistemaMensagens {
+public enum Mensagem {
 
 	/**
 	 * Mensagem exibida quando ocorre uma excecao no cadastro de itens.
@@ -63,7 +63,7 @@ public enum SistemaMensagens {
 
 	private String valor;
 
-	private SistemaMensagens(String valor) {
+	private Mensagem(String valor) {
 		this.valor = valor;
 	}
 

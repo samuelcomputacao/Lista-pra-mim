@@ -2,6 +2,8 @@ package com.projeto.principal;
 
 import java.util.Date;
 
+import com.projeto.model.ListaDeCompra;
+
 public interface ListaPraMim {
 
 	/**
@@ -301,4 +303,5 @@ public interface ListaPraMim {
 	 * @return representacao textual das listas que contem o produto
 	 */
 	public String pesquisaListasDeComprasPorItem(int id);
+	
 }
