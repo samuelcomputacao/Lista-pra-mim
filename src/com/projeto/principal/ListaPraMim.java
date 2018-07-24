@@ -291,23 +291,50 @@ public interface ListaPraMim {
 	 * @return : Retorna a data de criacao e o descritor da lista de compras.
 	 */
 	public String getItemListaPorItem(Integer idItem, int posicao);
+
 	/**
 	 * Retorna a pesquisa de listas de compras por data.
-	 * @param data: data a ser pesquisada.
+	 * 
+	 * @param data:
+	 *            data a ser pesquisada.
 	 * @return representacao textual das listas de compra.
 	 */
 	public String pesquisaListasDeComprasPorData(String data);
+
 	/**
 	 * Retorna as listas que possuem tal produto.
-	 * @param id :indentificador do produto.
+	 * 
+	 * @param id
+	 *            :indentificador do produto.
 	 * @return representacao textual das listas que contem o produto
 	 */
 	public String pesquisaListasDeComprasPorItem(int id);
-	
+
+	/**
+	 * Exibe a ultima lista de compras cadastrada.
+	 * 
+	 * @return : Retorna a lista de compras mais recentemente criada.
+	 */
 	public String geraAutomaticaUltimaLista();
-	
+
+	/**
+	 * Exibe a ultima lista de compras cadastrada que contem o item especificado.
+	 * 
+	 * @param descritorItem
+	 *            : descritor de um item a ser pesquisado nas listas de compras.
+	 * 
+	 * @return : Retorna a ultima lista de compras cadastrada que contempla o item
+	 *         especificado.
+	 */
 	public String geraAutomaticaItem(String descritorItem);
-	
+
+	/**
+	 * Gera uma lista de compras com os itens de compras que mais aparecem nas
+	 * listas de compras anteriores.
+	 * 
+	 * @return : Retorna a lista de compras com os itens de compras que estejam em
+	 *         pelo menos na metade das listas de compras.
+	 */
 	public String geraAutomaticaItensMaisPresentes();
-	
+
 }
