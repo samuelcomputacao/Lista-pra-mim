@@ -1,6 +1,8 @@
 package com.projeto.model;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -22,7 +24,7 @@ public class ListaDeCompra implements Comparable<ListaDeCompra> {
 	 */
 	private String descritor;
 
-	private String dataCriacao;
+	private Date dataCriacao;
 
 	private Map<Integer, Compra> compras;
 
@@ -39,8 +41,15 @@ public class ListaDeCompra implements Comparable<ListaDeCompra> {
 	 *            String que representa o descritor da lista de compras.
 	 */
 	public ListaDeCompra(String descritor) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		this.dataCriacao = dateFormat.format(new Date());
+		//SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		//String dataString = dateFormat.format(new Date());
+		
+		try {
+			//this.dataCriacao = dateFormat.parse(dataString);
+			dataCriacao = new Date();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		this.descritor = descritor;
 		compras = new HashMap<>();
 		this.finalizada = false;
@@ -143,7 +152,7 @@ public class ListaDeCompra implements Comparable<ListaDeCompra> {
 		this.compras.remove(idItem);
 	}
 
-	public String getData() {
+	public Date getData() {
 		return this.dataCriacao;
 	}
 
@@ -172,5 +181,62 @@ public class ListaDeCompra implements Comparable<ListaDeCompra> {
 			}
 		}
 		return false;
+	}
+
+	public Date getDataFormatada() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		try {
+			String date = dateFormat.format(this.dataCriacao);
+			return dateFormat.parse(date);
+			
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public String getDataTextual() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		return dateFormat.format(this.dataCriacao);
+	}
+
+	public Map<Integer,Compra> getCompras() {
+		return this.compras;
+	}
+	
+	public void setCompras(Map<Integer,Compra> compras) {
+		this.compras = compras;
+	}
+	
+	public int getValorFinal() {
+		return valorFinal;
+	}
+	
+	public void setValorFinal(int valorFinal) {
+		this.valorFinal = valorFinal;
+	}
+
+	public boolean contemItem(String descritorItem) {
+		for(Compra compra : this.compras.values()) {
+			if(compra.getItem().getNome().equals(descritorItem)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public Compra getCompra(Integer id) {
+		for(Compra compra : this.compras.values()) {
+			if(compra.getItem().getId().equals(id)) {
+				return compra;
+			}
+		}
+		return null;
+	}
+
+	public void adicionaItens(Map<Item, Integer> maisComprados) {
+		for(Item item : maisComprados.keySet()) {
+			this.adicionaCompraALista(maisComprados.get(item), item);
+		}
 	}
 }

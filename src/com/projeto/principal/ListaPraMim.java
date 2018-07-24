@@ -304,4 +304,10 @@ public interface ListaPraMim {
 	 */
 	public String pesquisaListasDeComprasPorItem(int id);
 	
+	public String geraAutomaticaUltimaLista();
+	
+	public String geraAutomaticaItem(String descritorItem);
+	
+	public String geraAutomaticaItensMaisPresentes();
+	
 }

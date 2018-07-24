@@ -140,7 +140,7 @@ public abstract class Item implements Comparable<Item> {
 	 * 
 	 * @return : um inteiro que representa o identificador do item.
 	 */
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 

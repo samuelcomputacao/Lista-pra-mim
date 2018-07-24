@@ -1,8 +1,5 @@
 package com.projeto.principal;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import com.projeto.controller.SistemaController;
 
 import easyaccept.EasyAccept;
@@ -167,7 +164,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 				"acceptance_test/use_case1_exception.txt", "acceptance_test/use_case2.txt",
 				"acceptance_test/use_case2_exception.txt", "acceptance_test/use_case3.txt",
 				"acceptance_test/use_case3_exception.txt","acceptance_test/use_case4.txt",
-				"acceptance_test/use_case4_exception.txt"};
+				"acceptance_test/use_case4_exception.txt","acceptance_test/use_case5.txt"};
 		EasyAccept.main(args);
 
 	}
@@ -394,5 +391,20 @@ public class ListaPraMimFacade implements ListaPraMim {
 	@Override
 	public String pesquisaListasDeComprasPorItem(int id) {
 		return this.sistemaController.pesquisaListasDeComprasPorItem(id);
+	}
+
+	@Override
+	public String geraAutomaticaUltimaLista() {
+		return this.sistemaController.geraAutomaticaUltimaLista();
+	}
+
+	@Override
+	public String geraAutomaticaItem(String descritorItem) {
+		return this.sistemaController.geraAutomaticaItem(descritorItem);
+	}
+
+	@Override
+	public String geraAutomaticaItensMaisPresentes() {
+		return this.sistemaController.geraAutomaticaItensMaisPresentes();
 	}
 }

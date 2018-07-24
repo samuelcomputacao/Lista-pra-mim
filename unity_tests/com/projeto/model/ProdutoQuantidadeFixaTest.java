@@ -262,7 +262,7 @@ public class ProdutoQuantidadeFixaTest {
 	 */
 	@Test
 	public void testGetId() {
-		assertEquals(1, produto.getId());
+		assertTrue(1 == produto.getId());
 	}
 
 	/**
