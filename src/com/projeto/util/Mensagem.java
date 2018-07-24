@@ -59,7 +59,9 @@ public enum Mensagem {
 	/**
 	 * Mensagem exibida quando ocorre um erro na finalizacao de lista de compras.
 	 */
-	MSG_EXCECAO_FINALIZACAO_LISTA_COMPRAS("Erro na finalizacao de lista de compras: ");
+	MSG_EXCECAO_FINALIZACAO_LISTA_COMPRAS("Erro na finalizacao de lista de compras: "),
+	
+	MSG_EXCECAO_GERA_LISTA_AUTOMATICA_ITEM("Erro na geracao de lista automatica por item: ");
 
 	private String valor;
 

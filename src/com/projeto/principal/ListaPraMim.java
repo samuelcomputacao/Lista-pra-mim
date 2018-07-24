@@ -1,8 +1,5 @@
 package com.projeto.principal;
 
-import java.util.Date;
-
-import com.projeto.model.ListaDeCompra;
 
 public interface ListaPraMim {
 

@@ -3,7 +3,6 @@ package com.projeto.comparadores;
 import java.util.Comparator;
 
 import com.projeto.model.Compra;
-import com.projeto.model.Item;
 
 /**
  * Classe que compara dois item atraves das suas categorias
