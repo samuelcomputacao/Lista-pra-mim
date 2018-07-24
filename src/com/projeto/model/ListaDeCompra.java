@@ -2,7 +2,6 @@ package com.projeto.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -10,8 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.projeto.comparadores.ComparaCategoria;
-import com.projeto.comparadores.ComparaNome;
 import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.excecoes.CompraNaoCadastrada;
 import com.projeto.util.Mensagem;
@@ -238,5 +235,13 @@ public class ListaDeCompra implements Comparable<ListaDeCompra> {
 		for(Item item : maisComprados.keySet()) {
 			this.adicionaCompraALista(maisComprados.get(item), item);
 		}
+	}
+
+	public boolean isEmpty() {
+		return this.compras.isEmpty();
+	}
+	
+	public String getLocal() {
+		return local;
 	}
 }

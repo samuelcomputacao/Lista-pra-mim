@@ -661,6 +661,9 @@ public class SistemaController {
 
 	public String geraAutomaticaItem(String descritorItem) {
 		ListaDeCompra lista = getUltimaLista(descritorItem);
+		if(lista==null) {
+			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_GERA_LISTA_AUTOMATICA_ITEM.get() + "nao ha compras cadastradas com o item desejado.");
+		}
 		String descritor = Estrategia.ESTRATEGIA_2.get() + " " + this.dataAtual();
 
 		ListaDeCompra listaDeCompra = new ListaDeCompra(descritor);
@@ -716,13 +719,6 @@ public class SistemaController {
 		return quantidade;
 	}
 
-	private int calculaCompras() {
-		int cont = 0;
-		for (ListaDeCompra lista : this.listas.values()) {
-			cont += lista.getCompras().size();
-		}
-		return cont;
-	}
 
 	private List<Compra> listasQuePossui(Item item) {
 		List<Compra> compras = new ArrayList<>();
