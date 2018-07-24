@@ -515,5 +515,6 @@ public class SistemaControllertest {
 		sistemaController.adicionaListaDeCompras("feira da semana");
 		sistemaController.adicionaListaDeCompras("feira da semana");
 	}
+	
 
 }

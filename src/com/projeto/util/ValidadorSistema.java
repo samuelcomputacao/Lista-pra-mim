@@ -254,7 +254,11 @@ public class ValidadorSistema {
 		}
 		return true;
 	}
-
+	/**
+	 * Metodo responsavel por validar a data recebida.
+	 * @param data Data a ser analizada
+	 * @return True se a data e valida
+	 */
 	public static boolean validaData(String data) {
 		if (data == null || data.trim().isEmpty()) {
 			throw new CampoInvalidoException("data nao pode ser vazia ou nula.");

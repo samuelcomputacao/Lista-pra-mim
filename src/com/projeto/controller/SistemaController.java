@@ -525,12 +525,27 @@ public class SistemaController {
 
 	}
 
+	/**
+	 * Metodo auxiliar criado para formatar a data.
+	 * 
+	 * @param dataString
+	 *            Data a ser formatada
+	 * @return Data no formato de data dd/MM/yyyy
+	 * @throws ParseException
+	 */
 	private Date formataData(String dataString) throws ParseException {
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = format.parse(dataString);
 		return date;
 	}
 
+	/**
+	 * Metodo responsavel por buscar listas que possuem tal data
+	 * 
+	 * @param data
+	 *            Lista com Todas as compras que foram efetuadas nessa data
+	 * @return Lista de lista de compras
+	 */
 	private List<ListaDeCompra> buscaPorData(Date data) {
 		List<ListaDeCompra> lista = new ArrayList<>();
 		for (ListaDeCompra list : this.listas.values()) {
@@ -560,6 +575,13 @@ public class SistemaController {
 		return retorno;
 	}
 
+	/**
+	 * Metodo auxiliar criado para retornar uma lista que tem um item dentro dela
+	 * 
+	 * @param idItem
+	 *            Id do item que sera pesquisado
+	 * @return Lista de lista de compras
+	 */
 	private List<ListaDeCompra> buscaPorItem(Integer idItem) {
 		List<ListaDeCompra> lista = new ArrayList<>();
 		for (ListaDeCompra list : this.listas.values()) {
