@@ -46,7 +46,8 @@ public class ListaPraMimFacade implements ListaPraMim {
 	@Override
 	public int adicionaItemPorQtd(String nome, String categoria, int quantidade, String unidadeMedida,
 			String localCompra, double preco) {
-		return this.sistemaController.adicionaItemPorQtd(nome, categoria, quantidade, unidadeMedida, localCompra, preco);
+		return this.sistemaController.adicionaItemPorQtd(nome, categoria, quantidade, unidadeMedida, localCompra,
+				preco);
 	}
 
 	/**
@@ -163,8 +164,8 @@ public class ListaPraMimFacade implements ListaPraMim {
 		args = new String[] { "com.projeto.principal.ListaPraMimFacade", "acceptance_test/use_case1.txt",
 				"acceptance_test/use_case1_exception.txt", "acceptance_test/use_case2.txt",
 				"acceptance_test/use_case2_exception.txt", "acceptance_test/use_case3.txt",
-				"acceptance_test/use_case3_exception.txt","acceptance_test/use_case4.txt",
-				"acceptance_test/use_case4_exception.txt","acceptance_test/use_case5.txt"};
+				"acceptance_test/use_case3_exception.txt", "acceptance_test/use_case4.txt",
+				"acceptance_test/use_case4_exception.txt", "acceptance_test/use_case5.txt" };
 		EasyAccept.main(args);
 
 	}
@@ -269,7 +270,6 @@ public class ListaPraMimFacade implements ListaPraMim {
 	@Override
 	public void finalizarListaDeCompras(String descritor, String localCompra, int valorFinalDaCompra) {
 		this.sistemaController.finalizarListaDeCompras(descritor, localCompra, valorFinalDaCompra);
-
 	}
 
 	/**
@@ -279,7 +279,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 *            : Nome da lista de compras.
 	 * @param idItem
 	 *            : id do item que sera pesquisado na lista de compras.
-	 *  @return Representacao textual do item que esta na lista. 
+	 * @return Representacao textual do item que esta na lista.
 	 */
 	@Override
 	public String pesquisaCompraEmLista(String descritor, Integer idItem) {
@@ -305,23 +305,30 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 * 
 	 * @param descritor
 	 *            : Nome da lista de compras que sera pesquisada.
-	 *  @return O nome do descritor, se existir, e null caso nao exista.
+	 * @return O nome do descritor, se existir, e null caso nao exista.
 	 */
 	@Override
 	public String pesquisaListaDeCompras(String descritor) {
 		return this.sistemaController.pesquisaListaDeCompras(descritor);
 	}
+
 	/**
 	 * Metodo responsavel por atualizar a quantidade de um item da lista de compras
-	 * @param descritor :Nome do descritor em que sera feita a modificacao
-	 * @param itemId : id do item que sera modificado
-	 * @param operacao : operacao que o item sofrera
-	 * @param quantidade : quantidade que o item ira mudar
+	 * 
+	 * @param descritor
+	 *            :Nome do descritor em que sera feita a modificacao
+	 * @param itemId
+	 *            : id do item que sera modificado
+	 * @param operacao
+	 *            : operacao que o item sofrera
+	 * @param quantidade
+	 *            : quantidade que o item ira mudar
 	 */
 	@Override
-	public void atualizaCompraDeLista(String descritor, Integer itemId,String operacao,int quantidade) {
-		this.sistemaController.atualizaCompraDeLista(descritor, itemId, operacao,quantidade);
+	public void atualizaCompraDeLista(String descritor, Integer itemId, String operacao, int quantidade) {
+		this.sistemaController.atualizaCompraDeLista(descritor, itemId, operacao, quantidade);
 	}
+
 	/**
 	 * Deleta uma compra de uma lista de compras.
 	 * 
@@ -332,9 +339,10 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 */
 	@Override
 	public void deletaCompraDeLista(String descritor, Integer idItem) {
-		this.sistemaController.deletaCompraDeLista(descritor,idItem);
-		
+		this.sistemaController.deletaCompraDeLista(descritor, idItem);
+
 	}
+
 	/**
 	 * Retorna a data atual.
 	 * 
@@ -344,6 +352,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	public String dataAtual() {
 		return this.sistemaController.dataAtual();
 	}
+
 	/**
 	 * Retorna o descritor de uma lista de compras que foi cadastrada na data e
 	 * posicao especificada.
@@ -358,7 +367,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	public String getItemListaPorData(String data, int posicao) {
 		return this.sistemaController.getItemListaPorData(data, posicao);
 	}
-	
+
 	/**
 	 * Retorna a data e o descritor de uma lista de compras que foi contem o item
 	 * com id e posicao especificada.
@@ -372,20 +381,26 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 */
 	@Override
 	public String getItemListaPorItem(Integer idItem, int posicao) {
-		return this.sistemaController.getItemListaPorItem(idItem,posicao);
+		return this.sistemaController.getItemListaPorItem(idItem, posicao);
 	}
+
 	/**
 	 * Retorna a pesquisa de listas de compras por data.
-	 * @param data: data a ser pesquisada.
+	 * 
+	 * @param data:
+	 *            data a ser pesquisada.
 	 * @return representacao textual das listas de compra.
 	 */
 	@Override
 	public String pesquisaListasDeComprasPorData(String data) {
 		return this.sistemaController.pesquisaListasDeComprasPorData(data);
 	}
+
 	/**
 	 * Retorna as listas que possuem tal produto.
-	 * @param id :indentificador do produto.
+	 * 
+	 * @param id
+	 *            :indentificador do produto.
 	 * @return representacao textual das listas que contem o produto
 	 */
 	@Override
@@ -393,16 +408,36 @@ public class ListaPraMimFacade implements ListaPraMim {
 		return this.sistemaController.pesquisaListasDeComprasPorItem(id);
 	}
 
+	/**
+	 * Metodo responsavel por gerar automaticamente o dia da ultima lista que foi
+	 * cadastrada.
+	 * 
+	 * @return : representacao textual do dia em que foi realizada a ultima compra
+	 */
 	@Override
 	public String geraAutomaticaUltimaLista() {
 		return this.sistemaController.geraAutomaticaUltimaLista();
 	}
 
+	/**
+	 * Metodo responsavel por gerar automaticamente o dia da ultima compra em que o
+	 * item foi cadastrado.
+	 * 
+	 * @param descritorItem
+	 *            : Item a ser procurado.
+	 * @return representacao textual do ultimo dia em que o item foi comprado.
+	 */
 	@Override
 	public String geraAutomaticaItem(String descritorItem) {
 		return this.sistemaController.geraAutomaticaItem(descritorItem);
 	}
 
+	/**
+	 * Metodo responsavel por Gerar automaticamente o dia em que a lista possui
+	 * compras que mais aparecem nas listas de compras anteriores.
+	 * 
+	 * @return representacao textual do dia em que a lista ocorre.
+	 */
 	@Override
 	public String geraAutomaticaItensMaisPresentes() {
 		return this.sistemaController.geraAutomaticaItensMaisPresentes();

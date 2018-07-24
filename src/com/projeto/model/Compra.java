@@ -89,12 +89,8 @@ public class Compra implements Comparable<Compra> {
 	 */
 	@Override
 	public String toString() {
-		String msg = this.quantidade + " " + this.item.getNome() + ", " + this.item.getCategoria();
-		// instanceof feio e temporario
-		if (this.item instanceof ProdutoQuantidadeFixa) {
-			msg += ", " + this.item.getQuantidade() + " " + this.item.getUnidadeMedida();
-		}
-		return msg;
+		return this.quantidade + " " + this.item.getNome() + ", " + this.item.getCategoria()
+				+ this.item.getRepresentacaoQuantidade();
 	}
 
 	/**

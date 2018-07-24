@@ -149,5 +149,11 @@ public class ProdutoQuantidadeFixa extends Item {
 		return  super.getDescricao()+", "+ this.getQuantidade() + " " + this.unidadeMedida;
 	}
 
+	@Override
+	public String getRepresentacaoQuantidade() {
+		String msg = ", " + this.getQuantidade() + " " + this.getUnidadeMedida();
+		return msg;
+	}
+
 
 }
