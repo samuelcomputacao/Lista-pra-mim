@@ -11,6 +11,18 @@ import easyaccept.EasyAccept;
 public class ListaPraMimFacade implements ListaPraMim {
 
 	/**
+	 * Metodo responsavel por realizar os testes de aceitacao
+	 */
+	public static void main(String[] args) {
+		args = new String[] { "com.projeto.principal.ListaPraMimFacade", "acceptance_test/use_case1.txt",
+				"acceptance_test/use_case1_exception.txt", "acceptance_test/use_case2.txt",
+				"acceptance_test/use_case2_exception.txt", "acceptance_test/use_case3.txt",
+				"acceptance_test/use_case3_exception.txt", "acceptance_test/use_case4.txt",
+				"acceptance_test/use_case4_exception.txt", "acceptance_test/use_case5.txt" };
+		EasyAccept.main(args);
+	}
+
+	/**
 	 * Representa um sistema. eh nele onde estara os codigos que realizarao a
 	 * funcionalidades.
 	 */
@@ -155,19 +167,6 @@ public class ListaPraMimFacade implements ListaPraMim {
 	@Override
 	public void deletaItem(Integer key) {
 		this.sistemaController.deletaItem(key);
-	}
-
-	/**
-	 * Metodo responsavel por realizar os testes de aceitacao
-	 */
-	public static void main(String[] args) {
-		args = new String[] { "com.projeto.principal.ListaPraMimFacade", "acceptance_test/use_case1.txt",
-				"acceptance_test/use_case1_exception.txt", "acceptance_test/use_case2.txt",
-				"acceptance_test/use_case2_exception.txt", "acceptance_test/use_case3.txt",
-				"acceptance_test/use_case3_exception.txt", "acceptance_test/use_case4.txt",
-				"acceptance_test/use_case4_exception.txt", "acceptance_test/use_case5.txt" };
-		EasyAccept.main(args);
-
 	}
 
 	/**
