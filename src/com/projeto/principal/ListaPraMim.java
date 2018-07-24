@@ -1,6 +1,5 @@
 package com.projeto.principal;
 
-
 public interface ListaPraMim {
 
 	/**
@@ -109,7 +108,7 @@ public interface ListaPraMim {
 	 * Metodo responsavel por remover um item na colecao de itens cadastrados no
 	 * sistema.
 	 * 
-	 * @param key
+	 * @param identificador
 	 *            Um inteiro que representa o ID do item.
 	 */
 	public void deletaItem(Integer identificador);
@@ -118,9 +117,10 @@ public interface ListaPraMim {
 	 * Metodo responsavel por buscar um item de acordo com uma posicao de forma que
 	 * ele esteja ordenado pelo nome
 	 * 
-	 * @param position
+	 * @param posicao
 	 *            : Um inteiro indicando a posicao do item na lista de itens
-	 *            ordenada pelo nome
+	 *            ordenada pelo nome.
+	 * 
 	 * @return : Uma String com a representacao textual do item selecionado
 	 */
 	public String getItem(int posicao);
@@ -216,6 +216,8 @@ public interface ListaPraMim {
 	 *            : Descricao da lista de compras.
 	 * @param idItem
 	 *            : Id do item a ser alterado.
+	 * @param operacao
+	 *            : Operacao a ser realizada.
 	 * @param quantidade
 	 *            : Nova quantidade a ser atualizada.
 	 */
