@@ -1,4 +1,4 @@
-package com.projeto.controller;
+package com.projeto.service;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +8,7 @@ import com.projeto.util.ValidadorSistema;
 /**
  * Classe responsavel por controlar todas as funcionalidades que envolvem locais de compras e precos
  */
-public class PrecoController {
+public class PrecoService {
 	
 	/**
 	 * Uma mapa de precos onde estao guardados locais e respectivos precos do item compravel.
@@ -19,7 +19,7 @@ public class PrecoController {
 	 * Metodo responsavel por inicializar o controlador e seu mapeamento
 	 * de locais para precos
 	 */
-	public PrecoController() {
+	public PrecoService() {
 		this.mapaPrecos = new HashMap<>();
 	}
 

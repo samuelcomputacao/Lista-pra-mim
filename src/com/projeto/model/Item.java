@@ -1,6 +1,6 @@
 package com.projeto.model;
 
-import com.projeto.controller.PrecoController;
+import com.projeto.service.PrecoService;
 import com.projeto.util.ValidadorSistema;
 
 /**
@@ -27,7 +27,7 @@ public abstract class Item implements Comparable<Item> {
 	/**
 	 * Controlador dos precos e respectivos locais de compras que um produto possui
 	 */
-	private PrecoController precoController;
+	private PrecoService precoController;
 
 	/**
 	 * Metodo reponsavel por inicializar um item no sistema.
@@ -44,7 +44,7 @@ public abstract class Item implements Comparable<Item> {
 			this.id = id;
 			this.nome = nome;
 			this.categoria = categoria;
-			this.precoController = new PrecoController();
+			this.precoController = new PrecoService();
 		}
 	}
 
