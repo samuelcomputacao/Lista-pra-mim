@@ -349,15 +349,15 @@ public class SistemaController {
 
 	/**
 	 * Metodo responsavel por realizar a busca de um item de acordo com uma string
-	 * de pesquisa
+	 * de pesquisa e uma posicao na lista ordenada
 	 * 
 	 * @param strPesquisa
 	 *            : Uma String indicando a string utilizada como filtro
 	 * @param posicao
-	 *            : uma String indicando a posicao do item na lista ordenada e que
-	 *            contem a string de pesquisa
+	 *            : Uma String indicando a posicao do item na lista ordenada e que
+	 *            contem a string de pesquisa.
 	 * @return Uma string com a representacao textual do item que esta na posicao
-	 *         informada
+	 *         informada na lista ordenada de todos ios produtos do tipo.
 	 */
 	public String getItemPorPesquisa(String strPesquisa, int posicao) {
 		List<Item> itens = new ArrayList<Item>();

@@ -474,7 +474,46 @@ public class SistemaControllertest {
 		sistemaController.adicionaItemPorUnidade("mais sabonete", "limpeza", 2, "uau mart", 50.1);
 		sistemaController.adicionaItemPorUnidade("mais outro sabonete", "limpeza", 1, "uau mart", 20.1);
 		sistemaController.adicionaItemPorUnidade("por fim sabonete", "limpeza", 1, "uau mart", 1.0);
-		assertEquals(sistemaController.getItemPorMenorPreco(1), "3. mais outro sabonete, limpeza, Preco: <uau mart, R$ 20,10;>");
+		assertEquals(sistemaController.getItemPorMenorPreco(1),
+				"3. mais outro sabonete, limpeza, Preco: <uau mart, R$ 20,10;>");
+	}
+
+	/**
+	 * Testa o metodo que retorna o produto na posicao requerida na lista ordenada
+	 * de produtos com o nome especificado.
+	 */
+	@Test
+	public void testGetItemPorPesquisa() {
+		sistemaController.adicionaItemPorQuilo("carne moida", "alimento nao industrializado", 2, "atacadao", 12.30);
+		sistemaController.adicionaItemPorQuilo("carne seca", "alimento nao industrializado", 3, "hiper", 11.30);
+		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
+		assertEquals(sistemaController.getItemPorPesquisa("carne", 1),
+				"3. carne rosa, alimento nao industrializado, Preco por quilo: <assai, R$ 10,30;>");
+	}
+
+	/**
+	 * Testa o metodo que adiciona uma lista de compras com um descritor invalido.
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaListaDeComprasDescritorInvalido() {
+		sistemaController.adicionaListaDeCompras("   ");
+	}
+
+	/**
+	 * Testa o metodo que adiciona uma lista de compras com o descritor nulo.
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaListaDeComprasDescritorNulo() {
+		sistemaController.adicionaListaDeCompras(null);
+	}
+
+	/**
+	 * Testa o metodo que adiciona uma lista de compras que já existe.
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaListaDeComprasDescritorJaExistentes() {
+		sistemaController.adicionaListaDeCompras("feira da semana");
+		sistemaController.adicionaListaDeCompras("feira da semana");
 	}
 
 }
