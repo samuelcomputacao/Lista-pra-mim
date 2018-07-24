@@ -85,11 +85,7 @@ public class SistemaController {
 					&& ValidadorSistema.validaProdutoQuantidadeFixa(quantidade, unidadeMedida, localCompra, preco)) {
 				ProdutoQuantidadeFixa produto = new ProdutoQuantidadeFixa(this.identificadorBase, nome, categoria,
 						quantidade, unidadeMedida, localCompra, preco);
-
-				if (produtos.containsValue(produto)) {
-					throw new ItemJaExisteException(
-							Mensagem.MSG_EXCECAO_CADASTRO.get() + "item ja cadastrado no sistema.");
-				}
+				ValidadorSistema.validaProduto(produto, produtos);
 
 				this.produtos.put(this.identificadorBase, produto);
 				return this.identificadorBase++;
@@ -124,11 +120,8 @@ public class SistemaController {
 					&& ValidadorSistema.validaProdutoNaoIndustrializadoPorQuilo(quilo, localCompra, preco)) {
 				ProdutoNaoIndustrializadoPorQuilo produto = new ProdutoNaoIndustrializadoPorQuilo(
 						this.identificadorBase, nome, categoria, quilo, localCompra, preco);
+				ValidadorSistema.validaProduto(produto, produtos);
 
-				if (produtos.containsValue(produto)) {
-					throw new ItemJaExisteException(
-							Mensagem.MSG_EXCECAO_CADASTRO.get() + "item ja cadastrado no sistema.");
-				}
 				this.produtos.put(this.identificadorBase, produto);
 				return this.identificadorBase++;
 			}
@@ -161,10 +154,8 @@ public class SistemaController {
 					&& ValidadorSistema.validaProdutoPorUnidade(unidade, localCompra, preco)) {
 				ProdutoPorUnidade porUnidade = new ProdutoPorUnidade(this.identificadorBase, nome, categoria, unidade,
 						localCompra, preco);
-				if (produtos.containsValue(porUnidade)) {
-					throw new ItemJaExisteException(
-							Mensagem.MSG_EXCECAO_CADASTRO.get() + "item ja cadastrado no sistema.");
-				}
+				ValidadorSistema.validaProduto(porUnidade, produtos);
+
 				this.produtos.put(this.identificadorBase, porUnidade);
 				return this.identificadorBase++;
 			}
@@ -185,12 +176,7 @@ public class SistemaController {
 	 * @return : Uma String com a representacao textual do item
 	 */
 	public String exibeItem(Integer key) {
-		if (key <= 0) {
-			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_LISTA_ITEM.get() + "id invalido.");
-		}
-		if (!this.produtos.containsKey(key)) {
-			throw new ItemInexistenteException(Mensagem.MSG_EXCECAO_LISTA_ITEM.get() + "item nao existe.");
-		}
+		ValidadorSistema.validaChave(key, produtos, Mensagem.MSG_EXCECAO_LISTA_ITEM.get());
 		return this.produtos.get(key).toString();
 	}
 
@@ -210,8 +196,8 @@ public class SistemaController {
 	 * @return : Um Inteiro indicando o identificador do item atualizado.
 	 */
 	public int atualizaItem(Integer key, String atribulto, String novoValor) {
-		if (!produtos.containsKey(key))
-			throw new ItemInexistenteException(Mensagem.MSG_EXCECAO_ATUALIZA_ITEM.get() + "item nao existe.");
+		ValidadorSistema.validaChave(key, produtos, Mensagem.MSG_EXCECAO_ATUALIZA_ITEM.get());
+
 		Item item = null;
 		try {
 			if (ValidadorSistema.validaAtualizacao(atribulto, novoValor)) {
@@ -243,20 +229,8 @@ public class SistemaController {
 	 *            adicionado
 	 */
 	public void adicionaPrecoItem(Integer key, String local, double preco) {
+		ValidadorSistema.validaPrecoItem(key, local, preco, produtos);
 
-		if (key < 0) {
-			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_CADASTO_PRECO.get() + "id de item invalido.");
-		}
-		if (!this.produtos.containsKey(key)) {
-			throw new ItemInexistenteException(Mensagem.MSG_EXCECAO_CADASTO_PRECO.get() + "item nao existe.");
-		}
-		if (local == null || local.trim().isEmpty()) {
-			throw new CampoInvalidoException(
-					Mensagem.MSG_EXCECAO_CADASTO_PRECO.get() + "local de compra nao pode ser vazio ou nulo.");
-		}
-		if (preco < 0) {
-			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_CADASTO_PRECO.get() + "preco de item invalido.");
-		}
 		Item item = this.produtos.get(key);
 		item.adicionarLocalCompra(local, preco);
 
@@ -287,9 +261,9 @@ public class SistemaController {
 	public String getItem(int position) {
 		List<Item> itens = new ArrayList<Item>(this.produtos.values());
 		Collections.sort(itens);
-		if (itens.isEmpty() || position >= itens.size()) {
+		if (itens.isEmpty() || position >= itens.size())
 			return "";
-		}
+
 		return itens.get(position).toString();
 	}
 
@@ -314,7 +288,6 @@ public class SistemaController {
 					}
 				}
 				if (!itens.isEmpty() && posicao < itens.size()) {
-
 					Collections.sort(itens);
 					return itens.get(posicao).toString();
 				}
@@ -367,7 +340,6 @@ public class SistemaController {
 			}
 		}
 		if (!itens.isEmpty() && posicao < itens.size()) {
-
 			Collections.sort(itens);
 			return itens.get(posicao).toString();
 		}
@@ -461,7 +433,7 @@ public class SistemaController {
 	 *            : nova quantidae de itens.
 	 */
 	public void atualizaCompraDeLista(String descritorLista, Integer idItem, String operacao, int quantidade) {
-
+		ValidadorSistema.validaDescritor(descritorLista, Mensagem.MSG_EXCECAO_ATUALIZA_COMPRA.get());
 		ListaDeCompra listaDeCompra = this.listas.get(descritorLista);
 
 		listaDeCompra.atualizaCompraDeLista(idItem, operacao, quantidade);
@@ -478,6 +450,7 @@ public class SistemaController {
 	 */
 
 	public String getItemLista(String descritor, int posicao) {
+		ValidadorSistema.validaDescritor(descritor, Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get());
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		return listaDeCompra.getItemLista(posicao);
 	}
@@ -637,12 +610,16 @@ public class SistemaController {
 				volta += lista.getDescritor() + "\n";
 			}
 		}
-		if (volta.equals("")) {
-			throw new IllegalArgumentException("Erro na pesquisa de compra: compra nao encontrada na lista.");
-		}
+		ValidadorSistema.validaSaidaVazia(volta);
 		return volta;
 	}
 
+	/**
+	 * Metodo responsavel por gerar automaticamente o dia da ultima lista que foi
+	 * cadastrada.
+	 * 
+	 * @return : representacao textual do dia em que foi realizada a ultima compra
+	 */
 	public String geraAutomaticaUltimaLista() {
 		ListaDeCompra lista = getUltimaLista();
 		String descritor = Estrategia.ESTRATEGIA_1.get() + " " + this.dataAtual();
@@ -653,17 +630,29 @@ public class SistemaController {
 		return descritor;
 	}
 
+	/**
+	 * Metodo responsavel por retornar a ultima lista de compra realizada.
+	 * 
+	 * @return Lista de compra
+	 */
 	private ListaDeCompra getUltimaLista() {
 		List<ListaDeCompra> lista = new ArrayList<>(this.listas.values());
 		Collections.sort(lista, new ComparaData());
 		return lista.get(lista.size() - 1);
 	}
 
+	/**
+	 * Metodo responsavel por gerar automaticamente o dia da ultima compra em que o
+	 * item foi cadastrado.
+	 * 
+	 * @param descritorItem
+	 *            : Item a ser procurado.
+	 * @return representacao textual do ultimo dia em que o item foi comprado.
+	 */
 	public String geraAutomaticaItem(String descritorItem) {
 		ListaDeCompra lista = getUltimaLista(descritorItem);
-		if(lista==null) {
-			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_GERA_LISTA_AUTOMATICA_ITEM.get() + "nao ha compras cadastradas com o item desejado.");
-		}
+		ValidadorSistema.validaListaDeCompra(lista);
+
 		String descritor = Estrategia.ESTRATEGIA_2.get() + " " + this.dataAtual();
 
 		ListaDeCompra listaDeCompra = new ListaDeCompra(descritor);
@@ -673,6 +662,13 @@ public class SistemaController {
 		return descritor;
 	}
 
+	/**
+	 * Metodo responsavel por retornar uma lista que contem um respectivo item.
+	 * 
+	 * @param descritorItem
+	 *            : Item a ser procurado nas listas
+	 * @return Lista de compras que contem o item.
+	 */
 	private ListaDeCompra getUltimaLista(String descritorItem) {
 		List<ListaDeCompra> lista = new ArrayList<>(this.listas.values());
 		Collections.sort(lista, new ComparaData());
@@ -686,46 +682,70 @@ public class SistemaController {
 		return null;
 	}
 
+	/**
+	 * Metodo responsavel por Gerar automaticamente o dia em que a lista possui
+	 * compras que mais aparecem nas listas de compras anteriores.
+	 * 
+	 * @return representacao textual do dia em que a lista ocorre.
+	 */
 	public String geraAutomaticaItensMaisPresentes() {
 		Map<Item, Integer> maisComprados = buscaMaisComprados();
 
-		String descritor = Estrategia.ESTRATEGIA_3.get() + " " +this.dataAtual();
+		String descritor = Estrategia.ESTRATEGIA_3.get() + " " + this.dataAtual();
 		ListaDeCompra listaDeCompra = new ListaDeCompra(descritor);
 		listaDeCompra.adicionaItens(maisComprados);
 		this.listas.put(descritor, listaDeCompra);
 		return descritor;
 	}
 
+	/**
+	 * Metodo auxiliar responsavel por retornar os itens mais comprados
+	 * 
+	 * @return Mapa contendo os itens
+	 */
 	private Map<Item, Integer> buscaMaisComprados() {
-		Map<Item,Integer> maisComprados = new HashMap<>();
-		
-		for(Item item : this.produtos.values()) {
+		Map<Item, Integer> maisComprados = new HashMap<>();
+
+		for (Item item : this.produtos.values()) {
 			List<Compra> compraQuePossue = listasQuePossui(item);
-			if( compraQuePossue.size() >= (this.listas.size()/2)) {
-				Integer quantidade  = calculaTotal(compraQuePossue);
-				quantidade = (int) Math.floor(quantidade/compraQuePossue.size());
+			if (compraQuePossue.size() >= (this.listas.size() / 2)) {
+				Integer quantidade = calculaTotal(compraQuePossue);
+				quantidade = (int) Math.floor(quantidade / compraQuePossue.size());
 				maisComprados.put(item, quantidade);
-				
+
 			}
 		}
 		return maisComprados;
 	}
 
+	/**
+	 * Metodo auxiliar que serve para calcular o valor total das compras.
+	 * 
+	 * @param compraQuePossue
+	 *            Lista que contem as compras.
+	 * @return inteiro representando a soma total.
+	 */
 	private int calculaTotal(List<Compra> compraQuePossue) {
 		int quantidade = 0;
-		for(Compra compra: compraQuePossue) {
+		for (Compra compra : compraQuePossue) {
 			quantidade += compra.getQuantidade();
 		}
 		return quantidade;
 	}
 
-
+	/**
+	 * Metodo responsavel por verificar se um item existe nas listas de compras.
+	 * 
+	 * @param item
+	 *            :Item a ser pesquisado.
+	 * @return Lista contendo as compras que possuem tal item.
+	 */
 	private List<Compra> listasQuePossui(Item item) {
 		List<Compra> compras = new ArrayList<>();
 
 		for (ListaDeCompra lista : this.listas.values()) {
 			Compra compra = lista.getCompra(item.getId());
-			if(compra != null) {
+			if (compra != null) {
 				compras.add(compra);
 			}
 		}

@@ -1,10 +1,13 @@
 package com.projeto.util;
 
+import java.awt.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.excecoes.CategoriaInexistenteException;
 import com.projeto.excecoes.ItemInexistenteException;
+import com.projeto.excecoes.ItemJaExisteException;
 import com.projeto.model.Item;
 import com.projeto.model.ListaDeCompra;
 
@@ -26,6 +29,23 @@ public class ValidadorSistema {
 	public static boolean validaItem(String nome, String categoria) {
 		validaNome(nome);
 		validaCategoria(categoria);
+		return true;
+	}
+
+	/**
+	 * Metodo responsavel por Validar uma chave.
+	 * 
+	 * @param key
+	 *            : indentificacao do intem
+	 * @param produto
+	 *            : Lista que contem os produtos.
+	 * @return true se o key for valido.
+	 */
+	public static boolean validaChave(Integer key, Map<Integer, Item> produto, String msgExcecaoMetodo) {
+		if (key <= 0)
+			throw new CampoInvalidoException(msgExcecaoMetodo + "id invalido.");
+		if (!produto.containsKey(key))
+			throw new ItemInexistenteException(msgExcecaoMetodo + "item nao existe.");
 		return true;
 	}
 
@@ -122,8 +142,10 @@ public class ValidadorSistema {
 			throw new CampoInvalidoException("categoria nao pode ser vazia ou nula.");
 		}
 
-		if (!(categoria.equals(Categoria.ALIMENTO_INDUSTRIALIZADO.get()) || categoria.equals(Categoria.ALIMENTO_NAO_INDUSTRIALIZADO.get())
-				|| categoria.equals(Categoria.LIMPEZA.get()) || categoria.equalsIgnoreCase(Categoria.HIGIENE_PERSOAL.get()))) {
+		if (!(categoria.equals(Categoria.ALIMENTO_INDUSTRIALIZADO.get())
+				|| categoria.equals(Categoria.ALIMENTO_NAO_INDUSTRIALIZADO.get())
+				|| categoria.equals(Categoria.LIMPEZA.get())
+				|| categoria.equalsIgnoreCase(Categoria.HIGIENE_PERSOAL.get()))) {
 			throw new CategoriaInexistenteException();
 		}
 		return true;
@@ -389,6 +411,80 @@ public class ValidadorSistema {
 	public static boolean validaIdItem(int idItem, String msgExcecaoMetodo) {
 		if (idItem < 0) {
 			throw new CampoInvalidoException(msgExcecaoMetodo + "item id invalido.");
+		}
+		return true;
+	}
+
+	/**
+	 * Metodo responsavel por validar um produto.
+	 * 
+	 * @param produto
+	 *            Produto a ser validado
+	 * @param produtos
+	 *            mapa contendo todos os produtos do sistema.
+	 * @return true se o produto e valido
+	 */
+	public static boolean validaProduto(Item produto, Map<Integer, Item> produtos) {
+		if (produtos.containsValue(produto))
+			throw new ItemJaExisteException(Mensagem.MSG_EXCECAO_CADASTRO.get() + "item ja cadastrado no sistema.");
+		return true;
+	}
+
+	/**
+	 * Metodo responsavel por validar o preco de item
+	 * 
+	 * @param key
+	 *            Identificador do item
+	 * @param local
+	 *            Local de compra
+	 * @param preco
+	 *            Preco do produto
+	 * @param produtos
+	 *            Mapa contendo os produtos.
+	 * @return True se o item e valido
+	 */
+	public static boolean validaPrecoItem(Integer key, String local, double preco, Map<Integer, Item> produtos) {
+		if (key < 0) {
+			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_CADASTO_PRECO.get() + "id de item invalido.");
+		}
+		if (!produtos.containsKey(key)) {
+			throw new ItemInexistenteException(Mensagem.MSG_EXCECAO_CADASTO_PRECO.get() + "item nao existe.");
+		}
+		if (local == null || local.trim().isEmpty()) {
+			throw new CampoInvalidoException(
+					Mensagem.MSG_EXCECAO_CADASTO_PRECO.get() + "local de compra nao pode ser vazio ou nulo.");
+		}
+		if (preco < 0) {
+			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_CADASTO_PRECO.get() + "preco de item invalido.");
+		}
+		return true;
+	}
+
+	/**
+	 * Metodo responsavel por validar a saida de uma string
+	 * 
+	 * @param saida
+	 *            String a ser analizada.
+	 * @return True se a string e valida.
+	 */
+	public static boolean validaSaidaVazia(String saida) {
+		if (saida.equals(""))
+			throw new CampoInvalidoException(
+					Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get() + "compra nao encontrada na lista.");
+		return true;
+	}
+
+	/**
+	 * Metodo responsavel por validar uma lista de compra
+	 * 
+	 * @param lista
+	 *            Lista de compra a ser analisada
+	 * @return True se a Lista é valida
+	 */
+	public static boolean validaListaDeCompra(ListaDeCompra lista) {
+		if (lista == null) {
+			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_GERA_LISTA_AUTOMATICA_ITEM.get()
+					+ "nao ha compras cadastradas com o item desejado.");
 		}
 		return true;
 	}
