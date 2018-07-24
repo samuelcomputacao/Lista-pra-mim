@@ -217,4 +217,8 @@ public abstract class Item implements Comparable<Item> {
 	public abstract int getQuantidade();
 
 	public abstract String getUnidadeMedida();
+
+	public String getRepresentacaoQuantidade() {
+		return "";
+	}
 }
