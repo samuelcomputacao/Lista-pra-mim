@@ -311,11 +311,10 @@ public class SistemaController {
 	 * @return Uma string com a representacao textual do item indicado
 	 */
 	public String getItemPorMenorPreco(int posicao) {
-		if (posicao >= this.produtos.size()) {
+		if (this.produtos.size() <= posicao) {
 			return "";
 		}
-		ArrayList<Item> itens = new ArrayList<>();
-		itens.addAll(produtos.values());
+		ArrayList<Item> itens = new ArrayList<>(produtos.values());
 		Collections.sort(itens, new ComparaValor());
 		return itens.get(posicao).toString();
 	}
@@ -629,7 +628,7 @@ public class SistemaController {
 		String volta = "";
 		for (ListaDeCompra lista : listas.values()) {
 			if (lista.possuiCompra(id)) {
-				volta += lista.getDescritor() + "\n";
+				volta += lista.getDescritor() + System.lineSeparator();
 			}
 		}
 		ValidadorSistema.validaSaidaVazia(volta);
