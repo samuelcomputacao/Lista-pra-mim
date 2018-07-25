@@ -254,9 +254,12 @@ public class ValidadorSistema {
 		}
 		return true;
 	}
+
 	/**
 	 * Metodo responsavel por validar a data recebida.
-	 * @param data Data a ser analizada
+	 * 
+	 * @param data
+	 *            Data a ser analizada
 	 * @return True se a data e valida
 	 */
 	public static boolean validaData(String data) {
@@ -483,7 +486,7 @@ public class ValidadorSistema {
 	 * 
 	 * @param lista
 	 *            Lista de compra a ser analisada
-	 * @return True se a Lista é valida
+	 * @return True se a Lista e valida
 	 */
 	public static boolean validaListaDeCompra(ListaDeCompra lista) {
 		if (lista == null) {
@@ -492,4 +495,5 @@ public class ValidadorSistema {
 		}
 		return true;
 	}
+
 }

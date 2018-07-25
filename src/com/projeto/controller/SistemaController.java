@@ -311,7 +311,7 @@ public class SistemaController {
 	 * @return Uma string com a representacao textual do item indicado
 	 */
 	public String getItemPorMenorPreco(int posicao) {
-		if (this.produtos.size() <= posicao) {
+		if (posicao >= this.produtos.size() || posicao < 0) {
 			return "";
 		}
 		ArrayList<Item> itens = new ArrayList<>(produtos.values());
@@ -338,7 +338,7 @@ public class SistemaController {
 				itens.add(item);
 			}
 		}
-		if (!itens.isEmpty() && posicao < itens.size()) {
+		if (!itens.isEmpty() && posicao < itens.size() && posicao >= 0) {
 			Collections.sort(itens);
 			return itens.get(posicao).toString();
 		}
@@ -772,4 +772,5 @@ public class SistemaController {
 		}
 		return compras;
 	}
+
 }

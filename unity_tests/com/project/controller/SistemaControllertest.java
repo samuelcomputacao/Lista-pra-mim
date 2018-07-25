@@ -1,6 +1,7 @@
 package com.project.controller;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -474,8 +475,41 @@ public class SistemaControllertest {
 		sistemaController.adicionaItemPorUnidade("mais sabonete", "limpeza", 2, "uau mart", 50.1);
 		sistemaController.adicionaItemPorUnidade("mais outro sabonete", "limpeza", 1, "uau mart", 20.1);
 		sistemaController.adicionaItemPorUnidade("por fim sabonete", "limpeza", 1, "uau mart", 1.0);
+		assertEquals(sistemaController.getItemPorMenorPreco(0),
+				"4. por fim sabonete, limpeza, Preco: <uau mart, R$ 1,00;>");
 		assertEquals(sistemaController.getItemPorMenorPreco(1),
 				"3. mais outro sabonete, limpeza, Preco: <uau mart, R$ 20,10;>");
+		assertEquals(sistemaController.getItemPorMenorPreco(2),
+				"2. mais sabonete, limpeza, Preco: <uau mart, R$ 50,10;>");
+		assertEquals(sistemaController.getItemPorMenorPreco(3), "1. sabonete, limpeza, Preco: <carrefuor, R$ 92,30;>");
+
+	}
+
+	/**
+	 * Testa o metodo getItemPorMenorPreco com posicao invalida(negativa)
+	 */
+	@Test
+	public void testGetItemPorMenorPrecoPosicaoNegativa() {
+		sistemaController.adicionaItemPorQuilo("carne moida", "alimento nao industrializado", 2, "atacadao", 12.30);
+		sistemaController.adicionaItemPorQuilo("carne seca", "alimento nao industrializado", 3, "hiper", 11.30);
+		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
+
+		assertEquals("", sistemaController.getItemPorMenorPreco(-1));
+		assertEquals("", sistemaController.getItemPorMenorPreco(-100));
+	}
+
+	/**
+	 * Testa o metodo getItemPorMenorPreco com posicao invalida(maior que a qtd de
+	 * itens)
+	 */
+	@Test
+	public void testGetItemPorMenorPrecoPosicaoInvalida() {
+		sistemaController.adicionaItemPorQuilo("carne moida", "alimento nao industrializado", 2, "atacadao", 12.30);
+		sistemaController.adicionaItemPorQuilo("carne seca", "alimento nao industrializado", 3, "hiper", 11.30);
+		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
+
+		assertEquals("", sistemaController.getItemPorMenorPreco(3));
+		assertEquals("", sistemaController.getItemPorMenorPreco(100));
 	}
 
 	/**
@@ -487,8 +521,57 @@ public class SistemaControllertest {
 		sistemaController.adicionaItemPorQuilo("carne moida", "alimento nao industrializado", 2, "atacadao", 12.30);
 		sistemaController.adicionaItemPorQuilo("carne seca", "alimento nao industrializado", 3, "hiper", 11.30);
 		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
+
+		assertEquals(sistemaController.getItemPorPesquisa("carne", 0),
+				"1. carne moida, alimento nao industrializado, Preco por quilo: <atacadao, R$ 12,30;>");
 		assertEquals(sistemaController.getItemPorPesquisa("carne", 1),
 				"3. carne rosa, alimento nao industrializado, Preco por quilo: <assai, R$ 10,30;>");
+		assertEquals(sistemaController.getItemPorPesquisa("carne", 2),
+				"2. carne seca, alimento nao industrializado, Preco por quilo: <hiper, R$ 11,30;>");
+	}
+
+	/**
+	 * Testa o método getItemPorPesquisa com strNome existentes e inexistentes.
+	 */
+	@Test
+	public void testGetItemPorPesquisaComNomeInexistente() {
+		sistemaController.adicionaItemPorQuilo("carne moida", "alimento nao industrializado", 2, "atacadao", 12.30);
+		sistemaController.adicionaItemPorQuilo("carne seca", "alimento nao industrializado", 3, "hiper", 11.30);
+		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
+
+		assertEquals("", sistemaController.getItemPorPesquisa("carne de dinosauro", 0));
+		assertEquals("", sistemaController.getItemPorPesquisa("carnii", 0));
+		assertEquals("", sistemaController.getItemPorPesquisa("carne da boa", 0));
+
+		assertNotEquals("", sistemaController.getItemPorPesquisa("c", 0));
+		assertNotEquals("", sistemaController.getItemPorPesquisa("ca", 0));
+		assertNotEquals("", sistemaController.getItemPorPesquisa("carne", 0));
+	}
+
+	/**
+	 * Testa o metodo getItemPorPesquisa com posicao invalida(negativa)
+	 */
+	@Test
+	public void testGetItemPorPesquisaComPosicaoNegativa() {
+		sistemaController.adicionaItemPorQuilo("carne moida", "alimento nao industrializado", 2, "atacadao", 12.30);
+		sistemaController.adicionaItemPorQuilo("carne seca", "alimento nao industrializado", 3, "hiper", 11.30);
+		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
+
+		assertEquals("", sistemaController.getItemPorPesquisa("carne", -1));
+		assertEquals("", sistemaController.getItemPorPesquisa("carne", -100));
+	}
+
+	/**
+	 * Testa o metodo getItemPorPesquisa com posicao invalida (maior que o tamanho
+	 * da lista)
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testGetItemPorPesquisaComPosicaoInvalida() {
+		sistemaController.adicionaItemPorQuilo("carne moida", "alimento nao industrializado", 2, "atacadao", 12.30);
+		sistemaController.adicionaItemPorQuilo("carne seca", "alimento nao industrializado", 3, "hiper", 11.30);
+		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
+
+		sistemaController.getItemPorPesquisa("carne", 3);
 	}
 
 	/**
@@ -515,6 +598,5 @@ public class SistemaControllertest {
 		sistemaController.adicionaListaDeCompras("feira da semana");
 		sistemaController.adicionaListaDeCompras("feira da semana");
 	}
-	
 
 }
