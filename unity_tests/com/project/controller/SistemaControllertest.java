@@ -599,4 +599,109 @@ public class SistemaControllertest {
 		sistemaController.adicionaListaDeCompras("feira da semana");
 	}
 
+	/**
+	 * Metodo responsavel por adicionar um preco a um item já cadastrado
+	 */
+	@Test
+	public void testAdicionaPrecoItem() {
+		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
+		sistemaController.adicionaPrecoItem(1, "Feira da prata", 20.0);
+	}
+
+	/**
+	 * Metodo voltado para adicionar um preco a um item indefinido, esperando o
+	 * levantamento de erro.
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaPrecoItemLocalIndefinido() {
+		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
+		sistemaController.adicionaPrecoItem(1, "   ", 20.0);
+	}
+
+	/**
+	 * Metodo responsavel por adicionar um preco com valor negativo, esperando um
+	 * levantamento de erro.
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaPrecoItemValorNegatico() {
+		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
+		sistemaController.adicionaPrecoItem(1, "Sadia", -20.0);
+	}
+
+	/**
+	 * Metodo responsavel por deletar um item ja cadastrado
+	 */
+	@Test
+	public void testDeletaItem() {
+		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
+		sistemaController.deletaItem(1);
+	}
+
+	/**
+	 * Metodo responsavel deletar um item que nao existe e levantar erro
+	 */
+	@Test(expected = ItemInexistenteException.class)
+	public void testDeletaItemNaoCadastrado() {
+		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
+		sistemaController.deletaItem(2);
+	}
+
+	/**
+	 * Metodo responsavel por retornar a representacao textual de um item que sera
+	 * pesquisado
+	 */
+	@Test
+	public void testGetItem() {
+		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
+		assertEquals("1. carne rosa, alimento nao industrializado, Preco por quilo: <assai, R$ 10,30;>" + "",
+				sistemaController.getItem(0));
+	}
+
+	/**
+	 * Metodo responsavel por retornar uma representacao textual vazia " "" "
+	 * indicando que nao existe um item nessa posicao.
+	 */
+	@Test
+	public void testGetItemInvalido() {
+		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
+		assertEquals("", sistemaController.getItem(2));
+	}
+
+	/**
+	 * Metodo responsavel por retornar um item na respectiva ordenacao.
+	 */
+	@Test
+	public void testGetItemPorCategoria() {
+		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
+		sistemaController.adicionaItemPorQuilo("Iogurte", "alimento industrializado", 4, "assai", 10.30);
+		sistemaController.adicionaItemPorQuilo("frango", "alimento nao industrializado", 5, "assai", 40.0);
+		sistemaController.adicionaItemPorQuilo("carne vermelha", "alimento nao industrializado", 8, "assai", 29.90);
+		assertEquals("3. frango, alimento nao industrializado, Preco por quilo: <assai, R$ 40,00;>",
+				sistemaController.getItemPorCategoria("alimento nao industrializado", 2));
+	}
+
+	/**
+	 * Metodo responsavel por retornar uma representacao textual vazia " "" "
+	 * indicando que nao existe um item nessa posicao.
+	 */
+	@Test
+	public void testGetItemPorCategoriaNaoCadastrada() {
+		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
+		sistemaController.adicionaItemPorQuilo("Iogurte", "alimento industrializado", 4, "assai", 10.30);
+		sistemaController.adicionaItemPorQuilo("frango", "alimento nao industrializado", 5, "assai", 40.0);
+		sistemaController.adicionaItemPorQuilo("carne vermelha", "alimento nao industrializado", 8, "assai", 29.90);
+		assertEquals("", sistemaController.getItemPorCategoria("higiene pessoal", 2));
+	}
+
+	/**
+	 * Metodo responsavel por levantar um erro em pegar um item em uma categoria que
+	 * nao existe.
+	 */
+	@Test(expected = CategoriaInexistenteException.class)
+	public void testGetItemPorCategoriaInvalida() {
+		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
+		sistemaController.adicionaItemPorQuilo("Iogurte", "alimento industrializado", 4, "assai", 10.30);
+		sistemaController.getItemPorCategoria("higiene impessoal", 2);
+	}
+
 }
