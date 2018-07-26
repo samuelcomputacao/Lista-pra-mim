@@ -63,5 +63,9 @@ public class PrecoService {
 		}
 		return menor * -1;
 	}
+
+	public Map<String, Double> getPrecos() {
+		return this.mapaPrecos;
+	}
 	
 }

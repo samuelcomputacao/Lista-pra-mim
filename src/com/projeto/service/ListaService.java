@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -14,6 +15,7 @@ import java.util.Set;
 import com.projeto.comparadores.ComparaData;
 import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.model.Compra;
+import com.projeto.model.Estabelecimento;
 import com.projeto.model.Item;
 import com.projeto.model.ListaDeCompra;
 import com.projeto.util.Estrategia;
@@ -443,11 +445,38 @@ public class ListaService {
 	}
 
 	public String sugereMelhorEstabelecimento(String descritor, int posicaoEstabelecimento, int posicaoLista) {
-		// ListaDeCompra lista = this.listas.get(descritor);
-		// List<Item> itens = this.listaService.getItens(descritor);
-		// Map<String,Set<Item>> locais = new HashMap<String,Set<Item>>();
-		// lista.sugereMelhorEstabelecimento(posicaoEstabelecimento,posicaoLista);
-		return null;
+		ListaDeCompra lista = this.listas.get(descritor);
+		Map<String,Estabelecimento> estabelecimentos = buscaLocais(lista);
+		List<Estabelecimento> listaEstabelecimentos = new ArrayList<>(estabelecimentos.values());
+		Collections.sort(listaEstabelecimentos);
+		if(posicaoLista==0) {
+			return listaEstabelecimentos.get(posicaoEstabelecimento).toString();
+		}else {
+			Estabelecimento estabelecimento = listaEstabelecimentos.get(posicaoEstabelecimento) ;
+			Collections.sort(estabelecimento.getCompras());
+			if(posicaoLista-1 >= estabelecimento.getCompras().size()) {
+				return "";
+			}
+			return estabelecimento.getCompras().get(posicaoLista-1).toString();
+		}
+	}
+
+	private Map<String, Estabelecimento> buscaLocais(ListaDeCompra lista) {
+		Map<String,Estabelecimento> locais = new HashMap<>();
+		
+		for(Compra c : lista.getCompras().values()) {
+			Item item  = c.getItem();
+			Map<String,Double> precos = item.getPrecos();
+			for(String key : precos.keySet()) {
+				if(locais.containsKey(key)) {
+					locais.get(key).add(c, precos.get(key)*c.getQuantidade());
+				}else {
+					locais.put(key, new Estabelecimento(key));
+					locais.get(key).add(c, precos.get(key)*c.getQuantidade());
+				}
+			}
+		}
+		return locais;
 	}
 
 	public List<Item> getItens(String descritor) {

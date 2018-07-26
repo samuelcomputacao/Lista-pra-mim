@@ -1,5 +1,7 @@
 package com.projeto.model;
 
+import java.util.Map;
+
 import com.projeto.service.PrecoService;
 import com.projeto.util.ValidadorSistema;
 
@@ -27,7 +29,7 @@ public abstract class Item implements Comparable<Item> {
 	/**
 	 * Controlador dos precos e respectivos locais de compras que um produto possui
 	 */
-	private PrecoService precoController;
+	private PrecoService precoService;
 
 	/**
 	 * Metodo reponsavel por inicializar um item no sistema.
@@ -44,7 +46,7 @@ public abstract class Item implements Comparable<Item> {
 			this.id = id;
 			this.nome = nome;
 			this.categoria = categoria;
-			this.precoController = new PrecoService();
+			this.precoService = new PrecoService();
 		}
 	}
 
@@ -58,7 +60,7 @@ public abstract class Item implements Comparable<Item> {
 	 *            : Um double representando o preco do produto no local indicado.
 	 */
 	public void adicionarLocalCompra(String local, Double preco) {
-		this.precoController.adicionarLocalCompra(local, preco);
+		this.precoService.adicionarLocalCompra(local, preco);
 	}
 
 	/**
@@ -159,7 +161,7 @@ public abstract class Item implements Comparable<Item> {
 	 * @return : uma String que representa o mapa de precos de um item.
 	 */
 	public String getListaPrecos() {
-		return this.precoController.getListaPrecos();
+		return this.precoService.getListaPrecos();
 	}
 
 	/**
@@ -181,7 +183,7 @@ public abstract class Item implements Comparable<Item> {
 	 * @return : numero em ponto flutuante correspondente ao menor preco.
 	 */
 	public double getMenorPreco() {
-		return this.precoController.getMenorPreco();
+		return this.precoService.getMenorPreco();
 	}
 
 	/**
@@ -220,5 +222,9 @@ public abstract class Item implements Comparable<Item> {
 
 	public String getRepresentacaoQuantidade() {
 		return "";
+	}
+	
+	public Map<String,Double> getPrecos() {
+		return precoService.getPrecos();
 	}
 }
