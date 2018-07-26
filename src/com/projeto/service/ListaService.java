@@ -1,7 +1,9 @@
-package com.projeto.controller;
+package com.projeto.service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -9,341 +11,33 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.projeto.comparadores.ComparaValor;
-import com.projeto.excecoes.AtribultoInexistenteException;
+import com.projeto.comparadores.ComparaData;
 import com.projeto.excecoes.CampoInvalidoException;
-import com.projeto.excecoes.CategoriaInexistenteException;
+import com.projeto.model.Compra;
 import com.projeto.model.Item;
 import com.projeto.model.ListaDeCompra;
-import com.projeto.model.ProdutoNaoIndustrializadoPorQuilo;
-import com.projeto.model.ProdutoPorUnidade;
-import com.projeto.model.ProdutoQuantidadeFixa;
-import com.projeto.service.ListaService;
+import com.projeto.util.Estrategia;
 import com.projeto.util.Mensagem;
 import com.projeto.util.ValidadorSistema;
 
 /**
- * Classe que representa o sistema. Ela e responsavel por realizar grande parte
- * das funcionalidades do sistema.
+ * Classe responsavel por realizar os servicos de listas
  *
  */
-public class SistemaController {
+public class ListaService {
 
 	/**
 	 * Uma lista com todas as listaDeCompras do sistema.
 	 */
 	private Map<String, ListaDeCompra> listas;
-
-	/**
-	 * Um mapa com todos os produtos cadastrados pelo sistema.
-	 */
-	private Map<Integer, Item> produtos;
 	
-	private ListaService listaService;
-
 	/**
-	 * Um inteiro que representa o id dos produtos que serao cadastrados no sistema.
+	 * Metodo inicicializador do servico de sistema
 	 */
-	private Integer identificadorBase;
-
-	public SistemaController() {
+	public ListaService() {
 		this.listas = new HashMap<>();
-		this.identificadorBase = 1;
-		this.listaService = new ListaService();
-		/**
-		 * Mapa
-		 */
-		this.produtos = new HashMap<>();
 	}
-
-	/**
-	 * Metodo responsavel por adicionar um produto com quantidade fixa no mapa de
-	 * produtos.
-	 * 
-	 * @param nome
-	 *            : nome do produto.
-	 * @param categoria
-	 *            : categoria do produto.
-	 * @param unidadeMedida
-	 *            : unidade de medida do produto.
-	 * @param localCompra
-	 *            : local de compra do produto.
-	 * @param preco
-	 *            : preco do produto.
-	 * 
-	 * @param quantidade
-	 *            : um inteiro indicando a quantidade do produto
-	 * 
-	 * @return : retorna um inteiro representando o identificador do item
-	 *         adicionado.
-	 */
-	public int adicionaItemPorQtd(String nome, String categoria, int quantidade, String unidadeMedida,
-			String localCompra, double preco) {
-		try {
-			if (ValidadorSistema.validaItem(nome, categoria)
-					&& ValidadorSistema.validaProdutoQuantidadeFixa(quantidade, unidadeMedida, localCompra, preco)) {
-				ProdutoQuantidadeFixa produto = new ProdutoQuantidadeFixa(this.identificadorBase, nome, categoria,
-						quantidade, unidadeMedida, localCompra, preco);
-				ValidadorSistema.validaProduto(produto, produtos);
-
-				this.produtos.put(this.identificadorBase, produto);
-				return this.identificadorBase++;
-			}
-		} catch (CampoInvalidoException e) {
-			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_CADASTRO.get() + e.getMessage());
-		} catch (CategoriaInexistenteException e) {
-			throw new CategoriaInexistenteException(Mensagem.MSG_EXCECAO_CADASTRO.get());
-		}
-		return -1;
-	}
-
-	/**
-	 * Metodo responsavel por adicionar um produto não industrializado por quilo no
-	 * mapa de produtos.
-	 * 
-	 * @param nome
-	 *            Uma String indicando o nome do produto.
-	 * @param categoria
-	 *            Uma String indicando a categoria do produto.
-	 * @param quilo
-	 *            Um double indicando a quantidade em quilos do produto.
-	 * @param localCompra
-	 *            Uma String indicando o local de compra.
-	 * @param preco
-	 *            Um double indicando o preco produto.
-	 * @return Um Inteiro indicando o identificador do item adicionado.
-	 */
-	public int adicionaItemPorQuilo(String nome, String categoria, double quilo, String localCompra, double preco) {
-		try {
-			if (ValidadorSistema.validaItem(nome, categoria)
-					&& ValidadorSistema.validaProdutoNaoIndustrializadoPorQuilo(quilo, localCompra, preco)) {
-				ProdutoNaoIndustrializadoPorQuilo produto = new ProdutoNaoIndustrializadoPorQuilo(
-						this.identificadorBase, nome, categoria, quilo, localCompra, preco);
-				ValidadorSistema.validaProduto(produto, produtos);
-
-				this.produtos.put(this.identificadorBase, produto);
-				return this.identificadorBase++;
-			}
-		} catch (CampoInvalidoException e) {
-			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_CADASTRO.get() + e.getMessage());
-		} catch (CategoriaInexistenteException e) {
-			throw new CategoriaInexistenteException(Mensagem.MSG_EXCECAO_CADASTRO.get());
-		}
-		return -1;
-	}
-
-	/**
-	 * Metodo responsavel por adicionar um produto por unidade no mapa de produtos.
-	 * 
-	 * @param nome
-	 *            Uma String indicando o nome do produto.
-	 * @param categoria
-	 *            Uma String indicando a categoria do produto.
-	 * @param unidade
-	 *            Um Inteiro indicando a quantidade de unidades.
-	 * @param localCompra
-	 *            Uma String indicando o local de compra.
-	 * @param preco
-	 *            Um double indicando o preco produto.
-	 * @return Um Inteiro indicando o identificador do item adicionado.
-	 */
-	public int adicionaItemPorUnidade(String nome, String categoria, int unidade, String localCompra, double preco) {
-		try {
-			if (ValidadorSistema.validaItem(nome, categoria)
-					&& ValidadorSistema.validaProdutoPorUnidade(unidade, localCompra, preco)) {
-				ProdutoPorUnidade porUnidade = new ProdutoPorUnidade(this.identificadorBase, nome, categoria, unidade,
-						localCompra, preco);
-				ValidadorSistema.validaProduto(porUnidade, produtos);
-
-				this.produtos.put(this.identificadorBase, porUnidade);
-				return this.identificadorBase++;
-			}
-		} catch (CampoInvalidoException e) {
-			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_CADASTRO.get() + e.getMessage());
-		} catch (CategoriaInexistenteException e) {
-			throw new CategoriaInexistenteException(Mensagem.MSG_EXCECAO_CADASTRO.get());
-		}
-		return -1;
-	}
-
-	/**
-	 * Metodo responsavel por exibir um item que esta previamente cadastrado no
-	 * sistema
-	 * 
-	 * @param key
-	 *            : Um inteiro indicando qual a chave do item
-	 * @return : Uma String com a representacao textual do item
-	 */
-	public String exibeItem(Integer key) {
-		ValidadorSistema.validaChave(key, produtos, Mensagem.MSG_EXCECAO_LISTA_ITEM.get());
-		return this.produtos.get(key).toString();
-	}
-
-	/**
-	 * Metodo responsavel por atualizar um item na colecao de itens cadastrados no
-	 * sistema.
-	 * 
-	 * @param key
-	 *            : Um inteiro indicando a chave do item onde sera adicionado o novo
-	 *            valor.
-	 * @param atribulto
-	 *            Uma String indicando qual o campo que sera atualizado.
-	 * @param novoValor
-	 *            Uma String indicando o novo valor que o capo ira assumir. Caso o
-	 *            campo seja um valor numerico, esse valor deve ser transformado
-	 *            antes de prosseguir.
-	 * @return : Um Inteiro indicando o identificador do item atualizado.
-	 */
-	public int atualizaItem(Integer key, String atribulto, String novoValor) {
-		ValidadorSistema.validaChave(key, produtos, Mensagem.MSG_EXCECAO_ATUALIZA_ITEM.get());
-
-		Item item = null;
-		try {
-			if (ValidadorSistema.validaAtualizacao(atribulto, novoValor)) {
-				item = produtos.get(key);
-				return item.atualiza(atribulto, novoValor);
-			}
-		} catch (CampoInvalidoException e) {
-			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_ATUALIZA_ITEM.get() + e.getMessage());
-		} catch (CategoriaInexistenteException e) {
-			throw new CategoriaInexistenteException(Mensagem.MSG_EXCECAO_ATUALIZA_ITEM.get());
-		} catch (AtribultoInexistenteException e) {
-			throw new AtribultoInexistenteException(Mensagem.MSG_EXCECAO_ATUALIZA_ITEM.get());
-		}
-		return -1;
-	}
-
-	/**
-	 * Metodo responsavel por adicionar um preco relacionado a um determinado local
-	 * a um produto
-	 * 
-	 * @param key
-	 *            : Um inteiro que indica a chave do item onde o preco sera
-	 *            adicionado
-	 * @param local
-	 *            : Uma string que indica o local de compra que possui o preco
-	 *            indicado
-	 * @param preco
-	 *            : Um valor de ponto flutuante que indica o preco que sera
-	 *            adicionado
-	 */
-	public void adicionaPrecoItem(Integer key, String local, double preco) {
-		ValidadorSistema.validaPrecoItem(key, local, preco, produtos);
-
-		Item item = this.produtos.get(key);
-		item.adicionarLocalCompra(local, preco);
-
-	}
-
-	/**
-	 * Metodo responsavel por remover um item na colecao de itens cadastrados no
-	 * sistema.
-	 * 
-	 * @param key
-	 *            Um inteiro que representa o ID do item.
-	 */
-	public void deletaItem(Integer key) {
-		ValidadorSistema.validaInexistenciaDeProduto(key, produtos, Mensagem.MSG_EXCECAO_REMOCAO_ITEM.get());
-
-		this.produtos.remove(key);
-	}
-
-	/**
-	 * Metodo responsavel por buscar um item de acordo com uma posicao de forma que
-	 * ele esteja ordenado pelo nome
-	 * 
-	 * @param position
-	 *            : Um inteiro indicando a posicao do item na lista de itens
-	 *            ordenada pelo nome
-	 * @return : Uma String com a representacao textual do item selecionado
-	 */
-	public String getItem(int position) {
-		List<Item> itens = new ArrayList<Item>(this.produtos.values());
-		Collections.sort(itens);
-		if (itens.isEmpty() || position >= itens.size())
-			return "";
-
-		return itens.get(position).toString();
-	}
-
-	/**
-	 * Metodo responsavel por buscar um item de acordo com uma posicao na lista de
-	 * itens ordenados pelo nome e que tenha a ctegoria indicada
-	 * 
-	 * @param categoria
-	 *            : Uma String indicando qual a categoria usada que sera utilizada
-	 *            no filtro
-	 * @param posicao
-	 *            : Um inteiro indicando a posicao do item na lista ordenada
-	 * @return Uma String com a representacao textual do item selecionado
-	 */
-	public String getItemPorCategoria(String categoria, int posicao) {
-		try {
-			if (ValidadorSistema.validaCategoria(categoria)) {
-				List<Item> itens = new ArrayList<Item>();
-				for (Item item : produtos.values()) {
-					if (item.getCategoria().equals(categoria)) {
-						itens.add(item);
-					}
-				}
-				if (!itens.isEmpty() && posicao < itens.size()) {
-					Collections.sort(itens);
-					return itens.get(posicao).toString();
-				}
-			}
-		} catch (CampoInvalidoException e) {
-			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_LISTA_ITEM + e.getMessage());
-		} catch (CategoriaInexistenteException e) {
-			throw new CategoriaInexistenteException(Mensagem.MSG_EXCECAO_LISTA_ITEM.get());
-		}
-		return "";
-
-	}
-
-	/**
-	 * Metodo responsavel pela busca de um item quando a lista de itens esta ordendo
-	 * pelo preco de forma crescente
-	 * 
-	 * @param posicao
-	 *            : Um inteiro que representa a posicao do item na lista de itens
-	 *            ordenados pelo preco
-	 * @return Uma string com a representacao textual do item indicado
-	 */
-	public String getItemPorMenorPreco(int posicao) {
-		if (posicao >= this.produtos.size() || posicao < 0) {
-			return "";
-		}
-		ArrayList<Item> itens = new ArrayList<>(produtos.values());
-		Collections.sort(itens, new ComparaValor());
-		return itens.get(posicao).toString();
-	}
-
-	/**
-	 * Metodo responsavel por realizar a busca de um item de acordo com uma string
-	 * de pesquisa e uma posicao na lista ordenada
-	 * 
-	 * @param strPesquisa
-	 *            : Uma String indicando a string utilizada como filtro
-	 * @param posicao
-	 *            : Uma String indicando a posicao do item na lista ordenada e que
-	 *            contem a string de pesquisa.
-	 * @return Uma string com a representacao textual do item que esta na posicao
-	 *         informada na lista ordenada de todos ios produtos do tipo.
-	 */
-	public String getItemPorPesquisa(String strPesquisa, int posicao) {
-		List<Item> itens = new ArrayList<Item>();
-		for (Item item : produtos.values()) {
-			if (item.getNome().toLowerCase().contains(strPesquisa.toLowerCase())) {
-				itens.add(item);
-			}
-		}
-		if (!itens.isEmpty() && posicao < itens.size() && posicao >= 0) {
-			Collections.sort(itens);
-			return itens.get(posicao).toString();
-		}
-		return "";
-	}
- 
+	
 	/**
 	 * Metodo responsavel por criar uma lista de compras com um nome. Alem disso,
 	 * nao permite que descritores de listas de compras sejam repetidos.
@@ -372,12 +66,9 @@ public class SistemaController {
 	 * @param idItem
 	 *            : id do item que sera adicionado na lista de compras.
 	 */
-	public void adicionaCompraALista(String descritor, int quantidade, Integer idItem) {
-		ValidadorSistema.validaDescritor(descritor, Mensagem.MSG_EXCECAO_COMPRA_ITEM.get());
-		ValidadorSistema.validaInexistenciaDeProduto(idItem, this.produtos, Mensagem.MSG_EXCECAO_COMPRA_ITEM.get());
+	public void adicionaCompraALista(String descritor, int quantidade, Item item) {
 
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
-		Item item = this.produtos.get(idItem);
 		listaDeCompra.adicionaCompraALista(quantidade, item);
 
 	}
@@ -400,6 +91,7 @@ public class SistemaController {
 
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		listaDeCompra.finalizar(localCompra, valorFinalDaCompra);
+
 	}
 
 	/**
@@ -477,21 +169,10 @@ public class SistemaController {
 	 */
 	public void deletaCompraDeLista(String descritor, Integer idItem) {
 		ValidadorSistema.validaDescritor(descritor, Mensagem.MSG_EXCECAO_EXCLUSAO_COMPRA.get());
-		ValidadorSistema.validaInexistenciaDeProduto(idItem, produtos, Mensagem.MSG_EXCECAO_EXCLUSAO_COMPRA.get());
 
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		listaDeCompra.deletaCompraDeLista(idItem);
 
-	}
-
-	/**
-	 * Retorna a data atual.
-	 * 
-	 * @return : Retorna a data atual.
-	 */
-	public String dataAtual() {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		return dateFormat.format(new Date());
 	}
 
 	/**
@@ -639,9 +320,9 @@ public class SistemaController {
 	 * 
 	 * @return : representacao textual do dia em que foi realizada a ultima compra
 	 */
-	public String geraAutomaticaUltimaLista() {
+	public String geraAutomaticaUltimaLista(String dataAtual) {
 		ListaDeCompra lista = getUltimaLista();
-		String descritor = Estrategia.ESTRATEGIA_1.get() + " " + this.dataAtual();
+		String descritor = Estrategia.ESTRATEGIA_1.get() + " " + dataAtual;
 		ListaDeCompra listaDeCompra = new ListaDeCompra(descritor);
 		listaDeCompra.setCompras(lista.getCompras());
 		listaDeCompra.setValorFinal(lista.getValorFinal());
@@ -668,11 +349,11 @@ public class SistemaController {
 	 *            : Item a ser procurado.
 	 * @return representacao textual do ultimo dia em que o item foi comprado.
 	 */
-	public String geraAutomaticaItem(String descritorItem) {
+	public String geraAutomaticaItem(String descritorItem,String dataAtual) {
 		ListaDeCompra lista = getUltimaLista(descritorItem);
 		ValidadorSistema.validaListaDeCompra(lista);
 
-		String descritor = Estrategia.ESTRATEGIA_2.get() + " " + this.dataAtual();
+		String descritor = Estrategia.ESTRATEGIA_2.get() + " " + dataAtual;
 
 		ListaDeCompra listaDeCompra = new ListaDeCompra(descritor);
 		listaDeCompra.setCompras(lista.getCompras());
@@ -704,13 +385,14 @@ public class SistemaController {
 	/**
 	 * Metodo responsavel por Gerar automaticamente o dia em que a lista possui
 	 * compras que mais aparecem nas listas de compras anteriores.
+	 * @param itens 
 	 * 
 	 * @return representacao textual do dia em que a lista ocorre.
 	 */
-	public String geraAutomaticaItensMaisPresentes() {
-		Map<Item, Integer> maisComprados = buscaMaisComprados();
+	public String geraAutomaticaItensMaisPresentes(Collection<Item> itens, String dataAtual) {
+		Map<Item, Integer> maisComprados = buscaMaisComprados(itens);
 
-		String descritor = Estrategia.ESTRATEGIA_3.get() + " " + this.dataAtual();
+		String descritor = Estrategia.ESTRATEGIA_3.get() + " " + dataAtual;
 		ListaDeCompra listaDeCompra = new ListaDeCompra(descritor);
 		listaDeCompra.adicionaItens(maisComprados);
 		this.listas.put(descritor, listaDeCompra);
@@ -719,13 +401,14 @@ public class SistemaController {
 
 	/**
 	 * Metodo auxiliar responsavel por retornar os itens mais comprados
+	 * @param itens 
 	 * 
 	 * @return Mapa contendo os itens
 	 */
-	private Map<Item, Integer> buscaMaisComprados() {
+	private Map<Item, Integer> buscaMaisComprados(Collection<Item> itens) {
 		Map<Item, Integer> maisComprados = new HashMap<>();
 
-		for (Item item : this.produtos.values()) {
+		for (Item item :itens) {
 			List<Compra> compraQuePossue = listasQuePossui(item);
 			if (compraQuePossue.size() >= (this.listas.size() / 2)) {
 				Integer quantidade = calculaTotal(compraQuePossue);
@@ -772,7 +455,17 @@ public class SistemaController {
 	}
 
 	public String sugereMelhorEstabelecimento(String descritor, int posicaoEstabelecimento, int posicaoLista) {
-		return this.listaService.sugereMelhorEstabelecimento(descritor,posicaoEstabelecimento,posicaoLista);
+		ListaDeCompra lista = this.listas.get(descritor);
+		List<Item> itens = this.listaService.getItens(descritor);
+		Map<String,Set<Item>> locais = new HashMap<String,Set<Item>>();
+		lista.sugereMelhorEstabelecimento(posicaoEstabelecimento,posicaoLista);
+		return null;
 	}
+
+	public List<Item> getItens(String descritor) {
+		ListaDeCompra lista = this.listas.get(descritor);
+		return lista.getItens();
+	}
+
 
 }

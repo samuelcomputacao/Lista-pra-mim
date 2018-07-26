@@ -244,4 +244,17 @@ public class ListaDeCompra implements Comparable<ListaDeCompra> {
 	public String getLocal() {
 		return local;
 	}
+
+	public void sugereMelhorEstabelecimento(int posicaoEstabelecimento, int posicaoLista) {
+		
+		//List<Compra> estabelecimentos
+	}
+
+	public List<Item> getItens() {
+		List<Item> lista = new ArrayList<>(); 
+		for(Compra c : this.compras.values()) {
+			lista.add(c.getItem());
+		}
+		return lista;
+	}
 }
