@@ -335,5 +335,9 @@ public interface ListaPraMim {
 	 *         pelo menos na metade das listas de compras.
 	 */
 	public String geraAutomaticaItensMaisPresentes();
+	
+	public String sugereMelhorEstabelecimento(String descritor, int posicaoEstabelecimento, int posicaoLista);
+	
+	
 
 }

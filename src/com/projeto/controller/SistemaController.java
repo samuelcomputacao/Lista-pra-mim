@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.projeto.comparadores.ComparaValor;
 import com.projeto.excecoes.AtribultoInexistenteException;
@@ -575,6 +576,10 @@ public class SistemaController {
 	 */
 	public String geraAutomaticaItensMaisPresentes() {
 		return this.listaService.geraAutomaticaItensMaisPresentes(this.produtos.values(),this.dataAtual());
+	}
+
+	public String sugereMelhorEstabelecimento(String descritor, int posicaoEstabelecimento, int posicaoLista) {
+		return this.listaService.sugereMelhorEstabelecimento(descritor,posicaoEstabelecimento,posicaoLista);
 	}
 
 }

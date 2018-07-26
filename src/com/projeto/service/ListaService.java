@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.projeto.comparadores.ComparaData;
 import com.projeto.excecoes.CampoInvalidoException;
@@ -451,6 +452,19 @@ public class ListaService {
 			}
 		}
 		return compras;
+	}
+
+	public String sugereMelhorEstabelecimento(String descritor, int posicaoEstabelecimento, int posicaoLista) {
+		ListaDeCompra lista = this.listas.get(descritor);
+		List<Item> itens = this.listaService.getItens(descritor);
+		Map<String,Set<Item>> locais = new HashMap<String,Set<Item>>();
+		lista.sugereMelhorEstabelecimento(posicaoEstabelecimento,posicaoLista);
+		return null;
+	}
+
+	public List<Item> getItens(String descritor) {
+		ListaDeCompra lista = this.listas.get(descritor);
+		return lista.getItens();
 	}
 
 
