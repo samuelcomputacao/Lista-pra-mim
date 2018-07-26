@@ -344,7 +344,7 @@ public class SistemaController {
 		}
 		return "";
 	}
-
+ 
 	/**
 	 * Metodo responsavel por criar uma lista de compras com um nome. Alem disso,
 	 * nao permite que descritores de listas de compras sejam repetidos.
@@ -401,7 +401,6 @@ public class SistemaController {
 
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		listaDeCompra.finalizar(localCompra, valorFinalDaCompra);
-
 	}
 
 	/**
