@@ -426,7 +426,7 @@ public class SistemaControllertest {
 	 */
 	@Test(expected = ItemInexistenteException.class)
 	public void testAtualizaItem() {
-		sistemaController.atualizaItem(0, "nome", "new name");
+		sistemaController.atualizaItem(1, "nome", "new name");
 	}
 
 	/**
@@ -570,7 +570,6 @@ public class SistemaControllertest {
 		sistemaController.adicionaItemPorQuilo("carne moida", "alimento nao industrializado", 2, "atacadao", 12.30);
 		sistemaController.adicionaItemPorQuilo("carne seca", "alimento nao industrializado", 3, "hiper", 11.30);
 		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
-
 		sistemaController.getItemPorPesquisa("carne", 3);
 	}
 
@@ -597,6 +596,66 @@ public class SistemaControllertest {
 	public void testAdicionaListaDeComprasDescritorJaExistentes() {
 		sistemaController.adicionaListaDeCompras("feira da semana");
 		sistemaController.adicionaListaDeCompras("feira da semana");
+	}
+	
+	/**
+	 * Testa o metodo que adiona uma compra de tal id a uma lista de compras.
+	 */
+	@Test
+	public void testAdicionaCompraLista() {
+		sistemaController.adicionaItemPorQtd("carne", "alimento nao industrializado", 2, "kg", "hiper bom preco", 2.50);
+		sistemaController.adicionaListaDeCompras("feira");
+		sistemaController.adicionaCompraALista("feira", 2, 1);
+	}
+	
+	/**
+	 * Testa o metodo que adiciona um item inexistente a uma lista de compras.
+	 */
+	@Test(expected = ItemInexistenteException.class)
+	public void testAdicionaCompraListaInexistente() {
+		sistemaController.adicionaListaDeCompras("feira do mes");
+		sistemaController.adicionaCompraALista("feira do mes", 3, 1);
+	}
+	
+	/**
+	 * Testa o metodo que adiciona um item a lista nao inicializada.
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaCompraDescritorNulo() {
+		sistemaController.adicionaCompraALista(null, 2, 1);
+	}
+	
+	/**
+	 * Testa o metodo que finaliza uma lista de compras que ja foi inicializada.
+	 */
+	@Test
+	public void testFinalizarListaDeCompras() {
+		sistemaController.adicionaListaDeCompras("feirinha");
+		sistemaController.finalizarListaDeCompras("feirinha", "assai", 150);
+	}
+	
+	/**
+	 * Testa o metodo que finaliza uma lista de compras que possui o descritor vazio.
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testFinalizarListaDeComprasDescritorVazio() {
+		sistemaController.finalizarListaDeCompras("   ", "hiper bom preco", 100);
+	}
+	
+	/**
+	 * Testa o metodo que finaliza uma lista de compras que possui o local de compra vazio.
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testFinalizarListaDeComprasLocalCompraVazio() {
+		sistemaController.finalizarListaDeCompras("feira semanal", "  ", 100);
+	}
+	
+	/**
+	 * Testa o metodo que finaliza uma lista de compras que possui o valor total da compra negativo.
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testFinalizarListaDeComprasValorTotalNegativo() {
+		sistemaController.finalizarListaDeCompras("feira semanal", "hiper bom preco", -120);
 	}
 
 }
