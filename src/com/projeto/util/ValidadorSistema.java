@@ -1,7 +1,5 @@
 package com.projeto.util;
 
-import java.awt.List;
-import java.util.ArrayList;
 import java.util.Map;
 
 import com.projeto.excecoes.CampoInvalidoException;
