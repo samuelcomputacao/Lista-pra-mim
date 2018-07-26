@@ -1,6 +1,14 @@
 package com.projeto.principal;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import com.projeto.controller.SistemaController;
+import com.projeto.excecoes.CampoInvalidoException;
 
 import easyaccept.EasyAccept;
 
@@ -19,7 +27,8 @@ public class ListaPraMimFacade implements ListaPraMim {
 				"acceptance_test/use_case2_exception.txt", "acceptance_test/use_case3.txt",
 				"acceptance_test/use_case3_exception.txt", "acceptance_test/use_case4.txt",
 				"acceptance_test/use_case4_exception.txt", "acceptance_test/use_case5.txt",
-				"acceptance_test/use_case6.txt","acceptance_test/use_case6_exception.txt"};
+				"acceptance_test/use_case6.txt", "acceptance_test/use_case6_exception.txt",
+				"acceptance_test/use_case7.txt" };
 		EasyAccept.main(args);
 	}
 
@@ -445,6 +454,32 @@ public class ListaPraMimFacade implements ListaPraMim {
 
 	@Override
 	public String sugereMelhorEstabelecimento(String descritor, int posicaoEstabelecimento, int posicaoLista) {
-		return this.sistemaController.sugereMelhorEstabelecimento(descritor,posicaoEstabelecimento,posicaoLista);
+		return this.sistemaController.sugereMelhorEstabelecimento(descritor, posicaoEstabelecimento, posicaoLista);
+	}
+
+	@Override
+	public void fechaSistema() {
+		this.sistemaController.fechaSistema();
+	}
+
+	@Override
+	public void iniciaSistema() {
+		File file = new File("dados.txt");
+		if (!file.exists()) {
+			throw new CampoInvalidoException("Sistema iniciado pela primeira vez. Arquivo criado.");
+		} else {
+			try {
+
+				FileInputStream fileInputStream = new FileInputStream(file);
+				ObjectInputStream inputStream = new ObjectInputStream(fileInputStream);
+				this.sistemaController = (SistemaController) inputStream.readObject();
+				inputStream.close();
+				fileInputStream.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

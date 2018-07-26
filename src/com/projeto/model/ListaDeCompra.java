@@ -1,5 +1,6 @@
 package com.projeto.model;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,7 +15,12 @@ import com.projeto.excecoes.CompraNaoCadastrada;
 import com.projeto.util.Mensagem;
 import com.projeto.util.ValidadorSistema;
 
-public class ListaDeCompra implements Comparable<ListaDeCompra> {
+public class ListaDeCompra implements Comparable<ListaDeCompra>, Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2980988884358572850L;
 
 	/**
 	 * Representa o descritor da lista de compras.

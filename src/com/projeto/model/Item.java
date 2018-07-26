@@ -1,5 +1,6 @@
 package com.projeto.model;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import com.projeto.service.PrecoService;
@@ -9,7 +10,12 @@ import com.projeto.util.ValidadorSistema;
  * Classe que representa um item no sistema.
  *
  */
-public abstract class Item implements Comparable<Item> {
+public abstract class Item implements Comparable<Item>,Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -104549067010026348L;
 
 	/**
 	 * Um inteiro representando a identificacao do item.

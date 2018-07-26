@@ -1,5 +1,7 @@
 package com.projeto.model;
 
+import java.io.Serializable;
+
 import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.util.Mensagem;
 import com.projeto.util.ValidadorSistema;
@@ -8,7 +10,12 @@ import com.projeto.util.ValidadorSistema;
  * Representa uma Compra. Toda compra possui um Item e a sua quantidade.
  * 
  */
-public class Compra implements Comparable<Compra> {
+public class Compra implements Comparable<Compra>, Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6419654229622496986L;
 
 	/**
 	 * Item associado a compra.

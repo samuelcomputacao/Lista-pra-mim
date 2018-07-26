@@ -338,6 +338,8 @@ public interface ListaPraMim {
 	
 	public String sugereMelhorEstabelecimento(String descritor, int posicaoEstabelecimento, int posicaoLista);
 	
+	public void fechaSistema();
 	
+	public void iniciaSistema();
 
 }

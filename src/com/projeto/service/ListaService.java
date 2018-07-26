@@ -1,5 +1,6 @@
 package com.projeto.service;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,8 +27,12 @@ import com.projeto.util.ValidadorSistema;
  * Classe responsavel por realizar os servicos de listas
  *
  */
-public class ListaService {
+public class ListaService implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2134795757559679940L;
 	/**
 	 * Uma lista com todas as listaDeCompras do sistema.
 	 */
@@ -445,11 +450,18 @@ public class ListaService {
 	}
 
 	public String sugereMelhorEstabelecimento(String descritor, int posicaoEstabelecimento, int posicaoLista) {
+	
+		if(!this.listas.containsKey(descritor)) {
+			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_DADOS_INSUFICIENTES.get());
+		}
 		ListaDeCompra lista = this.listas.get(descritor);
 		Map<String,Estabelecimento> estabelecimentos = buscaLocais(lista);
 		List<Estabelecimento> listaEstabelecimentos = new ArrayList<>(estabelecimentos.values());
 		Collections.sort(listaEstabelecimentos);
 		if(posicaoLista==0) {
+			if(posicaoEstabelecimento >= listaEstabelecimentos.size()) {
+				throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_DADOS_INSUFICIENTES.get());
+			}
 			return listaEstabelecimentos.get(posicaoEstabelecimento).toString();
 		}else {
 			Estabelecimento estabelecimento = listaEstabelecimentos.get(posicaoEstabelecimento) ;
@@ -457,7 +469,7 @@ public class ListaService {
 			if(posicaoLista-1 >= estabelecimento.getCompras().size()) {
 				return "";
 			}
-			return estabelecimento.getCompras().get(posicaoLista-1).toString();
+			return estabelecimento.getCompras().get(posicaoLista-1).toString();		
 		}
 	}
 

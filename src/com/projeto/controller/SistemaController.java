@@ -1,5 +1,12 @@
 package com.projeto.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,7 +20,6 @@ import com.projeto.excecoes.AtribultoInexistenteException;
 import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.excecoes.CategoriaInexistenteException;
 import com.projeto.model.Item;
-import com.projeto.model.ListaDeCompra;
 import com.projeto.model.ProdutoNaoIndustrializadoPorQuilo;
 import com.projeto.model.ProdutoPorUnidade;
 import com.projeto.model.ProdutoQuantidadeFixa;
@@ -26,7 +32,12 @@ import com.projeto.util.ValidadorSistema;
  * das funcionalidades do sistema.
  *
  */
-public class SistemaController {
+public class SistemaController implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4696929296558629304L;
 
 	/**
 	 * Um mapa com todos os produtos cadastrados pelo sistema.
@@ -39,6 +50,8 @@ public class SistemaController {
 	 * Um inteiro que representa o id dos produtos que serao cadastrados no sistema.
 	 */
 	private Integer identificadorBase;
+
+	private final String dados = "data.txt";
 
 	public SistemaController() {
 		this.identificadorBase = 1;
@@ -558,8 +571,22 @@ public class SistemaController {
 		return this.listaService.geraAutomaticaItensMaisPresentes(this.produtos.values(), this.dataAtual());
 	}
 
-		public String sugereMelhorEstabelecimento(String descritor, int posicaoEstabelecimento, int posicaoLista) {
+	public String sugereMelhorEstabelecimento(String descritor, int posicaoEstabelecimento, int posicaoLista) {
 		return this.listaService.sugereMelhorEstabelecimento(descritor, posicaoEstabelecimento, posicaoLista);
+	}
+
+	public void fechaSistema() {	
+
+		try {
+			File file = new File("dados.txt");
+			FileOutputStream fileOutputStream = new FileOutputStream(file);
+			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+			objectOutputStream.writeObject(this);
+			objectOutputStream.close();
+			fileOutputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

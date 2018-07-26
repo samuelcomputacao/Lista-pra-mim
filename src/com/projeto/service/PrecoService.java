@@ -1,5 +1,6 @@
 package com.projeto.service;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,8 +9,12 @@ import com.projeto.util.ValidadorSistema;
 /**
  * Classe responsavel por controlar todas as funcionalidades que envolvem locais de compras e precos
  */
-public class PrecoService {
+public class PrecoService implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2011540169977318247L;
 	/**
 	 * Uma mapa de precos onde estao guardados locais e respectivos precos do item compravel.
 	 */
