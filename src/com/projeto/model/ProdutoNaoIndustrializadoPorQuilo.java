@@ -12,6 +12,10 @@ import com.projeto.util.ValidadorSistema;
 public class ProdutoNaoIndustrializadoPorQuilo extends Item {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6504601672287710007L;
+	/**
 	 * Um double que representa a quantidade em quilos do produto.
 	 */
 	private double quilo;

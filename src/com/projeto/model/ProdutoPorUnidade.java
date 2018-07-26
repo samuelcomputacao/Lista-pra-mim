@@ -10,6 +10,10 @@ import com.projeto.util.ValidadorSistema;
 public class ProdutoPorUnidade extends Item {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8449407691105011118L;
+	/**
 	 * Quantidade de itens que o produto tem.
 	 */
 	private int unidade;
