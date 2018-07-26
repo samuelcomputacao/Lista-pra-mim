@@ -30,14 +30,14 @@ public class ListaService {
 	 * Uma lista com todas as listaDeCompras do sistema.
 	 */
 	private Map<String, ListaDeCompra> listas;
-	
+
 	/**
 	 * Metodo inicicializador do servico de sistema
 	 */
 	public ListaService() {
 		this.listas = new HashMap<>();
 	}
-	
+
 	/**
 	 * Metodo responsavel por criar uma lista de compras com um nome. Alem disso,
 	 * nao permite que descritores de listas de compras sejam repetidos.
@@ -53,6 +53,7 @@ public class ListaService {
 
 		this.listas.put(descritor, new ListaDeCompra(descritor));
 		return descritor;
+
 	}
 
 	/**
@@ -67,10 +68,8 @@ public class ListaService {
 	 *            : id do item que sera adicionado na lista de compras.
 	 */
 	public void adicionaCompraALista(String descritor, int quantidade, Item item) {
-
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		listaDeCompra.adicionaCompraALista(quantidade, item);
-
 	}
 
 	/**
@@ -84,10 +83,6 @@ public class ListaService {
 	 *            : Valor final da compra.
 	 */
 	public void finalizarListaDeCompras(String descritor, String localCompra, int valorFinalDaCompra) {
-		ValidadorSistema.validaDescritor(descritor, Mensagem.MSG_EXCECAO_FINALIZACAO_LISTA_COMPRAS.get());
-		ValidadorSistema.validaLocalCompra(localCompra, Mensagem.MSG_EXCECAO_FINALIZACAO_LISTA_COMPRAS.get());
-		ValidadorSistema.validaValorFinalDaCompra(valorFinalDaCompra,
-				Mensagem.MSG_EXCECAO_FINALIZACAO_LISTA_COMPRAS.get());
 
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		listaDeCompra.finalizar(localCompra, valorFinalDaCompra);
@@ -104,9 +99,6 @@ public class ListaService {
 	 * @return Representacao textual do item que esta na lista.
 	 */
 	public String pesquisaCompraEmLista(String descritor, Integer idItem) {
-		ValidadorSistema.validaIdItem(idItem, Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get());
-		ValidadorSistema.validaDescritor(descritor, Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get());
-
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		return listaDeCompra.pesquisaCompraEmLista(idItem);
 	}
@@ -122,9 +114,7 @@ public class ListaService {
 	 *            : nova quantidae de itens.
 	 */
 	public void atualizaCompraDeLista(String descritorLista, Integer idItem, String operacao, int quantidade) {
-		ValidadorSistema.validaDescritor(descritorLista, Mensagem.MSG_EXCECAO_ATUALIZA_COMPRA.get());
 		ListaDeCompra listaDeCompra = this.listas.get(descritorLista);
-
 		listaDeCompra.atualizaCompraDeLista(idItem, operacao, quantidade);
 	}
 
@@ -139,7 +129,6 @@ public class ListaService {
 	 */
 
 	public String getItemLista(String descritor, int posicao) {
-		ValidadorSistema.validaDescritor(descritor, Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get());
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		return listaDeCompra.getItemLista(posicao);
 	}
@@ -152,10 +141,8 @@ public class ListaService {
 	 * @return O nome do descritor, se existir, e null caso nao exista.
 	 */
 	public String pesquisaListaDeCompras(String descritor) {
-		ValidadorSistema.validaDescritor(descritor, Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get());
 		ValidadorSistema.validaInexistenciaDeListaDeCompras(descritor, this.listas,
 				Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get());
-
 		return descritor;
 	}
 
@@ -188,15 +175,14 @@ public class ListaService {
 	 */
 	public String getItemListaPorData(String dataString, int posicao) {
 		try {
-			if (ValidadorSistema.validaData(dataString)) {
-				Date data = formataData(dataString);
-				List<ListaDeCompra> lista = buscaPorData(data);
-				Collections.sort(lista);
-				return lista.get(posicao).getDescritor();
-			}
-		} catch (CampoInvalidoException e) {
-			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get() + e.getMessage());
-		} catch (ParseException e) {
+
+			Date data = formataData(dataString);
+			List<ListaDeCompra> lista = buscaPorData(data);
+			Collections.sort(lista);
+			return lista.get(posicao).getDescritor();
+		} catch (
+
+		ParseException e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -349,7 +335,7 @@ public class ListaService {
 	 *            : Item a ser procurado.
 	 * @return representacao textual do ultimo dia em que o item foi comprado.
 	 */
-	public String geraAutomaticaItem(String descritorItem,String dataAtual) {
+	public String geraAutomaticaItem(String descritorItem, String dataAtual) {
 		ListaDeCompra lista = getUltimaLista(descritorItem);
 		ValidadorSistema.validaListaDeCompra(lista);
 
@@ -385,7 +371,8 @@ public class ListaService {
 	/**
 	 * Metodo responsavel por Gerar automaticamente o dia em que a lista possui
 	 * compras que mais aparecem nas listas de compras anteriores.
-	 * @param itens 
+	 * 
+	 * @param itens
 	 * 
 	 * @return representacao textual do dia em que a lista ocorre.
 	 */
@@ -401,14 +388,15 @@ public class ListaService {
 
 	/**
 	 * Metodo auxiliar responsavel por retornar os itens mais comprados
-	 * @param itens 
+	 * 
+	 * @param itens
 	 * 
 	 * @return Mapa contendo os itens
 	 */
 	private Map<Item, Integer> buscaMaisComprados(Collection<Item> itens) {
 		Map<Item, Integer> maisComprados = new HashMap<>();
 
-		for (Item item :itens) {
+		for (Item item : itens) {
 			List<Compra> compraQuePossue = listasQuePossui(item);
 			if (compraQuePossue.size() >= (this.listas.size() / 2)) {
 				Integer quantidade = calculaTotal(compraQuePossue);
@@ -455,10 +443,10 @@ public class ListaService {
 	}
 
 	public String sugereMelhorEstabelecimento(String descritor, int posicaoEstabelecimento, int posicaoLista) {
-		ListaDeCompra lista = this.listas.get(descritor);
-		List<Item> itens = this.listaService.getItens(descritor);
-		Map<String,Set<Item>> locais = new HashMap<String,Set<Item>>();
-		lista.sugereMelhorEstabelecimento(posicaoEstabelecimento,posicaoLista);
+		// ListaDeCompra lista = this.listas.get(descritor);
+		// List<Item> itens = this.listaService.getItens(descritor);
+		// Map<String,Set<Item>> locais = new HashMap<String,Set<Item>>();
+		// lista.sugereMelhorEstabelecimento(posicaoEstabelecimento,posicaoLista);
 		return null;
 	}
 
@@ -466,6 +454,5 @@ public class ListaService {
 		ListaDeCompra lista = this.listas.get(descritor);
 		return lista.getItens();
 	}
-
 
 }

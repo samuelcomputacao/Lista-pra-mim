@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.projeto.comparadores.ComparaValor;
 import com.projeto.excecoes.AtribultoInexistenteException;
@@ -30,15 +29,10 @@ import com.projeto.util.ValidadorSistema;
 public class SistemaController {
 
 	/**
-	 * Uma lista com todas as listaDeCompras do sistema.
-	 */
-	private Map<String, ListaDeCompra> listas;
-
-	/**
 	 * Um mapa com todos os produtos cadastrados pelo sistema.
 	 */
 	private Map<Integer, Item> produtos;
-	
+
 	private ListaService listaService;
 
 	/**
@@ -47,7 +41,6 @@ public class SistemaController {
 	private Integer identificadorBase;
 
 	public SistemaController() {
-		this.listas = new HashMap<>();
 		this.identificadorBase = 1;
 		this.listaService = new ListaService();
 		/**
@@ -343,7 +336,7 @@ public class SistemaController {
 		}
 		return "";
 	}
- 
+
 	/**
 	 * Metodo responsavel por criar uma lista de compras com um nome. Alem disso,
 	 * nao permite que descritores de listas de compras sejam repetidos.
@@ -353,12 +346,7 @@ public class SistemaController {
 	 * @return representacao textual do nome do descritor
 	 */
 	public String adicionaListaDeCompras(String descritor) {
-		ValidadorSistema.validaDescritor(descritor, Mensagem.MSG_EXCECAO_CRIACAO_COMPRA.get());
-		ValidadorSistema.validaExistenciaDeListaDeCompras(descritor, this.listas,
-				Mensagem.MSG_EXCECAO_CRIACAO_COMPRA.get());
-
-		this.listas.put(descritor, new ListaDeCompra(descritor));
-		return descritor;
+		return this.listaService.adicionaListaDeCompras(descritor);
 	}
 
 	/**
@@ -375,11 +363,7 @@ public class SistemaController {
 	public void adicionaCompraALista(String descritor, int quantidade, Integer idItem) {
 		ValidadorSistema.validaDescritor(descritor, Mensagem.MSG_EXCECAO_COMPRA_ITEM.get());
 		ValidadorSistema.validaInexistenciaDeProduto(idItem, this.produtos, Mensagem.MSG_EXCECAO_COMPRA_ITEM.get());
-
-		ListaDeCompra listaDeCompra = this.listas.get(descritor);
-		Item item = this.produtos.get(idItem);
-		listaDeCompra.adicionaCompraALista(quantidade, item);
-
+		this.listaService.adicionaCompraALista(descritor, quantidade, this.produtos.get(idItem));
 	}
 
 	/**
@@ -397,9 +381,7 @@ public class SistemaController {
 		ValidadorSistema.validaLocalCompra(localCompra, Mensagem.MSG_EXCECAO_FINALIZACAO_LISTA_COMPRAS.get());
 		ValidadorSistema.validaValorFinalDaCompra(valorFinalDaCompra,
 				Mensagem.MSG_EXCECAO_FINALIZACAO_LISTA_COMPRAS.get());
-
-		ListaDeCompra listaDeCompra = this.listas.get(descritor);
-		listaDeCompra.finalizar(localCompra, valorFinalDaCompra);
+		this.listaService.finalizarListaDeCompras(descritor, localCompra, valorFinalDaCompra);
 	}
 
 	/**
@@ -414,9 +396,7 @@ public class SistemaController {
 	public String pesquisaCompraEmLista(String descritor, Integer idItem) {
 		ValidadorSistema.validaIdItem(idItem, Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get());
 		ValidadorSistema.validaDescritor(descritor, Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get());
-
-		ListaDeCompra listaDeCompra = this.listas.get(descritor);
-		return listaDeCompra.pesquisaCompraEmLista(idItem);
+		return this.listaService.pesquisaCompraEmLista(descritor, idItem);
 	}
 
 	/**
@@ -431,9 +411,7 @@ public class SistemaController {
 	 */
 	public void atualizaCompraDeLista(String descritorLista, Integer idItem, String operacao, int quantidade) {
 		ValidadorSistema.validaDescritor(descritorLista, Mensagem.MSG_EXCECAO_ATUALIZA_COMPRA.get());
-		ListaDeCompra listaDeCompra = this.listas.get(descritorLista);
-
-		listaDeCompra.atualizaCompraDeLista(idItem, operacao, quantidade);
+		this.listaService.atualizaCompraDeLista(descritorLista, idItem, operacao, quantidade);
 	}
 
 	/**
@@ -448,8 +426,7 @@ public class SistemaController {
 
 	public String getItemLista(String descritor, int posicao) {
 		ValidadorSistema.validaDescritor(descritor, Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get());
-		ListaDeCompra listaDeCompra = this.listas.get(descritor);
-		return listaDeCompra.getItemLista(posicao);
+		return this.listaService.getItemLista(descritor, posicao);
 	}
 
 	/**
@@ -461,10 +438,7 @@ public class SistemaController {
 	 */
 	public String pesquisaListaDeCompras(String descritor) {
 		ValidadorSistema.validaDescritor(descritor, Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get());
-		ValidadorSistema.validaInexistenciaDeListaDeCompras(descritor, this.listas,
-				Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get());
-
-		return descritor;
+		return this.listaService.pesquisaListaDeCompras(descritor);
 	}
 
 	/**
@@ -479,9 +453,7 @@ public class SistemaController {
 		ValidadorSistema.validaDescritor(descritor, Mensagem.MSG_EXCECAO_EXCLUSAO_COMPRA.get());
 		ValidadorSistema.validaInexistenciaDeProduto(idItem, produtos, Mensagem.MSG_EXCECAO_EXCLUSAO_COMPRA.get());
 
-		ListaDeCompra listaDeCompra = this.listas.get(descritor);
-		listaDeCompra.deletaCompraDeLista(idItem);
-
+		this.listaService.deletaCompraDeLista(descritor, idItem);
 	}
 
 	/**
@@ -508,49 +480,13 @@ public class SistemaController {
 	public String getItemListaPorData(String dataString, int posicao) {
 		try {
 			if (ValidadorSistema.validaData(dataString)) {
-				Date data = formataData(dataString);
-				List<ListaDeCompra> lista = buscaPorData(data);
-				Collections.sort(lista);
-				return lista.get(posicao).getDescritor();
+				return this.listaService.getItemListaPorData(dataString, posicao);
 			}
 		} catch (CampoInvalidoException e) {
 			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get() + e.getMessage());
-		} catch (ParseException e) {
-			e.printStackTrace();
 		}
 		return null;
 
-	}
-
-	/**
-	 * Metodo auxiliar criado para formatar a data.
-	 * 
-	 * @param dataString
-	 *            Data a ser formatada
-	 * @return Data no formato de data dd/MM/yyyy
-	 * @throws ParseException
-	 */
-	private Date formataData(String dataString) throws ParseException {
-		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-		Date date = format.parse(dataString);
-		return date;
-	}
-
-	/**
-	 * Metodo responsavel por buscar listas que possuem tal data
-	 * 
-	 * @param data
-	 *            Lista com Todas as compras que foram efetuadas nessa data
-	 * @return Lista de lista de compras
-	 */
-	private List<ListaDeCompra> buscaPorData(Date data) {
-		List<ListaDeCompra> lista = new ArrayList<>();
-		for (ListaDeCompra list : this.listas.values()) {
-			if (list.getDataFormatada().equals(data)) {
-				lista.add(list);
-			}
-		}
-		return lista;
 	}
 
 	/**
@@ -565,28 +501,7 @@ public class SistemaController {
 	 * @return : Retorna a data de criacao e o descritor da lista de compras.
 	 */
 	public String getItemListaPorItem(Integer idItem, int posicao) {
-		List<ListaDeCompra> lista = buscaPorItem(idItem);
-		Collections.sort(lista);
-		ListaDeCompra listaCompra = lista.get(posicao);
-		String retorno = listaCompra.getDataTextual() + " - " + listaCompra.getDescritor();
-		return retorno;
-	}
-
-	/**
-	 * Metodo auxiliar criado para retornar uma lista que tem um item dentro dela
-	 * 
-	 * @param idItem
-	 *            Id do item que sera pesquisado
-	 * @return Lista de lista de compras
-	 */
-	private List<ListaDeCompra> buscaPorItem(Integer idItem) {
-		List<ListaDeCompra> lista = new ArrayList<>();
-		for (ListaDeCompra list : this.listas.values()) {
-			if (list.possuiCompra(idItem)) {
-				lista.add(list);
-			}
-		}
-		return lista;
+		return this.listaService.getItemListaPorItem(idItem, posicao);
 	}
 
 	/**
@@ -597,22 +512,7 @@ public class SistemaController {
 	 * @return representacao textual das listas de compra.
 	 */
 	public String pesquisaListasDeComprasPorData(String dataString) {
-		try {
-			if (ValidadorSistema.validaData(dataString)) {
-
-				Date data = formataData(dataString);
-				for (ListaDeCompra lista : listas.values()) {
-					if (lista.getData().equals(data)) {
-						return lista.buscaTodosItens();
-					}
-				}
-			}
-		} catch (CampoInvalidoException e) {
-			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get() + e.getMessage());
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		return "";
+		return this.listaService.pesquisaListasDeComprasPorData(dataString);
 	}
 
 	/**
@@ -623,14 +523,7 @@ public class SistemaController {
 	 * @return representacao textual das listas que contem o produto
 	 */
 	public String pesquisaListasDeComprasPorItem(int id) {
-		String volta = "";
-		for (ListaDeCompra lista : listas.values()) {
-			if (lista.possuiCompra(id)) {
-				volta += lista.getDescritor() + System.lineSeparator();
-			}
-		}
-		ValidadorSistema.validaSaidaVazia(volta);
-		return volta;
+		return this.listaService.pesquisaListasDeComprasPorItem(id);
 	}
 
 	/**
@@ -640,24 +533,7 @@ public class SistemaController {
 	 * @return : representacao textual do dia em que foi realizada a ultima compra
 	 */
 	public String geraAutomaticaUltimaLista() {
-		ListaDeCompra lista = getUltimaLista();
-		String descritor = Estrategia.ESTRATEGIA_1.get() + " " + this.dataAtual();
-		ListaDeCompra listaDeCompra = new ListaDeCompra(descritor);
-		listaDeCompra.setCompras(lista.getCompras());
-		listaDeCompra.setValorFinal(lista.getValorFinal());
-		this.listas.put(descritor, listaDeCompra);
-		return descritor;
-	}
-
-	/**
-	 * Metodo responsavel por retornar a ultima lista de compra realizada.
-	 * 
-	 * @return Lista de compra
-	 */
-	private ListaDeCompra getUltimaLista() {
-		List<ListaDeCompra> lista = new ArrayList<>(this.listas.values());
-		Collections.sort(lista, new ComparaData());
-		return lista.get(lista.size() - 1);
+		return this.listaService.geraAutomaticaUltimaLista(this.dataAtual());
 	}
 
 	/**
@@ -669,36 +545,7 @@ public class SistemaController {
 	 * @return representacao textual do ultimo dia em que o item foi comprado.
 	 */
 	public String geraAutomaticaItem(String descritorItem) {
-		ListaDeCompra lista = getUltimaLista(descritorItem);
-		ValidadorSistema.validaListaDeCompra(lista);
-
-		String descritor = Estrategia.ESTRATEGIA_2.get() + " " + this.dataAtual();
-
-		ListaDeCompra listaDeCompra = new ListaDeCompra(descritor);
-		listaDeCompra.setCompras(lista.getCompras());
-		listaDeCompra.setValorFinal(lista.getValorFinal());
-		this.listas.put(descritor, listaDeCompra);
-		return descritor;
-	}
-
-	/**
-	 * Metodo responsavel por retornar uma lista que contem um respectivo item.
-	 * 
-	 * @param descritorItem
-	 *            : Item a ser procurado nas listas
-	 * @return Lista de compras que contem o item.
-	 */
-	private ListaDeCompra getUltimaLista(String descritorItem) {
-		List<ListaDeCompra> lista = new ArrayList<>(this.listas.values());
-		Collections.sort(lista, new ComparaData());
-		ListaDeCompra listaDeCompra = null;
-		for (int i = lista.size() - 1; i >= 0; i--) {
-			listaDeCompra = lista.get(i);
-			if (listaDeCompra.contemItem(descritorItem)) {
-				return listaDeCompra;
-			}
-		}
-		return null;
+		return this.listaService.geraAutomaticaItem(descritorItem, this.dataAtual());
 	}
 
 	/**
@@ -708,71 +555,11 @@ public class SistemaController {
 	 * @return representacao textual do dia em que a lista ocorre.
 	 */
 	public String geraAutomaticaItensMaisPresentes() {
-		Map<Item, Integer> maisComprados = buscaMaisComprados();
-
-		String descritor = Estrategia.ESTRATEGIA_3.get() + " " + this.dataAtual();
-		ListaDeCompra listaDeCompra = new ListaDeCompra(descritor);
-		listaDeCompra.adicionaItens(maisComprados);
-		this.listas.put(descritor, listaDeCompra);
-		return descritor;
+		return this.listaService.geraAutomaticaItensMaisPresentes(this.produtos.values(), this.dataAtual());
 	}
 
-	/**
-	 * Metodo auxiliar responsavel por retornar os itens mais comprados
-	 * 
-	 * @return Mapa contendo os itens
-	 */
-	private Map<Item, Integer> buscaMaisComprados() {
-		Map<Item, Integer> maisComprados = new HashMap<>();
-
-		for (Item item : this.produtos.values()) {
-			List<Compra> compraQuePossue = listasQuePossui(item);
-			if (compraQuePossue.size() >= (this.listas.size() / 2)) {
-				Integer quantidade = calculaTotal(compraQuePossue);
-				quantidade = (int) Math.floor(quantidade / compraQuePossue.size());
-				maisComprados.put(item, quantidade);
-
-			}
-		}
-		return maisComprados;
-	}
-
-	/**
-	 * Metodo auxiliar que serve para calcular o valor total das compras.
-	 * 
-	 * @param compraQuePossue
-	 *            Lista que contem as compras.
-	 * @return inteiro representando a soma total.
-	 */
-	private int calculaTotal(List<Compra> compraQuePossue) {
-		int quantidade = 0;
-		for (Compra compra : compraQuePossue) {
-			quantidade += compra.getQuantidade();
-		}
-		return quantidade;
-	}
-
-	/**
-	 * Metodo responsavel por verificar se um item existe nas listas de compras.
-	 * 
-	 * @param item
-	 *            :Item a ser pesquisado.
-	 * @return Lista contendo as compras que possuem tal item.
-	 */
-	private List<Compra> listasQuePossui(Item item) {
-		List<Compra> compras = new ArrayList<>();
-
-		for (ListaDeCompra lista : this.listas.values()) {
-			Compra compra = lista.getCompra(item.getId());
-			if (compra != null) {
-				compras.add(compra);
-			}
-		}
-		return compras;
-	}
-
-	public String sugereMelhorEstabelecimento(String descritor, int posicaoEstabelecimento, int posicaoLista) {
-		return this.listaService.sugereMelhorEstabelecimento(descritor,posicaoEstabelecimento,posicaoLista);
+		public String sugereMelhorEstabelecimento(String descritor, int posicaoEstabelecimento, int posicaoLista) {
+		return this.listaService.sugereMelhorEstabelecimento(descritor, posicaoEstabelecimento, posicaoLista);
 	}
 
 }
