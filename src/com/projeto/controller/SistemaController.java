@@ -49,7 +49,6 @@ public class SistemaController implements Serializable {
 	 */
 	private Integer identificadorBase;
 
-
 	public SistemaController() {
 		this.identificadorBase = 1;
 		this.listaService = new ListaService();
@@ -328,7 +327,7 @@ public class SistemaController implements Serializable {
 	 * @param strPesquisa
 	 *            : Uma String indicando a string utilizada como filtro
 	 * @param posicao
-	 *            : Uma String indicando a posicao do item na lista ordenada e que
+	 *            : Um Inteiro indicando a posicao do item na lista ordenada e que
 	 *            contem a string de pesquisa.
 	 * @return Uma string com a representacao textual do item que esta na posicao
 	 *         informada na lista ordenada de todos ios produtos do tipo.
@@ -572,7 +571,7 @@ public class SistemaController implements Serializable {
 		return this.listaService.sugereMelhorEstabelecimento(descritor, posicaoEstabelecimento, posicaoLista);
 	}
 
-	public void fechaSistema() {	
+	public void fechaSistema() {
 
 		try {
 			File file = new File("dados.txt");

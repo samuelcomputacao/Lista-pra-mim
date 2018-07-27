@@ -466,199 +466,6 @@ public class SistemaControllertest {
 	}
 
 	/**
-	 * Testa o metodo que retorna o produto na respectiva posicao requerida, depois
-	 * de ordenada a partir do menor preco.
-	 */
-	@Test
-	public void testGetItemPorMenorPreco() {
-		sistemaController.adicionaItemPorUnidade("sabonete", "limpeza", 1, "carrefuor", 92.3);
-		sistemaController.adicionaItemPorUnidade("mais sabonete", "limpeza", 2, "uau mart", 50.1);
-		sistemaController.adicionaItemPorUnidade("mais outro sabonete", "limpeza", 1, "uau mart", 20.1);
-		sistemaController.adicionaItemPorUnidade("por fim sabonete", "limpeza", 1, "uau mart", 1.0);
-		assertEquals(sistemaController.getItemPorMenorPreco(0),
-				"4. por fim sabonete, limpeza, Preco: <uau mart, R$ 1,00;>");
-		assertEquals(sistemaController.getItemPorMenorPreco(1),
-				"3. mais outro sabonete, limpeza, Preco: <uau mart, R$ 20,10;>");
-		assertEquals(sistemaController.getItemPorMenorPreco(2),
-				"2. mais sabonete, limpeza, Preco: <uau mart, R$ 50,10;>");
-		assertEquals(sistemaController.getItemPorMenorPreco(3), "1. sabonete, limpeza, Preco: <carrefuor, R$ 92,30;>");
-
-	}
-
-	/**
-	 * Testa o metodo getItemPorMenorPreco com posicao invalida(negativa)
-	 */
-	@Test
-	public void testGetItemPorMenorPrecoPosicaoNegativa() {
-		sistemaController.adicionaItemPorQuilo("carne moida", "alimento nao industrializado", 2, "atacadao", 12.30);
-		sistemaController.adicionaItemPorQuilo("carne seca", "alimento nao industrializado", 3, "hiper", 11.30);
-		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
-
-		assertEquals("", sistemaController.getItemPorMenorPreco(-1));
-		assertEquals("", sistemaController.getItemPorMenorPreco(-100));
-	}
-
-	/**
-	 * Testa o metodo getItemPorMenorPreco com posicao invalida(maior que a qtd de
-	 * itens)
-	 */
-	@Test
-	public void testGetItemPorMenorPrecoPosicaoInvalida() {
-		sistemaController.adicionaItemPorQuilo("carne moida", "alimento nao industrializado", 2, "atacadao", 12.30);
-		sistemaController.adicionaItemPorQuilo("carne seca", "alimento nao industrializado", 3, "hiper", 11.30);
-		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
-
-		assertEquals("", sistemaController.getItemPorMenorPreco(3));
-		assertEquals("", sistemaController.getItemPorMenorPreco(100));
-	}
-
-	/**
-	 * Testa o metodo que retorna o produto na posicao requerida na lista ordenada
-	 * de produtos com o nome especificado.
-	 */
-	@Test
-	public void testGetItemPorPesquisa() {
-		sistemaController.adicionaItemPorQuilo("carne moida", "alimento nao industrializado", 2, "atacadao", 12.30);
-		sistemaController.adicionaItemPorQuilo("carne seca", "alimento nao industrializado", 3, "hiper", 11.30);
-		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
-
-		assertEquals(sistemaController.getItemPorPesquisa("carne", 0),
-				"1. carne moida, alimento nao industrializado, Preco por quilo: <atacadao, R$ 12,30;>");
-		assertEquals(sistemaController.getItemPorPesquisa("carne", 1),
-				"3. carne rosa, alimento nao industrializado, Preco por quilo: <assai, R$ 10,30;>");
-		assertEquals(sistemaController.getItemPorPesquisa("carne", 2),
-				"2. carne seca, alimento nao industrializado, Preco por quilo: <hiper, R$ 11,30;>");
-	}
-
-	/**
-	 * Testa o método getItemPorPesquisa com strNome existentes e inexistentes.
-	 */
-	@Test
-	public void testGetItemPorPesquisaComNomeInexistente() {
-		sistemaController.adicionaItemPorQuilo("carne moida", "alimento nao industrializado", 2, "atacadao", 12.30);
-		sistemaController.adicionaItemPorQuilo("carne seca", "alimento nao industrializado", 3, "hiper", 11.30);
-		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
-
-		assertEquals("", sistemaController.getItemPorPesquisa("carne de dinosauro", 0));
-		assertEquals("", sistemaController.getItemPorPesquisa("carnii", 0));
-		assertEquals("", sistemaController.getItemPorPesquisa("carne da boa", 0));
-
-		assertNotEquals("", sistemaController.getItemPorPesquisa("c", 0));
-		assertNotEquals("", sistemaController.getItemPorPesquisa("ca", 0));
-		assertNotEquals("", sistemaController.getItemPorPesquisa("carne", 0));
-	}
-
-	/**
-	 * Testa o metodo getItemPorPesquisa com posicao invalida(negativa)
-	 */
-	@Test
-	public void testGetItemPorPesquisaComPosicaoNegativa() {
-		sistemaController.adicionaItemPorQuilo("carne moida", "alimento nao industrializado", 2, "atacadao", 12.30);
-		sistemaController.adicionaItemPorQuilo("carne seca", "alimento nao industrializado", 3, "hiper", 11.30);
-		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
-
-		assertEquals("", sistemaController.getItemPorPesquisa("carne", -1));
-		assertEquals("", sistemaController.getItemPorPesquisa("carne", -100));
-	}
-
-	/**
-	 * Testa o metodo getItemPorPesquisa com posicao invalida (maior que o tamanho
-	 * da lista)
-	 */
-	@Test(expected = CampoInvalidoException.class)
-	public void testGetItemPorPesquisaComPosicaoInvalida() {
-		sistemaController.adicionaItemPorQuilo("carne moida", "alimento nao industrializado", 2, "atacadao", 12.30);
-		sistemaController.adicionaItemPorQuilo("carne seca", "alimento nao industrializado", 3, "hiper", 11.30);
-		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
-		sistemaController.getItemPorPesquisa("carne", 3);
-	}
-
-	/**
-	 * Testa o metodo que adiciona uma lista de compras com um descritor invalido.
-	 */
-	@Test(expected = CampoInvalidoException.class)
-	public void testAdicionaListaDeComprasDescritorInvalido() {
-		sistemaController.adicionaListaDeCompras("   ");
-	}
-
-	/**
-	 * Testa o metodo que adiciona uma lista de compras com o descritor nulo.
-	 */
-	@Test(expected = CampoInvalidoException.class)
-	public void testAdicionaListaDeComprasDescritorNulo() {
-		sistemaController.adicionaListaDeCompras(null);
-	}
-
-	/**
-	 * Testa o metodo que adiciona uma lista de compras que já existe.
-	 */
-	@Test(expected = CampoInvalidoException.class)
-	public void testAdicionaListaDeComprasDescritorJaExistentes() {
-		sistemaController.adicionaListaDeCompras("feira da semana");
-		sistemaController.adicionaListaDeCompras("feira da semana");
-	}
-	
-	/**
-	 * Testa o metodo que adiona uma compra de tal id a uma lista de compras.
-	 */
-	@Test
-	public void testAdicionaCompraLista() {
-		sistemaController.adicionaItemPorQtd("carne", "alimento nao industrializado", 2, "kg", "hiper bom preco", 2.50);
-		sistemaController.adicionaListaDeCompras("feira");
-		sistemaController.adicionaCompraALista("feira", 2, 1);
-	}
-	
-	/**
-	 * Testa o metodo que adiciona um item inexistente a uma lista de compras.
-	 */
-	@Test(expected = ItemInexistenteException.class)
-	public void testAdicionaCompraListaInexistente() {
-		sistemaController.adicionaListaDeCompras("feira do mes");
-		sistemaController.adicionaCompraALista("feira do mes", 3, 1);
-	}
-	
-	/**
-	 * Testa o metodo que adiciona um item a lista nao inicializada.
-	 */
-	@Test(expected = CampoInvalidoException.class)
-	public void testAdicionaCompraDescritorNulo() {
-		sistemaController.adicionaCompraALista(null, 2, 1);
-	}
-	
-	/**
-	 * Testa o metodo que finaliza uma lista de compras que ja foi inicializada.
-	 */
-	@Test
-	public void testFinalizarListaDeCompras() {
-		sistemaController.adicionaListaDeCompras("feirinha");
-		sistemaController.finalizarListaDeCompras("feirinha", "assai", 150);
-	}
-	
-	/**
-	 * Testa o metodo que finaliza uma lista de compras que possui o descritor vazio.
-	 */
-	@Test(expected = CampoInvalidoException.class)
-	public void testFinalizarListaDeComprasDescritorVazio() {
-		sistemaController.finalizarListaDeCompras("   ", "hiper bom preco", 100);
-	}
-	
-	/**
-	 * Testa o metodo que finaliza uma lista de compras que possui o local de compra vazio.
-	 */
-	@Test(expected = CampoInvalidoException.class)
-	public void testFinalizarListaDeComprasLocalCompraVazio() {
-		sistemaController.finalizarListaDeCompras("feira semanal", "  ", 100);
-	}
-	
-	/**
-	 * Testa o metodo que finaliza uma lista de compras que possui o valor total da compra negativo.
-	 */
-	@Test(expected = CampoInvalidoException.class)
-	public void testFinalizarListaDeComprasValorTotalNegativo() {
-		sistemaController.finalizarListaDeCompras("feira semanal", "hiper bom preco", -120);
-	}
-
-	/**
 	 * Metodo responsavel por adicionar um preco a um item já cadastrado
 	 */
 	@Test
@@ -762,5 +569,236 @@ public class SistemaControllertest {
 		sistemaController.adicionaItemPorQuilo("Iogurte", "alimento industrializado", 4, "assai", 10.30);
 		sistemaController.getItemPorCategoria("higiene impessoal", 2);
 	}
+
+	/**
+	 * Testa o metodo que retorna o produto na respectiva posicao requerida, depois
+	 * de ordenada a partir do menor preco.
+	 */
+	@Test
+	public void testGetItemPorMenorPreco() {
+		sistemaController.adicionaItemPorUnidade("sabonete", "limpeza", 1, "carrefuor", 92.3);
+		sistemaController.adicionaItemPorUnidade("mais sabonete", "limpeza", 2, "uau mart", 50.1);
+		sistemaController.adicionaItemPorUnidade("mais outro sabonete", "limpeza", 1, "uau mart", 20.1);
+		sistemaController.adicionaItemPorUnidade("por fim sabonete", "limpeza", 1, "uau mart", 1.0);
+		assertEquals(sistemaController.getItemPorMenorPreco(0),
+				"4. por fim sabonete, limpeza, Preco: <uau mart, R$ 1,00;>");
+		assertEquals(sistemaController.getItemPorMenorPreco(1),
+				"3. mais outro sabonete, limpeza, Preco: <uau mart, R$ 20,10;>");
+		assertEquals(sistemaController.getItemPorMenorPreco(2),
+				"2. mais sabonete, limpeza, Preco: <uau mart, R$ 50,10;>");
+		assertEquals(sistemaController.getItemPorMenorPreco(3), "1. sabonete, limpeza, Preco: <carrefuor, R$ 92,30;>");
+
+	}
+
+	/**
+	 * Testa o metodo getItemPorMenorPreco com posicao invalida(negativa)
+	 */
+	@Test
+	public void testGetItemPorMenorPrecoPosicaoNegativa() {
+		sistemaController.adicionaItemPorQuilo("carne moida", "alimento nao industrializado", 2, "atacadao", 12.30);
+		sistemaController.adicionaItemPorQuilo("carne seca", "alimento nao industrializado", 3, "hiper", 11.30);
+		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
+
+		assertEquals("", sistemaController.getItemPorMenorPreco(-1));
+		assertEquals("", sistemaController.getItemPorMenorPreco(-100));
+	}
+
+	/**
+	 * Testa o metodo getItemPorMenorPreco com posicao invalida(maior que a qtd de
+	 * itens)
+	 */
+	@Test
+	public void testGetItemPorMenorPrecoPosicaoInvalida() {
+		sistemaController.adicionaItemPorQuilo("carne moida", "alimento nao industrializado", 2, "atacadao", 12.30);
+		sistemaController.adicionaItemPorQuilo("carne seca", "alimento nao industrializado", 3, "hiper", 11.30);
+		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
+
+		assertEquals("", sistemaController.getItemPorMenorPreco(3));
+		assertEquals("", sistemaController.getItemPorMenorPreco(100));
+	}
+
+	/**
+	 * Testa o metodo que retorna o produto na posicao requerida na lista ordenada
+	 * de produtos com o nome especificado.
+	 */
+	@Test
+	public void testGetItemPorPesquisa() {
+		sistemaController.adicionaItemPorQuilo("carne moida", "alimento nao industrializado", 2, "atacadao", 12.30);
+		sistemaController.adicionaItemPorQuilo("carne seca", "alimento nao industrializado", 3, "hiper", 11.30);
+		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
+
+		assertEquals(sistemaController.getItemPorPesquisa("carne", 0),
+				"1. carne moida, alimento nao industrializado, Preco por quilo: <atacadao, R$ 12,30;>");
+		assertEquals(sistemaController.getItemPorPesquisa("carne", 1),
+				"3. carne rosa, alimento nao industrializado, Preco por quilo: <assai, R$ 10,30;>");
+		assertEquals(sistemaController.getItemPorPesquisa("carne", 2),
+				"2. carne seca, alimento nao industrializado, Preco por quilo: <hiper, R$ 11,30;>");
+	}
+
+	/**
+	 * Testa o método getItemPorPesquisa com strNome existentes e inexistentes.
+	 */
+	@Test
+	public void testGetItemPorPesquisaComNomeInexistente() {
+		sistemaController.adicionaItemPorQuilo("carne moida", "alimento nao industrializado", 2, "atacadao", 12.30);
+		sistemaController.adicionaItemPorQuilo("carne seca", "alimento nao industrializado", 3, "hiper", 11.30);
+		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
+
+		assertEquals("", sistemaController.getItemPorPesquisa("carne de dinosauro", 0));
+		assertEquals("", sistemaController.getItemPorPesquisa("carnii", 0));
+		assertEquals("", sistemaController.getItemPorPesquisa("carne da boa", 0));
+
+		assertNotEquals("", sistemaController.getItemPorPesquisa("c", 0));
+		assertNotEquals("", sistemaController.getItemPorPesquisa("ca", 0));
+		assertNotEquals("", sistemaController.getItemPorPesquisa("carne", 0));
+	}
+
+	/**
+	 * Testa o metodo getItemPorPesquisa com posicao invalida(negativa)
+	 */
+	@Test
+	public void testGetItemPorPesquisaComPosicaoNegativa() {
+		sistemaController.adicionaItemPorQuilo("carne moida", "alimento nao industrializado", 2, "atacadao", 12.30);
+		sistemaController.adicionaItemPorQuilo("carne seca", "alimento nao industrializado", 3, "hiper", 11.30);
+		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
+
+		assertEquals("", sistemaController.getItemPorPesquisa("carne", -1));
+		assertEquals("", sistemaController.getItemPorPesquisa("carne", -100));
+	}
+
+	/**
+	 * Testa o metodo getItemPorPesquisa com posicao invalida (maior que o tamanho
+	 * da lista)
+	 */
+	@Test
+	public void testGetItemPorPesquisaComPosicaoInvalida() {
+		sistemaController.adicionaItemPorQuilo("carne moida", "alimento nao industrializado", 2, "atacadao", 12.30);
+		sistemaController.adicionaItemPorQuilo("carne seca", "alimento nao industrializado", 3, "hiper", 11.30);
+		sistemaController.adicionaItemPorQuilo("carne rosa", "alimento nao industrializado", 2, "assai", 10.30);
+		assertEquals("", sistemaController.getItemPorPesquisa("carne", 3));
+
+	}
+
+	/**
+	 * Testa o metodo que adiciona uma lista de compras com um descritor invalido.
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaListaDeComprasDescritorInvalido() {
+		sistemaController.adicionaListaDeCompras("   ");
+	}
+
+	/**
+	 * Testa o metodo que adiciona uma lista de compras com o descritor nulo.
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaListaDeComprasDescritorNulo() {
+		sistemaController.adicionaListaDeCompras(null);
+	}
+
+	/**
+	 * Testa o metodo que adiciona uma lista de compras que já existe.
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaListaDeComprasDescritorJaExistentes() {
+		sistemaController.adicionaListaDeCompras("feira da semana");
+		sistemaController.adicionaListaDeCompras("feira da semana");
+	}
+
+	/**
+	 * Testa o metodo que adiona uma compra de tal id a uma lista de compras.
+	 */
+	@Test
+	public void testAdicionaCompraLista() {
+		sistemaController.adicionaItemPorQtd("carne", "alimento nao industrializado", 2, "kg", "hiper bom preco", 2.50);
+		sistemaController.adicionaListaDeCompras("feira");
+		sistemaController.adicionaCompraALista("feira", 2, 1);
+	}
+
+	/**
+	 * Testa o metodo que adiciona um item inexistente a uma lista de compras.
+	 */
+	@Test(expected = ItemInexistenteException.class)
+	public void testAdicionaCompraListaInexistente() {
+		sistemaController.adicionaListaDeCompras("feira do mes");
+		sistemaController.adicionaCompraALista("feira do mes", 3, 1);
+	}
+
+	/**
+	 * Testa o metodo que adiciona um item a lista nao inicializada.
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAdicionaCompraDescritorNulo() {
+		sistemaController.adicionaCompraALista(null, 2, 1);
+	}
+
+	/**
+	 * Testa o metodo que finaliza uma lista de compras que ja foi inicializada.
+	 */
+	@Test
+	public void testFinalizarListaDeCompras() {
+		sistemaController.adicionaListaDeCompras("feirinha");
+		sistemaController.finalizarListaDeCompras("feirinha", "assai", 150);
+	}
+
+	/**
+	 * Testa o metodo que finaliza uma lista de compras que possui o descritor
+	 * vazio.
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testFinalizarListaDeComprasDescritorVazio() {
+		sistemaController.finalizarListaDeCompras("   ", "hiper bom preco", 100);
+	}
+
+	/**
+	 * Testa o metodo que finaliza uma lista de compras que possui o local de compra
+	 * vazio.
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testFinalizarListaDeComprasLocalCompraVazio() {
+		sistemaController.finalizarListaDeCompras("feira semanal", "  ", 100);
+	}
+
+	/**
+	 * Testa o metodo que finaliza uma lista de compras que possui o valor total da
+	 * compra negativo.
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testFinalizarListaDeComprasValorTotalNegativo() {
+		sistemaController.finalizarListaDeCompras("feira semanal", "hiper bom preco", -120);
+	}
+
+	// ##########################################
+	// ## METODOS QUE AINDA NAO FORAM TESTADOS ##
+	// ##########################################
+
+	// TEST (pesquisaCompraEmLista)
+
+	// TEST (atualizaCompraDeLista)
+
+	// TEST (getItemLista)
+
+	// TEST (pesquisaListaDeCompras)
+
+	// TEST (deletaCompraDeLista)
+
+	// TEST (dataAtual)
+
+	// TEST (getItemListaPorData)
+
+	// TEST (getItemListaPorItem)
+
+	// TEST (pesquisaListasDeComprasPorData)
+
+	// TEST (pesquisaListasDeComprasPorItem)
+
+	// TEST (geraAutomaticaUltimaLista)
+
+	// TEST (geraAutomaticaItem)
+
+	// TEST (geraAutomaticaItensMaisPresentes)
+
+	// TEST (sugereMelhorEstabelecimento)
+
+	// TEST (fechaSistema)
 
 }
