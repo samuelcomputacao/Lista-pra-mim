@@ -817,30 +817,126 @@ public class SistemaControllertest {
 		sistemaController.adicionaItemPorQtd("macarrao fortaleza", "alimento industrializado", 2, "kg", "atacadao",
 				2.30);
 		sistemaController.adicionaCompraALista("feirao", 2, 1);
-		sistemaController.pesquisaCompraEmLista("    ", -2);
+		sistemaController.pesquisaCompraEmLista(" ", -2);
 	}
 
 	/**
 	 * Testa o metodo que atualiza a compra de uma lista de compras, possui todos os
 	 * seus dados válidos.
 	 */
-//	@Test
-//	public void testAtualizarCompraDeLista() {
-//		sistemaController.adicionaListaDeCompras("feirao");
-//		sistemaController.adicionaItemPorQtd("macarrao fortaleza", "alimento industrializado", 2, "kg", "atacadao",
-//				2.30);
-//		sistemaController.adicionaCompraALista("feirao", 2, 1);
-//		sistemaController.atualizaCompraDeLista("feirao", 1, "adiciona", 4);
-//		System.out.println(sistemaController.pesquisaCompraEmLista("feirao", 1));
-//	}
+	@Test
+	public void testAtualizarCompraDeLista() {
+		sistemaController.adicionaListaDeCompras("feirao");
+		sistemaController.adicionaItemPorQtd("macarrao fortaleza", "alimento industrializado", 2, "kg", "atacadao",
+				2.30);
+		sistemaController.adicionaCompraALista("feirao", 2, 1);
+		assertEquals("2 macarrao fortaleza, alimento industrializado, 2 kg",
+				sistemaController.pesquisaCompraEmLista("feirao", 1));
+		sistemaController.atualizaCompraDeLista("feirao", 1, "adiciona", 4);
+		assertEquals("6 macarrao fortaleza, alimento industrializado, 2 kg",
+				sistemaController.pesquisaCompraEmLista("feirao", 1));
+	}
+
+	/**
+	 * Testa o metodo que atualiza uma compra de uma lista e passa uma operacao
+	 * invalida, ao inves de adiciona ou diminui.
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAtualizarCompraDeListaOperacaoInvalida() {
+		sistemaController.adicionaListaDeCompras("feirao");
+		sistemaController.adicionaItemPorQtd("macarrao fortaleza", "alimento industrializado", 2, "kg", "atacadao",
+				2.30);
+		sistemaController.adicionaCompraALista("feirao", 2, 1);
+		sistemaController.atualizaCompraDeLista("feirao", 1, "adicionar", 2);
+	}
+
+	/**
+	 * Testa o metodo que atualiza o valor de uma compra em uma determinada lista de
+	 * compras, que na verdade, nao existe.
+	 */
+	@Test(expected = NullPointerException.class)
+	public void testAtualizarCompraDeListaInexistente() {
+		sistemaController.adicionaListaDeCompras("feirao");
+		sistemaController.adicionaItemPorQtd("macarrao fortaleza", "alimento industrializado", 2, "kg", "atacadao",
+				2.30);
+		sistemaController.adicionaCompraALista("feirao", 2, 1);
+		sistemaController.atualizaCompraDeLista("feirinha", 1, "adicionar", 2);
+	}
+
+	/**
+	 * Testa o metodo que atualiza o valor de uma compra em uma determinada lista de
+	 * compras, porem, com o id de uma compra que ainda nao foi cadastrada.
+	 */
+	@Test(expected = CompraNaoCadastrada.class)
+	public void testAtualizarCompraDeListaItemInexistente() {
+		sistemaController.adicionaListaDeCompras("feirao");
+		sistemaController.adicionaItemPorQtd("macarrao fortaleza", "alimento industrializado", 2, "kg", "atacadao",
+				2.30);
+		sistemaController.adicionaCompraALista("feirao", 2, 1);
+		sistemaController.atualizaCompraDeLista("feirao", 3, "adiciona", 2);
+	}
+
+	/**
+	 * Testa o metodo que retorna o item na posicao especificada de uma lista de
+	 * compras ordenada.
+	 */
+	@Test
+	public void testGetItemLista() {
+		sistemaController.adicionaListaDeCompras("feira da semana");
+		sistemaController.adicionaItemPorUnidade("feijao preto", "alimento nao industrializado", 3, "sacolao vivenda",
+				5.50);
+		sistemaController.adicionaItemPorUnidade("feijao verde", "alimento nao industrializado", 3, "mercado preco bom",
+				4.50);
+		sistemaController.adicionaItemPorUnidade("arroz chines", "alimento industrializado", 3, "atacadao", 3.50);
+		sistemaController.adicionaCompraALista("feira da semana", 3, 1);
+		sistemaController.adicionaCompraALista("feira da semana", 3, 2);
+		sistemaController.adicionaCompraALista("feira da semana", 3, 3);
+		assertEquals("3 feijao verde, alimento nao industrializado",
+				sistemaController.getItemLista("feira da semana", 2));
+	}
+
+	/**
+	 * Testa o metodo que retorna o item na posicao especificada em uma determinada
+	 * lista de compras. Porém, com o id de um item que nao foi cadastrado na lista,
+	 * assim e retornada uma string vazia indicando que o item nao foi encontrado.
+	 */
+	@Test
+	public void testGetItemListaItemNaoCadastrado() {
+		sistemaController.adicionaListaDeCompras("feira da semana");
+		sistemaController.adicionaItemPorUnidade("feijao preto", "alimento nao industrializado", 3, "sacolao vivenda",
+				5.50);
+		sistemaController.adicionaItemPorUnidade("feijao verde", "alimento nao industrializado", 3, "mercado preco bom",
+				4.50);
+		sistemaController.adicionaItemPorUnidade("arroz chines", "alimento industrializado", 3, "atacadao", 3.50);
+		sistemaController.adicionaCompraALista("feira da semana", 3, 1);
+		sistemaController.adicionaCompraALista("feira da semana", 3, 2);
+		sistemaController.adicionaCompraALista("feira da semana", 3, 3);
+		assertEquals("", sistemaController.getItemLista("feira da semana", 4));
+	}
+
+	/**
+	 * Testa o metodo que retorna o item na posicao especificada em uma determinada
+	 * lista de compras. Porém, com o descritor vazio que eh invalido para o
+	 * sistema.
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testGetItemListaDescritorInvalido() {
+		sistemaController.adicionaListaDeCompras("feira da semana");
+		sistemaController.adicionaItemPorUnidade("feijao preto", "alimento nao industrializado", 3, "sacolao vivenda",
+				5.50);
+		sistemaController.adicionaItemPorUnidade("feijao verde", "alimento nao industrializado", 3, "mercado preco bom",
+				4.50);
+		sistemaController.adicionaItemPorUnidade("arroz chines", "alimento industrializado", 3, "atacadao", 3.50);
+		sistemaController.adicionaCompraALista("feira da semana", 3, 1);
+		sistemaController.adicionaCompraALista("feira da semana", 3, 2);
+		sistemaController.adicionaCompraALista("feira da semana", 3, 3);
+		assertEquals("Erro na pesquisa de compra: descritor nao pode ser vazio ou nulo.",
+				sistemaController.getItemLista("   ", 2));
+	}
 
 	// ##########################################
 	// ## METODOS QUE AINDA NAO FORAM TESTADOS ##
 	// ##########################################
-
-	// TEST (atualizaCompraDeLista)
-
-	// TEST (getItemLista)
 
 	// TEST (pesquisaListaDeCompras)
 

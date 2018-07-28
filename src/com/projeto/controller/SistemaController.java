@@ -434,7 +434,6 @@ public class SistemaController implements Serializable {
 	 *            : posicao do item que sera pesquisado.
 	 * @return representacao textual do item na posicao requerida.
 	 */
-
 	public String getItemLista(String descritor, int posicao) {
 		ValidadorSistema.validaDescritor(descritor, Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get());
 		return this.listaService.getItemLista(descritor, posicao);
