@@ -383,7 +383,7 @@ public class SistemaController implements Serializable {
 	 * @param localCompra
 	 *            : Local onde as compras foram efetuadas.
 	 * @param valorFinalCompra
-	 *            : Valor final da compra.
+	 *            : Valor final da lista compra.
 	 */
 	public void finalizarListaDeCompras(String descritor, String localCompra, int valorFinalDaCompra) {
 		ValidadorSistema.validaDescritor(descritor, Mensagem.MSG_EXCECAO_FINALIZACAO_LISTA_COMPRAS.get());

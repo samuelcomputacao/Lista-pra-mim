@@ -22,7 +22,7 @@ import com.projeto.util.Mensagem;
 import com.projeto.util.ValidadorSistema;
 
 /**
- * Classe responsavel por realizar os servicos de listas
+ * Classe responsavel por realizar os servicos de listas.
  *
  */
 public class ListaService implements Serializable {
@@ -31,6 +31,7 @@ public class ListaService implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -2134795757559679940L;
+
 	/**
 	 * Uma lista com todas as listaDeCompras do sistema.
 	 */
@@ -58,7 +59,6 @@ public class ListaService implements Serializable {
 
 		this.listas.put(descritor, new ListaDeCompra(descritor));
 		return descritor;
-
 	}
 
 	/**
@@ -357,17 +357,17 @@ public class ListaService implements Serializable {
 	/**
 	 * Metodo responsavel por retornar uma lista que contem um respectivo item.
 	 * 
-	 * @param descritorItem
-	 *            : Item a ser procurado nas listas
+	 * @param nomeItem
+	 *            : Nome do Item a ser procurado nas listas.
 	 * @return Lista de compras que contem o item.
 	 */
-	private ListaDeCompra getUltimaLista(String descritorItem) {
+	private ListaDeCompra getUltimaLista(String nomeItem) {
 		List<ListaDeCompra> lista = new ArrayList<>(this.listas.values());
 		Collections.sort(lista, new ComparaData());
 		ListaDeCompra listaDeCompra = null;
 		for (int i = lista.size() - 1; i >= 0; i--) {
 			listaDeCompra = lista.get(i);
-			if (listaDeCompra.contemItem(descritorItem)) {
+			if (listaDeCompra.contemItem(nomeItem)) {
 				return listaDeCompra;
 			}
 		}
@@ -387,7 +387,7 @@ public class ListaService implements Serializable {
 
 		String descritor = Estrategia.ESTRATEGIA_3.get() + " " + dataAtual;
 		ListaDeCompra listaDeCompra = new ListaDeCompra(descritor);
-		listaDeCompra.adicionaItens(maisComprados);
+		listaDeCompra.adicionaCompras(maisComprados);
 		this.listas.put(descritor, listaDeCompra);
 		return descritor;
 	}
