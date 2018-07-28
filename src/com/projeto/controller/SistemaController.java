@@ -415,6 +415,8 @@ public class SistemaController implements Serializable {
 	 *            : Nome da lista de compras.
 	 * @param idItem
 	 *            : id do item que sera atualizado na lista de compras.
+	 *            @param operacao 
+	 *            : operacao a ser realizada na lista de compras. (adiciona ou diminui)
 	 * @param quantidade
 	 *            : nova quantidae de itens.
 	 */

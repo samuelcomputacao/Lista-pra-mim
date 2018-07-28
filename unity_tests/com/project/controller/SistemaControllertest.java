@@ -9,6 +9,7 @@ import org.junit.Test;
 import com.projeto.controller.SistemaController;
 import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.excecoes.CategoriaInexistenteException;
+import com.projeto.excecoes.CompraNaoCadastrada;
 import com.projeto.excecoes.ItemInexistenteException;
 import com.projeto.excecoes.ItemJaExisteException;
 
@@ -767,11 +768,75 @@ public class SistemaControllertest {
 		sistemaController.finalizarListaDeCompras("feira semanal", "hiper bom preco", -120);
 	}
 
+	/**
+	 * Testa o metodo que pesquisa uma compra em uma lista de compras, com todos os
+	 * dados válidos.
+	 */
+	@Test
+	public void testPesquisaCompraEmListaValida() {
+		sistemaController.adicionaListaDeCompras("feirao");
+		sistemaController.adicionaItemPorQtd("macarrao fortaleza", "alimento industrializado", 2, "kg", "atacadao",
+				2.30);
+		sistemaController.adicionaCompraALista("feirao", 2, 1);
+		sistemaController.pesquisaCompraEmLista("feirao", 1);
+	}
+
+	/**
+	 * Testa o metodo que pesquisa por uma compra em uma lista de compras, com um id
+	 * de uma compra que ainda nao foi cadastrada.
+	 */
+	@Test(expected = CompraNaoCadastrada.class)
+	public void testPesquisaCompraEmListaIdCompraInexistente() {
+		sistemaController.adicionaListaDeCompras("feirao");
+		sistemaController.adicionaItemPorQtd("macarrao fortaleza", "alimento industrializado", 2, "kg", "atacadao",
+				2.30);
+		sistemaController.adicionaCompraALista("feirao", 2, 1);
+		sistemaController.pesquisaCompraEmLista("feirao", 2);
+	}
+
+	/**
+	 * Testa o metodo que pesquisa por uma compra em uma lista de compras, com um id
+	 * de compra negativo.
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testPesquisaCompraEmListaIdCompraNegativo() {
+		sistemaController.adicionaListaDeCompras("feirao");
+		sistemaController.adicionaItemPorQtd("macarrao fortaleza", "alimento industrializado", 2, "kg", "atacadao",
+				2.30);
+		sistemaController.adicionaCompraALista("feirao", 2, 1);
+		sistemaController.pesquisaCompraEmLista("feirao", -2);
+	}
+
+	/**
+	 * Testa o metodo que pesquisa por uma compra em uma lista de compras com o
+	 * descritor da lista vazio e o id da compra como negativo.
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testPesquisaCompraEmListaIdDescritorVazio() {
+		sistemaController.adicionaListaDeCompras("feirao");
+		sistemaController.adicionaItemPorQtd("macarrao fortaleza", "alimento industrializado", 2, "kg", "atacadao",
+				2.30);
+		sistemaController.adicionaCompraALista("feirao", 2, 1);
+		sistemaController.pesquisaCompraEmLista("    ", -2);
+	}
+
+	/**
+	 * Testa o metodo que atualiza a compra de uma lista de compras, possui todos os
+	 * seus dados válidos.
+	 */
+//	@Test
+//	public void testAtualizarCompraDeLista() {
+//		sistemaController.adicionaListaDeCompras("feirao");
+//		sistemaController.adicionaItemPorQtd("macarrao fortaleza", "alimento industrializado", 2, "kg", "atacadao",
+//				2.30);
+//		sistemaController.adicionaCompraALista("feirao", 2, 1);
+//		sistemaController.atualizaCompraDeLista("feirao", 1, "adiciona", 4);
+//		System.out.println(sistemaController.pesquisaCompraEmLista("feirao", 1));
+//	}
+
 	// ##########################################
 	// ## METODOS QUE AINDA NAO FORAM TESTADOS ##
 	// ##########################################
-
-	// TEST (pesquisaCompraEmLista)
 
 	// TEST (atualizaCompraDeLista)
 
