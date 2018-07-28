@@ -25,7 +25,7 @@ import com.projeto.util.ValidadorSistema;
  * Classe responsavel por realizar os servicos de listas
  *
  */
-public class ListaService implements Serializable{
+public class ListaService implements Serializable {
 
 	/**
 	 * 
@@ -139,16 +139,17 @@ public class ListaService implements Serializable{
 	}
 
 	/**
-	 * Metodo responsavel por verificar a existencia de uma lista de compras.
+	 * Metodo responsavel por pesquisar uma lista de compras atraves de um
+	 * descritor.
 	 * 
 	 * @param descritor
-	 *            : Nome da lista de compras que sera pesquisada.
-	 * @return O nome do descritor, se existir, e null caso nao exista.
+	 *            : Descritor da compras que sera pesquisada.
+	 * @return String com o toString da compra pesquisada.
 	 */
 	public String pesquisaListaDeCompras(String descritor) {
 		ValidadorSistema.validaInexistenciaDeListaDeCompras(descritor, this.listas,
 				Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get());
-		return descritor;
+		return this.listas.get(descritor).toString();
 	}
 
 	/**
@@ -448,41 +449,41 @@ public class ListaService implements Serializable{
 	}
 
 	public String sugereMelhorEstabelecimento(String descritor, int posicaoEstabelecimento, int posicaoLista) {
-	
-		if(!this.listas.containsKey(descritor)) {
+
+		if (!this.listas.containsKey(descritor)) {
 			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_DADOS_INSUFICIENTES.get());
 		}
 		ListaDeCompra lista = this.listas.get(descritor);
-		Map<String,Estabelecimento> estabelecimentos = buscaLocais(lista);
+		Map<String, Estabelecimento> estabelecimentos = buscaLocais(lista);
 		List<Estabelecimento> listaEstabelecimentos = new ArrayList<>(estabelecimentos.values());
 		Collections.sort(listaEstabelecimentos);
-		if(posicaoLista==0) {
-			if(posicaoEstabelecimento >= listaEstabelecimentos.size()) {
+		if (posicaoLista == 0) {
+			if (posicaoEstabelecimento >= listaEstabelecimentos.size()) {
 				throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_DADOS_INSUFICIENTES.get());
 			}
 			return listaEstabelecimentos.get(posicaoEstabelecimento).toString();
-		}else {
-			Estabelecimento estabelecimento = listaEstabelecimentos.get(posicaoEstabelecimento) ;
+		} else {
+			Estabelecimento estabelecimento = listaEstabelecimentos.get(posicaoEstabelecimento);
 			Collections.sort(estabelecimento.getCompras());
-			if(posicaoLista-1 >= estabelecimento.getCompras().size()) {
+			if (posicaoLista - 1 >= estabelecimento.getCompras().size()) {
 				return "";
 			}
-			return estabelecimento.getCompras().get(posicaoLista-1).toString();		
+			return estabelecimento.getCompras().get(posicaoLista - 1).toString();
 		}
 	}
 
 	private Map<String, Estabelecimento> buscaLocais(ListaDeCompra lista) {
-		Map<String,Estabelecimento> locais = new HashMap<>();
-		
-		for(Compra c : lista.getCompras().values()) {
-			Item item  = c.getItem();
-			Map<String,Double> precos = item.getPrecos();
-			for(String key : precos.keySet()) {
-				if(locais.containsKey(key)) {
-					locais.get(key).add(c, precos.get(key)*c.getQuantidade());
-				}else {
+		Map<String, Estabelecimento> locais = new HashMap<>();
+
+		for (Compra c : lista.getCompras().values()) {
+			Item item = c.getItem();
+			Map<String, Double> precos = item.getPrecos();
+			for (String key : precos.keySet()) {
+				if (locais.containsKey(key)) {
+					locais.get(key).add(c, precos.get(key) * c.getQuantidade());
+				} else {
 					locais.put(key, new Estabelecimento(key));
-					locais.get(key).add(c, precos.get(key)*c.getQuantidade());
+					locais.get(key).add(c, precos.get(key) * c.getQuantidade());
 				}
 			}
 		}

@@ -415,8 +415,9 @@ public class SistemaController implements Serializable {
 	 *            : Nome da lista de compras.
 	 * @param idItem
 	 *            : id do item que sera atualizado na lista de compras.
-	 *            @param operacao 
-	 *            : operacao a ser realizada na lista de compras. (adiciona ou diminui)
+	 * @param operacao
+	 *            : operacao a ser realizada na lista de compras. (adiciona ou
+	 *            diminui)
 	 * @param quantidade
 	 *            : nova quantidae de itens.
 	 */
@@ -437,18 +438,6 @@ public class SistemaController implements Serializable {
 	public String getItemLista(String descritor, int posicao) {
 		ValidadorSistema.validaDescritor(descritor, Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get());
 		return this.listaService.getItemLista(descritor, posicao);
-	}
-
-	/**
-	 * Metodo responsavel por verificar a existencia de uma lista de compras.
-	 * 
-	 * @param descritor
-	 *            : Nome da lista de compras que sera pesquisada.
-	 * @return O nome do descritor, se existir, e null caso nao exista.
-	 */
-	public String pesquisaListaDeCompras(String descritor) {
-		ValidadorSistema.validaDescritor(descritor, Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get());
-		return this.listaService.pesquisaListaDeCompras(descritor);
 	}
 
 	/**
@@ -512,6 +501,19 @@ public class SistemaController implements Serializable {
 	 */
 	public String getItemListaPorItem(Integer idItem, int posicao) {
 		return this.listaService.getItemListaPorItem(idItem, posicao);
+	}
+
+	/**
+	 * Metodo responsavel por pesquisar uma lista de compras atraves de um
+	 * descritor.
+	 * 
+	 * @param descritor
+	 *            : Descritor da compras que sera pesquisada.
+	 * @return String com o toString da compra pesquisada.
+	 */
+	public String pesquisaListaDeCompras(String descritor) {
+		ValidadorSistema.validaDescritor(descritor, Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get());
+		return this.listaService.pesquisaListaDeCompras(descritor);
 	}
 
 	/**
