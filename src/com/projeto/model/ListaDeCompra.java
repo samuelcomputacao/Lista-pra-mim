@@ -17,7 +17,9 @@ import com.projeto.util.ValidadorSistema;
 
 /**
  * Representa uma lista de compras. Toda lista de compras tem um descritor e uma
- * coleção de itens a comprar. Alem disso possuem uma data de criacao.
+ * coleção de itens a comprar. Alem disso possui atributos que representam a
+ * data de criacao, local de compra, se a mesma foi finalizada e o seu valor
+ * final.
  */
 public class ListaDeCompra implements Comparable<ListaDeCompra>, Serializable {
 
@@ -385,12 +387,6 @@ public class ListaDeCompra implements Comparable<ListaDeCompra>, Serializable {
 	public String getLocal() {
 		return local;
 	}
-
-	// public void sugereMelhorEstabelecimento(int posicaoEstabelecimento, int
-	// posicaoLista) {
-	//
-	// // List<Compra> estabelecimentos
-	// }
 
 	/**
 	 * Metodo acessor que retorna uma lista de Itens que estao presentes na lista de
