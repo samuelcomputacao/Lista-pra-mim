@@ -66,9 +66,10 @@ public class ListaDeCompra implements Comparable<ListaDeCompra>, Serializable {
 	 *            String que representa o descritor da lista de compras.
 	 */
 	public ListaDeCompra(String descritor) {
+		ValidadorSistema.validaDescritor(descritor, "Erro em lista de compra: Descritor invalido.");
+
 		// SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		// String dataString = dateFormat.format(new Date());
-
 		try {
 			// this.dataCriacao = dateFormat.parse(dataString);
 			dataCriacao = new Date();
@@ -76,7 +77,7 @@ public class ListaDeCompra implements Comparable<ListaDeCompra>, Serializable {
 			e.printStackTrace();
 		}
 		this.descritor = descritor;
-		compras = new HashMap<>();
+		this.compras = new HashMap<>();
 		this.finalizada = false;
 	}
 
@@ -93,6 +94,7 @@ public class ListaDeCompra implements Comparable<ListaDeCompra>, Serializable {
 		if (this.compras.keySet().contains(item.getId())) {
 			throw new CampoInvalidoException("Item ja cadastrado");
 		}
+		ValidadorSistema.validaQuantidade(quantidade);
 		this.compras.put(item.getId(), new Compra(item, quantidade));
 	}
 
@@ -118,7 +120,7 @@ public class ListaDeCompra implements Comparable<ListaDeCompra>, Serializable {
 		} catch (CampoInvalidoException e) {
 			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_ATUALIZA_COMPRA.get() + e.getMessage());
 		}
-
+		ValidadorSistema.validaQuantidade(quantidade);
 		this.compras.get(idItem).atualizar(operacao, quantidade);
 		if (this.compras.get(idItem).getQuantidade() <= 0)
 			this.compras.remove(idItem);
