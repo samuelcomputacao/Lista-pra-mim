@@ -940,11 +940,13 @@ public class SistemaControllertest {
 	//
 	// ########################################################################
 
-	// ########################################################################
-	//
-	// TEST (dataAtual) | Substituir pelo codigo de teste
-	//
-	// ########################################################################
+	/**
+	 * Metodo responsavel por retornar a representacao textual do dia .
+	 */
+	@Test
+	public void testDataAtual() {
+		assertEquals("28/07/2018", this.sistemaController.dataAtual());
+	}
 
 	/**
 	 * Testa o metodo getItemListaPorData.
@@ -1036,15 +1038,6 @@ public class SistemaControllertest {
 
 	// TEST (geraAutomaticaItensMaisPresentes) | Substituir pelo codio de teste
 
-	// TEST (sugereMelhorEstabelecimento) | Substituir pelo codio de teste
-
-	// TEST (fechaSistema) | Substituir pelo codio de teste
-
-	@Test
-	public void testDataAtual() {
-		assertEquals("28/07/2018", this.sistemaController.dataAtual());
-	}
-
 	// Metodo mal implementado. Impossivel retornar a representacao textual
 	@Test
 	public void testPesquisaListasDeComprasPorData() {
@@ -1052,6 +1045,9 @@ public class SistemaControllertest {
 		assertEquals("", this.sistemaController.pesquisaListasDeComprasPorData("27/07/2018"));
 	}
 
+	/**
+	 * Metodo responsavel por pesquisar listas de compras que contem tal item
+	 */
 	@Test
 	public void testPesquisaListasDeComprasPorItem() {
 		this.sistemaController.adicionaListaDeCompras("feira semana");
@@ -1062,6 +1058,9 @@ public class SistemaControllertest {
 		assertEquals("feira semana\nfeira da outra semana\n", this.sistemaController.pesquisaListasDeComprasPorItem(1));
 	}
 
+	/**
+	 * Metodo responsavel por geracao automatica da ultima lista cadastrada.
+	 */
 	@Test
 	public void testGeraAutomaticaUltimaLista() {
 		this.sistemaController.adicionaListaDeCompras("feira semana");
@@ -1070,5 +1069,76 @@ public class SistemaControllertest {
 		this.sistemaController.adicionaCompraALista("feira semana", 2, 1);
 		this.sistemaController.adicionaCompraALista("feira da outra semana", 2, 1);
 		assertEquals("Lista automatica 1 28/07/2018", this.sistemaController.geraAutomaticaUltimaLista());
+	}
+
+	/**
+	 * Metodo responsavel por gerar automaticamente a lista que tem o item
+	 * requerido.
+	 */
+	@Test
+	public void testGeraAutomaticaItem() {
+		this.sistemaController.adicionaListaDeCompras("feira semana");
+		this.sistemaController.adicionaListaDeCompras("feira da outra semana");
+		this.sistemaController.adicionaItemPorUnidade("creme dental", "higiene pessoal", 5, "super market", 2.90);
+		this.sistemaController.adicionaCompraALista("feira semana", 2, 1);
+		this.sistemaController.adicionaCompraALista("feira da outra semana", 2, 1);
+		assertEquals("Lista automatica 2 28/07/2018", this.sistemaController.geraAutomaticaItem("creme dental"));
+	}
+
+	/**
+	 * Metodo responsavel por gerar automaticamente a lista com os itens mais
+	 * presentes.
+	 */
+	@Test
+	public void testGeraAutomaticaItensMaisPresente() {
+		this.sistemaController.adicionaListaDeCompras("feira semana");
+		this.sistemaController.adicionaListaDeCompras("feira da outra semana");
+		this.sistemaController.adicionaListaDeCompras("feiral semanal");
+		this.sistemaController.adicionaListaDeCompras("feira da semana");
+
+		this.sistemaController.adicionaItemPorUnidade("creme dental", "higiene pessoal", 5, "super market", 2.90);
+		this.sistemaController.adicionaItemPorQuilo("Frango", "alimento nao industrializado", 5.0, "churrascaria",
+				99.0);
+
+		this.sistemaController.adicionaCompraALista("feira semana", 2, 1);
+		this.sistemaController.adicionaCompraALista("feira da outra semana", 5, 1);
+		this.sistemaController.adicionaCompraALista("feira da outra semana", 5, 2);
+		this.sistemaController.adicionaCompraALista("feiral semanal", 5, 1);
+		this.sistemaController.adicionaCompraALista("feira da semana", 10, 2);
+
+		assertEquals("Lista automatica 3 28/07/2018", this.sistemaController.geraAutomaticaItensMaisPresentes());
+	}
+
+	/**
+	 * Metodo responsavel por testar o metodo que sugere o melhor estabelecimento..
+	 */
+	@Test
+	public void testSugereMelhorEstabelecimento() {
+		this.sistemaController.adicionaListaDeCompras("feira semana");
+		this.sistemaController.adicionaListaDeCompras("feira da outra semana");
+		this.sistemaController.adicionaListaDeCompras("feiral semanal");
+		this.sistemaController.adicionaListaDeCompras("feira da semana");
+
+		this.sistemaController.adicionaItemPorUnidade("creme dental", "higiene pessoal", 5, "super market", 2.90);
+		this.sistemaController.adicionaPrecoItem(1, "Compre bem", 1.90);
+		this.sistemaController.adicionaPrecoItem(1, "Compre bem", 2.80);
+		this.sistemaController.adicionaItemPorQuilo("Frango", "alimento nao industrializado", 5.0, "churrascaria",
+				99.0);
+
+		this.sistemaController.adicionaCompraALista("feira semana", 3, 1);
+		this.sistemaController.adicionaCompraALista("feira semana", 4, 2);
+		this.sistemaController.adicionaCompraALista("feira da outra semana", 1, 2);
+		this.sistemaController.adicionaCompraALista("feiral semanal", 2, 1);
+		this.sistemaController.adicionaCompraALista("feira da semana", 1, 2);
+
+		assertEquals("Compre bem: R$ 8,40", this.sistemaController.sugereMelhorEstabelecimento("feira semana", 0, 0));
+	}
+
+	/**
+	 * Metodo responsavel por verificar o metodo que fecha o sistema.
+	 */
+	@Test
+	public void testFechaSistema() {
+		this.sistemaController.fechaSistema();
 	}
 }
