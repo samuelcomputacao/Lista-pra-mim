@@ -934,18 +934,43 @@ public class SistemaControllertest {
 				sistemaController.getItemLista("   ", 2));
 	}
 
-	// ########################################################################
-	//
-	// TEST (deletaCompraDeLista) | Substituir pelo codigo de teste
-	//
-	// ########################################################################
+	/**
+	 * Metodo responsavel por deletar compra de uma lista de compra
+	 */
+	@Test
+	public void testDeletaCompraDeLista() {
+		sistemaController.adicionaListaDeCompras("feira da semana");
+		sistemaController.adicionaItemPorUnidade("feijao preto", "alimento nao industrializado", 3, "sacolao vivenda",
+				5.50);
+		sistemaController.adicionaItemPorUnidade("feijao verde", "alimento nao industrializado", 3, "mercado preco bom",
+				4.50);
+		sistemaController.adicionaItemPorUnidade("arroz chines", "alimento industrializado", 3, "atacadao", 3.50);
+		sistemaController.adicionaCompraALista("feira da semana", 3, 1);
+		sistemaController.deletaCompraDeLista("feira da semana", 1);
+	}
+
+	/**
+	 * Metodo responsavel por levantar um erro em retirar um item em uma lista de
+	 * compra que nao esta cadastrado.
+	 */
+	@Test(expected = CompraNaoCadastrada.class)
+	public void testDeletaCompraDeListaLevantandoErro() {
+		sistemaController.adicionaListaDeCompras("feira da semana");
+		sistemaController.adicionaItemPorUnidade("feijao preto", "alimento nao industrializado", 3, "sacolao vivenda",
+				5.50);
+		sistemaController.adicionaItemPorUnidade("feijao verde", "alimento nao industrializado", 3, "mercado preco bom",
+				4.50);
+		sistemaController.adicionaItemPorUnidade("arroz chines", "alimento industrializado", 3, "atacadao", 3.50);
+		sistemaController.adicionaCompraALista("feira da semana", 3, 1);
+		sistemaController.deletaCompraDeLista("feira da semana", 3);
+	}
 
 	/**
 	 * Metodo responsavel por retornar a representacao textual do dia .
 	 */
 	@Test
 	public void testDataAtual() {
-		assertEquals("28/07/2018", this.sistemaController.dataAtual());
+		assertEquals("30/07/2018", this.sistemaController.dataAtual());
 	}
 
 	/**
@@ -957,15 +982,36 @@ public class SistemaControllertest {
 		this.sistemaController.adicionaItemPorUnidade("creme dental", "higiene pessoal", 5, "super market", 2.90);
 		this.sistemaController.adicionaCompraALista("feira semana", 2, 1);
 		this.sistemaController.pesquisaListaDeCompras("feira semana");
-		assertEquals("feira semana", this.sistemaController.getItemListaPorData("28/07/2018", 0));
+		assertEquals("feira semana", this.sistemaController.getItemListaPorData("30/07/2018", 0));
 	}
 
-	// ########################################################################
-	//
-	// Ainda faltam muitos testes da classe getItemListaPorData.
-	//
-	// ########################################################################
+	/**
+	 * Testa o metodo getItemListaPorData passando data invalida.
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testGetItemListaPorDataInvalida() {
+		this.sistemaController.adicionaListaDeCompras("feira semana");
+		this.sistemaController.adicionaItemPorUnidade("creme dental", "higiene pessoal", 5, "super market", 2.90);
+		this.sistemaController.adicionaCompraALista("feira semana", 2, 1);
+		this.sistemaController.pesquisaListaDeCompras("feira semana");
+		this.sistemaController.getItemListaPorData("28072018", 0);
+	}
 
+	/**
+	 * Testa o metodo getItemListaPorData passando data invalida.
+	 */
+	@Test(expected = IndexOutOfBoundsException.class)
+	public void testGetItemListaPorDataPosicaoInvalida() {
+		this.sistemaController.adicionaListaDeCompras("feira semana");
+		this.sistemaController.adicionaItemPorUnidade("creme dental", "higiene pessoal", 5, "super market", 2.90);
+		this.sistemaController.adicionaCompraALista("feira semana", 2, 1);
+		this.sistemaController.pesquisaListaDeCompras("feira semana");
+		this.sistemaController.getItemListaPorData("30/07/2018", 1);
+	}
+
+	/**
+	 * Metodo responsavel por pegar uma lista que contem um determinado item.
+	 */
 	@Test
 	public void testGetItemListaPorItem() {
 		this.sistemaController.adicionaListaDeCompras("feira semana");
@@ -979,14 +1025,8 @@ public class SistemaControllertest {
 		this.sistemaController.adicionaCompraALista("feira da outra semana", 7, 2);
 		this.sistemaController.adicionaCompraALista("feira da antiga semana", 5, 2);
 
-		assertEquals("28/07/2018 - feira da outra semana", this.sistemaController.getItemListaPorItem(2, 1));
+		assertEquals("30/07/2018 - feira da outra semana", this.sistemaController.getItemListaPorItem(2, 1));
 	}
-
-	// ########################################################################
-	//
-	// Ainda faltam testes da classe GetItemListaPorItem.
-	//
-	// ########################################################################
 
 	/**
 	 * Testa o metodo pesquisaListaDeCompras.
@@ -1026,18 +1066,6 @@ public class SistemaControllertest {
 		this.sistemaController.pesquisaListaDeCompras("   ");
 	}
 
-	// TEST (getItemListaPorItem) | Substituir pelo codio de teste
-
-	// TEST (pesquisaListasDeComprasPorData) | Substituir pelo codio de teste
-
-	// TEST (pesquisaListasDeComprasPorItem) | Substituir pelo codio de teste
-
-	// TEST (geraAutomaticaUltimaLista) | Substituir pelo codio de teste
-
-	// TEST (geraAutomaticaItem) | Substituir pelo codio de teste
-
-	// TEST (geraAutomaticaItensMaisPresentes) | Substituir pelo codio de teste
-
 	// Metodo mal implementado. Impossivel retornar a representacao textual
 	@Test
 	public void testPesquisaListasDeComprasPorData() {
@@ -1068,7 +1096,7 @@ public class SistemaControllertest {
 		this.sistemaController.adicionaItemPorUnidade("creme dental", "higiene pessoal", 5, "super market", 2.90);
 		this.sistemaController.adicionaCompraALista("feira semana", 2, 1);
 		this.sistemaController.adicionaCompraALista("feira da outra semana", 2, 1);
-		assertEquals("Lista automatica 1 28/07/2018", this.sistemaController.geraAutomaticaUltimaLista());
+		assertEquals("Lista automatica 1 30/07/2018", this.sistemaController.geraAutomaticaUltimaLista());
 	}
 
 	/**
@@ -1082,7 +1110,7 @@ public class SistemaControllertest {
 		this.sistemaController.adicionaItemPorUnidade("creme dental", "higiene pessoal", 5, "super market", 2.90);
 		this.sistemaController.adicionaCompraALista("feira semana", 2, 1);
 		this.sistemaController.adicionaCompraALista("feira da outra semana", 2, 1);
-		assertEquals("Lista automatica 2 28/07/2018", this.sistemaController.geraAutomaticaItem("creme dental"));
+		assertEquals("Lista automatica 2 30/07/2018", this.sistemaController.geraAutomaticaItem("creme dental"));
 	}
 
 	/**
@@ -1106,7 +1134,7 @@ public class SistemaControllertest {
 		this.sistemaController.adicionaCompraALista("feiral semanal", 5, 1);
 		this.sistemaController.adicionaCompraALista("feira da semana", 10, 2);
 
-		assertEquals("Lista automatica 3 28/07/2018", this.sistemaController.geraAutomaticaItensMaisPresentes());
+		assertEquals("Lista automatica 3 30/07/2018", this.sistemaController.geraAutomaticaItensMaisPresentes());
 	}
 
 	/**
