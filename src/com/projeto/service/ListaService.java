@@ -69,8 +69,8 @@ public class ListaService implements Serializable {
 	 *            : Nome da lista de compras.
 	 * @param quantidade
 	 *            : quantidade de itens que serao cadastrados.
-	 * @param idItem
-	 *            : id do item que sera adicionado na lista de compras.
+	 * @param item
+	 *            : O item que sera adicionado na lista de compras.
 	 */
 	public void adicionaCompraALista(String descritor, int quantidade, Item item) {
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
@@ -84,14 +84,12 @@ public class ListaService implements Serializable {
 	 *            : Nome da lista de compras.
 	 * @param localCompra
 	 *            : Local onde as compras foram efetuadas.
-	 * @param valorFinalCompra
+	 * @param valorFinalDaCompra
 	 *            : Valor final da compra.
 	 */
 	public void finalizarListaDeCompras(String descritor, String localCompra, int valorFinalDaCompra) {
-
 		ListaDeCompra listaDeCompra = this.listas.get(descritor);
 		listaDeCompra.finalizar(localCompra, valorFinalDaCompra);
-
 	}
 
 	/**
@@ -111,10 +109,12 @@ public class ListaService implements Serializable {
 	/**
 	 * Metodo responsavel por atualizar um produto da lista de compras.
 	 * 
-	 * @param descritor
+	 * @param descritorLista
 	 *            : Nome da lista de compras.
 	 * @param idItem
 	 *            : id do item que sera atualizado na lista de compras.
+	 * @param operacao
+	 *            : operacao a ser realizada (adicionar ou retirar).
 	 * @param quantidade
 	 *            : nova quantidae de itens.
 	 */
@@ -172,7 +172,7 @@ public class ListaService implements Serializable {
 	 * Retorna o descritor de uma lista de compras que foi cadastrada na data e
 	 * posicao especificada.
 	 * 
-	 * @param data
+	 * @param dataString
 	 *            : Data da criacao da lista de compras.
 	 * @param posicao
 	 *            : Posicao da lista de compras.
@@ -265,9 +265,10 @@ public class ListaService implements Serializable {
 	/**
 	 * Retorna a pesquisa de listas de compras por data.
 	 * 
-	 * @param data:
-	 *            data a ser pesquisada.
-	 * @return representacao textual das listas de compra.
+	 * @param dataString
+	 *            : data a ser pesquisada.
+	 * 
+	 * @return : Retorna a representacao textual das listas de compra.
 	 */
 	public String pesquisaListasDeComprasPorData(String dataString) {
 		try {
@@ -310,7 +311,11 @@ public class ListaService implements Serializable {
 	 * Metodo responsavel por gerar automaticamente o dia da ultima lista que foi
 	 * cadastrada.
 	 * 
-	 * @return : representacao textual do dia em que foi realizada a ultima compra
+	 * @param dataAtual
+	 *            : data atual a ser utilizada como criterio para geracao das
+	 *            listas.
+	 * 
+	 * @return : representacao textual do dia em que foi realizada a ultima compra.
 	 */
 	public String geraAutomaticaUltimaLista(String dataAtual) {
 		ListaDeCompra lista = getUltimaLista();
@@ -338,8 +343,12 @@ public class ListaService implements Serializable {
 	 * item foi cadastrado.
 	 * 
 	 * @param descritorItem
-	 *            : Item a ser procurado.
-	 * @return representacao textual do ultimo dia em que o item foi comprado.
+	 *            : item a ser procurado.
+	 * @param dataAtual
+	 *            : data atual a ser utilizada como criterio para geracao do item.
+	 * 
+	 * @return : Retorna a representacao textual do ultimo dia em que o item foi
+	 *         comprado.
 	 */
 	public String geraAutomaticaItem(String descritorItem, String dataAtual) {
 		ListaDeCompra lista = getUltimaLista(descritorItem);
@@ -358,8 +367,9 @@ public class ListaService implements Serializable {
 	 * Metodo responsavel por retornar uma lista que contem um respectivo item.
 	 * 
 	 * @param nomeItem
-	 *            : Nome do Item a ser procurado nas listas.
-	 * @return Lista de compras que contem o item.
+	 *            : nome do Item a ser procurado nas listas.
+	 * 
+	 * @return : Retorna a lista de compras que contem o item.
 	 */
 	private ListaDeCompra getUltimaLista(String nomeItem) {
 		List<ListaDeCompra> lista = new ArrayList<>(this.listas.values());
@@ -379,8 +389,12 @@ public class ListaService implements Serializable {
 	 * compras que mais aparecem nas listas de compras anteriores.
 	 * 
 	 * @param itens
+	 *            : colecao de itens compraveis.
+	 * @param dataAtual
+	 *            : data atual a ser utilizada como criterio para geracao da lista
+	 *            com os itens mais presentes.
 	 * 
-	 * @return representacao textual do dia em que a lista ocorre.
+	 * @return : Retorna a representacao textual do dia em que a lista ocorre.
 	 */
 	public String geraAutomaticaItensMaisPresentes(Collection<Item> itens, String dataAtual) {
 		Map<Item, Integer> maisComprados = buscaMaisComprados(itens);
@@ -395,9 +409,9 @@ public class ListaService implements Serializable {
 	/**
 	 * Metodo auxiliar responsavel por retornar os itens mais comprados
 	 * 
-	 * @param itens
+	 * @param itens : colecao de itens a serem pesquisados os mais comprados.
 	 * 
-	 * @return Mapa contendo os itens
+	 * @return : Retorna o mapa contendo os itens mais comprados.
 	 */
 	private Map<Item, Integer> buscaMaisComprados(Collection<Item> itens) {
 		Map<Item, Integer> maisComprados = new HashMap<>();
@@ -408,7 +422,6 @@ public class ListaService implements Serializable {
 				Integer quantidade = calculaTotal(compraQuePossue);
 				quantidade = (int) Math.floor(quantidade / compraQuePossue.size());
 				maisComprados.put(item, quantidade);
-
 			}
 		}
 		return maisComprados;

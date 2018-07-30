@@ -37,6 +37,9 @@ public class ValidadorSistema {
 	 *            : indentificacao do intem
 	 * @param produto
 	 *            : Lista que contem os produtos.
+	 * @param msgExcecaoMetodo
+	 *            : mensagem de excecao para o metodo caso ocorram erros.
+	 * 
 	 * @return true se o key for valido.
 	 */
 	public static boolean validaChave(Integer key, Map<Integer, Item> produto, String msgExcecaoMetodo) {
@@ -49,20 +52,18 @@ public class ValidadorSistema {
 
 	/**
 	 * Metodo responsavel por validar os campos de um produto nao industrializado
-	 * por quilo
+	 * por quilo.
 	 * 
 	 * @param quilo
-	 *            : Um valor de ponto flutuante indicando o quilo do produto
+	 *            : Um valor de ponto flutuante indicando o quilo do produto.
 	 * @param localCompra
-	 *            : Uma string indicando o local da compra a ser adicionado no item
+	 *            : Uma string indicando o local da compra a ser adicionado no item.
 	 * @param preco
 	 *            : Um valor de ponto flutuante que indica o valor do produto no
-	 *            local de compra indicado
-	 * @param nome
-	 *            : Uma String indicando o nome do produto
-	 * @param categoria
-	 *            : Uma String indicando a categoria do produto
-	 * @return Um valor bolleano indicando se os campos estao validos ou nao
+	 *            local de compra indicado.
+	 *
+	 * @return : Retorna um valor bolleano indicando se os campos estao validos ou
+	 *         nao.
 	 */
 	public static boolean validaProdutoNaoIndustrializadoPorQuilo(double quilo, String localCompra, double preco) {
 		validaLocalDeCompra(localCompra, preco);
@@ -75,13 +76,15 @@ public class ValidadorSistema {
 	 * quantidade fixa
 	 * 
 	 * @param quantidade
-	 *            : Um Inteiro indicando a quantidade do produto
+	 *            : um inteiro indicando a quantidade do produto
 	 * @param unidadeMedida
-	 *            : Uma String indicando a unidade de medida do produto
+	 *            : uma String indicando a unidade de medida do produto
 	 * @param localCompra
-	 *            : Uma String indicando
+	 *            : uma String indicando o local onde o produto foi comprado.
 	 * @param preco
-	 * @return
+	 *            : preco do produto.
+	 * 
+	 * @return : Retorna um boolean indicando se o produto foi validado ou nao.
 	 */
 	public static boolean validaProdutoQuantidadeFixa(int quantidade, String unidadeMedida, String localCompra,
 			double preco) {
@@ -92,16 +95,18 @@ public class ValidadorSistema {
 	}
 
 	/**
-	 * Metodo respondavel pela validacao dos campos do produto por unidade
+	 * Metodo responsavel pela validacao dos campos do produto por unidade.
 	 * 
 	 * @param unidade
-	 *            : Um inteiro indicando a quantidade de unidades do produto
+	 *            : Um inteiro indicando a quantidade de unidades do produto.
 	 * @param localCompra
-	 *            : Uma String indicando o local de compra que sera cadastrado
+	 *            : Uma String indicando o local de compra que sera cadastrado.
 	 * @param preco
 	 *            : Um valor de ponto flutuante indicando o preco que sera
-	 *            adicionado ao local de compra
-	 * @return Um valor bolleano indicando se as entradas estao validas ou nao
+	 *            adicionado ao local de compra.
+	 * 
+	 * @return : Retorna um valor boolean indicando se as entradas sao validas ou
+	 *         nao.
 	 */
 	public static boolean validaProdutoPorUnidade(int unidade, String localCompra, double preco) {
 		validaLocalDeCompra(localCompra, preco);
@@ -407,11 +412,12 @@ public class ValidadorSistema {
 	 * Metodo que valida um id de um item.
 	 * 
 	 * @param idItem
-	 *            Inteiro com o id do item.
-	 * @param msgExcecaoMetodoString
-	 *            com a mensagem especifica de cada metodo que ira usar este
-	 *            validador.
-	 * @return true se o idTem for valido.
+	 *            : inteiro com o id do item.
+	 * @param msgExcecaoMetodo
+	 *            : mensagem de excecao do metodo com a mensagem de cada metodo que
+	 *            ira usar este validador.
+	 * 
+	 * @return : Retorna um boolean indicando se o id do item e valido ou nao.
 	 */
 	public static boolean validaIdItem(int idItem, String msgExcecaoMetodo) {
 		if (idItem < 0) {
@@ -424,9 +430,10 @@ public class ValidadorSistema {
 	 * Metodo responsavel por validar um produto.
 	 * 
 	 * @param produto
-	 *            Produto a ser validado
+	 *            Produto a ser validado.
 	 * @param produtos
 	 *            mapa contendo todos os produtos do sistema.
+	 *            
 	 * @return true se o produto e valido
 	 */
 	public static boolean validaProduto(Item produto, Map<Integer, Item> produtos) {
@@ -439,13 +446,14 @@ public class ValidadorSistema {
 	 * Metodo responsavel por validar o preco de item
 	 * 
 	 * @param key
-	 *            Identificador do item
+	 *            : Identificador do item
 	 * @param local
-	 *            Local de compra
+	 *            : Local de compra
 	 * @param preco
-	 *            Preco do produto
+	 *            : Preco do produto
 	 * @param produtos
-	 *            Mapa contendo os produtos.
+	 *            : Mapa contendo os produtos.
+	 *            
 	 * @return True se o item e valido
 	 */
 	public static boolean validaPrecoItem(Integer key, String local, double preco, Map<Integer, Item> produtos) {
@@ -466,10 +474,11 @@ public class ValidadorSistema {
 	}
 
 	/**
-	 * Metodo responsavel por validar a saida de uma string
+	 * Metodo responsavel por validar a saida de uma string.
 	 * 
 	 * @param saida
-	 *            String a ser analizada.
+	 *            : String a ser analizada.
+	 *            
 	 * @return True se a string e valida.
 	 */
 	public static boolean validaSaidaVazia(String saida) {
@@ -480,11 +489,12 @@ public class ValidadorSistema {
 	}
 
 	/**
-	 * Metodo responsavel por validar uma lista de compra
+	 * Metodo responsavel por validar uma lista de compra.
 	 * 
 	 * @param lista
-	 *            Lista de compra a ser analisada
-	 * @return True se a Lista e valida
+	 *            : lista de compra a ser analisada.
+	 *            
+	 * @return : Retorna um boolean indicando se a lista e valida ou nao.
 	 */
 	public static boolean validaListaDeCompra(ListaDeCompra lista) {
 		if (lista == null) {

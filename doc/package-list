@@ -4,4 +4,5 @@ com.projeto.controller
 com.projeto.excecoes
 com.projeto.model
 com.projeto.principal
+com.projeto.service
 com.projeto.util

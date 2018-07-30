@@ -102,7 +102,7 @@ public class ProdutoQuantidadeFixa extends Item {
 	/**
 	 * Metodo responsavel pela geracao de uma representacao textual para o produto.
 	 * 
-	 * @return A representacao textual gerada
+	 * @return : retorna a representacao textual de um produto por quantidade fixa.
 	 */
 	@Override
 	public String toString() {
@@ -111,20 +111,19 @@ public class ProdutoQuantidadeFixa extends Item {
 	}
 
 	/**
-	 * Metodo reponsavel pela atualizacao para os seus valores
+	 * Metodo responsavel pela atualizacao para os seus valores.
 	 * 
 	 * @param atributo
 	 *            : Nome do atributo que sera atualizado.
 	 * @param novoValor
 	 *            : O novo valor que sera atribuido ao atributo.
 	 * 
-	 * @return : O identificador do item
+	 * @return : O identificador do item.
 	 */
 	@Override
-	public int atualiza(String atribulto, String novoValor) {
-		if (ValidadorSistema.validaAtualizacao(atribulto, novoValor)) {
-			switch (atribulto) {
-
+	public int atualiza(String atributo, String novoValor) {
+		if (ValidadorSistema.validaAtualizacao(atributo, novoValor)) {
+			switch (atributo) {
 			case "nome":
 				super.setNome(novoValor);
 				break;
@@ -148,17 +147,26 @@ public class ProdutoQuantidadeFixa extends Item {
 		}
 		return super.getId();
 	}
-	
+
+	/**
+	 * Retorna a Descricao de um produto por quantidade fixa.
+	 * 
+	 * @return : Retorna a descricao de um produto por quantidade fixa.
+	 */
 	@Override
 	public String getDescricao() {
-		return  super.getDescricao()+", "+ this.getQuantidade() + " " + this.unidadeMedida;
+		return super.getDescricao() + ", " + this.getQuantidade() + " " + this.unidadeMedida;
 	}
 
+	/**
+	 * Retorna a representacao da quantidade de um produto por quantidade fixa.
+	 * 
+	 * @return : Retorna a representacao de quantidade de de um produto por quantidade fixa.
+	 */
 	@Override
 	public String getRepresentacaoQuantidade() {
 		String msg = ", " + this.getQuantidade() + " " + this.getUnidadeMedida();
 		return msg;
 	}
-
 
 }

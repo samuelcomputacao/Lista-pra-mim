@@ -17,7 +17,10 @@ import easyaccept.EasyAccept;
 public class ListaPraMimFacade implements ListaPraMim {
 
 	/**
-	 * Metodo responsavel por realizar os testes de aceitacao
+	 * Metodo responsavel por realizar os testes de aceitacao.
+	 * 
+	 * @param args
+	 *            : array de string com os testes de aceitação do EasyAccept.
 	 */
 	public static void main(String[] args) {
 		args = new String[] { "com.projeto.principal.ListaPraMimFacade", "acceptance_test/use_case1.txt",
@@ -117,10 +120,10 @@ public class ListaPraMimFacade implements ListaPraMim {
 	/**
 	 * Metodo responsavel por exibir um item cadastrado no sistema.
 	 * 
-	 * @param identificador
-	 *            Um inteiro indicando qual a chave do item.
+	 * @param key
+	 *            : Um inteiro indicando qual a chave do item.
 	 * 
-	 * @return Uma String com a representacao textual do item.
+	 * @return : Retorna uma String com a representacao textual do item.
 	 */
 	@Override
 	public String exibeItem(Integer key) {
@@ -131,14 +134,14 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 * Metodo responsavel por atualizar um determinado atributo de um item do
 	 * sistema
 	 * 
-	 * @param identificador
+	 * @param key
 	 *            : Um inteiro indicando o identificador do item a ser atualizado
 	 * @param atributo
 	 *            : Uma String indicanco o atributo do item que deve ser alterado
 	 * @param novoValor
 	 *            : Uma string indicando o novo valor do atributo
 	 * 
-	 * @return : Um inteiro indicando o identificador do item atualizado
+	 * @return : Retorna um inteiro indicando o identificador do item atualizado
 	 */
 	@Override
 	public int atualizaItem(Integer key, String atributo, String novoValor) {
@@ -181,7 +184,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 * Metodo responsavel por buscar um item de acordo com uma posicao de forma que
 	 * ele esteja ordenado pelo nome
 	 * 
-	 * @param position
+	 * @param posicao
 	 *            : Um inteiro indicando a posicao do item na lista de itens
 	 *            ordenada pelo nome
 	 * @return : Uma String com a representacao textual do item selecionado
@@ -271,7 +274,7 @@ public class ListaPraMimFacade implements ListaPraMim {
 	 *            : Nome da lista de compras.
 	 * @param localCompra
 	 *            : Local onde as compras foram efetuadas.
-	 * @param valorFinalCompra
+	 * @param valorFinalDaCompra
 	 *            : Valor final da compra.
 	 */
 	@Override

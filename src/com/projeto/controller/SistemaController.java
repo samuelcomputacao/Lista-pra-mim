@@ -382,7 +382,7 @@ public class SistemaController implements Serializable {
 	 *            : Nome da lista de compras.
 	 * @param localCompra
 	 *            : Local onde as compras foram efetuadas.
-	 * @param valorFinalCompra
+	 * @param valorFinalDaCompra
 	 *            : Valor final da lista compra.
 	 */
 	public void finalizarListaDeCompras(String descritor, String localCompra, int valorFinalDaCompra) {
@@ -411,13 +411,13 @@ public class SistemaController implements Serializable {
 	/**
 	 * Metodo responsavel por atualizar um produto da lista de compras.
 	 * 
-	 * @param descritor
-	 *            : Nome da lista de compras.
+	 * @param descritorLista
+	 *            : nome da lista de compras.
 	 * @param idItem
 	 *            : id do item que sera atualizado na lista de compras.
 	 * @param operacao
 	 *            : operacao a ser realizada na lista de compras. (adiciona ou
-	 *            diminui)
+	 *            diminui).
 	 * @param quantidade
 	 *            : nova quantidae de itens.
 	 */
@@ -469,7 +469,7 @@ public class SistemaController implements Serializable {
 	 * Retorna o descritor de uma lista de compras que foi cadastrada na data e
 	 * posicao especificada.
 	 * 
-	 * @param data
+	 * @param dataString
 	 *            : Data da criacao da lista de compras.
 	 * @param posicao
 	 *            : Posicao da lista de compras.
@@ -519,9 +519,10 @@ public class SistemaController implements Serializable {
 	/**
 	 * Retorna a pesquisa de listas de compras por data.
 	 * 
-	 * @param data:
-	 *            data a ser pesquisada.
-	 * @return representacao textual das listas de compra.
+	 * @param dataString
+	 *            : data a ser pesquisada.
+	 *            
+	 * @return : Retorna a representacao textual das listas de compra.
 	 */
 	public String pesquisaListasDeComprasPorData(String dataString) {
 		return this.listaService.pesquisaListasDeComprasPorData(dataString);

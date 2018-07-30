@@ -363,6 +363,7 @@ public class ListaDeCompra implements Comparable<ListaDeCompra>, Serializable {
 	 * Metodo responsavel por adicionar uma colecao de Compras a lista de compras.
 	 * 
 	 * @param maisComprados
+	 *            : mapa com todos os itens mais comprados.
 	 */
 	public void adicionaCompras(Map<Item, Integer> maisComprados) {
 		for (Item item : maisComprados.keySet()) {
@@ -371,7 +372,7 @@ public class ListaDeCompra implements Comparable<ListaDeCompra>, Serializable {
 	}
 
 	/**
-	 * Metodo responsaevl por verificar se o mapa com a lista de compras esta vazio
+	 * Metodo responsavel por verificar se o mapa com a lista de compras esta vazio
 	 * ou nao.
 	 * 
 	 * @return valor boleano indicando se o mapa de lista de compras esta vazio ou

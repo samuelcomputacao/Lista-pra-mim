@@ -23,13 +23,17 @@ public class ProdutoPorUnidade extends Item {
 	 * categoria e preco.
 	 * 
 	 * @param id
-	 *            indentificacao do produto
+	 *            : indentificacao do produto.
 	 * @param nome
-	 *            nome do produto
+	 *            : nome do produto.
 	 * @param categoria
-	 *            categoria em que o produto esta
+	 *            : categoria em que o produto esta.
+	 * @param unidade
+	 *            : quantidade de unidades do produto.
+	 * @param localCompra
+	 *            : local onde foi comprado o produto.
 	 * @param preco
-	 *            preco do produto
+	 *            : preco do produto.
 	 */
 	public ProdutoPorUnidade(int id, String nome, String categoria, int unidade, String localCompra, double preco) {
 		super(id, nome, categoria);
@@ -70,11 +74,12 @@ public class ProdutoPorUnidade extends Item {
 	}
 
 	/**
-	 * Metodo  reponsavel pela  atualizacao
-	 * para os seus valores
+	 * Metodo reponsavel pela atualizacao para os seus valores
 	 * 
-	 * @param atribulto : Nome do atribulto que sera atualizado
-	 * @param novoValor : O novo valor que sera atribuido ao atribulto
+	 * @param atribulto
+	 *            : Nome do atribulto que sera atualizado
+	 * @param novoValor
+	 *            : O novo valor que sera atribuido ao atribulto
 	 * @return : O identificador do item
 	 */
 	@Override
@@ -100,11 +105,11 @@ public class ProdutoPorUnidade extends Item {
 		}
 		return super.getId();
 	}
+
 	@Override
 	public String getDescricao() {
 		return super.getNome() + ", " + super.getCategoria();
 	}
-
 
 	@Override
 	public int getQuantidade() {
