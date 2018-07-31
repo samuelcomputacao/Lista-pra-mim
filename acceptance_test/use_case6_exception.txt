@@ -1,4 +1,4 @@
-###########################
+﻿###########################
 # Caso de Uso 6 Exception #
 ###########################
 
@@ -12,7 +12,7 @@ adicionaCompraALista descritorLista="feiraVerde" quantidade=5 itemId=7
 expect "5 Coentro, alimento nao industrializado" pesquisaCompraEmLista descritorLista="feiraVerde" itemId=7
 
 expect "Mercadinho Bem Barato: R$ 6,95" sugereMelhorEstabelecimento descritorLista="feiraVerde" posicaoEstabelecimento=0 posicaoLista=0
-expect "5 Coentro, alimento nao industrializado" sugereMelhorEstabelecimento descritorLista="feiraVerde" posicaoEstabelecimento=0 posicaoLista=1
+expect "- 5 Coentro, alimento nao industrializado" sugereMelhorEstabelecimento descritorLista="feiraVerde" posicaoEstabelecimento=0 posicaoLista=1
 
 ## Deleta item ##
 

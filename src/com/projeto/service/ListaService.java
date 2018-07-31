@@ -481,7 +481,7 @@ public class ListaService implements Serializable {
 			if (posicaoLista - 1 >= estabelecimento.getCompras().size()) {
 				return "";
 			}
-			return estabelecimento.getCompras().get(posicaoLista - 1).toString();
+			return "- " + estabelecimento.getCompras().get(posicaoLista - 1).toString();
 		}
 	}
 
