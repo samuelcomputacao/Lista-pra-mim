@@ -2,12 +2,12 @@ package com.projeto.comparadores;
 
 import java.util.Comparator;
 
-import com.projeto.model.ListaDeCompra;
+import com.projeto.model.ListaDeCompras;
 
-public class ComparaData implements Comparator<ListaDeCompra>{
+public class ComparaData implements Comparator<ListaDeCompras>{
 
 	@Override
-	public int compare(ListaDeCompra lista1, ListaDeCompra lista2) {
+	public int compare(ListaDeCompras lista1, ListaDeCompras lista2) {
 		return lista1.getData().compareTo(lista2.getData());
 	}
 

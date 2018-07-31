@@ -16,7 +16,7 @@ import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.model.Compra;
 import com.projeto.model.Estabelecimento;
 import com.projeto.model.Item;
-import com.projeto.model.ListaDeCompra;
+import com.projeto.model.ListaDeCompras;
 import com.projeto.util.Estrategia;
 import com.projeto.util.Mensagem;
 import com.projeto.util.ValidadorSistema;
@@ -35,7 +35,7 @@ public class ListaService implements Serializable {
 	/**
 	 * Uma lista com todas as listaDeCompras do sistema.
 	 */
-	private Map<String, ListaDeCompra> listas;
+	private Map<String, ListaDeCompras> listas;
 
 	/**
 	 * Metodo inicicializador do servico de sistema
@@ -57,7 +57,7 @@ public class ListaService implements Serializable {
 		ValidadorSistema.validaExistenciaDeListaDeCompras(descritor, this.listas,
 				Mensagem.MSG_EXCECAO_CRIACAO_COMPRA.get());
 
-		this.listas.put(descritor, new ListaDeCompra(descritor));
+		this.listas.put(descritor, new ListaDeCompras(descritor));
 		return descritor;
 	}
 
@@ -73,8 +73,8 @@ public class ListaService implements Serializable {
 	 *            : O item que sera adicionado na lista de compras.
 	 */
 	public void adicionaCompraALista(String descritor, int quantidade, Item item) {
-		ListaDeCompra listaDeCompra = this.listas.get(descritor);
-		listaDeCompra.adicionaCompraALista(quantidade, item);
+		ListaDeCompras listaDeCompras = this.listas.get(descritor);
+		listaDeCompras.adicionaCompraALista(quantidade, item);
 	}
 
 	/**
@@ -88,8 +88,8 @@ public class ListaService implements Serializable {
 	 *            : Valor final da compra.
 	 */
 	public void finalizarListaDeCompras(String descritor, String localCompra, int valorFinalDaCompra) {
-		ListaDeCompra listaDeCompra = this.listas.get(descritor);
-		listaDeCompra.finalizar(localCompra, valorFinalDaCompra);
+		ListaDeCompras listaDeCompras = this.listas.get(descritor);
+		listaDeCompras.finalizar(localCompra, valorFinalDaCompra);
 	}
 
 	/**
@@ -102,8 +102,8 @@ public class ListaService implements Serializable {
 	 * @return Representacao textual do item que esta na lista.
 	 */
 	public String pesquisaCompraEmLista(String descritor, Integer idItem) {
-		ListaDeCompra listaDeCompra = this.listas.get(descritor);
-		return listaDeCompra.pesquisaCompraEmLista(idItem);
+		ListaDeCompras listaDeCompras = this.listas.get(descritor);
+		return listaDeCompras.pesquisaCompraEmLista(idItem);
 	}
 
 	/**
@@ -119,8 +119,8 @@ public class ListaService implements Serializable {
 	 *            : nova quantidae de itens.
 	 */
 	public void atualizaCompraDeLista(String descritorLista, Integer idItem, String operacao, int quantidade) {
-		ListaDeCompra listaDeCompra = this.listas.get(descritorLista);
-		listaDeCompra.atualizaCompraDeLista(idItem, operacao, quantidade);
+		ListaDeCompras listaDeCompras = this.listas.get(descritorLista);
+		listaDeCompras.atualizaCompraDeLista(idItem, operacao, quantidade);
 	}
 
 	/**
@@ -134,8 +134,8 @@ public class ListaService implements Serializable {
 	 */
 
 	public String getItemLista(String descritor, int posicao) {
-		ListaDeCompra listaDeCompra = this.listas.get(descritor);
-		return listaDeCompra.getItemLista(posicao);
+		ListaDeCompras listaDeCompras = this.listas.get(descritor);
+		return listaDeCompras.getItemLista(posicao);
 	}
 
 	/**
@@ -163,8 +163,8 @@ public class ListaService implements Serializable {
 	public void deletaCompraDeLista(String descritor, Integer idItem) {
 		ValidadorSistema.validaDescritor(descritor, Mensagem.MSG_EXCECAO_EXCLUSAO_COMPRA.get());
 
-		ListaDeCompra listaDeCompra = this.listas.get(descritor);
-		listaDeCompra.deletaCompraDeLista(idItem);
+		ListaDeCompras listaDeCompras = this.listas.get(descritor);
+		listaDeCompras.deletaCompraDeLista(idItem);
 
 	}
 
@@ -183,7 +183,7 @@ public class ListaService implements Serializable {
 		try {
 
 			Date data = formataData(dataString);
-			List<ListaDeCompra> lista = buscaPorData(data);
+			List<ListaDeCompras> lista = buscaPorData(data);
 			Collections.sort(lista);
 			return lista.get(posicao).getDescritor();
 		} catch (
@@ -216,9 +216,9 @@ public class ListaService implements Serializable {
 	 *            Lista com Todas as compras que foram efetuadas nessa data
 	 * @return Lista de lista de compras
 	 */
-	private List<ListaDeCompra> buscaPorData(Date data) {
-		List<ListaDeCompra> lista = new ArrayList<>();
-		for (ListaDeCompra list : this.listas.values()) {
+	private List<ListaDeCompras> buscaPorData(Date data) {
+		List<ListaDeCompras> lista = new ArrayList<>();
+		for (ListaDeCompras list : this.listas.values()) {
 			if (list.getDataFormatada().equals(data)) {
 				lista.add(list);
 			}
@@ -238,9 +238,9 @@ public class ListaService implements Serializable {
 	 * @return : Retorna a data de criacao e o descritor da lista de compras.
 	 */
 	public String getItemListaPorItem(Integer idItem, int posicao) {
-		List<ListaDeCompra> lista = buscaPorItem(idItem);
+		List<ListaDeCompras> lista = buscaPorItem(idItem);
 		Collections.sort(lista);
-		ListaDeCompra listaCompra = lista.get(posicao);
+		ListaDeCompras listaCompra = lista.get(posicao);
 		String retorno = listaCompra.getDataTextual() + " - " + listaCompra.getDescritor();
 		return retorno;
 	}
@@ -252,9 +252,9 @@ public class ListaService implements Serializable {
 	 *            Id do item que sera pesquisado
 	 * @return Lista de lista de compras
 	 */
-	private List<ListaDeCompra> buscaPorItem(Integer idItem) {
-		List<ListaDeCompra> lista = new ArrayList<>();
-		for (ListaDeCompra list : this.listas.values()) {
+	private List<ListaDeCompras> buscaPorItem(Integer idItem) {
+		List<ListaDeCompras> lista = new ArrayList<>();
+		for (ListaDeCompras list : this.listas.values()) {
 			if (list.possuiCompra(idItem)) {
 				lista.add(list);
 			}
@@ -275,7 +275,7 @@ public class ListaService implements Serializable {
 			if (ValidadorSistema.validaData(dataString)) {
 
 				Date data = formataData(dataString);
-				for (ListaDeCompra lista : listas.values()) {
+				for (ListaDeCompras lista : listas.values()) {
 					if (lista.getData().equals(data)) {
 						return lista.buscaTodosItens();
 					}
@@ -298,7 +298,7 @@ public class ListaService implements Serializable {
 	 */
 	public String pesquisaListasDeComprasPorItem(int id) {
 		String volta = "";
-		for (ListaDeCompra lista : listas.values()) {
+		for (ListaDeCompras lista : listas.values()) {
 			if (lista.possuiCompra(id)) {
 				volta += lista.getDescritor() + System.lineSeparator();
 			}
@@ -318,12 +318,12 @@ public class ListaService implements Serializable {
 	 * @return : representacao textual do dia em que foi realizada a ultima compra.
 	 */
 	public String geraAutomaticaUltimaLista(String dataAtual) {
-		ListaDeCompra lista = getUltimaLista();
+		ListaDeCompras lista = getUltimaLista();
 		String descritor = Estrategia.ESTRATEGIA_1.get() + " " + dataAtual;
-		ListaDeCompra listaDeCompra = new ListaDeCompra(descritor);
-		listaDeCompra.setCompras(lista.getCompras());
-		listaDeCompra.setValorFinal(lista.getValorFinal());
-		this.listas.put(descritor, listaDeCompra);
+		ListaDeCompras listaDeCompras = new ListaDeCompras(descritor);
+		listaDeCompras.setCompras(lista.getCompras());
+		listaDeCompras.setValorFinal(lista.getValorFinal());
+		this.listas.put(descritor, listaDeCompras);
 		return descritor;
 	}
 
@@ -332,8 +332,8 @@ public class ListaService implements Serializable {
 	 * 
 	 * @return Lista de compra
 	 */
-	private ListaDeCompra getUltimaLista() {
-		List<ListaDeCompra> lista = new ArrayList<>(this.listas.values());
+	private ListaDeCompras getUltimaLista() {
+		List<ListaDeCompras> lista = new ArrayList<>(this.listas.values());
 		Collections.sort(lista, new ComparaData());
 		return lista.get(lista.size() - 1);
 	}
@@ -351,15 +351,15 @@ public class ListaService implements Serializable {
 	 *         comprado.
 	 */
 	public String geraAutomaticaItem(String descritorItem, String dataAtual) {
-		ListaDeCompra lista = getUltimaLista(descritorItem);
+		ListaDeCompras lista = getUltimaLista(descritorItem);
 		ValidadorSistema.validaListaDeCompra(lista);
 
 		String descritor = Estrategia.ESTRATEGIA_2.get() + " " + dataAtual;
 
-		ListaDeCompra listaDeCompra = new ListaDeCompra(descritor);
-		listaDeCompra.setCompras(lista.getCompras());
-		listaDeCompra.setValorFinal(lista.getValorFinal());
-		this.listas.put(descritor, listaDeCompra);
+		ListaDeCompras listaDeCompras = new ListaDeCompras(descritor);
+		listaDeCompras.setCompras(lista.getCompras());
+		listaDeCompras.setValorFinal(lista.getValorFinal());
+		this.listas.put(descritor, listaDeCompras);
 		return descritor;
 	}
 
@@ -371,14 +371,14 @@ public class ListaService implements Serializable {
 	 * 
 	 * @return : Retorna a lista de compras que contem o item.
 	 */
-	private ListaDeCompra getUltimaLista(String nomeItem) {
-		List<ListaDeCompra> lista = new ArrayList<>(this.listas.values());
+	private ListaDeCompras getUltimaLista(String nomeItem) {
+		List<ListaDeCompras> lista = new ArrayList<>(this.listas.values());
 		Collections.sort(lista, new ComparaData());
-		ListaDeCompra listaDeCompra = null;
+		ListaDeCompras listaDeCompras = null;
 		for (int i = lista.size() - 1; i >= 0; i--) {
-			listaDeCompra = lista.get(i);
-			if (listaDeCompra.contemItem(nomeItem)) {
-				return listaDeCompra;
+			listaDeCompras = lista.get(i);
+			if (listaDeCompras.contemItem(nomeItem)) {
+				return listaDeCompras;
 			}
 		}
 		return null;
@@ -400,9 +400,9 @@ public class ListaService implements Serializable {
 		Map<Item, Integer> maisComprados = buscaMaisComprados(itens);
 
 		String descritor = Estrategia.ESTRATEGIA_3.get() + " " + dataAtual;
-		ListaDeCompra listaDeCompra = new ListaDeCompra(descritor);
-		listaDeCompra.adicionaCompras(maisComprados);
-		this.listas.put(descritor, listaDeCompra);
+		ListaDeCompras listaDeCompras = new ListaDeCompras(descritor);
+		listaDeCompras.adicionaCompras(maisComprados);
+		this.listas.put(descritor, listaDeCompras);
 		return descritor;
 	}
 
@@ -452,7 +452,7 @@ public class ListaService implements Serializable {
 	private List<Compra> listasQuePossui(Item item) {
 		List<Compra> compras = new ArrayList<>();
 
-		for (ListaDeCompra lista : this.listas.values()) {
+		for (ListaDeCompras lista : this.listas.values()) {
 			Compra compra = lista.getCompra(item.getId());
 			if (compra != null) {
 				compras.add(compra);
@@ -466,7 +466,7 @@ public class ListaService implements Serializable {
 		if (!this.listas.containsKey(descritor)) {
 			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_DADOS_INSUFICIENTES.get());
 		}
-		ListaDeCompra lista = this.listas.get(descritor);
+		ListaDeCompras lista = this.listas.get(descritor);
 		Map<String, Estabelecimento> estabelecimentos = buscaLocais(lista);
 		List<Estabelecimento> listaEstabelecimentos = new ArrayList<>(estabelecimentos.values());
 		Collections.sort(listaEstabelecimentos);
@@ -485,7 +485,7 @@ public class ListaService implements Serializable {
 		}
 	}
 
-	private Map<String, Estabelecimento> buscaLocais(ListaDeCompra lista) {
+	private Map<String, Estabelecimento> buscaLocais(ListaDeCompras lista) {
 		Map<String, Estabelecimento> locais = new HashMap<>();
 
 		for (Compra c : lista.getCompras().values()) {
@@ -504,7 +504,7 @@ public class ListaService implements Serializable {
 	}
 
 	public List<Item> getItens(String descritor) {
-		ListaDeCompra lista = this.listas.get(descritor);
+		ListaDeCompras lista = this.listas.get(descritor);
 		return lista.getItens();
 	}
 

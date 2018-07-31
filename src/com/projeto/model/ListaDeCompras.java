@@ -21,7 +21,7 @@ import com.projeto.util.ValidadorSistema;
  * data de criacao, local de compra, se a mesma foi finalizada e o seu valor
  * final.
  */
-public class ListaDeCompra implements Comparable<ListaDeCompra>, Serializable {
+public class ListaDeCompras implements Comparable<ListaDeCompras>, Serializable {
 
 	/**
 	 * 
@@ -65,7 +65,7 @@ public class ListaDeCompra implements Comparable<ListaDeCompra>, Serializable {
 	 * @param descritor
 	 *            String que representa o descritor da lista de compras.
 	 */
-	public ListaDeCompra(String descritor) {
+	public ListaDeCompras(String descritor) {
 		ValidadorSistema.validaDescritor(descritor, "Erro em lista de compra: Descritor invalido.");
 
 		// SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -230,7 +230,7 @@ public class ListaDeCompra implements Comparable<ListaDeCompra>, Serializable {
 	 * Metodo compareTo baseado no descritor da lista de compras.
 	 */
 	@Override
-	public int compareTo(ListaDeCompra o) {
+	public int compareTo(ListaDeCompras o) {
 		return this.descritor.toLowerCase().compareTo(o.getDescritor().toLowerCase());
 	}
 

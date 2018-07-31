@@ -15,7 +15,7 @@ public class ListaDeCompraTest {
 	/**
 	 * Lista de compras que sera usada nos testes.
 	 */
-	private ListaDeCompra lista;
+	private ListaDeCompras lista;
 
 	/**
 	 * Itens que auxiliaram os testes.
@@ -25,7 +25,7 @@ public class ListaDeCompraTest {
 
 	@Before
 	public void inicializa() {
-		lista = new ListaDeCompra("produtos de limpeza");
+		lista = new ListaDeCompras("produtos de limpeza");
 		cremeDental = new ProdutoPorUnidade(1, "creme dental", "higiene pessoal", 1, "Rede pharma", 3.95);
 		sabonete = new ProdutoPorUnidade(1, "sabonete", "higiene pessoal", 1, "dias", 0.95);
 	}
@@ -35,9 +35,9 @@ public class ListaDeCompraTest {
 	 */
 	@Test
 	public void testListaDeCompra() {
-		new ListaDeCompra("compras que valeram a pena");
-		new ListaDeCompra("feira de 12/12/2012");
-		new ListaDeCompra("produtos para ceia natalina");
+		new ListaDeCompras("compras que valeram a pena");
+		new ListaDeCompras("feira de 12/12/2012");
+		new ListaDeCompras("produtos para ceia natalina");
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class ListaDeCompraTest {
 	 */
 	@Test(expected = CampoInvalidoException.class)
 	public void testListaDeCompraDescritorNull() {
-		new ListaDeCompra(null);
+		new ListaDeCompras(null);
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class ListaDeCompraTest {
 	 */
 	@Test(expected = CampoInvalidoException.class)
 	public void testListaDeCompraDescritorVazio() {
-		new ListaDeCompra("  ");
+		new ListaDeCompras("  ");
 	}
 
 	/**

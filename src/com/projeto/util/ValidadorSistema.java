@@ -7,7 +7,7 @@ import com.projeto.excecoes.CategoriaInexistenteException;
 import com.projeto.excecoes.ItemInexistenteException;
 import com.projeto.excecoes.ItemJaExisteException;
 import com.projeto.model.Item;
-import com.projeto.model.ListaDeCompra;
+import com.projeto.model.ListaDeCompras;
 
 /**
  * Classe responsavel por realizar validacoes de campos no sistema.
@@ -345,7 +345,7 @@ public class ValidadorSistema {
 	 *            validador.
 	 * @return true se a lista de compras nao pertence ao mapa de lista de compras.
 	 */
-	public static boolean validaExistenciaDeListaDeCompras(String descritor, Map<String, ListaDeCompra> listaCompras,
+	public static boolean validaExistenciaDeListaDeCompras(String descritor, Map<String, ListaDeCompras> listaCompras,
 			String msgExcecaoMetodo) {
 		if (listaCompras.containsKey(descritor)) {
 			throw new CampoInvalidoException(msgExcecaoMetodo + "lista de compras ja existe.");
@@ -366,7 +366,7 @@ public class ValidadorSistema {
 	 *            validador.
 	 * @return true se a lista de compras pertence ao mapa de lista de compras.
 	 */
-	public static boolean validaInexistenciaDeListaDeCompras(String descritor, Map<String, ListaDeCompra> listaCompras,
+	public static boolean validaInexistenciaDeListaDeCompras(String descritor, Map<String, ListaDeCompras> listaCompras,
 			String msgExcecaoMetodo) {
 		if (!listaCompras.containsKey(descritor)) {
 			throw new CampoInvalidoException(msgExcecaoMetodo + "lista de compras nao existe.");
@@ -496,7 +496,7 @@ public class ValidadorSistema {
 	 *            
 	 * @return : Retorna um boolean indicando se a lista e valida ou nao.
 	 */
-	public static boolean validaListaDeCompra(ListaDeCompra lista) {
+	public static boolean validaListaDeCompra(ListaDeCompras lista) {
 		if (lista == null) {
 			throw new CampoInvalidoException(Mensagem.MSG_EXCECAO_GERA_LISTA_AUTOMATICA_ITEM.get()
 					+ "nao ha compras cadastradas com o item desejado.");
