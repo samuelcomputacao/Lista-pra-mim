@@ -112,11 +112,6 @@ public class ProdutoNaoIndustrializadoPorQuilo extends Item {
 		return super.getId();
 	}
 	@Override
-	public String getDescricao() {
-		return super.getDescricao()+", "+ this.quilo;
-	}
-
-	@Override
 	public int getQuantidade() {
 		int quilos = (int) (this.quilo*100);
 		return  quilos;
