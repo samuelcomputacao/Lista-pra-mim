@@ -966,14 +966,6 @@ public class SistemaControllertest {
 	}
 
 	/**
-	 * Metodo responsavel por retornar a representacao textual do dia .
-	 */
-	@Test
-	public void testDataAtual() {
-		assertEquals("30/07/2018", this.sistemaController.dataAtual());
-	}
-
-	/**
 	 * Testa o metodo getItemListaPorData.
 	 */
 	@Test
@@ -982,7 +974,7 @@ public class SistemaControllertest {
 		this.sistemaController.adicionaItemPorUnidade("creme dental", "higiene pessoal", 5, "super market", 2.90);
 		this.sistemaController.adicionaCompraALista("feira semana", 2, 1);
 		this.sistemaController.pesquisaListaDeCompras("feira semana");
-		assertEquals("feira semana", this.sistemaController.getItemListaPorData("30/07/2018", 0));
+		assertEquals("feira semana", this.sistemaController.getItemListaPorData(this.sistemaController.dataAtual(),0));
 	}
 
 	/**
@@ -1025,7 +1017,7 @@ public class SistemaControllertest {
 		this.sistemaController.adicionaCompraALista("feira da outra semana", 7, 2);
 		this.sistemaController.adicionaCompraALista("feira da antiga semana", 5, 2);
 
-		assertEquals("30/07/2018 - feira da outra semana", this.sistemaController.getItemListaPorItem(2, 1));
+		assertEquals(this.sistemaController.dataAtual() + " - feira da outra semana", this.sistemaController.getItemListaPorItem(2, 1));
 	}
 
 	/**
@@ -1096,7 +1088,7 @@ public class SistemaControllertest {
 		this.sistemaController.adicionaItemPorUnidade("creme dental", "higiene pessoal", 5, "super market", 2.90);
 		this.sistemaController.adicionaCompraALista("feira semana", 2, 1);
 		this.sistemaController.adicionaCompraALista("feira da outra semana", 2, 1);
-		assertEquals("Lista automatica 1 30/07/2018", this.sistemaController.geraAutomaticaUltimaLista());
+		assertEquals("Lista automatica 1 " + this.sistemaController.dataAtual(), this.sistemaController.geraAutomaticaUltimaLista());
 	}
 
 	/**
@@ -1110,7 +1102,7 @@ public class SistemaControllertest {
 		this.sistemaController.adicionaItemPorUnidade("creme dental", "higiene pessoal", 5, "super market", 2.90);
 		this.sistemaController.adicionaCompraALista("feira semana", 2, 1);
 		this.sistemaController.adicionaCompraALista("feira da outra semana", 2, 1);
-		assertEquals("Lista automatica 2 30/07/2018", this.sistemaController.geraAutomaticaItem("creme dental"));
+		assertEquals("Lista automatica 2 "+this.sistemaController.dataAtual(), this.sistemaController.geraAutomaticaItem("creme dental"));
 	}
 
 	/**
@@ -1134,7 +1126,7 @@ public class SistemaControllertest {
 		this.sistemaController.adicionaCompraALista("feiral semanal", 5, 1);
 		this.sistemaController.adicionaCompraALista("feira da semana", 10, 2);
 
-		assertEquals("Lista automatica 3 30/07/2018", this.sistemaController.geraAutomaticaItensMaisPresentes());
+		assertEquals("Lista automatica 3 "+this.sistemaController.dataAtual(), this.sistemaController.geraAutomaticaItensMaisPresentes());
 	}
 
 	/**
