@@ -172,6 +172,7 @@ public class ListaDeCompras implements Comparable<ListaDeCompras>, Serializable 
 	 *            Inteiro com o alor final da compra.
 	 */
 	public void finalizar(String local, int valorFinal) {
+		ValidadorSistema.validaLocalCompra(local, "Erro ao finalixar lista de compra");
 		this.local = local;
 		this.valorFinal = valorFinal;
 		this.finalizada = true;

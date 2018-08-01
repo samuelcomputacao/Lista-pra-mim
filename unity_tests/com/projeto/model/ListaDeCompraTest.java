@@ -1,11 +1,14 @@
 package com.projeto.model;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.projeto.excecoes.CampoInvalidoException;
+import com.projeto.excecoes.CompraNaoCadastrada;
 
 /**
  * Classe de teste que testa todas as funcionalidades da classe ListaDeCompras.
@@ -91,136 +94,167 @@ public class ListaDeCompraTest {
 		lista.adicionaCompraALista(-1, cremeDental);
 	}
 
-	// Terminarei amanha (29/07/2018) o restante dos testes dessa classe.
 
-	@Test
-	public void testAtualizaCompraDeLista() {
-		fail("Not yet implemented");
+	/**
+	 * Testa o metodo atualiza lista de compra com compra nao cadastrada
+	 */
+	@Test(expected = CompraNaoCadastrada.class)
+	public void testAtualizaCompraDeListaCompraNaoCadatrada() {
+		lista.atualizaCompraDeLista(1, "adiciona", 1);
+	}
+	
+	/**
+	 * Testa o metodo atualiza lista de compra com operacao invalida
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testAtualizaCompraDeListaCompraOperacaoInvalida() {
+		lista.atualizaCompraDeLista(1, "removenerrr", 1);
 	}
 
+	/**
+	 * Testas o metodo que retorna a compra de uma lista quando ele nao foi cadatrada
+	 */
 	@Test
-	public void testGetItemLista() {
-		fail("Not yet implemented");
+	public void testGetItemListaCompraNaoCadatrada() {
+		assertEquals("", lista.getItemLista(10));
+	}
+	
+	/**
+	 * Testas o metodo que retorna a compra de uma lista
+	 */
+	@Test
+	public void testGetItemListaCompra() {
+		lista.adicionaCompraALista(1, sabonete);
+		assertEquals("1 sabonete, higiene pessoal", lista.getItemLista(0));
 	}
 
+	/**
+	 * Testa o metodo que busca todos os itens de uma lita de compras
+	 */
 	@Test
 	public void testBuscaTodosItens() {
-		fail("Not yet implemented");
+		lista.adicionaCompraALista(1, sabonete);
+		assertEquals("1 sabonete, higiene pessoal" + System.lineSeparator() , lista.buscaTodosItens());
+	}
+	
+	/**
+	 * Testa o metodo que busca todos os itens de uma lita de compras que nao possui itens
+	 */
+	@Test
+	public void testBuscaTodosItensSemItens() {
+		assertEquals("", lista.buscaTodosItens());
 	}
 
+	/**
+	 * Testa a pesquisa de uma compra nao cadatrada na lista de compra 
+	 */
+	@Test(expected = CompraNaoCadastrada.class)
+	public void testPesquisaCompraEmListaQueNaoTemCompras() {
+		lista.pesquisaCompraEmLista(1);
+	}
+	
+	/**
+	 * Testa a pesquisa de uma compra cadatrada na lista de compra
+	 */
 	@Test
 	public void testPesquisaCompraEmLista() {
-		fail("Not yet implemented");
+		lista.adicionaCompraALista(1, sabonete);
+		assertEquals("1 sabonete, higiene pessoal",lista.pesquisaCompraEmLista(1));
 	}
 
+	/**
+	 * Testa a finalizcao de uma lista de compra
+	 */
 	@Test
 	public void testFinalizar() {
-		fail("Not yet implemented");
+		lista.finalizar("Hiper", 1000);
+		assertTrue(lista.isFinalizada());
+	}
+	
+	/**
+	 * Testa a finalizacao de uma lista de compra com o local invalido
+	 */
+	@Test(expected = CampoInvalidoException.class)
+	public void testFinalizarLocalInvalido() {
+		lista.finalizar("", 1000);
 	}
 
-	@Test
-	public void testIsFinalizada() {
-		fail("Not yet implemented");
-	}
-
-	@Test
+	/**
+	 * Testa a remocao de uma compra nao cadatrada
+	 */
+	@Test(expected = CompraNaoCadastrada.class)
 	public void testDeletaCompraDeLista() {
-		fail("Not yet implemented");
+		lista.deletaCompraDeLista(1);
 	}
 
-	@Test
-	public void testGetData() {
-		fail("Not yet implemented");
-	}
-
+	/**
+	 * Testa o metodo que retorna o descritor da lista
+	 */
 	@Test
 	public void testGetDescritor() {
-		fail("Not yet implemented");
+		assertEquals("produtos de limpeza", lista.getDescritor());
 	}
 
-	@Test
-	public void testCompareTo() {
-		fail("Not yet implemented");
-	}
-
+	/**
+	 * Testa o toString de uma lista de compra
+	 */
 	@Test
 	public void testToString() {
-		fail("Not yet implemented");
+		assertEquals("produtos de limpeza", lista.toString());
 	}
 
-	@Test
-	public void testGetItem() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testPossuiCompra() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetDataFormatada() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetDataTextual() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetCompras() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetCompras() {
-		fail("Not yet implemented");
-	}
-
+	/**
+	 * Testa o metodo que retorna o valor final da lista
+	 */
 	@Test
 	public void testGetValorFinal() {
-		fail("Not yet implemented");
+		lista.finalizar("hiper", 1000);
+		assertEquals(1000, lista.getValorFinal());
 	}
 
-	@Test
-	public void testSetValorFinal() {
-		fail("Not yet implemented");
-	}
-
+	/**
+	 * Testa a verificacao de que um item esta na lista
+	 */
 	@Test
 	public void testContemItem() {
-		fail("Not yet implemented");
+		lista.adicionaCompraALista(1, sabonete);
+		assertTrue(lista.contemItem("sabonete"));
 	}
-
+	
+	/**
+	 * Testa a verificacao de que um item esta na lista
+	 */
 	@Test
-	public void testGetCompra() {
-		fail("Not yet implemented");
+	public void testContemItemFalse() {
+		assertFalse(lista.contemItem("sabonete"));
 	}
 
-	@Test
-	public void testAdicionaItens() {
-		fail("Not yet implemented");
-	}
-
+	
+	/**
+	 * Testa se a lista nao tem compras cadastradas
+	 */
 	@Test
 	public void testIsEmpty() {
-		fail("Not yet implemented");
+		assertTrue(lista.isEmpty());
+	}
+	
+	/**
+	 * Testa se a lista nao tem compras cadastradas
+	 */
+	@Test
+	public void testIsEmptyFalse() {
+		lista.adicionaCompraALista(1, sabonete);
+		assertFalse(lista.isEmpty());
 	}
 
+	/**
+	 * Testa o metodo que retorna o local onde a lista foi finalizada
+	 */
 	@Test
 	public void testGetLocal() {
-		fail("Not yet implemented");
+		lista.finalizar("hiper", 1000);
+		assertEquals("hiper", lista.getLocal());
 	}
 
-	@Test
-	public void testSugereMelhorEstabelecimento() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetItens() {
-		fail("Not yet implemented");
-	}
 
 }
