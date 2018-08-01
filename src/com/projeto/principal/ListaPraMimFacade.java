@@ -453,16 +453,29 @@ public class ListaPraMimFacade implements ListaPraMim {
 		return this.sistemaController.geraAutomaticaItensMaisPresentes();
 	}
 
+	/**
+	 * Metodo responsavel por gerar o melhor estabelecimento para uma lista de compra
+	 * @param descritor : Uma string indicando o nome da lista de comrpa que sera utilizada como base
+	 * @param posicaoEstabelecimento :  Um inteiro indicando a posicao do estabelecimento ao ordenar os melhores estabelecimentos
+	 * @param posicaoLista : Posicao da compra na lista ordenada de compras do estabelecimento indicado
+	 * @return Uma string contendo a representacao textual do melhor estabelecimento
+	 */
 	@Override
 	public String sugereMelhorEstabelecimento(String descritor, int posicaoEstabelecimento, int posicaoLista) {
 		return this.sistemaController.sugereMelhorEstabelecimento(descritor, posicaoEstabelecimento, posicaoLista);
 	}
 
+	/**
+	 * Metodo responsavel por fechar o sistema e salvar os dados em arquivo
+	 */
 	@Override
 	public void fechaSistema() {
 		this.sistemaController.fechaSistema();
 	}
 
+	/**
+	 * Metodo responsavel por carregar os dados de um arquivo inicializado o sistema
+	 */
 	@Override
 	public void iniciaSistema() {
 		File file = new File("dados.txt");

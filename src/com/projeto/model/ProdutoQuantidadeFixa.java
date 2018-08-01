@@ -12,9 +12,6 @@ import com.projeto.util.ValidadorSistema;
 
 public class ProdutoQuantidadeFixa extends Item {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5544742937901140079L;
 
 	/**

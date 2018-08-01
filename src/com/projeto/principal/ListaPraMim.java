@@ -1,5 +1,9 @@
 package com.projeto.principal;
 
+/**
+ * Interface responsavel pelo contrato do sistema
+ *
+ */
 public interface ListaPraMim {
 
 	/**

@@ -14,9 +14,9 @@ import java.util.Map;
 import com.projeto.comparadores.ComparaData;
 import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.model.Compra;
-import com.projeto.model.Estabelecimento;
 import com.projeto.model.Item;
 import com.projeto.model.ListaDeCompras;
+import com.projeto.util.Estabelecimento;
 import com.projeto.util.Estrategia;
 import com.projeto.util.Mensagem;
 import com.projeto.util.ValidadorSistema;
@@ -27,9 +27,7 @@ import com.projeto.util.ValidadorSistema;
  */
 public class ListaService implements Serializable {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -2134795757559679940L;
 
 	/**
@@ -461,6 +459,13 @@ public class ListaService implements Serializable {
 		return compras;
 	}
 
+	/**
+	 * Metodo responsavel por gerar o melhor estabelecimento para uma lista de compra
+	 * @param descritor : Uma string indicando o nome da lista de comrpa que sera utilizada como base
+	 * @param posicaoEstabelecimento :  Um inteiro indicando a posicao do estabelecimento ao ordenar os melhores estabelecimentos
+	 * @param posicaoLista : Posicao da compra na lista ordenada de compras do estabelecimento indicado
+	 * @return Uma string contendo a representacao textual do melhor estabelecimento
+	 */
 	public String sugereMelhorEstabelecimento(String descritor, int posicaoEstabelecimento, int posicaoLista) {
 
 		if (!this.listas.containsKey(descritor)) {
@@ -485,6 +490,11 @@ public class ListaService implements Serializable {
 		}
 	}
 
+	/**
+	 * Metodo responsavel por realizar um mapeamento associando um local de compra com estabelecimentos
+	 * @param lista : uma lista de compra que sera utilizada como base para o mapeamento
+	 * @return
+	 */
 	private Map<String, Estabelecimento> buscaLocais(ListaDeCompras lista) {
 		Map<String, Estabelecimento> locais = new HashMap<>();
 
@@ -503,6 +513,11 @@ public class ListaService implements Serializable {
 		return locais;
 	}
 
+	/**
+	 * Metodo responsavel por retornar uma lista de itens de uma lista de compra
+	 * @param descritor : Uma String indicando o descritor da lista que sera analizada
+	 * @return Uma lista de itens
+	 */
 	public List<Item> getItens(String descritor) {
 		ListaDeCompras lista = this.listas.get(descritor);
 		return lista.getItens();

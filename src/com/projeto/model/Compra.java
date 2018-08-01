@@ -12,9 +12,7 @@ import com.projeto.util.ValidadorSistema;
  */
 public class Compra implements Comparable<Compra>, Serializable {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -6419654229622496986L;
 
 	/**

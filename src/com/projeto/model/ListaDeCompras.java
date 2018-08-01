@@ -23,9 +23,6 @@ import com.projeto.util.ValidadorSistema;
  */
 public class ListaDeCompras implements Comparable<ListaDeCompras>, Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2980988884358572850L;
 
 	/**
@@ -68,14 +65,8 @@ public class ListaDeCompras implements Comparable<ListaDeCompras>, Serializable 
 	public ListaDeCompras(String descritor) {
 		ValidadorSistema.validaDescritor(descritor, "Erro em lista de compra: Descritor invalido.");
 
-		// SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		// String dataString = dateFormat.format(new Date());
-		try {
-			// this.dataCriacao = dateFormat.parse(dataString);
-			dataCriacao = new Date();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		dataCriacao = new Date();
+
 		this.descritor = descritor;
 		this.compras = new HashMap<>();
 		this.finalizada = false;

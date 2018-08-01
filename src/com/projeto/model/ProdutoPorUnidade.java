@@ -9,10 +9,9 @@ import com.projeto.util.ValidadorSistema;
  */
 public class ProdutoPorUnidade extends Item {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -8449407691105011118L;
+	
 	/**
 	 * Quantidade de itens que o produto tem.
 	 */
@@ -106,18 +105,13 @@ public class ProdutoPorUnidade extends Item {
 		return super.getId();
 	}
 
+	/**
+	 * Metodo responsavel por gerar uma representacao para o produto
+	 * @return uma String com a arepresentacao textual do produto
+	 */
 	@Override
 	public String getDescricao() {
 		return super.getNome() + ", " + super.getCategoria();
 	}
 
-	@Override
-	public int getQuantidade() {
-		return 0;
-	}
-
-	@Override
-	public String getUnidadeMedida() {
-		return "";
-	}
 }

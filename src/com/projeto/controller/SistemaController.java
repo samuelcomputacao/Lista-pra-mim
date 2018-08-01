@@ -571,10 +571,20 @@ public class SistemaController implements Serializable {
 		return this.listaService.geraAutomaticaItensMaisPresentes(this.produtos.values(), this.dataAtual());
 	}
 
+	/**
+	 * Metodo responsavel por gerar o melhor estabelecimento para uma lista de compra
+	 * @param descritor : Uma string indicando o nome da lista de comrpa que sera utilizada como base
+	 * @param posicaoEstabelecimento :  Um inteiro indicando a posicao do estabelecimento ao ordenar os melhores estabelecimentos
+	 * @param posicaoLista : Posicao da compra na lista ordenada de compras do estabelecimento indicado
+	 * @return Uma string contendo a representacao textual do melhor estabelecimento
+	 */
 	public String sugereMelhorEstabelecimento(String descritor, int posicaoEstabelecimento, int posicaoLista) {
 		return this.listaService.sugereMelhorEstabelecimento(descritor, posicaoEstabelecimento, posicaoLista);
 	}
 
+	/**
+	 * Metodo responsavel por fechar um sistema salvando os seus dados em um arquivo
+	 */
 	public void fechaSistema() {
 
 		try {

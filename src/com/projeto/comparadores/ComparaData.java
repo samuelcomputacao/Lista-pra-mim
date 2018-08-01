@@ -4,6 +4,10 @@ import java.util.Comparator;
 
 import com.projeto.model.ListaDeCompras;
 
+/**
+ * Classe responsavel por comparar duas listas de compras de acordo com sua data de criacao
+ *
+ */
 public class ComparaData implements Comparator<ListaDeCompras>{
 
 	@Override

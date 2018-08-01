@@ -12,9 +12,7 @@ import com.projeto.util.ValidadorSistema;
  */
 public abstract class Item implements Comparable<Item>,Serializable {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -104549067010026348L;
 
 	/**
@@ -222,14 +220,18 @@ public abstract class Item implements Comparable<Item>,Serializable {
 		return getNome() + ", " + getCategoria();
 	}
 
-	public abstract int getQuantidade();
-
-	public abstract String getUnidadeMedida();
-
+	/**
+	 * Metodo responsavel por gerar uma representacao para a quantidade do item
+	 * @return
+	 */
 	public String getRepresentacaoQuantidade() {
 		return "";
 	}
 	
+	/**
+	 * Metodo responsavel por retornar o mapa que associa locais de compra a precos do item
+	 * @return
+	 */
 	public Map<String,Double> getPrecos() {
 		return precoService.getPrecos();
 	}

@@ -11,9 +11,7 @@ import com.projeto.util.ValidadorSistema;
  */
 public class PrecoService implements Serializable{
 	
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 2011540169977318247L;
 	/**
 	 * Uma mapa de precos onde estao guardados locais e respectivos precos do item compravel.
@@ -69,6 +67,10 @@ public class PrecoService implements Serializable{
 		return menor * -1;
 	}
 
+	/**
+	 * Metodo responsavel por retornar um mapeamento de locais de compras e respectivos precos
+	 * @return
+	 */
 	public Map<String, Double> getPrecos() {
 		return this.mapaPrecos;
 	}
