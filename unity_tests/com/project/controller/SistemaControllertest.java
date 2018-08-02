@@ -9,7 +9,7 @@ import org.junit.Test;
 import com.projeto.controller.SistemaController;
 import com.projeto.excecoes.CampoInvalidoException;
 import com.projeto.excecoes.CategoriaInexistenteException;
-import com.projeto.excecoes.CompraNaoCadastrada;
+import com.projeto.excecoes.CompraNaoCadastradaException;
 import com.projeto.excecoes.ItemInexistenteException;
 import com.projeto.excecoes.ItemJaExisteException;
 
@@ -785,7 +785,7 @@ public class SistemaControllertest {
 	 * Testa o metodo que pesquisa por uma compra em uma lista de compras, com um id
 	 * de uma compra que ainda nao foi cadastrada.
 	 */
-	@Test(expected = CompraNaoCadastrada.class)
+	@Test(expected = CompraNaoCadastradaException.class)
 	public void testPesquisaCompraEmListaIdCompraInexistente() {
 		sistemaController.adicionaListaDeCompras("feirao");
 		sistemaController.adicionaItemPorQtd("macarrao fortaleza", "alimento industrializado", 2, "kg", "atacadao",
@@ -867,7 +867,7 @@ public class SistemaControllertest {
 	 * Testa o metodo que atualiza o valor de uma compra em uma determinada lista de
 	 * compras, porem, com o id de uma compra que ainda nao foi cadastrada.
 	 */
-	@Test(expected = CompraNaoCadastrada.class)
+	@Test(expected = CompraNaoCadastradaException.class)
 	public void testAtualizarCompraDeListaItemInexistente() {
 		sistemaController.adicionaListaDeCompras("feirao");
 		sistemaController.adicionaItemPorQtd("macarrao fortaleza", "alimento industrializado", 2, "kg", "atacadao",
@@ -953,7 +953,7 @@ public class SistemaControllertest {
 	 * Metodo responsavel por levantar um erro em retirar um item em uma lista de
 	 * compra que nao esta cadastrado.
 	 */
-	@Test(expected = CompraNaoCadastrada.class)
+	@Test(expected = CompraNaoCadastradaException.class)
 	public void testDeletaCompraDeListaLevantandoErro() {
 		sistemaController.adicionaListaDeCompras("feira da semana");
 		sistemaController.adicionaItemPorUnidade("feijao preto", "alimento nao industrializado", 3, "sacolao vivenda",

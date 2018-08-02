@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.projeto.excecoes.CampoInvalidoException;
-import com.projeto.excecoes.CompraNaoCadastrada;
+import com.projeto.excecoes.CompraNaoCadastradaException;
 import com.projeto.util.Mensagem;
 import com.projeto.util.ValidadorSistema;
 
@@ -105,7 +105,7 @@ public class ListaDeCompras implements Comparable<ListaDeCompras>, Serializable 
 		try {
 			if (ValidadorSistema.validaOperacao(operacao)) {
 				if (!this.compras.containsKey(idItem)) {
-					throw new CompraNaoCadastrada(Mensagem.MSG_EXCECAO_ATUALIZA_COMPRA.get());
+					throw new CompraNaoCadastradaException(Mensagem.MSG_EXCECAO_ATUALIZA_COMPRA.get());
 				}
 			}
 		} catch (CampoInvalidoException e) {
@@ -158,7 +158,7 @@ public class ListaDeCompras implements Comparable<ListaDeCompras>, Serializable 
 	 */
 	public String pesquisaCompraEmLista(Integer idItem) {
 		if (!this.compras.containsKey(idItem)) {
-			throw new CompraNaoCadastrada(Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get());
+			throw new CompraNaoCadastradaException(Mensagem.MSG_EXCECAO_PESQUISA_COMPRA.get());
 		}
 		return this.compras.get(idItem).getDescricao();
 	}
@@ -195,7 +195,7 @@ public class ListaDeCompras implements Comparable<ListaDeCompras>, Serializable 
 	 */
 	public void deletaCompraDeLista(Integer idItem) {
 		if (!this.compras.containsKey(idItem)) {
-			throw new CompraNaoCadastrada(Mensagem.MSG_EXCECAO_EXCLUSAO_COMPRA.get());
+			throw new CompraNaoCadastradaException(Mensagem.MSG_EXCECAO_EXCLUSAO_COMPRA.get());
 		}
 		this.compras.remove(idItem);
 	}

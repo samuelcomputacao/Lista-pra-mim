@@ -5,13 +5,13 @@ package com.projeto.excecoes;
  */
 
 @SuppressWarnings("serial")
-public class CompraNaoCadastrada extends RuntimeException{
+public class CompraNaoCadastradaException extends RuntimeException{
 
 	/**
 	 * Inicializador da excecao
 	 * @param msg
 	 */
-	public CompraNaoCadastrada(String msg) {
+	public CompraNaoCadastradaException(String msg) {
 		super(msg + "compra nao encontrada na lista.");
 	}
 }

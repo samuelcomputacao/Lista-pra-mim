@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.projeto.excecoes.CampoInvalidoException;
-import com.projeto.excecoes.CompraNaoCadastrada;
+import com.projeto.excecoes.CompraNaoCadastradaException;
 
 /**
  * Classe de teste que testa todas as funcionalidades da classe ListaDeCompras.
@@ -98,7 +98,7 @@ public class ListaDeCompraTest {
 	/**
 	 * Testa o metodo atualiza lista de compra com compra nao cadastrada
 	 */
-	@Test(expected = CompraNaoCadastrada.class)
+	@Test(expected = CompraNaoCadastradaException.class)
 	public void testAtualizaCompraDeListaCompraNaoCadatrada() {
 		lista.atualizaCompraDeLista(1, "adiciona", 1);
 	}
@@ -148,7 +148,7 @@ public class ListaDeCompraTest {
 	/**
 	 * Testa a pesquisa de uma compra nao cadatrada na lista de compra 
 	 */
-	@Test(expected = CompraNaoCadastrada.class)
+	@Test(expected = CompraNaoCadastradaException.class)
 	public void testPesquisaCompraEmListaQueNaoTemCompras() {
 		lista.pesquisaCompraEmLista(1);
 	}
@@ -182,7 +182,7 @@ public class ListaDeCompraTest {
 	/**
 	 * Testa a remocao de uma compra nao cadatrada
 	 */
-	@Test(expected = CompraNaoCadastrada.class)
+	@Test(expected = CompraNaoCadastradaException.class)
 	public void testDeletaCompraDeLista() {
 		lista.deletaCompraDeLista(1);
 	}
